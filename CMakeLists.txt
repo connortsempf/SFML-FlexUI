@@ -1,0 +1,71 @@
+## CMake Version Requirement ##
+cmake_minimum_required(VERSION 3.16)
+
+## SFML-FlexUI Project Definition ##
+project(SFML_FlexUI VERSION 1.0.0 LANGUAGES CXX)
+
+## C++ Version Requirement ##
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+## User Option for Linking Type of SFML Libraries -- Static or Dynamic ##
+option(PROJECT_LINK_TYPE "Link SFML-FlexUI and SFML Statically (STATIC) or Link SFML-FlexUI and SFML Dynamically (DYNAMIC)" "")
+
+## Ensure the User Specified the Link Type in their Build Command ##
+if(NOT PROJECT_LINK_TYPE STREQUAL "STATIC" AND NOT PROJECT_LINK_TYPE STREQUAL "DYNAMIC")
+    message(FATAL_ERROR
+        "You must define PROJECT_LINK_TYPE when configuring CMake.\n"
+        "Options: STATIC or DYNAMIC.\n"
+        "Example: cmake .. -DPROJECT_LINK_TYPE=STATIC")
+endif()
+
+## Make their Command Uppercase to be Safe ##
+string(TOUPPER "${PROJECT_LINK_TYPE}" PROJECT_LINK_TYPE)
+
+## Ensure the User Input a Proper Static or Dynamic Link Type in their Build Command ##
+if(NOT PROJECT_LINK_TYPE STREQUAL "STATIC" AND NOT PROJECT_LINK_TYPE STREQUAL "DYNAMIC")
+    message(FATAL_ERROR "PROJECT_LINK_TYPE must be either STATIC or DYNAMIC")
+endif()
+
+## Find the User's SFML Static or Dynamic Libraries ##
+if(PROJECT_LINK_TYPE STREQUAL "STATIC")
+    set(SFML_STATIC_LIBRARIES TRUE)
+    message(STATUS "Configuring SFML-FlexUI and SFML for Static Linking")
+else()
+    set(SFML_STATIC_LIBRARIES FALSE)
+    message(STATUS "Configuring SFML-FlexUI and SFML for Dynamic Linking")
+endif()
+
+## Have CMake look for the SFML Directory for Headers and Libraries ##
+find_package(SFML 3.0.2 COMPONENTS System Window Graphics)
+
+## Ensure the SFML CMake Config Directory was Found ##
+if(NOT SFML_FOUND)
+    message(FATAL_ERROR
+        "SFML 3.0.2 or newer was not found!\n"
+        "Please install SFML 3.0.2 or newer or provide the path using -DSFML_DIR=/path/to/SFMLConfig.cmake\n"
+        "Example: cmake .. -DPROJECT_LINK_TYPE=STATIC -DSFML_DIR=/path/to/SFMLConfig.cmake")
+endif()
+
+## Obtain All Source Code Files from SFML-FlexUI ##
+file(GLOB_RECURSE SFML_FLEXUI_SOURCES CONFIGURE_DEPENDS src/*.cpp)
+
+## Create the Library for SFML-FlexUI as a STATIC or DYNAMIC Library based on the User's Build Command ##
+if(PROJECT_LINK_TYPE STREQUAL "STATIC")
+    add_library(sfml-flexui STATIC ${SFML_FLEXUI_SOURCES})
+    message(STATUS "Building SFML-FlexUI as a STATIC Library")
+elseif(PROJECT_LINK_TYPE STREQUAL "DYNAMIC")
+    add_library(sfml-flexui SHARED ${SFML_FLEXUI_SOURCES})
+    message(STATUS "Building SFML-FlexUI as a DYNAMIC Library")
+endif()
+
+## Obtain Source Code Header Files from SFML-FlexUI ##
+target_include_directories(sfml-flexui PUBLIC include)
+
+## Link the SFML-FlexUI Library to the SFML Libraries ##
+target_link_libraries(sfml-flexui PUBLIC SFML::System SFML::Window SFML::Graphics)
+
+## Define SFML_STATIC Macro if Linking Statically ##
+if(PROJECT_LINK_TYPE STREQUAL "STATIC")
+    target_compile_definitions(sfml-flexui PUBLIC SFML_STATIC)
+endif()
