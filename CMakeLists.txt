@@ -27,7 +27,7 @@ if(NOT PROJECT_LINK_TYPE STREQUAL "STATIC" AND NOT PROJECT_LINK_TYPE STREQUAL "D
     message(FATAL_ERROR "PROJECT_LINK_TYPE must be either STATIC or DYNAMIC")
 endif()
 
-## Find the User's SFML Static or Dynamic Libraries ##
+## Confirm the Static or Dynamic Link Type ##
 if(PROJECT_LINK_TYPE STREQUAL "STATIC")
     set(SFML_STATIC_LIBRARIES TRUE)
     message(STATUS "Configuring SFML-FlexUI and SFML for Static Linking")
@@ -45,6 +45,14 @@ if(NOT SFML_FOUND)
         "SFML 3.0.2 or newer was not found!\n"
         "Please install SFML 3.0.2 or newer or provide the path using -DSFML_DIR=/path/to/SFMLConfig.cmake\n"
         "Example: cmake .. -DPROJECT_LINK_TYPE=STATIC -DSFML_DIR=/path/to/SFMLConfig.cmake")
+endif()
+
+## Debug Mode Option for Users ##
+option (SFUI_DEBUG "Enable Debug Logging" OFF)
+if (SFUI_DEBUG)
+    add_compile_definitions(SFUI_DEBUG=1)
+else()
+    add_compile_definitions(SFUI_DEBUG=0)
 endif()
 
 ## Obtain All Source Code Files from SFML-FlexUI ##
