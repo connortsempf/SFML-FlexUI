@@ -1,8 +1,6 @@
 #include <sfml-flexui.hpp>
 
 
-
-
 ////////////////////////////////////////
 // SFML-FlexUI Parent Component Class //
 ////////////////////////////////////////
@@ -25,19 +23,7 @@ SFUI::Component::Component(const SFUI::String& componentID) :
  * 
  * @param .
  */
-SFUI::Component::Component(const SFUI::String& componentID, const Style& style) :
-    componentID(componentID),
-    layout(),
-    style(style)
-{}
-
-
-/**
- * @brief .
- * 
- * @param .
- */
-SFUI::Component::Component(const SFUI::String& componentID, const Layout& layout) :
+SFUI::Component::Component(const SFUI::String& componentID, const SFUI::Prop::Layout& layout) :
     componentID(componentID),
     layout(layout),
     style()
@@ -48,12 +34,24 @@ SFUI::Component::Component(const SFUI::String& componentID, const Layout& layout
  * @brief .
  * 
  * @param .
+ */
+SFUI::Component::Component(const SFUI::String& componentID, const SFUI::Prop::Style& style) :
+    componentID(componentID),
+    layout(),
+    style(style)
+{}
+
+
+/**
+ * @brief .
+ * 
+ * @param .
  * @param .
  */
-SFUI::Component::Component(const SFUI::String& componentID, const Style& style, const Layout& layout) :
+SFUI::Component::Component(const SFUI::String& componentID, const SFUI::Prop::Layout& layout, const SFUI::Prop::Style& style) :
     componentID(componentID),
-    style(style),
-    layout(layout)
+    layout(layout),
+    style(style)
 {}
 
 

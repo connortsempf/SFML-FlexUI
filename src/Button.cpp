@@ -1,13 +1,9 @@
 #include <sfml-flexui.hpp>
 
 
-
-
 ////////////////////////////////////////
 // SFML-FlexUI Button Component Class //
 ////////////////////////////////////////
-
-
 
 
 /**
@@ -24,7 +20,7 @@ SFUI::Button::Button(const SFUI::String& componentID) : Component(componentID) {
  * @param .
  * @param .
  */
-SFUI::Button::Button(const SFUI::String& componentID, const Style& style) : Component(componentID, style) {}
+SFUI::Button::Button(const SFUI::String& componentID, const SFUI::Prop::Layout& layout) : Component(componentID, layout) {}
 
 
 /**
@@ -33,7 +29,7 @@ SFUI::Button::Button(const SFUI::String& componentID, const Style& style) : Comp
  * @param .
  * @param .
  */
-SFUI::Button::Button(const SFUI::String& componentID, const Layout& layout) : Component(componentID, layout) {}
+SFUI::Button::Button(const SFUI::String& componentID, const SFUI::Prop::Style& style) : Component(componentID, style) {}
 
 
 /**
@@ -43,7 +39,9 @@ SFUI::Button::Button(const SFUI::String& componentID, const Layout& layout) : Co
  * @param .
  * @param .
  */
-SFUI::Button::Button(const SFUI::String& componentID, const Style& style, const Layout& layout) : Component(componentID, style, layout) {}
+SFUI::Button::Button(const SFUI::String& componentID, const SFUI::Prop::Layout& layout, const SFUI::Prop::Style& style) :
+    Component(componentID, layout, style)
+{}
 
 
 /**

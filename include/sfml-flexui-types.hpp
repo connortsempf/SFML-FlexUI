@@ -1,8 +1,4 @@
 #pragma once
-
-
-
-
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <string>
@@ -14,8 +10,6 @@
 #include <algorithm>
 #include <cmath>
 #include <queue>
-
-
 
 
 ////////////////////////
@@ -52,6 +46,9 @@ namespace SFUI {
     using Double = double;
 
     using String = std::string;
+
+    template <typename... T>
+    using Function = std::function<T ...>;
 
     template <typename... T>
     using Variant = std::variant<T ...>;
@@ -238,4 +235,110 @@ namespace SFUI {
             SFUI::Float w = 0
         ) : x(x), y(y), z(z), w(w) {}
     };
+}
+
+
+
+
+//////////////////////////////////////////////////
+// Custom Component Style/Layout/Function Types //
+//////////////////////////////////////////////////
+
+namespace SFUI {
+
+    namespace SubProp {
+        
+        using Numeric = SFUI::Float;
+
+        using Keyword = SFUI::String;
+        
+        using Dimension = SFUI::Variant<SFUI::Float, SFUI::String>;
+        
+        using Color = SFUI::Variant<SFUI::Vector3ui8, SFUI::Vector4ui8, SFUI::String, SFUI::Color>;
+
+        using Font = SFUI::SharedPointer<SFUI::Font>;
+
+        using Callback = SFUI::Function<void(const SFUI::String&)>;
+
+        using CallbackKey = SFUI::Function<void(const SFUI::String&, sf::Keyboard::Key)>;
+    }
+
+
+    namespace Prop {
+
+        struct Layout {
+            SFUI::SubProp::Keyword alignDirection = "vertical";
+            SFUI::SubProp::Keyword alignPrimary = "start";
+            SFUI::SubProp::Keyword alignSecondary = "start";
+            SFUI::SubProp::Dimension width = 0.0f;
+            SFUI::SubProp::Dimension height = 0.0f;
+            SFUI::SubProp::Dimension padding = 0.0f;
+            SFUI::SubProp::Dimension margin = 0.0f;
+            SFUI::Optional<SFUI::SubProp::Numeric> xPosition;
+            SFUI::Optional<SFUI::SubProp::Numeric> yPosition;
+        };
+
+        struct Style {
+            SFUI::SubProp::Dimension borderWidth = 0.0f;
+            SFUI::SubProp::Dimension cornerRadius = 0.0f;
+            SFUI::Optional<SFUI::SubProp::Dimension> cornerRadiusTopLeft;
+            SFUI::Optional<SFUI::SubProp::Dimension> cornerRadiusTopRight;
+            SFUI::Optional<SFUI::SubProp::Dimension> cornerRadiusBottomLeft;
+            SFUI::Optional<SFUI::SubProp::Dimension> cornerRadiusBottomRight;
+            SFUI::SubProp::Color fillColor = SFUI::Color(255, 255, 255, 255);
+            SFUI::SubProp::Color borderColor = SFUI::Color(0, 0, 0, 255);
+        };
+
+        struct LabelStyle {
+            SFUI::SubProp::Keyword text;
+            SFUI::SubProp::Font font;
+            SFUI::SubProp::Numeric textSize = 12.0f;
+            SFUI::SubProp::Keyword textAlignHorizontal = "center";
+            SFUI::SubProp::Keyword textAlignVertical = "center";
+            SFUI::SubProp::Color textColor = SFUI::Color(0, 0, 0, 255);
+        };
+
+        struct ButtonStyle {
+            SFUI::Optional<SFUI::SubProp::Color> hoveredFillColor;
+            SFUI::Optional<SFUI::SubProp::Color> hoveredStrokeColor;
+            SFUI::Optional<SFUI::SubProp::Color> pressedFillColor;
+            SFUI::Optional<SFUI::SubProp::Color> pressedStrokeColor;
+            SFUI::Optional<SFUI::SubProp::Color> disabledFillColor;
+            SFUI::Optional<SFUI::SubProp::Color> disabledStrokeColor;
+
+            SFUI::SubProp::Dimension focusWidth;
+            SFUI::SubProp::Dimension focusOffset;
+            SFUI::SubProp::Dimension focusCornerRadius;
+            SFUI::SubProp::Color focusFillColor;
+
+            SFUI::SubProp::Color toolTipFillColor = SFUI::Color(150, 150, 150, 255);
+            SFUI::SubProp::Numeric toolTipPadding = 10.0f;
+            SFUI::SubProp::Keyword toolTipText = "";
+            SFUI::SubProp::Font toolTipFont;
+            SFUI::SubProp::Numeric toolTipTextSize = 10.0f;
+            SFUI::SubProp::Color toolTipTextColor = SFUI::Color(0, 0, 0, 255);
+        };
+
+        struct ButtonBehavior {
+            SFUI::SubProp::Callback onEnable;
+            SFUI::SubProp::Callback onDisable;
+            SFUI::SubProp::Callback onFocus;
+            SFUI::SubProp::Callback onBlur;
+            SFUI::SubProp::Callback onShow;
+            SFUI::SubProp::Callback onHide;
+            SFUI::SubProp::Callback onHoverIn;
+            SFUI::SubProp::Callback onHoverOut;
+            SFUI::SubProp::Callback onLeftPressIn;
+            SFUI::SubProp::Callback onLeftPressOut;
+            SFUI::SubProp::Callback onLeftPress;
+            SFUI::SubProp::Callback onRightPressIn;
+            SFUI::SubProp::Callback onRightPressOut;
+            SFUI::SubProp::Callback onRightPress;
+            SFUI::SubProp::Callback onMiddlePressIn;
+            SFUI::SubProp::Callback onMiddlePressOut;
+            SFUI::SubProp::Callback onMiddlePress;
+            SFUI::SubProp::Callback onDoublePress;
+            SFUI::SubProp::CallbackKey onKeyPress;  
+        };
+    }
 }

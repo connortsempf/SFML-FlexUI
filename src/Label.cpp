@@ -1,12 +1,9 @@
 #include <sfml-flexui.hpp>
 
 
-
-
 ///////////////////////////////////////
 // SFML-FlexUI Label Component Class //
 ///////////////////////////////////////
-
 
 
 // Static Variables //
@@ -32,7 +29,20 @@ SFUI::Label::Label(const SFUI::String& componentID) :
  * @param .
  * @param .
  */
-SFUI::Label::Label(const SFUI::String& componentID, const Style& style) :
+SFUI::Label::Label(const SFUI::String& componentID, const SFUI::Prop::Layout& layout) :
+    Component(componentID, layout),
+    labelStyle(),
+    textObject(SFUI::Text(*(labelStyle.font), labelStyle.text, labelStyle.textSize))
+{}
+
+
+/**
+ * @brief .
+ * 
+ * @param .
+ * @param .
+ */
+SFUI::Label::Label(const SFUI::String& componentID, const SFUI::Prop::Style& style) :
     Component(componentID, style),
     labelStyle(),
     textObject(SFUI::Text(*(labelStyle.font), labelStyle.text, labelStyle.textSize))
@@ -45,7 +55,7 @@ SFUI::Label::Label(const SFUI::String& componentID, const Style& style) :
  * @param .
  * @param .
  */
-SFUI::Label::Label(const SFUI::String& componentID, const LabelStyle& labelStyle) :
+SFUI::Label::Label(const SFUI::String& componentID, const SFUI::Prop::LabelStyle& labelStyle) :
     Component(componentID),
     labelStyle(labelStyle),
     textObject(SFUI::Text(*(labelStyle.font), labelStyle.text, labelStyle.textSize))
@@ -57,23 +67,10 @@ SFUI::Label::Label(const SFUI::String& componentID, const LabelStyle& labelStyle
  * 
  * @param .
  * @param .
- */
-SFUI::Label::Label(const SFUI::String& componentID, const Layout& layout) :
-    Component(componentID, layout),
-    labelStyle(),
-    textObject(SFUI::Text(*(labelStyle.font), labelStyle.text, labelStyle.textSize))
-{}
-
-
-/**
- * @brief .
- * 
- * @param .
- * @param .
  * @param .
  */
-SFUI::Label::Label(const SFUI::String& componentID, const Style& style, const LabelStyle& labelStyle, const Layout& layout) :
-    Component(componentID, style, layout),
+SFUI::Label::Label(const SFUI::String& componentID, const SFUI::Prop::Layout& layout, const SFUI::Prop::Style& style, const SFUI::Prop::LabelStyle& labelStyle) :
+    Component(componentID, layout, style),
     labelStyle(labelStyle),
     textObject(SFUI::Text(*(labelStyle.font), labelStyle.text, labelStyle.textSize))
 {}

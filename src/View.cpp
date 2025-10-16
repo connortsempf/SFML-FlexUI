@@ -1,13 +1,9 @@
 #include <sfml-flexui.hpp>
 
 
-
-
 //////////////////////////////////////
 // SFML-FlexUI View Component Class //
 //////////////////////////////////////
-
-
 
 
 /**
@@ -24,7 +20,7 @@ SFUI::View::View(const SFUI::String& componentID) : Component(componentID) {}
  * @param .
  * @param .
  */
-SFUI::View::View(const SFUI::String& componentID, const Style& style) : Component(componentID, style) {}
+SFUI::View::View(const SFUI::String& componentID, const SFUI::Prop::Layout& layout) : Component(componentID, layout) {}
 
 
 /**
@@ -33,7 +29,7 @@ SFUI::View::View(const SFUI::String& componentID, const Style& style) : Componen
  * @param .
  * @param .
  */
-SFUI::View::View(const SFUI::String& componentID, const Layout& layout) : Component(componentID, layout) {}
+SFUI::View::View(const SFUI::String& componentID, const SFUI::Prop::Style& style) : Component(componentID, style) {}
 
 
 /**
@@ -43,7 +39,9 @@ SFUI::View::View(const SFUI::String& componentID, const Layout& layout) : Compon
  * @param .
  * @param .
  */
-SFUI::View::View(const SFUI::String& componentID, const Style& style, const Layout& layout) : Component(componentID, style, layout) {}
+SFUI::View::View(const SFUI::String& componentID, const SFUI::Prop::Layout& layout, const SFUI::Prop::Style& style) :
+    Component(componentID, layout, style)
+{}
 
 
 /**

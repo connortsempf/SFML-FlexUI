@@ -2,8 +2,6 @@
 #include <sfml-flexui-types.hpp>
 
 
-
-
 ///////////////////////////////////////
 // SFML-FlexUI Root UI Manager Class //
 ///////////////////////////////////////
@@ -41,49 +39,16 @@ namespace SFUI {
         friend class UIRoot;
 
         public:
-            struct Style {
-                using Dimension = SFUI::Variant<SFUI::Float, SFUI::String>;
-                using OptionalDimension = SFUI::Optional<Dimension>;
-                using Color = SFUI::Variant<SFUI::Vector3ui8, SFUI::Vector4ui8, SFUI::String, SFUI::Color>;
-
-                Dimension borderWidth = 0.0f;
-                Dimension cornerRadius = 0.0f;
-                OptionalDimension cornerRadiusTopLeft;
-                OptionalDimension cornerRadiusTopRight;
-                OptionalDimension cornerRadiusBottomLeft;
-                OptionalDimension cornerRadiusBottomRight;
-                Color fillColor = SFUI::Color(255, 255, 255, 255);
-                Color borderColor = SFUI::Color(0, 0, 0, 255);
-            };
-            struct Layout {
-                using Flex = SFUI::Float;
-                using Alignment = SFUI::String;
-                using OptionalAlignment = SFUI::Optional<Alignment>;
-                using OptionalPosition = SFUI::Optional<SFUI::Int>;
-                using Dimension = SFUI::Variant<SFUI::Float, SFUI::String>;
-
-                Alignment alignDirection = "vertical";
-                Alignment alignPrimary = "start";
-                Alignment alignSecondary = "start";
-                Dimension width = 0.0f;
-                Dimension height = 0.0f;
-                Dimension padding = 0.0f;
-                Dimension margin = 0.0f;
-                OptionalPosition xPosition;
-                OptionalPosition yPosition;
-            };
-
-        public:
             SFUI::String componentID;
-            Style style;
-            Layout layout;
+            SFUI::Prop::Layout layout;
+            SFUI::Prop::Style style;
 
         public:
             Component() = default;
             Component(const SFUI::String& componentID);
-            Component(const SFUI::String& componentID, const Style& style);
-            Component(const SFUI::String& componentID, const Layout& layout);
-            Component(const SFUI::String& componentID, const Style& style, const Layout& layout);
+            Component(const SFUI::String& componentID, const SFUI::Prop::Layout& layout);
+            Component(const SFUI::String& componentID, const SFUI::Prop::Style& style);
+            Component(const SFUI::String& componentID, const SFUI::Prop::Layout& layout, const SFUI::Prop::Style& style);
             virtual ~Component() = default;
         
         public:
@@ -172,9 +137,9 @@ namespace SFUI {
         public:
             View() = default;
             View(const SFUI::String& componentID);
-            View(const SFUI::String& componentID, const Style& style);
-            View(const SFUI::String& componentID, const Layout& layout);
-            View(const SFUI::String& componentID, const Style& style, const Layout& layout);
+            View(const SFUI::String& componentID, const SFUI::Prop::Layout& layout);
+            View(const SFUI::String& componentID, const SFUI::Prop::Style& style);
+            View(const SFUI::String& componentID, const SFUI::Prop::Layout& layout, const SFUI::Prop::Style& style);
         
         private:
             SFUI::Void update(const SFUI::Vector2u parentComponentSize);
@@ -195,27 +160,15 @@ namespace SFUI {
     class Label : public Component {
 
         public:
-            struct LabelStyle {
-                using Color = SFUI::Variant<SFUI::Vector3ui8, SFUI::Vector4ui8, SFUI::String, SFUI::Color>;
-
-                SFUI::String text;
-                SFUI::SharedPointer<SFUI::Font> font;
-                SFUI::Float textSize = 12.0f;
-                SFUI::String textAlignHorizontal = "center";
-                SFUI::String textAlignVertical = "center";
-                Color textColor = SFUI::Color(0, 0, 0, 255);
-            };
-
-        public:
-            LabelStyle labelStyle;
+            SFUI::Prop::LabelStyle labelStyle;
 
         public:
             Label() = default;
             Label(const SFUI::String& componentID);
-            Label(const SFUI::String& componentID, const Style& style);
-            Label(const SFUI::String& componentID, const LabelStyle& labelStyle);
-            Label(const SFUI::String& componentID, const Layout& layout);
-            Label(const SFUI::String& componentID, const Style& style, const LabelStyle& labelStyle, const Layout& layout);
+            Label(const SFUI::String& componentID, const SFUI::Prop::Layout& layout);
+            Label(const SFUI::String& componentID, const SFUI::Prop::Style& style);
+            Label(const SFUI::String& componentID, const SFUI::Prop::LabelStyle& labelStyle);
+            Label(const SFUI::String& componentID, const SFUI::Prop::Layout& layout, const SFUI::Prop::Style& style, const SFUI::Prop::LabelStyle& labelStyle);
 
         private:
             static SFUI::Float VERTICAL_CENTER_OFFSET_FACTOR;
@@ -257,47 +210,15 @@ namespace SFUI {
     class Button : public Component {
 
         public:
-            struct ButtonStyle {
-                using Color = SFUI::Variant<SFUI::Vector3ui8, SFUI::Vector4ui8, SFUI::String, SFUI::Color>;
-
-                Color toolTipFillColor = SFUI::Color(150, 150, 150, 255);
-                SFUI::Float toolTipPadding = 10.0f;
-                SFUI::String toolTipText = "";
-                SFUI::SharedPointer<SFUI::Font> toolTipFont;
-                SFUI::Float toolTipTextSize = 10.0f;
-                Color toolTipTextColor = SFUI::Color(0, 0, 0, 255);
-            };
-            struct ButtonFunction {
-                std::function<void(const SFUI::String&)> onEnable;
-                std::function<void(const SFUI::String&)> onDisable;
-                std::function<void(const SFUI::String&)> onFocus;
-                std::function<void(const SFUI::String&)> onBlur;
-                std::function<void(const SFUI::String&)> onShow;
-                std::function<void(const SFUI::String&)> onHide;
-                std::function<void(const SFUI::String&)> onHoverIn;
-                std::function<void(const SFUI::String&)> onHoverOut;
-                std::function<void(const SFUI::String&)> onLeftPressIn;
-                std::function<void(const SFUI::String&)> onLeftPressOut;
-                std::function<void(const SFUI::String&)> onLeftPress;
-                std::function<void(const SFUI::String&)> onRightPressIn;
-                std::function<void(const SFUI::String&)> onRightPressOut;
-                std::function<void(const SFUI::String&)> onRightPress;
-                std::function<void(const SFUI::String&)> onMiddlePressIn;
-                std::function<void(const SFUI::String&)> onMiddlePressOut;
-                std::function<void(const SFUI::String&)> onMiddlePress;
-                std::function<void(const SFUI::String&)> onDoublePress;
-                std::function<void(const SFUI::String&, sf::Keyboard::Key)> onKeyPress;
-            };
-
-        public:
-            ButtonStyle buttonStyle;
+            SFUI::Prop::ButtonStyle buttonStyle;
+            SFUI::Prop::ButtonBehavior buttonBehavior;
 
         public:
             Button() = default;
             Button(const SFUI::String& componentID);
-            Button(const SFUI::String& componentID, const Style& style);
-            Button(const SFUI::String& componentID, const Layout& layout);
-            Button(const SFUI::String& componentID, const Style& style, const Layout& layout);
+            Button(const SFUI::String& componentID, const SFUI::Prop::Layout& layout);
+            Button(const SFUI::String& componentID, const SFUI::Prop::Style& style);
+            Button(const SFUI::String& componentID, const SFUI::Prop::Layout& layout, const SFUI::Prop::Style& style);
 
         private:
             static SFUI::Float LONG_PRESS_THRESHOLD;
