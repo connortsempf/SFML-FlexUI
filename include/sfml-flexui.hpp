@@ -52,8 +52,8 @@ namespace SFUI {
                 OptionalDimension cornerRadiusTopRight;
                 OptionalDimension cornerRadiusBottomLeft;
                 OptionalDimension cornerRadiusBottomRight;
-                Color fillColor = SFUI::Vector3ui8{255, 255, 255};
-                Color borderColor = SFUI::Vector3ui8{0, 0, 0};
+                Color fillColor = SFUI::Color(255, 255, 255, 255);
+                Color borderColor = SFUI::Color(0, 0, 0, 255);
             };
 
             struct Layout {
@@ -177,12 +177,71 @@ namespace SFUI {
             View(const SFUI::String& componentID, const Layout& layout);
             View(const SFUI::String& componentID, const Style& style, const Layout& layout);
         
-        protected:
+        private:
             SFUI::Void update(const SFUI::Vector2u parentComponentSize);
             SFUI::Void handleEvent(const SFUI::Event& event);
             SFUI::Void draw(SFUI::RenderTarget& renderTarget);
-        
+    };
+}
+
+
+
+
+///////////////////////////////////////
+// SFML-FlexUI Label Component Class //
+///////////////////////////////////////
+
+namespace SFUI {
+
+    class Label : public Component {
+
+        public:
+            struct LabelStyle {
+                using Color = SFUI::Variant<SFUI::Vector3ui8, SFUI::Vector4ui8, SFUI::String, SFUI::Color>;
+
+                SFUI::String text;
+                SFUI::SharedPointer<SFUI::Font> font;
+                SFUI::Float textSize = 12.0f;
+                SFUI::String textAlignHorizontal = "center";
+                SFUI::String textAlignVertical = "center";
+                Color textColor = SFUI::Color(0, 0, 0, 255);
+            };
+
+        public:
+            LabelStyle labelStyle;
+
+        public:
+            Label() = default;
+            Label(const SFUI::String& componentID);
+            Label(const SFUI::String& componentID, const Style& style);
+            Label(const SFUI::String& componentID, const LabelStyle& labelStyle);
+            Label(const SFUI::String& componentID, const Layout& layout);
+            Label(const SFUI::String& componentID, const Style& style, const LabelStyle& labelStyle, const Layout& layout);
+
         private:
-            // Additional Functions for Computation Additional to Component within View //
+            static SFUI::Float VERTICAL_CENTER_OFFSET_FACTOR;
+            static SFUI::Float VERTICAL_BOTTOM_OFFSET_FACTOR;
+            struct ComputedLabelStyle {
+                SFUI::Float textSize;
+                SFUI::String textAlignHorizontal;
+                SFUI::String textAlignVertical;
+                SFUI::Color textColor;
+            };
+
+        private:
+            ComputedLabelStyle computedLabelStyle;
+            SFUI::Text textObject;
+
+        private:
+            SFUI::Void computeTextSize();
+            SFUI::Void computeTextAlignHorizontal();
+            SFUI::Void computeTextAlignVertical();
+            SFUI::Void computeTextColor();
+            SFUI::Void computeText();
+
+        private:
+            SFUI::Void update(const SFUI::Vector2u parentComponentSize);
+            SFUI::Void handleEvent(const SFUI::Event& event);
+            SFUI::Void draw(SFUI::RenderTarget& renderTarget);
     };
 }
