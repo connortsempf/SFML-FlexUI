@@ -240,9 +240,9 @@ namespace SFUI {
 
 
 
-//////////////////////////////////////////////////
-// Custom Component Style/Layout/Function Types //
-//////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////
+// Custom Component Style/Layout/Function Input Prop Types //
+/////////////////////////////////////////////////////////////
 
 namespace SFUI {
 
@@ -288,7 +288,7 @@ namespace SFUI {
             SFUI::SubProp::Color fillColor = SFUI::Color(255, 255, 255, 255);
             SFUI::SubProp::Color borderColor = SFUI::Color(0, 0, 0, 255);
         };
-
+        
         struct LabelStyle {
             SFUI::SubProp::Keyword text;
             SFUI::SubProp::Font font;
@@ -300,22 +300,29 @@ namespace SFUI {
 
         struct ButtonStyle {
             SFUI::Optional<SFUI::SubProp::Color> hoveredFillColor;
-            SFUI::Optional<SFUI::SubProp::Color> hoveredStrokeColor;
+            SFUI::Optional<SFUI::SubProp::Color> hoveredBorderColor;
             SFUI::Optional<SFUI::SubProp::Color> pressedFillColor;
-            SFUI::Optional<SFUI::SubProp::Color> pressedStrokeColor;
+            SFUI::Optional<SFUI::SubProp::Color> pressedBorderColor;
             SFUI::Optional<SFUI::SubProp::Color> disabledFillColor;
-            SFUI::Optional<SFUI::SubProp::Color> disabledStrokeColor;
-
-            SFUI::SubProp::Dimension focusWidth;
-            SFUI::SubProp::Dimension focusOffset;
-            SFUI::SubProp::Dimension focusCornerRadius;
-            SFUI::SubProp::Color focusFillColor;
-
-            SFUI::SubProp::Color toolTipFillColor = SFUI::Color(150, 150, 150, 255);
+            SFUI::Optional<SFUI::SubProp::Color> disabledBorderColor;
+            SFUI::SubProp::Dimension focusWidth = 10.0f;
+            SFUI::SubProp::Dimension focusOffset = 0.0f;
+            SFUI::SubProp::Dimension focusCornerRadius = 0.0f;
+            SFUI::Optional<SFUI::SubProp::Dimension> focusCornerRadiusTopLeft;
+            SFUI::Optional<SFUI::SubProp::Dimension> focusCornerRadiusTopRight;
+            SFUI::Optional<SFUI::SubProp::Dimension> focusCornerRadiusBottomLeft;
+            SFUI::Optional<SFUI::SubProp::Dimension> focusCornerRadiusBottomRight;
+            SFUI::SubProp::Color focusFillColor = SFUI::Color(0, 0, 0, 255);
             SFUI::SubProp::Numeric toolTipPadding = 10.0f;
+            SFUI::SubProp::Dimension toolTipCornerRadius = 0.0f;
+            SFUI::Optional<SFUI::SubProp::Dimension> toolTipCornerRadiusTopLeft;
+            SFUI::Optional<SFUI::SubProp::Dimension> toolTipCornerRadiusTopRight;
+            SFUI::Optional<SFUI::SubProp::Dimension> toolTipCornerRadiusBottomLeft;
+            SFUI::Optional<SFUI::SubProp::Dimension> toolTipCornerRadiusBottomRight;
             SFUI::SubProp::Keyword toolTipText = "";
             SFUI::SubProp::Font toolTipFont;
             SFUI::SubProp::Numeric toolTipTextSize = 10.0f;
+            SFUI::SubProp::Color toolTipFillColor = SFUI::Color(150, 150, 150, 255);
             SFUI::SubProp::Color toolTipTextColor = SFUI::Color(0, 0, 0, 255);
         };
 
@@ -339,6 +346,57 @@ namespace SFUI {
             SFUI::SubProp::Callback onMiddlePress;
             SFUI::SubProp::Callback onDoublePress;
             SFUI::SubProp::CallbackKey onKeyPress;  
+        };
+    }
+
+    namespace ComputedProp {
+
+        struct Layout {
+            SFUI::String alignDirection;
+            SFUI::String alignPrimary;
+            SFUI::String alignSecondary;
+            SFUI::Vector2f size;
+            SFUI::Vector2i position;
+            SFUI::Float padding;
+            SFUI::Float margin;
+        };
+
+        struct ChildLayout {
+            SFUI::Vector2f size;
+            SFUI::Vector2i position;
+            SFUI::Float margin;
+        };
+
+        struct Style {
+            SFUI::Float borderWidth;
+            SFUI::Vector4f cornerRadius;
+            SFUI::Color fillColor;
+            SFUI::Color borderColor;
+        };
+
+        struct LabelStyle {
+            SFUI::Float textSize;
+            SFUI::String textAlignHorizontal;
+            SFUI::String textAlignVertical;
+            SFUI::Color textColor;
+        };
+
+        struct ButtonStyle {
+            SFUI::Color hoveredFillColor;
+            SFUI::Color hoveredBorderColor;
+            SFUI::Color pressedFillColor;
+            SFUI::Color pressedBorderColor;
+            SFUI::Color disabledFillColor;
+            SFUI::Color disabledBorderColor;
+            SFUI::Float focusWidth;
+            SFUI::Float focusOffset;
+            SFUI::Vector4f focusCornerRadius;
+            SFUI::Color focusFillColor;
+            SFUI::Float toolTipPadding;
+            SFUI::Vector4f toolTipCornerRadius;
+            SFUI::Float toolTipTextSize;
+            SFUI::Color toolTipFillColor;
+            SFUI::Color toolTipTextColor;
         };
     }
 }

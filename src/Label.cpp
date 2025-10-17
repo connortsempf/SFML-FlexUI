@@ -123,38 +123,7 @@ SFUI::Void SFUI::Label::computeTextAlignVertical() {
  * @brief .
  */
 SFUI::Void SFUI::Label::computeTextColor() {
-    SFUI::Color computedTextColor;
-
-    // If Input Text Color is a 3-Channel Unsigned Byte //
-    if (std::holds_alternative<SFUI::Vector3ui8>(labelStyle.textColor)) {
-        SFUI::Vector3ui8 textColor = std::get<SFUI::Vector3ui8>(labelStyle.textColor);
-        computedTextColor = SFUI::Color(textColor.x, textColor.y, textColor.z);
-    }
-    // If Input Text Color is a 4-Channel Unsigned Byte //
-    else if (std::holds_alternative<SFUI::Vector4ui8>(labelStyle.textColor)) {
-        SFUI::Vector4ui8 textColor = std::get<SFUI::Vector4ui8>(labelStyle.textColor);
-        computedTextColor = SFUI::Color(textColor.x, textColor.y, textColor.z, textColor.w);
-    }
-    // If Input Text Color is a Hex String //
-    else if (std::holds_alternative<SFUI::String>(labelStyle.textColor)) {
-        // Going to Do this Later -- Lots of String Parsing Code Needed //
-    }
-    // If Input Text Color is Already Given as a SFML::Color Type //
-    else if (std::holds_alternative<SFUI::Color>(labelStyle.textColor)) {
-        SFUI::Color textColor = std::get<SFUI::Color>(labelStyle.textColor);
-        computedTextColor = textColor;
-    }
-
-    computedLabelStyle.textColor = computedTextColor;
-
-    DEBUG_PRINT(
-        componentID <<
-        " Computed Text Color = " <<
-        static_cast<int>(computedLabelStyle.textColor.r) << ", " <<
-        static_cast<int>(computedLabelStyle.textColor.g) << ", " <<
-        static_cast<int>(computedLabelStyle.textColor.b) << ", " <<
-        static_cast<int>(computedLabelStyle.textColor.a)
-    );
+    computedLabelStyle.textColor = resolveColorSubProp(labelStyle.textColor);
 }
 
 
@@ -197,12 +166,6 @@ SFUI::Void SFUI::Label::computeText() {
  */
 SFUI::Void SFUI::Label::update(const SFUI::Vector2u parentComponentSize) {
     this->parentComponentSize = parentComponentSize;
-    DEBUG_PRINT("\n\nRender Target Size = (" << parentComponentSize.x << ", " << parentComponentSize.y << ")");
-
-    DEBUG_PRINT(componentID << " Pre-Update Size = (" << computedLayout.size.x << ", " << computedLayout.size.y << ")");
-    DEBUG_PRINT(componentID << " Pre-Update Position = (" << computedLayout.position.x << ", " << computedLayout.position.y << ")");
-    DEBUG_PRINT(componentID << " Pre-Update Margin = (" << computedLayout.margin << ", " << computedLayout.margin << ")");
-    DEBUG_PRINT(componentID << " Pre-Update Padding = (" << computedLayout.padding << ", " << computedLayout.padding << ")");
 
     computeAlignDirection();
     computeAlignPrimary();
@@ -221,13 +184,12 @@ SFUI::Void SFUI::Label::update(const SFUI::Vector2u parentComponentSize) {
     computeChildrenPosition();
     updateChildren();
 
+    // Label Specific Computation //
     computeTextSize();
     computeTextAlignHorizontal();
     computeTextAlignVertical();
     computeTextColor();
     computeText();
-
-    std::cout << "Label Here\n";
 }
 
 

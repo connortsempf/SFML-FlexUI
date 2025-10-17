@@ -49,51 +49,36 @@ namespace SFUI {
             Component(const SFUI::String& componentID, const SFUI::Prop::Layout& layout);
             Component(const SFUI::String& componentID, const SFUI::Prop::Style& style);
             Component(const SFUI::String& componentID, const SFUI::Prop::Layout& layout, const SFUI::Prop::Style& style);
-            virtual ~Component() = default;
-        
-        public:
-            virtual SFUI::Void update(const SFUI::Vector2u parentComponentSize) = 0;
-            virtual SFUI::Void handleEvent(const SFUI::Event& event) = 0;
-            virtual SFUI::Void draw(SFUI::RenderTarget& renderTarget) = 0;
             SFUI::Void setParent(const SFUI::SharedPointer<Component>& newParent);
             SFUI::Void addChild(const SFUI::SharedPointer<SFUI::Component>& newChild);
             SFUI::Void addChildren(const SFUI::Vector<SFUI::SharedPointer<SFUI::Component>>& newChildren);
             SFUI::Vector<SFUI::SharedPointer<SFUI::Component>> getChildren() const;
+            SFUI::Void updateChildFromParent(SFUI::ComputedProp::ChildLayout childComputedLayout);
+            virtual ~Component() = default;
+            virtual SFUI::Void update(const SFUI::Vector2u parentComponentSize) = 0;
+            virtual SFUI::Void handleEvent(const SFUI::Event& event) = 0;
+            virtual SFUI::Void draw(SFUI::RenderTarget& renderTarget) = 0;
 
         protected:
-            struct ComputedStyle {
-                SFUI::Float borderWidth;
-                SFUI::Vector4f cornerRadius;
-                SFUI::Color fillColor;
-                SFUI::Color borderColor;
-            };
-            struct ComputedLayout {
-                SFUI::String alignDirection;
-                SFUI::String alignPrimary;
-                SFUI::String alignSecondary;
-                SFUI::Vector2f size;
-                SFUI::Vector2i position;
-                SFUI::Float padding;
-                SFUI::Float margin;
-            };
-            struct ChildComputedLayout {
-                SFUI::Vector2f size;
-                SFUI::Vector2i position;
-                SFUI::Float margin;
-            };
-            ComputedStyle computedStyle;
-            ComputedLayout computedLayout;
-            SFUI::Vector<ChildComputedLayout> childrenComputedLayout;
+            SFUI::ComputedProp::Style computedStyle;
+            SFUI::ComputedProp::Layout computedLayout;
+            SFUI::Vector<SFUI::ComputedProp::ChildLayout> childrenComputedLayout;
             SFUI::Vector2u parentComponentSize;
             SFUI::VertexArray backgroundRects;
             SFUI::VertexArray backgroundArcs;
             SFUI::VertexArray borderRects;
             SFUI::VertexArray borderArcs;
-
-        public:
-            SFUI::Void updateChildFromParent(ChildComputedLayout childComputedLayout);
-
+        
         protected:
+            SFUI::Color resolveColorSubProp(const SFUI::SubProp::Color& color);
+            SFUI::Vector4f resolveCornerRadiusSubPro(
+                SFUI::Vector2f size,
+                SFUI::SubProp::Dimension cornerRadius,
+                SFUI::Optional<SFUI::SubProp::Dimension> cornerRadiusTopLeft,
+                SFUI::Optional<SFUI::SubProp::Dimension> cornerRadiusTopRight,
+                SFUI::Optional<SFUI::SubProp::Dimension> cornerRadiusBottomLeft,
+                SFUI::Optional<SFUI::SubProp::Dimension> cornerRadiusBottomRight
+            );
             SFUI::Void computeAlignDirection();
             SFUI::Void computeAlignPrimary();
             SFUI::Void computeAlignSecondary();
@@ -172,16 +157,10 @@ namespace SFUI {
 
         private:
             static SFUI::Float VERTICAL_CENTER_OFFSET_FACTOR;
-            static SFUI::Float VERTICAL_BOTTOM_OFFSET_FACTOR;
-            struct ComputedLabelStyle {
-                SFUI::Float textSize;
-                SFUI::String textAlignHorizontal;
-                SFUI::String textAlignVertical;
-                SFUI::Color textColor;
-            };
+            static SFUI::Float VERTICAL_BOTTOM_OFFSET_FACTOR;            
 
         private:
-            ComputedLabelStyle computedLabelStyle;
+            SFUI::ComputedProp::LabelStyle computedLabelStyle;
             SFUI::Text textObject;
 
         private:
@@ -190,8 +169,6 @@ namespace SFUI {
             SFUI::Void computeTextAlignVertical();
             SFUI::Void computeTextColor();
             SFUI::Void computeText();
-
-        private:
             SFUI::Void update(const SFUI::Vector2u parentComponentSize);
             SFUI::Void handleEvent(const SFUI::Event& event);
             SFUI::Void draw(SFUI::RenderTarget& renderTarget);
@@ -218,12 +195,29 @@ namespace SFUI {
             Button(const SFUI::String& componentID);
             Button(const SFUI::String& componentID, const SFUI::Prop::Layout& layout);
             Button(const SFUI::String& componentID, const SFUI::Prop::Style& style);
-            Button(const SFUI::String& componentID, const SFUI::Prop::Layout& layout, const SFUI::Prop::Style& style);
+            Button(const SFUI::String& componentID, const SFUI::Prop::ButtonStyle& buttonStyle);
+            Button(const SFUI::String& componentID, const SFUI::Prop::Layout& layout, const SFUI::Prop::Style& style, const SFUI::Prop::ButtonStyle& buttonStyle);
 
         private:
-            static SFUI::Float LONG_PRESS_THRESHOLD;
+            static SFUI::Float TEXT_VERTICAL_OFFSET_FACTOR;
+            static SFUI::UnsignedInt LONG_PRESS_THRESHOLD_MS;
 
         private:
+            SFUI::ComputedProp::ButtonStyle computedButtonStyle;
+            SFUI::Text toolTipTextObject;
+        
+        private:
+            SFUI::Void computeAlternateColors();
+            SFUI::Void computeFocusWidth();
+            SFUI::Void computeFocusOffset();
+            SFUI::Void computeFocusCornerRadius();
+            SFUI::Void computeFocusFillColor();
+            SFUI::Void computeToolTipPadding();
+            SFUI::Void computeToolTipCornerRadius();
+            SFUI::Void computeToolTipTextSize();
+            SFUI::Void computeToolTipFillColor();
+            SFUI::Void computeToolTipTextColor();
+            SFUI::Void computeToolTipText();
             SFUI::Void update(const SFUI::Vector2u parentComponentSize);
             SFUI::Void handleEvent(const SFUI::Event& event);
             SFUI::Void draw(SFUI::RenderTarget& renderTarget);

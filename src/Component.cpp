@@ -71,7 +71,7 @@ SFUI::Void SFUI::Component::setParent(const SFUI::SharedPointer<Component>& newP
 SFUI::Void SFUI::Component::addChild(const SFUI::SharedPointer<SFUI::Component>& newChild) {
     newChild->setParent(this->shared_from_this());
     children.push_back(newChild);
-    childrenComputedLayout.emplace_back(ChildComputedLayout{
+    childrenComputedLayout.emplace_back(SFUI::ComputedProp::ChildLayout{
         {0.f, 0.f},     // size
         {0, 0},         // position
         0.f             // margin
@@ -88,7 +88,7 @@ SFUI::Void SFUI::Component::addChildren(const SFUI::Vector<SFUI::SharedPointer<S
     children.insert(children.end(), newChildren.begin(), newChildren.end());
     for (int i = 0; i < newChildren.size(); i++) {
         newChildren[i]->setParent(this->shared_from_this());
-        childrenComputedLayout.emplace_back(ChildComputedLayout{
+        childrenComputedLayout.emplace_back(SFUI::ComputedProp::ChildLayout{
             {0.f, 0.f},     // size
             {0, 0},         // position
             0.f             // margin
@@ -112,10 +112,164 @@ SFUI::Vector<SFUI::SharedPointer<SFUI::Component>> SFUI::Component::getChildren(
  * 
  * @param .
  */
-SFUI::Void SFUI::Component::updateChildFromParent(ChildComputedLayout childComputedLayout) {
+SFUI::Void SFUI::Component::updateChildFromParent(SFUI::ComputedProp::ChildLayout childComputedLayout) {
     computedLayout.size = childComputedLayout.size;
     computedLayout.position = childComputedLayout.position;
     computedLayout.margin = childComputedLayout.margin;
+}
+
+
+/**
+ * @brief .
+ * 
+ * @param .
+ * 
+ * @return .
+ */
+SFUI::Color SFUI::Component::resolveColorSubProp(const SFUI::SubProp::Color& color) {
+    SFUI::Color resolvedFillColor;
+
+    // If Input Fill Color is a 3-Channel Unsigned Byte //
+    if (std::holds_alternative<SFUI::Vector3ui8>(color)) {
+        SFUI::Vector3ui8 fillColor = std::get<SFUI::Vector3ui8>(color);
+        resolvedFillColor = SFUI::Color(fillColor.x, fillColor.y, fillColor.z, 255);
+        // resolvedFillColor.x = fillColor.x;
+        // resolvedFillColor.y = fillColor.y;
+        // resolvedFillColor.z = fillColor.z;
+        // resolvedFillColor.w = 255;
+    }
+    // If Input Fill Color is a 4-Channel Unsigned Byte //
+    else if (std::holds_alternative<SFUI::Vector4ui8>(color)) {
+        SFUI::Vector4ui8 fillColor = std::get<SFUI::Vector4ui8>(color);
+        resolvedFillColor = SFUI::Color(fillColor.x, fillColor.y, fillColor.z, fillColor.w);
+        // resolvedFillColor.x = fillColor.x;
+        // resolvedFillColor.y = fillColor.y;
+        // resolvedFillColor.z = fillColor.z;
+        // resolvedFillColor.w = fillColor.w;
+    }
+    // If Input Fill Color is a Hex String //
+    else if (std::holds_alternative<SFUI::String>(color)) {
+        // Going to Do this Later -- String Parsing Code Needed //
+    }
+    // If Input Fill Color is Already Given as a SFML::Color Type //
+    else if (std::holds_alternative<SFUI::Color>(color)) {
+        resolvedFillColor = std::get<SFUI::Color>(color);
+
+        // resolvedFillColor.x = fillColor.r;
+        // resolvedFillColor.y = fillColor.g;
+        // resolvedFillColor.z = fillColor.b;
+        // resolvedFillColor.w = fillColor.a;
+    }
+
+    return resolvedFillColor;
+}
+
+
+/**
+ * @brief .
+ * 
+ * @param .
+ * @param .
+ * @param .
+ * @param .
+ * @param .
+ * 
+ * @return .
+ */
+SFUI::Vector4f SFUI::Component::resolveCornerRadiusSubPro(
+    SFUI::Vector2f size,
+    SFUI::SubProp::Dimension cornerRadius,
+    SFUI::Optional<SFUI::SubProp::Dimension> cornerRadiusTopLeft,
+    SFUI::Optional<SFUI::SubProp::Dimension> cornerRadiusTopRight,
+    SFUI::Optional<SFUI::SubProp::Dimension> cornerRadiusBottomLeft,
+    SFUI::Optional<SFUI::SubProp::Dimension> cornerRadiusBottomRight
+) {
+    SFUI::Float relativeCornerRadiusFactor = std::min(size.x, size.y);
+
+    // If the Master Corner Radius Style Variant Holds an Explicit Float //
+    SFUI::Float computedMasterCornerRadius = 0.0f;
+
+    if (std::holds_alternative<SFUI::Float>(cornerRadius)) {
+        computedMasterCornerRadius = std::get<SFUI::Float>(cornerRadius);
+    }
+    // If the Master Corner Radius Style Variant Holds a String Percentage Input //
+    else if (std::holds_alternative<SFUI::String>(cornerRadius)) {
+        SFUI::String masterCornerRadiusString = std::get<SFUI::String>(cornerRadius);
+        if (masterCornerRadiusString.size() > 1 && masterCornerRadiusString.back() == '%') {
+            masterCornerRadiusString.pop_back();
+            try {
+                size_t index = 0;
+                SFUI::Double tempCornerRadius = std::stod(masterCornerRadiusString, &index);
+                if (index == masterCornerRadiusString.size()) {
+                    computedMasterCornerRadius = relativeCornerRadiusFactor * std::clamp(static_cast<SFUI::Float>(tempCornerRadius) / 100.0f, 0.0f, 0.5f);
+                }   else {
+                    computedMasterCornerRadius = 0.0f;
+                }
+            }   catch (...) {
+                computedMasterCornerRadius = 0.0f;
+            }
+        }   else {
+            computedMasterCornerRadius = 0.0f;
+        }
+    }
+
+    // If the Partial Corner Radius Style Variant Holds an Explicit Float //
+    SFUI::Vector4f computedPartialCornerRadii = {0.0f, 0.0f, 0.0f, 0.0f};
+
+    SFUI::Float computedPartialCornerRadius;
+    SFUI::Optional<SFUI::Variant<SFUI::Float, SFUI::String>> partialCornerRadius;
+    SFUI::Optional<SFUI::Variant<SFUI::Float, SFUI::String>>* partialCornerRadii[4] = {
+        &cornerRadiusTopLeft,
+        &cornerRadiusTopRight,
+        &cornerRadiusBottomLeft,
+        &cornerRadiusBottomRight
+    };
+
+    for (int i = 0; i < 4; i++) {
+        partialCornerRadius = *partialCornerRadii[i];
+
+        // If the Partial Corner Radius Optional was Set by the User //
+        if (partialCornerRadius.has_value()) {
+            const auto& partialCornerRadiusValue = partialCornerRadius.value();
+
+            if (std::holds_alternative<SFUI::Float>(partialCornerRadiusValue)) {
+                computedPartialCornerRadius = std::get<SFUI::Float>(partialCornerRadiusValue);
+            }
+    
+            // If the Partial Corner Radius Style Variant Holds a String Percentage Input //
+            else if (std::holds_alternative<SFUI::String>(partialCornerRadiusValue)) {
+                SFUI::String partialCornerRadiusString = std::get<SFUI::String>(partialCornerRadiusValue);
+                if (partialCornerRadiusString.size() > 1 && partialCornerRadiusString.back() == '%') {
+                    partialCornerRadiusString.pop_back();
+                    try {
+                        size_t index = 0;
+                        SFUI::Double tempCornerRadius = std::stod(partialCornerRadiusString, &index);
+                        if (index == partialCornerRadiusString.size()) {
+                            computedPartialCornerRadius = relativeCornerRadiusFactor * std::clamp(static_cast<SFUI::Float>(tempCornerRadius) / 100.0f, 0.0f, 0.5f);
+                        }   else {
+                            computedPartialCornerRadius = 0.0f;
+                        }
+                    }   catch (...) {
+                        computedPartialCornerRadius = 0.0f;
+                    }
+                }   else {
+                    computedPartialCornerRadius = 0.0f;
+                }
+            }
+        }
+        // Partial Corner Radius has No Value, It's Option was Not Used, Just Use Master Corner Radius //
+        else {
+            computedPartialCornerRadius = computedMasterCornerRadius;
+        }
+
+        if (i == 0) computedPartialCornerRadii.x = computedPartialCornerRadius;
+        else if (i == 1) computedPartialCornerRadii.y = computedPartialCornerRadius;
+        else if (i == 2) computedPartialCornerRadii.z = computedPartialCornerRadius;
+        else if (i == 3) computedPartialCornerRadii.w = computedPartialCornerRadius;
+    }
+
+    // Set the Final Computed Corner Radii Values to the Computed Style Struct //
+    return computedPartialCornerRadii;
 }
 
 
@@ -215,8 +369,6 @@ SFUI::Void SFUI::Component::computeMargin() {
 
         // Update the Computed Margin //
         computedLayout.margin = computedMargin;
-
-        DEBUG_PRINT(componentID << " Computed Margin = " << computedLayout.margin);
     }
 }
 
@@ -288,8 +440,6 @@ SFUI::Void SFUI::Component::computeSize() {
 
         // Update the Computed Size //
         computedLayout.size = {computedSize.x - (computedLayout.margin * 2.0f), computedSize.y - (computedLayout.margin * 2.0f)};
-    
-        DEBUG_PRINT(componentID << " Computed Size = (" << computedLayout.size.x << ", " << computedLayout.size.y << ")");
     }
 }
 
@@ -330,8 +480,6 @@ SFUI::Void SFUI::Component::computePadding() {
 
     // Update the Computed Padding Style //
     computedLayout.padding = computedPadding;
-
-    DEBUG_PRINT(componentID << " Computed Padding = " << computedLayout.padding);
 }
 
 
@@ -367,8 +515,6 @@ SFUI::Void SFUI::Component::computePosition() {
 
         // Update the Computed Position //
         computedLayout.position = computedPosition;
-    
-        DEBUG_PRINT(componentID << " Computed Position = (" << computedLayout.position.x << ", " << computedLayout.position.y << ")");
     }
 }
 
@@ -407,8 +553,6 @@ SFUI::Void SFUI::Component::computeBorderWidth() {
 
     // Update the Computed Border Width Style //
     computedStyle.borderWidth = computedBorderWidth;
-
-    DEBUG_PRINT(componentID << " Computed Border Width = " << computedStyle.borderWidth);
 }
 
 
@@ -416,100 +560,13 @@ SFUI::Void SFUI::Component::computeBorderWidth() {
  * @brief .
  */
 SFUI::Void SFUI::Component::computeCornerRadius() {
-    SFUI::Float relativeCornerRadiusFactor = std::min(computedLayout.size.x, computedLayout.size.y);
-
-    // If the Master Corner Radius Style Variant Holds an Explicit Float //
-    SFUI::Float computedMasterCornerRadius = 0.0f;
-
-    if (std::holds_alternative<SFUI::Float>(style.cornerRadius)) {
-        computedMasterCornerRadius = std::get<SFUI::Float>(style.cornerRadius);
-    }
-    // If the Master Corner Radius Style Variant Holds a String Percentage Input //
-    else if (std::holds_alternative<SFUI::String>(style.cornerRadius)) {
-        SFUI::String masterCornerRadiusString = std::get<SFUI::String>(style.cornerRadius);
-        if (masterCornerRadiusString.size() > 1 && masterCornerRadiusString.back() == '%') {
-            masterCornerRadiusString.pop_back();
-            try {
-                size_t index = 0;
-                SFUI::Double tempCornerRadius = std::stod(masterCornerRadiusString, &index);
-                if (index == masterCornerRadiusString.size()) {
-                    computedMasterCornerRadius = relativeCornerRadiusFactor * std::clamp(static_cast<SFUI::Float>(tempCornerRadius) / 100.0f, 0.0f, 0.5f);
-                }   else {
-                    computedMasterCornerRadius = 0.0f;
-                }
-            }   catch (...) {
-                computedMasterCornerRadius = 0.0f;
-            }
-        }   else {
-            computedMasterCornerRadius = 0.0f;
-        }
-    }
-
-    // If the Partial Corner Radius Style Variant Holds an Explicit Float //
-    SFUI::Vector4f computedPartialCornerRadii = {0.0f, 0.0f, 0.0f, 0.0f};
-
-    SFUI::Float computedPartialCornerRadius;
-    SFUI::Optional<SFUI::Variant<SFUI::Float, SFUI::String>> partialCornerRadius;
-    SFUI::Optional<SFUI::Variant<SFUI::Float, SFUI::String>>* partialCornerRadii[4] = {
-        &style.cornerRadiusTopLeft,
-        &style.cornerRadiusTopRight,
-        &style.cornerRadiusBottomLeft,
-        &style.cornerRadiusBottomRight
-    };
-
-    for (int i = 0; i < 4; i++) {
-        partialCornerRadius = *partialCornerRadii[i];
-
-        // If the Partial Corner Radius Optional was Set by the User //
-        if (partialCornerRadius.has_value()) {
-            const auto& partialCornerRadiusValue = partialCornerRadius.value();
-
-            if (std::holds_alternative<SFUI::Float>(partialCornerRadiusValue)) {
-                computedPartialCornerRadius = std::get<SFUI::Float>(partialCornerRadiusValue);
-            }
-    
-            // If the Partial Corner Radius Style Variant Holds a String Percentage Input //
-            else if (std::holds_alternative<SFUI::String>(partialCornerRadiusValue)) {
-                SFUI::String partialCornerRadiusString = std::get<SFUI::String>(partialCornerRadiusValue);
-                if (partialCornerRadiusString.size() > 1 && partialCornerRadiusString.back() == '%') {
-                    partialCornerRadiusString.pop_back();
-                    try {
-                        size_t index = 0;
-                        SFUI::Double tempCornerRadius = std::stod(partialCornerRadiusString, &index);
-                        if (index == partialCornerRadiusString.size()) {
-                            computedPartialCornerRadius = relativeCornerRadiusFactor * std::clamp(static_cast<SFUI::Float>(tempCornerRadius) / 100.0f, 0.0f, 0.5f);
-                        }   else {
-                            computedPartialCornerRadius = 0.0f;
-                        }
-                    }   catch (...) {
-                        computedPartialCornerRadius = 0.0f;
-                    }
-                }   else {
-                    computedPartialCornerRadius = 0.0f;
-                }
-            }
-        }
-        // Partial Corner Radius has No Value, It's Option was Not Used, Just Use Master Corner Radius //
-        else {
-            computedPartialCornerRadius = computedMasterCornerRadius;
-        }
-
-        if (i == 0) computedPartialCornerRadii.x = computedPartialCornerRadius;
-        else if (i == 1) computedPartialCornerRadii.y = computedPartialCornerRadius;
-        else if (i == 2) computedPartialCornerRadii.z = computedPartialCornerRadius;
-        else if (i == 3) computedPartialCornerRadii.w = computedPartialCornerRadius;
-    }
-
-    // Set the Final Computed Corner Radii Values to the Computed Style Struct //
-    computedStyle.cornerRadius = computedPartialCornerRadii;
-
-    DEBUG_PRINT(
-        componentID <<
-        " Computed Corner Radius = " <<
-        computedStyle.cornerRadius.x << ", " <<
-        computedStyle.cornerRadius.y << ", " <<
-        computedStyle.cornerRadius.z << ", " <<
-        computedStyle.cornerRadius.w
+    computedStyle.cornerRadius = resolveCornerRadiusSubPro(
+        computedLayout.size,
+        style.cornerRadius,
+        style.cornerRadiusTopLeft,
+        style.cornerRadiusTopRight,
+        style.cornerRadiusBottomLeft,
+        style.cornerRadiusBottomRight
     );
 }
 
@@ -518,38 +575,7 @@ SFUI::Void SFUI::Component::computeCornerRadius() {
  * @brief .
  */
 SFUI::Void SFUI::Component::computeFillColor() {
-    SFUI::Color computedFillColor;
-
-    // If Input Fill Color is a 3-Channel Unsigned Byte //
-    if (std::holds_alternative<SFUI::Vector3ui8>(style.fillColor)) {
-        SFUI::Vector3ui8 fillColor = std::get<SFUI::Vector3ui8>(style.fillColor);
-        computedFillColor = SFUI::Color(fillColor.x, fillColor.y, fillColor.z);
-    }
-    // If Input Fill Color is a 4-Channel Unsigned Byte //
-    else if (std::holds_alternative<SFUI::Vector4ui8>(style.fillColor)) {
-        SFUI::Vector4ui8 fillColor = std::get<SFUI::Vector4ui8>(style.fillColor);
-        computedFillColor = SFUI::Color(fillColor.x, fillColor.y, fillColor.z, fillColor.w);
-    }
-    // If Input Fill Color is a Hex String //
-    else if (std::holds_alternative<SFUI::String>(style.fillColor)) {
-        // Going to Do this Later -- Lots of String Parsing Code Needed //
-    }
-    // If Input Fill Color is Already Given as a SFML::Color Type //
-    else if (std::holds_alternative<SFUI::Color>(style.fillColor)) {
-        SFUI::Color fillColor = std::get<SFUI::Color>(style.fillColor);
-        computedFillColor = fillColor;
-    }
-
-    computedStyle.fillColor = computedFillColor;
-
-    DEBUG_PRINT(
-        componentID <<
-        " Computed Fill Color = " <<
-        static_cast<int>(computedStyle.fillColor.r) << ", " <<
-        static_cast<int>(computedStyle.fillColor.g) << ", " <<
-        static_cast<int>(computedStyle.fillColor.b) << ", " <<
-        static_cast<int>(computedStyle.fillColor.a)
-    );
+    computedStyle.fillColor = resolveColorSubProp(style.fillColor);
 }
 
 
@@ -557,38 +583,7 @@ SFUI::Void SFUI::Component::computeFillColor() {
  * @brief .
  */
 SFUI::Void SFUI::Component::computeBorderColor() {
-    SFUI::Color computedBorderColor;
-
-    // If Input Border Color is a 3-Channel Unsigned Byte //
-    if (std::holds_alternative<SFUI::Vector3ui8>(style.borderColor)) {
-        SFUI::Vector3ui8 borderColor = std::get<SFUI::Vector3ui8>(style.borderColor);
-        computedBorderColor = SFUI::Color(borderColor.x, borderColor.y, borderColor.z);
-    }
-    // If Input Border Color is a 4-Channel Unsigned Byte //
-    else if (std::holds_alternative<SFUI::Vector4ui8>(style.borderColor)) {
-        SFUI::Vector4ui8 borderColor = std::get<SFUI::Vector4ui8>(style.borderColor);
-        computedBorderColor = SFUI::Color(borderColor.x, borderColor.y, borderColor.z, borderColor.w);
-    }
-    // If Input Border Color is a Hex String //
-    else if (std::holds_alternative<SFUI::String>(style.borderColor)) {
-        // Going to Do this Later -- Lots of String Parsing Code Needed //
-    }
-    // If Input Border Color is Already Given as a SFML::Color Type //
-    else if (std::holds_alternative<SFUI::Color>(style.borderColor)) {
-        SFUI::Color borderColor = std::get<SFUI::Color>(style.borderColor);
-        computedBorderColor = borderColor;
-    }
-
-    computedStyle.borderColor = computedBorderColor;
-
-    DEBUG_PRINT(
-        componentID <<
-        " Computed Border Color = " <<
-        static_cast<int>(computedStyle.borderColor.r) << ", " <<
-        static_cast<int>(computedStyle.borderColor.g) << ", " <<
-        static_cast<int>(computedStyle.borderColor.b) << ", " <<
-        static_cast<int>(computedStyle.borderColor.a)
-    );
+    computedStyle.borderColor = resolveColorSubProp(style.borderColor);
 }
 
 
@@ -776,8 +771,6 @@ SFUI::Void SFUI::Component::computeChildrenMargin() {
 
             // Update the Computed Border Width Style //
             childrenComputedLayout[i].margin = computedMargin;
-
-            DEBUG_PRINT(componentID << " Computed Margin = " << childrenComputedLayout[i].margin);
         }
     }
 }
@@ -848,8 +841,6 @@ SFUI::Void SFUI::Component::computeChildrenSize() {
     
             // Update the Computed Size //
             childrenComputedLayout[i].size = {computedSize.x - (childrenComputedLayout[i].margin * 2.0f), computedSize.y - (childrenComputedLayout[i].margin * 2.0f)};
-        
-            DEBUG_PRINT(componentID << " Computed Size = (" << childrenComputedLayout[i].size.x << ", " << childrenComputedLayout[i].size.y << ")");
         }
     }
 }
@@ -1008,8 +999,6 @@ SFUI::Void SFUI::Component::computeChildrenPosition() {
 
             // Update the Computed Position //
             childrenComputedLayout[i].position = computedPosition;
-
-            DEBUG_PRINT(componentID << " Child Computed Position = (" << childrenComputedLayout[i].position.x << ", " << childrenComputedLayout[i].position.y << ")");
         }
     }
 }
