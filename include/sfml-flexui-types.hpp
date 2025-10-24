@@ -232,7 +232,7 @@ namespace SFUI {
 
 
 /////////////////////////////////////////////////////////////
-// Custom Component Style/Layout/Function Input Prop Types //
+// Custom Component Style/Layout/Behavior Input Prop Types //
 /////////////////////////////////////////////////////////////
 
 namespace SFUI {
@@ -347,6 +347,34 @@ namespace SFUI {
         struct GraphicBehavior {
             SFUI::SubProp::Callback onLoad;
             SFUI::SubProp::Callback onLoadError;
+        };
+    }
+
+    namespace PropGroup {
+
+        struct Container {
+            SFUI::Prop::Layout layout;
+            SFUI::Prop::Style style;
+        };
+
+        struct Label {
+            SFUI::Prop::Layout layout;
+            SFUI::Prop::Style style;
+            SFUI::Prop::LabelStyle labelStyle;
+        };
+
+        struct Button {
+            SFUI::Prop::Layout layout;
+            SFUI::Prop::Style style;
+            SFUI::Prop::ButtonStyle buttonStyle;
+            SFUI::Prop::ButtonBehavior buttonBehavior;
+        };
+
+        struct Graphic {
+            SFUI::Prop::Layout layout;
+            SFUI::Prop::Style style;
+            SFUI::Prop::GraphicStyle graphicStyle;
+            SFUI::Prop::GraphicBehavior graphicBehavior;
         };
     }
 

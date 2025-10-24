@@ -29,49 +29,9 @@ SFUI::Label::Label(const SFUI::String& componentID) :
  * @param .
  * @param .
  */
-SFUI::Label::Label(const SFUI::String& componentID, const SFUI::Prop::Layout& layout) :
-    Component(componentID, layout),
-    labelStyle(),
-    textObject(SFUI::Text(*(labelStyle.font), labelStyle.text, labelStyle.textSize))
-{}
-
-
-/**
- * @brief .
- * 
- * @param .
- * @param .
- */
-SFUI::Label::Label(const SFUI::String& componentID, const SFUI::Prop::Style& style) :
-    Component(componentID, style),
-    labelStyle(),
-    textObject(SFUI::Text(*(labelStyle.font), labelStyle.text, labelStyle.textSize))
-{}
-
-
-/**
- * @brief .
- * 
- * @param .
- * @param .
- */
-SFUI::Label::Label(const SFUI::String& componentID, const SFUI::Prop::LabelStyle& labelStyle) :
-    Component(componentID),
-    labelStyle(labelStyle),
-    textObject(SFUI::Text(*(labelStyle.font), labelStyle.text, labelStyle.textSize))
-{}
-
-
-/**
- * @brief .
- * 
- * @param .
- * @param .
- * @param .
- */
-SFUI::Label::Label(const SFUI::String& componentID, const SFUI::Prop::Layout& layout, const SFUI::Prop::Style& style, const SFUI::Prop::LabelStyle& labelStyle) :
-    Component(componentID, layout, style),
-    labelStyle(labelStyle),
+SFUI::Label::Label(const SFUI::String& componentID, const SFUI::PropGroup::Label& labelPropGroup) :
+    Component(componentID, labelPropGroup.layout, labelPropGroup.style),
+    labelStyle(labelPropGroup.labelStyle),
     textObject(SFUI::Text(*(labelStyle.font), labelStyle.text, labelStyle.textSize))
 {}
 

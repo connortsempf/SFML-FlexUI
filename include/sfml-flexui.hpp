@@ -46,8 +46,6 @@ namespace SFUI {
         public:
             Component() = default;
             Component(const SFUI::String& componentID);
-            Component(const SFUI::String& componentID, const SFUI::Prop::Layout& layout);
-            Component(const SFUI::String& componentID, const SFUI::Prop::Style& style);
             Component(const SFUI::String& componentID, const SFUI::Prop::Layout& layout, const SFUI::Prop::Style& style);
             SFUI::Void setParent(const SFUI::SharedPointer<Component>& newParent);
             SFUI::Void addChild(const SFUI::SharedPointer<SFUI::Component>& newChild);
@@ -133,9 +131,7 @@ namespace SFUI {
         public:
             Container() = default;
             Container(const SFUI::String& componentID);
-            Container(const SFUI::String& componentID, const SFUI::Prop::Layout& layout);
-            Container(const SFUI::String& componentID, const SFUI::Prop::Style& style);
-            Container(const SFUI::String& componentID, const SFUI::Prop::Layout& layout, const SFUI::Prop::Style& style);
+            Container(const SFUI::String& componentID, const SFUI::PropGroup::Container& containerPropGroup);
             SFUI::Void update(const SFUI::Vector2u renderTargetSize);
             SFUI::Void handleEvent(const SFUI::Event& event);
             SFUI::Void draw(SFUI::RenderTarget& renderTarget);
@@ -159,10 +155,7 @@ namespace SFUI {
         public:
             Label() = default;
             Label(const SFUI::String& componentID);
-            Label(const SFUI::String& componentID, const SFUI::Prop::Layout& layout);
-            Label(const SFUI::String& componentID, const SFUI::Prop::Style& style);
-            Label(const SFUI::String& componentID, const SFUI::Prop::LabelStyle& labelStyle);
-            Label(const SFUI::String& componentID, const SFUI::Prop::Layout& layout, const SFUI::Prop::Style& style, const SFUI::Prop::LabelStyle& labelStyle);
+            Label(const SFUI::String& componentID, const SFUI::PropGroup::Label& labelPropGroup);
             SFUI::Void update(const SFUI::Vector2u renderTargetSize);
             SFUI::Void handleEvent(const SFUI::Event& event);
             SFUI::Void draw(SFUI::RenderTarget& renderTarget);
@@ -206,10 +199,7 @@ namespace SFUI {
         public:
             Button() = default;
             Button(const SFUI::String& componentID);
-            Button(const SFUI::String& componentID, const SFUI::Prop::Layout& layout);
-            Button(const SFUI::String& componentID, const SFUI::Prop::Style& style);
-            Button(const SFUI::String& componentID, const SFUI::Prop::ButtonStyle& buttonStyle);
-            Button(const SFUI::String& componentID, const SFUI::Prop::Layout& layout, const SFUI::Prop::Style& style, const SFUI::Prop::ButtonStyle& buttonStyle);
+            Button(const SFUI::String& componentID, const SFUI::PropGroup::Button& buttonPropGroup);
             SFUI::Void update(const SFUI::Vector2u renderTargetSize);
             SFUI::Void handleEvent(const SFUI::Event& event);
             SFUI::Void draw(SFUI::RenderTarget& renderTarget);
@@ -271,14 +261,11 @@ namespace SFUI {
         public:
             SFUI::Prop::GraphicStyle graphicStyle;
             SFUI::Prop::GraphicBehavior graphicBehavior;
-        
+
         public:
             Graphic() = default;
             Graphic(const SFUI::String& componentID);
-            Graphic(const SFUI::String& componentID, const SFUI::Prop::Layout& layout);
-            Graphic(const SFUI::String& componentID, const SFUI::Prop::Style& style);
-            Graphic(const SFUI::String& componentID, const SFUI::Prop::GraphicStyle& graphicStyle);
-            Graphic(const SFUI::String& componentID, const SFUI::Prop::Layout& layout, const SFUI::Prop::Style& style, const SFUI::Prop::GraphicStyle& graphicStyle);
+            Graphic(const SFUI::String& componentID, const SFUI::PropGroup::Graphic& graphicPropGroup);
             SFUI::Void update(const SFUI::Vector2u renderTargetSize);
             SFUI::Void handleEvent(const SFUI::Event& event);
             SFUI::Void draw(SFUI::RenderTarget& renderTarget);

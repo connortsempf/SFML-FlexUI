@@ -11,7 +11,9 @@
  * 
  * @param .
  */
-SFUI::Container::Container(const SFUI::String& componentID) : Component(componentID) {}
+SFUI::Container::Container(const SFUI::String& componentID) :
+    Component(componentID)
+{}
 
 
 /**
@@ -20,27 +22,8 @@ SFUI::Container::Container(const SFUI::String& componentID) : Component(componen
  * @param .
  * @param .
  */
-SFUI::Container::Container(const SFUI::String& componentID, const SFUI::Prop::Layout& layout) : Component(componentID, layout) {}
-
-
-/**
- * @brief .
- * 
- * @param .
- * @param .
- */
-SFUI::Container::Container(const SFUI::String& componentID, const SFUI::Prop::Style& style) : Component(componentID, style) {}
-
-
-/**
- * @brief .
- * 
- * @param .
- * @param .
- * @param .
- */
-SFUI::Container::Container(const SFUI::String& componentID, const SFUI::Prop::Layout& layout, const SFUI::Prop::Style& style) :
-    Component(componentID, layout, style)
+SFUI::Container::Container(const SFUI::String& componentID, const SFUI::PropGroup::Container& containerPropGroup) :
+    Component(componentID, containerPropGroup.layout, containerPropGroup.style)
 {}
 
 

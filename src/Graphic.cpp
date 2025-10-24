@@ -25,53 +25,10 @@ SFUI::Graphic::Graphic(const SFUI::String& componentID) :
  * @param .
  * @param .
  */
-SFUI::Graphic::Graphic(const SFUI::String& componentID, const SFUI::Prop::Layout& layout) :
-    Component(componentID, layout),
-    graphicStyle(),
-    graphicBehavior(),
-    graphic(sf::Sprite(graphicSource))
-{}
-
-
-/**
- * @brief .
- * 
- * @param .
- * @param .
- */
-SFUI::Graphic::Graphic(const SFUI::String& componentID, const SFUI::Prop::Style& style) :
-    Component(componentID, style),
-    graphicStyle(),
-    graphicBehavior(),
-    graphic(sf::Sprite(graphicSource))
-{}
-
-
-/**
- * @brief .
- * 
- * @param .
- * @param .
- */
-SFUI::Graphic::Graphic(const SFUI::String& componentID, const SFUI::Prop::GraphicStyle& graphicStyle) :
-    Component(componentID),
-    graphicStyle(graphicStyle),
-    graphicBehavior(),
-    graphic(sf::Sprite(graphicSource))
-{}
-
-
-/**
- * @brief .
- * 
- * @param .
- * @param .
- * @param .
- */
-SFUI::Graphic::Graphic(const SFUI::String& componentID, const SFUI::Prop::Layout& layout, const SFUI::Prop::Style& style, const SFUI::Prop::GraphicStyle& graphicStyle) :
-    Component(componentID, layout, style),
-    graphicStyle(graphicStyle),
-    graphicBehavior(),
+SFUI::Graphic::Graphic(const SFUI::String& componentID, const SFUI::PropGroup::Graphic& graphicPropGroup) :
+    Component(componentID, graphicPropGroup.layout, graphicPropGroup.style),
+    graphicStyle(graphicPropGroup.graphicStyle),
+    graphicBehavior(graphicPropGroup.graphicBehavior),
     graphic(sf::Sprite(graphicSource))
 {}
 

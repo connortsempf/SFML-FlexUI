@@ -22,30 +22,6 @@ SFUI::Component::Component(const SFUI::String& componentID) :
  * @brief .
  * 
  * @param .
- */
-SFUI::Component::Component(const SFUI::String& componentID, const SFUI::Prop::Layout& layout) :
-    componentID(componentID),
-    layout(layout),
-    style()
-{}
-
-
-/**
- * @brief .
- * 
- * @param .
- */
-SFUI::Component::Component(const SFUI::String& componentID, const SFUI::Prop::Style& style) :
-    componentID(componentID),
-    layout(),
-    style(style)
-{}
-
-
-/**
- * @brief .
- * 
- * @param .
  * @param .
  */
 SFUI::Component::Component(const SFUI::String& componentID, const SFUI::Prop::Layout& layout, const SFUI::Prop::Style& style) :

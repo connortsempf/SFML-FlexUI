@@ -21,6 +21,7 @@ SFUI::Time SFUI::Button::TOOL_TIP_THRESHOLD_MS = sf::milliseconds(1000);
 SFUI::Button::Button(const SFUI::String& componentID) :
     Component(componentID),
     buttonStyle(),
+    buttonBehavior(),
     focus(componentID + "Focus"),
     toolTip(componentID + "_ToolTip")
 {}
@@ -32,52 +33,10 @@ SFUI::Button::Button(const SFUI::String& componentID) :
  * @param .
  * @param .
  */
-SFUI::Button::Button(const SFUI::String& componentID, const SFUI::Prop::Layout& layout) :
-    Component(componentID, layout),
-    buttonStyle(),
-    focus(componentID + "Focus"),
-    toolTip(componentID + "_ToolTip")
-{}
-
-
-/**
- * @brief .
- * 
- * @param .
- * @param .
- */
-SFUI::Button::Button(const SFUI::String& componentID, const SFUI::Prop::Style& style) :
-    Component(componentID, style),
-    buttonStyle(),
-    focus(componentID + "Focus"),
-    toolTip(componentID + "_ToolTip")
-{}
-
-
-/**
- * @brief .
- * 
- * @param .
- * @param .
- */
-SFUI::Button::Button(const SFUI::String& componentID, const SFUI::Prop::ButtonStyle& buttonStyle) :
-    Component(componentID),
-    buttonStyle(buttonStyle),
-    focus(componentID + "Focus"),
-    toolTip(componentID + "_ToolTip")
-{}
-
-
-/**
- * @brief .
- * 
- * @param .
- * @param .
- * @param .
- */
-SFUI::Button::Button(const SFUI::String& componentID, const SFUI::Prop::Layout& layout, const SFUI::Prop::Style& style, const SFUI::Prop::ButtonStyle& buttonStyle) :
-    Component(componentID, layout, style),
-    buttonStyle(buttonStyle),
+SFUI::Button::Button(const SFUI::String& componentID, const SFUI::PropGroup::Button& buttonPropGroup) :
+    Component(componentID, buttonPropGroup.layout, buttonPropGroup.style),
+    buttonStyle(buttonPropGroup.buttonStyle),
+    buttonBehavior(buttonPropGroup.buttonBehavior),
     focus(componentID + "Focus"),
     toolTip(componentID + "_ToolTip")
 {}
