@@ -260,6 +260,8 @@ namespace SFUI {
 
         using Font = SFUI::SharedPointer<SFUI::Font>;
 
+        using Texture = SFUI::SharedPointer<SFUI::Texture>;
+
         using Callback = SFUI::Function<void(const SFUI::String&)>;
 
         using CallbackKey = SFUI::Function<void(const SFUI::String&, sf::Keyboard::Key)>;
@@ -346,6 +348,17 @@ namespace SFUI {
             SFUI::SubProp::Callback onDoublePress;
             SFUI::SubProp::CallbackKey onKeyPress;  
         };
+
+        struct GraphicStyle {
+            SFUI::Optional<SFUI::SubProp::Texture> loadedGraphic;
+            SFUI::Optional<SFUI::SubProp::Keyword> graphicPath;
+            SFUI::SubProp::Keyword graphicAlign;
+        };
+
+        struct GraphicBehavior {
+            SFUI::SubProp::Callback onLoad;
+            SFUI::SubProp::Callback onLoadError;
+        };
     }
 
     namespace ComputedProp {
@@ -390,6 +403,12 @@ namespace SFUI {
             SFUI::Float toolTipTextSize;
             SFUI::Color toolTipFillColor;
             SFUI::Color toolTipTextColor;
+        };
+
+        struct GraphicStyle {
+            SFUI::String graphicPath;
+            SFUI::String graphicAlign;
+            SFUI::Vector2f originalTextureSize;
         };
     }
 }
