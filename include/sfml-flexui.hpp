@@ -122,20 +122,20 @@ namespace SFUI {
 
 
 
-//////////////////////////////////////
-// SFML-FlexUI View Component Class //
-//////////////////////////////////////
+///////////////////////////////////////////
+// SFML-FlexUI Container Component Class //
+///////////////////////////////////////////
 
 namespace SFUI {
 
-    class View : public Component {
+    class Container : public Component {
 
         public:
-            View() = default;
-            View(const SFUI::String& componentID);
-            View(const SFUI::String& componentID, const SFUI::Prop::Layout& layout);
-            View(const SFUI::String& componentID, const SFUI::Prop::Style& style);
-            View(const SFUI::String& componentID, const SFUI::Prop::Layout& layout, const SFUI::Prop::Style& style);
+            Container() = default;
+            Container(const SFUI::String& componentID);
+            Container(const SFUI::String& componentID, const SFUI::Prop::Layout& layout);
+            Container(const SFUI::String& componentID, const SFUI::Prop::Style& style);
+            Container(const SFUI::String& componentID, const SFUI::Prop::Layout& layout, const SFUI::Prop::Style& style);
             SFUI::Void update(const SFUI::Vector2u renderTargetSize);
             SFUI::Void handleEvent(const SFUI::Event& event);
             SFUI::Void draw(SFUI::RenderTarget& renderTarget);
@@ -234,7 +234,7 @@ namespace SFUI {
             SFUI::Time previousPressTime;
             SFUI::Clock toolTipClock;
             SFUI::Time toolTipTime;
-            SFUI::View focus;
+            SFUI::Container focus;
             SFUI::Label toolTip;
             SFUI::ComputedProp::ButtonStyle computedButtonStyle;
         

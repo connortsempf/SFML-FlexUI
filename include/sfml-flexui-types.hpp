@@ -12,17 +12,6 @@
 #include <queue>
 
 
-////////////////////////
-// Debug Mode Logging //
-////////////////////////
-
-#if SFUI_DEBUG
-    #define DEBUG_PRINT(x) do { std::cout << x << "\n"; } while(0)
-#else
-    #define DEBUG_PRINT(x) do {} while(0)
-#endif
-
-
 
 
 ///////////////////////////

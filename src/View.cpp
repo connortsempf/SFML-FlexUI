@@ -1,9 +1,9 @@
 #include <sfml-flexui.hpp>
 
 
-//////////////////////////////////////
-// SFML-FlexUI View Component Class //
-//////////////////////////////////////
+///////////////////////////////////////////
+// SFML-FlexUI Container Component Class //
+///////////////////////////////////////////
 
 
 /**
@@ -11,16 +11,7 @@
  * 
  * @param .
  */
-SFUI::View::View(const SFUI::String& componentID) : Component(componentID) {}
-
-
-/**
- * @brief .
- * 
- * @param .
- * @param .
- */
-SFUI::View::View(const SFUI::String& componentID, const SFUI::Prop::Layout& layout) : Component(componentID, layout) {}
+SFUI::Container::Container(const SFUI::String& componentID) : Component(componentID) {}
 
 
 /**
@@ -29,7 +20,16 @@ SFUI::View::View(const SFUI::String& componentID, const SFUI::Prop::Layout& layo
  * @param .
  * @param .
  */
-SFUI::View::View(const SFUI::String& componentID, const SFUI::Prop::Style& style) : Component(componentID, style) {}
+SFUI::Container::Container(const SFUI::String& componentID, const SFUI::Prop::Layout& layout) : Component(componentID, layout) {}
+
+
+/**
+ * @brief .
+ * 
+ * @param .
+ * @param .
+ */
+SFUI::Container::Container(const SFUI::String& componentID, const SFUI::Prop::Style& style) : Component(componentID, style) {}
 
 
 /**
@@ -39,7 +39,7 @@ SFUI::View::View(const SFUI::String& componentID, const SFUI::Prop::Style& style
  * @param .
  * @param .
  */
-SFUI::View::View(const SFUI::String& componentID, const SFUI::Prop::Layout& layout, const SFUI::Prop::Style& style) :
+SFUI::Container::Container(const SFUI::String& componentID, const SFUI::Prop::Layout& layout, const SFUI::Prop::Style& style) :
     Component(componentID, layout, style)
 {}
 
@@ -49,7 +49,7 @@ SFUI::View::View(const SFUI::String& componentID, const SFUI::Prop::Layout& layo
  * 
  * @param .
  */
-SFUI::Void SFUI::View::update(const SFUI::Vector2u renderTargetSize) {
+SFUI::Void SFUI::Container::update(const SFUI::Vector2u renderTargetSize) {
     this->renderTargetSize = renderTargetSize;
 
     computeAlignDirection();
@@ -76,7 +76,7 @@ SFUI::Void SFUI::View::update(const SFUI::Vector2u renderTargetSize) {
  * 
  * @param .
  */
-SFUI::Void SFUI::View::handleEvent(const SFUI::Event& event) {
+SFUI::Void SFUI::Container::handleEvent(const SFUI::Event& event) {
 
 }
 
@@ -86,7 +86,7 @@ SFUI::Void SFUI::View::handleEvent(const SFUI::Event& event) {
  * 
  * @param .
  */
-SFUI::Void SFUI::View::draw(SFUI::RenderTarget& renderTarget) {
+SFUI::Void SFUI::Container::draw(SFUI::RenderTarget& renderTarget) {
     renderTarget.draw(backgroundRects);
     renderTarget.draw(backgroundArcs);
     renderTarget.draw(borderRects);
