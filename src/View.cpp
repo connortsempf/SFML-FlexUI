@@ -49,8 +49,8 @@ SFUI::View::View(const SFUI::String& componentID, const SFUI::Prop::Layout& layo
  * 
  * @param .
  */
-SFUI::Void SFUI::View::update(const SFUI::Vector2u parentComponentSize) {
-    this->parentComponentSize = parentComponentSize;
+SFUI::Void SFUI::View::update(const SFUI::Vector2u renderTargetSize) {
+    this->renderTargetSize = renderTargetSize;
 
     computeAlignDirection();
     computeAlignPrimary();

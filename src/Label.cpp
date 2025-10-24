@@ -78,6 +78,46 @@ SFUI::Label::Label(const SFUI::String& componentID, const SFUI::Prop::Layout& la
 
 /**
  * @brief .
+ * 
+ * @return .
+ */
+SFUI::Float SFUI::Label::getTextSize() {
+    return computedLabelStyle.textSize;
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
+SFUI::String SFUI::Label::getTextAlignHorizontal() {
+    return computedLabelStyle.textAlignHorizontal;
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
+SFUI::String SFUI::Label::getTextAlignVertical() {
+    return computedLabelStyle.textAlignVertical;
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
+SFUI::Color SFUI::Label::getTextColor() {
+    return computedLabelStyle.textColor;
+}
+
+
+/**
+ * @brief .
  */
 SFUI::Void SFUI::Label::computeTextSize() {
     if (labelStyle.textSize > 0.0f)
@@ -164,8 +204,8 @@ SFUI::Void SFUI::Label::computeText() {
  * 
  * @param .
  */
-SFUI::Void SFUI::Label::update(const SFUI::Vector2u parentComponentSize) {
-    this->parentComponentSize = parentComponentSize;
+SFUI::Void SFUI::Label::update(const SFUI::Vector2u renderTargetSize) {
+    this->renderTargetSize = renderTargetSize;
 
     computeAlignDirection();
     computeAlignPrimary();

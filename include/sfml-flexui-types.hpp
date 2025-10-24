@@ -81,6 +81,8 @@ namespace SFUI {
 
 namespace SFUI {
 
+    using FloatRect = sf::FloatRect;
+
     using Color = sf::Color;
     
     using Text = sf::Text;
@@ -336,13 +338,10 @@ namespace SFUI {
             SFUI::SubProp::Callback onHoverIn;
             SFUI::SubProp::Callback onHoverOut;
             SFUI::SubProp::Callback onLeftPressIn;
-            SFUI::SubProp::Callback onLeftPressOut;
             SFUI::SubProp::Callback onLeftPress;
             SFUI::SubProp::Callback onRightPressIn;
-            SFUI::SubProp::Callback onRightPressOut;
             SFUI::SubProp::Callback onRightPress;
             SFUI::SubProp::Callback onMiddlePressIn;
-            SFUI::SubProp::Callback onMiddlePressOut;
             SFUI::SubProp::Callback onMiddlePress;
             SFUI::SubProp::Callback onDoublePress;
             SFUI::SubProp::CallbackKey onKeyPress;  
@@ -382,12 +381,6 @@ namespace SFUI {
         };
 
         struct ButtonStyle {
-            SFUI::Color hoveredFillColor;
-            SFUI::Color hoveredBorderColor;
-            SFUI::Color pressedFillColor;
-            SFUI::Color pressedBorderColor;
-            SFUI::Color disabledFillColor;
-            SFUI::Color disabledBorderColor;
             SFUI::Float focusWidth;
             SFUI::Float focusOffset;
             SFUI::Vector4f focusCornerRadius;

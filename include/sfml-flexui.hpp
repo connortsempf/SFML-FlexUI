@@ -52,26 +52,37 @@ namespace SFUI {
             SFUI::Void setParent(const SFUI::SharedPointer<Component>& newParent);
             SFUI::Void addChild(const SFUI::SharedPointer<SFUI::Component>& newChild);
             SFUI::Void addChildren(const SFUI::Vector<SFUI::SharedPointer<SFUI::Component>>& newChildren);
-            SFUI::Vector<SFUI::SharedPointer<SFUI::Component>> getChildren() const;
             SFUI::Void updateChildFromParent(SFUI::ComputedProp::ChildLayout childComputedLayout);
+            SFUI::Vector<SFUI::SharedPointer<SFUI::Component>> getChildren() const;
+            SFUI::String getAlignDirection();
+            SFUI::String getAlignPrimary();
+            SFUI::String getAlignSecondary();
+            SFUI::Vector2f getSize();
+            SFUI::Vector2i getPosition();
+            SFUI::Float getPadding();
+            SFUI::Float getMargin();
+            SFUI::Float getBorderWidth();
+            SFUI::Vector4f getCornerRadius();
+            SFUI::Color getFillColor();
+            SFUI::Color getBorderColor();
             virtual ~Component() = default;
-            virtual SFUI::Void update(const SFUI::Vector2u parentComponentSize) = 0;
+            virtual SFUI::Void update(const SFUI::Vector2u renderTargetSize) = 0;
             virtual SFUI::Void handleEvent(const SFUI::Event& event) = 0;
             virtual SFUI::Void draw(SFUI::RenderTarget& renderTarget) = 0;
 
         protected:
-            SFUI::ComputedProp::Style computedStyle;
-            SFUI::ComputedProp::Layout computedLayout;
-            SFUI::Vector<SFUI::ComputedProp::ChildLayout> childrenComputedLayout;
-            SFUI::Vector2u parentComponentSize;
+            SFUI::Vector2u renderTargetSize;
             SFUI::VertexArray backgroundRects;
             SFUI::VertexArray backgroundArcs;
             SFUI::VertexArray borderRects;
             SFUI::VertexArray borderArcs;
+            SFUI::ComputedProp::Layout computedLayout;
+            SFUI::ComputedProp::Style computedStyle;
+            SFUI::Vector<SFUI::ComputedProp::ChildLayout> childrenComputedLayout;
         
         protected:
             SFUI::Color resolveColorSubProp(const SFUI::SubProp::Color& color);
-            SFUI::Vector4f resolveCornerRadiusSubPro(
+            SFUI::Vector4f resolveCornerRadiusSubProp(
                 SFUI::Vector2f size,
                 SFUI::SubProp::Dimension cornerRadius,
                 SFUI::Optional<SFUI::SubProp::Dimension> cornerRadiusTopLeft,
@@ -125,9 +136,7 @@ namespace SFUI {
             View(const SFUI::String& componentID, const SFUI::Prop::Layout& layout);
             View(const SFUI::String& componentID, const SFUI::Prop::Style& style);
             View(const SFUI::String& componentID, const SFUI::Prop::Layout& layout, const SFUI::Prop::Style& style);
-        
-        private:
-            SFUI::Void update(const SFUI::Vector2u parentComponentSize);
+            SFUI::Void update(const SFUI::Vector2u renderTargetSize);
             SFUI::Void handleEvent(const SFUI::Event& event);
             SFUI::Void draw(SFUI::RenderTarget& renderTarget);
     };
@@ -154,14 +163,21 @@ namespace SFUI {
             Label(const SFUI::String& componentID, const SFUI::Prop::Style& style);
             Label(const SFUI::String& componentID, const SFUI::Prop::LabelStyle& labelStyle);
             Label(const SFUI::String& componentID, const SFUI::Prop::Layout& layout, const SFUI::Prop::Style& style, const SFUI::Prop::LabelStyle& labelStyle);
+            SFUI::Void update(const SFUI::Vector2u renderTargetSize);
+            SFUI::Void handleEvent(const SFUI::Event& event);
+            SFUI::Void draw(SFUI::RenderTarget& renderTarget);
+            SFUI::Float getTextSize();
+            SFUI::String getTextAlignHorizontal();
+            SFUI::String getTextAlignVertical();
+            SFUI::Color getTextColor();
 
         private:
             static SFUI::Float VERTICAL_CENTER_OFFSET_FACTOR;
             static SFUI::Float VERTICAL_BOTTOM_OFFSET_FACTOR;            
 
         private:
-            SFUI::ComputedProp::LabelStyle computedLabelStyle;
             SFUI::Text textObject;
+            SFUI::ComputedProp::LabelStyle computedLabelStyle;
 
         private:
             SFUI::Void computeTextSize();
@@ -169,9 +185,6 @@ namespace SFUI {
             SFUI::Void computeTextAlignVertical();
             SFUI::Void computeTextColor();
             SFUI::Void computeText();
-            SFUI::Void update(const SFUI::Vector2u parentComponentSize);
-            SFUI::Void handleEvent(const SFUI::Event& event);
-            SFUI::Void draw(SFUI::RenderTarget& renderTarget);
     };
 }
 
@@ -183,13 +196,13 @@ namespace SFUI {
 ////////////////////////////////////////
 
 namespace SFUI {
-
+    
     class Button : public Component {
-
+        
         public:
             SFUI::Prop::ButtonStyle buttonStyle;
             SFUI::Prop::ButtonBehavior buttonBehavior;
-
+        
         public:
             Button() = default;
             Button(const SFUI::String& componentID);
@@ -197,29 +210,49 @@ namespace SFUI {
             Button(const SFUI::String& componentID, const SFUI::Prop::Style& style);
             Button(const SFUI::String& componentID, const SFUI::Prop::ButtonStyle& buttonStyle);
             Button(const SFUI::String& componentID, const SFUI::Prop::Layout& layout, const SFUI::Prop::Style& style, const SFUI::Prop::ButtonStyle& buttonStyle);
-
+            SFUI::Void update(const SFUI::Vector2u renderTargetSize);
+            SFUI::Void handleEvent(const SFUI::Event& event);
+            SFUI::Void draw(SFUI::RenderTarget& renderTarget);
+            
         private:
             static SFUI::Float TEXT_VERTICAL_OFFSET_FACTOR;
-            static SFUI::UnsignedInt LONG_PRESS_THRESHOLD_MS;
+            static SFUI::Time LONG_PRESS_THRESHOLD_MS;
+            static SFUI::Time DOUBLE_PRESS_GAP_MS;
+            static SFUI::Time TOOL_TIP_THRESHOLD_MS;
 
         private:
+            SFUI::Bool isDisabled = false;
+            SFUI::Bool isHovered = false;
+            SFUI::Bool isFocused = false;
+            SFUI::Bool isLeftPressed = false;
+            SFUI::Bool isRightPressed = false;
+            SFUI::Bool isMiddlePressed = false;
+            SFUI::Bool isShowingToolTip = false;
+            SFUI::Vector2f previousHoverPosition;
+            SFUI::Vector2i previousPressPosition;
+            SFUI::Clock doublePressClock;
+            SFUI::Time previousPressTime;
+            SFUI::Clock toolTipClock;
+            SFUI::Time toolTipTime;
+            SFUI::View focus;
+            SFUI::Label toolTip;
             SFUI::ComputedProp::ButtonStyle computedButtonStyle;
-            SFUI::Text toolTipTextObject;
         
         private:
-            SFUI::Void computeAlternateColors();
+            SFUI::Void computeDynamicFillColor();
+            SFUI::Void computeDynamicBorderColor();
             SFUI::Void computeFocusWidth();
             SFUI::Void computeFocusOffset();
             SFUI::Void computeFocusCornerRadius();
             SFUI::Void computeFocusFillColor();
+            SFUI::Void computeFocus();
             SFUI::Void computeToolTipPadding();
             SFUI::Void computeToolTipCornerRadius();
             SFUI::Void computeToolTipTextSize();
             SFUI::Void computeToolTipFillColor();
             SFUI::Void computeToolTipTextColor();
-            SFUI::Void computeToolTipText();
-            SFUI::Void update(const SFUI::Vector2u parentComponentSize);
-            SFUI::Void handleEvent(const SFUI::Event& event);
-            SFUI::Void draw(SFUI::RenderTarget& renderTarget);
+            SFUI::Void computeToolTip();
+            SFUI::Void computeToolTipLifetime();
+            SFUI::Bool isMouseHovered(const SFUI::Vector2i& mousePosition);
     };
 }

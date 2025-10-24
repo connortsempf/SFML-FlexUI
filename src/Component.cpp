@@ -100,6 +100,18 @@ SFUI::Void SFUI::Component::addChildren(const SFUI::Vector<SFUI::SharedPointer<S
 /**
  * @brief .
  * 
+ * @param .
+ */
+SFUI::Void SFUI::Component::updateChildFromParent(SFUI::ComputedProp::ChildLayout childComputedLayout) {
+    computedLayout.size = childComputedLayout.size;
+    computedLayout.position = childComputedLayout.position;
+    computedLayout.margin = childComputedLayout.margin;
+}
+
+
+/**
+ * @brief .
+ * 
  * @return .
  */
 SFUI::Vector<SFUI::SharedPointer<SFUI::Component>> SFUI::Component::getChildren() const {
@@ -110,12 +122,110 @@ SFUI::Vector<SFUI::SharedPointer<SFUI::Component>> SFUI::Component::getChildren(
 /**
  * @brief .
  * 
- * @param .
+ * @return .
  */
-SFUI::Void SFUI::Component::updateChildFromParent(SFUI::ComputedProp::ChildLayout childComputedLayout) {
-    computedLayout.size = childComputedLayout.size;
-    computedLayout.position = childComputedLayout.position;
-    computedLayout.margin = childComputedLayout.margin;
+SFUI::String SFUI::Component::getAlignDirection() {
+    return computedLayout.alignDirection;
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
+SFUI::String SFUI::Component::getAlignPrimary() {
+    return computedLayout.alignPrimary;
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
+SFUI::String SFUI::Component::getAlignSecondary() {
+    return computedLayout.alignSecondary;
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
+SFUI::Vector2f SFUI::Component::getSize() {
+    return computedLayout.size;
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
+SFUI::Vector2i SFUI::Component::getPosition() {
+    return computedLayout.position;
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
+SFUI::Float SFUI::Component::getPadding() {
+    return computedLayout.padding;
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
+SFUI::Float SFUI::Component::getMargin() {
+    return computedLayout.margin;
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
+SFUI::Float SFUI::Component::getBorderWidth() {
+    return computedStyle.borderWidth;
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
+SFUI::Vector4f SFUI::Component::getCornerRadius() {
+    return computedStyle.cornerRadius;
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
+SFUI::Color SFUI::Component::getFillColor() {
+    return computedStyle.fillColor;
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
+SFUI::Color SFUI::Component::getBorderColor() {
+    return computedStyle.borderColor;
 }
 
 
@@ -133,19 +243,11 @@ SFUI::Color SFUI::Component::resolveColorSubProp(const SFUI::SubProp::Color& col
     if (std::holds_alternative<SFUI::Vector3ui8>(color)) {
         SFUI::Vector3ui8 fillColor = std::get<SFUI::Vector3ui8>(color);
         resolvedFillColor = SFUI::Color(fillColor.x, fillColor.y, fillColor.z, 255);
-        // resolvedFillColor.x = fillColor.x;
-        // resolvedFillColor.y = fillColor.y;
-        // resolvedFillColor.z = fillColor.z;
-        // resolvedFillColor.w = 255;
     }
     // If Input Fill Color is a 4-Channel Unsigned Byte //
     else if (std::holds_alternative<SFUI::Vector4ui8>(color)) {
         SFUI::Vector4ui8 fillColor = std::get<SFUI::Vector4ui8>(color);
         resolvedFillColor = SFUI::Color(fillColor.x, fillColor.y, fillColor.z, fillColor.w);
-        // resolvedFillColor.x = fillColor.x;
-        // resolvedFillColor.y = fillColor.y;
-        // resolvedFillColor.z = fillColor.z;
-        // resolvedFillColor.w = fillColor.w;
     }
     // If Input Fill Color is a Hex String //
     else if (std::holds_alternative<SFUI::String>(color)) {
@@ -154,11 +256,6 @@ SFUI::Color SFUI::Component::resolveColorSubProp(const SFUI::SubProp::Color& col
     // If Input Fill Color is Already Given as a SFML::Color Type //
     else if (std::holds_alternative<SFUI::Color>(color)) {
         resolvedFillColor = std::get<SFUI::Color>(color);
-
-        // resolvedFillColor.x = fillColor.r;
-        // resolvedFillColor.y = fillColor.g;
-        // resolvedFillColor.z = fillColor.b;
-        // resolvedFillColor.w = fillColor.a;
     }
 
     return resolvedFillColor;
@@ -176,7 +273,7 @@ SFUI::Color SFUI::Component::resolveColorSubProp(const SFUI::SubProp::Color& col
  * 
  * @return .
  */
-SFUI::Vector4f SFUI::Component::resolveCornerRadiusSubPro(
+SFUI::Vector4f SFUI::Component::resolveCornerRadiusSubProp(
     SFUI::Vector2f size,
     SFUI::SubProp::Dimension cornerRadius,
     SFUI::Optional<SFUI::SubProp::Dimension> cornerRadiusTopLeft,
@@ -354,7 +451,7 @@ SFUI::Void SFUI::Component::computeMargin() {
                     size_t index = 0;
                     SFUI::Double tempMargin = std::stod(marginString, &index);
                     if (index == marginString.size()) {
-                        SFUI::Float relativeMarginFactor = std::min(parentComponentSize.x, parentComponentSize.y);
+                        SFUI::Float relativeMarginFactor = std::min(renderTargetSize.x, renderTargetSize.y);
                         computedMargin = relativeMarginFactor * std::clamp(static_cast<SFUI::Float>(tempMargin) / 100.0f, 0.0f, 1.0f);
                     }   else {
                         computedMargin = 0.0f;
@@ -384,7 +481,7 @@ SFUI::Void SFUI::Component::computeSize() {
         SFUI::Vector2f computedSize = {0.0f, 0.0f};
     
         // Only Need to Consider Explicit Width/Height Values Since Children Determine Flex Changes //
-        sf::Vector2i availableSize(parentComponentSize.x, parentComponentSize.y);
+        sf::Vector2i availableSize(renderTargetSize.x, renderTargetSize.y);
 
         // Obtain Width //
         // If Explicit Float Width Given By User //
@@ -500,7 +597,7 @@ SFUI::Void SFUI::Component::computePosition() {
         }
         // Place Root Component X-Position In Center of the Render Target X-Dimension //
         else {
-            computedPosition.x = (parentComponentSize.x / 2.0f) - (computedLayout.size.x / 2.0f);
+            computedPosition.x = (renderTargetSize.x / 2.0f) - (computedLayout.size.x / 2.0f);
         }
 
         // If Explicit Y-Position Input Given by User //
@@ -510,7 +607,7 @@ SFUI::Void SFUI::Component::computePosition() {
         }
         // Place Root Component Y-Position In Center of the Render Target Y-Dimension //
         else {
-            computedPosition.y = (parentComponentSize.y / 2.0f) - (computedLayout.size.y / 2.0f);
+            computedPosition.y = (renderTargetSize.y / 2.0f) - (computedLayout.size.y / 2.0f);
         }            
 
         // Update the Computed Position //
@@ -560,7 +657,7 @@ SFUI::Void SFUI::Component::computeBorderWidth() {
  * @brief .
  */
 SFUI::Void SFUI::Component::computeCornerRadius() {
-    computedStyle.cornerRadius = resolveCornerRadiusSubPro(
+    computedStyle.cornerRadius = resolveCornerRadiusSubProp(
         computedLayout.size,
         style.cornerRadius,
         style.cornerRadiusTopLeft,
