@@ -59,9 +59,7 @@ SFUI::Void SFUI::Container::update(const SFUI::Vector2u renderTargetSize) {
  * 
  * @param .
  */
-SFUI::Void SFUI::Container::handleEvent(const SFUI::Event& event) {
-
-}
+SFUI::Void SFUI::Container::handleEvent(const SFUI::Event& event) {}
 
 
 /**

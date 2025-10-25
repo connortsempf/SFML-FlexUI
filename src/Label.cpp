@@ -198,9 +198,7 @@ SFUI::Void SFUI::Label::update(const SFUI::Vector2u renderTargetSize) {
  * 
  * @param .
  */
-SFUI::Void SFUI::Label::handleEvent(const SFUI::Event& event) {
-
-}
+SFUI::Void SFUI::Label::handleEvent(const SFUI::Event& event) {}
 
 
 /**

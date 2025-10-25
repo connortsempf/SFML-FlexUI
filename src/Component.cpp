@@ -212,6 +212,21 @@ SFUI::Color SFUI::Component::getBorderColor() {
  * 
  * @return .
  */
+SFUI::Bool SFUI::Component::isMouseHovered(const SFUI::Vector2i& mousePosition) {
+    SFUI::Vector2f mousePos(mousePosition.x, mousePosition.y);
+    SFUI::FloatRect cornerBounds = borderRects.getBounds();
+    SFUI::FloatRect edgeBounds = backgroundRects.getBounds();
+    return (cornerBounds.contains(mousePos) || edgeBounds.contains(mousePos));
+}
+
+
+/**
+ * @brief .
+ * 
+ * @param .
+ * 
+ * @return .
+ */
 SFUI::Color SFUI::Component::resolveColorSubProp(const SFUI::SubProp::Color& color) {
     SFUI::Color resolvedFillColor;
 

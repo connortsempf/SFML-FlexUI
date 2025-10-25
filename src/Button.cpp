@@ -474,18 +474,3 @@ SFUI::Void SFUI::Button::draw(SFUI::RenderTarget& renderTarget) {
     if (isFocused) focus.draw(renderTarget);
     if (isShowingToolTip) toolTip.draw(renderTarget);
 }
-
-
-/**
- * @brief .
- * 
- * @param .
- * 
- * @return .
- */
-SFUI::Bool SFUI::Button::isMouseHovered(const SFUI::Vector2i& mousePosition) {
-    SFUI::Vector2f mousePos(mousePosition.x, mousePosition.y);
-    SFUI::FloatRect cornerBounds = borderRects.getBounds();
-    SFUI::FloatRect edgeBounds = backgroundRects.getBounds();
-    return (cornerBounds.contains(mousePos) || edgeBounds.contains(mousePos));
-}

@@ -240,6 +240,8 @@ namespace SFUI {
 namespace SFUI {
 
     namespace SubProp {
+
+        using Binary = SFUI::Bool;
         
         using Numeric = SFUI::Float;
 
@@ -350,6 +352,38 @@ namespace SFUI {
             SFUI::SubProp::Callback onLoad;
             SFUI::SubProp::Callback onLoadError;
         };
+
+        struct ScrollContainerStyle {
+            SFUI::SubProp::Keyword scrollDirection = "vertical";
+            SFUI::SubProp::Numeric scrollSpeedFactor = 15.0f;
+
+            SFUI::SubProp::Binary usingScrollBar = false;
+            SFUI::SubProp::Keyword scrollBarAlign = "right";
+            SFUI::SubProp::Dimension trackOnAxisSize;
+            SFUI::SubProp::Dimension trackOffAxisSize;
+            SFUI::SubProp::Dimension trackCornerRadius = 0.0f;
+            SFUI::Optional<SFUI::SubProp::Dimension> trackCornerRadiusTopLeft;
+            SFUI::Optional<SFUI::SubProp::Dimension> trackCornerRadiusTopRight;
+            SFUI::Optional<SFUI::SubProp::Dimension> trackCornerRadiusBottomLeft;
+            SFUI::Optional<SFUI::SubProp::Dimension> trackCornerRadiusBottomRight;
+            SFUI::SubProp::Color trackFillColor;
+            SFUI::Optional<SFUI::SubProp::Color> trackHoveredFillColor;
+            SFUI::Optional<SFUI::SubProp::Color> trackPressedFillColor;
+            SFUI::SubProp::Dimension thumbCornerRadius = 0.0f;
+            SFUI::Optional<SFUI::SubProp::Dimension> thumbCornerRadiusTopLeft;
+            SFUI::Optional<SFUI::SubProp::Dimension> thumbCornerRadiusTopRight;
+            SFUI::Optional<SFUI::SubProp::Dimension> thumbCornerRadiusBottomLeft;
+            SFUI::Optional<SFUI::SubProp::Dimension> thumbCornerRadiusBottomRight;
+            SFUI::SubProp::Color thumbFillColor;
+            SFUI::Optional<SFUI::SubProp::Color> thumbHoveredFillColor;
+            SFUI::Optional<SFUI::SubProp::Color> thumbPressedFillColor;
+        };
+
+        struct ScrollContainerBehavior {
+            SFUI::SubProp::Callback onScroll;
+            SFUI::SubProp::Callback onScrollDragStart;
+            SFUI::SubProp::Callback onScrollDragEnd;
+        };
     }
 
     namespace PropGroup {
@@ -377,6 +411,13 @@ namespace SFUI {
             SFUI::Prop::Style style;
             SFUI::Prop::GraphicStyle graphicStyle;
             SFUI::Prop::GraphicBehavior graphicBehavior;
+        };
+
+        struct ScrollContainer {
+            SFUI::Prop::Layout layout;
+            SFUI::Prop::Style style;
+            SFUI::Prop::ScrollContainerStyle scrollContainerStyle;
+            SFUI::Prop::ScrollContainerBehavior scrollContainerBehavior;
         };
     }
 
@@ -428,6 +469,23 @@ namespace SFUI {
             SFUI::String graphicPath;
             SFUI::String graphicAlign;
             SFUI::Vector2f originalTextureSize;
+        };
+
+        struct ScrollContainerStyle {
+            SFUI::String scrollDirection;
+            SFUI::Float scrollSpeedFactor;
+            SFUI::Bool usingScrollBar;
+            SFUI::String scrollBarAlign;
+            SFUI::Float trackOnAxisSize;
+            SFUI::Float trackOffAxisSize;
+            SFUI::Float trackCornerRadius;
+            SFUI::Color trackFillColor;
+            SFUI::Color trackHoveredFillColor;
+            SFUI::Color trackPressedFillColor;
+            SFUI::Float thumbCornerRadius;
+            SFUI::Color thumbFillColor;
+            SFUI::Color thumbHoveredFillColor;
+            SFUI::Color thumbPressedFillColor;
         };
     }
 }

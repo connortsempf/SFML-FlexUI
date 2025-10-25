@@ -82,6 +82,7 @@ namespace SFUI {
             SFUI::Vector<SFUI::ComputedProp::ChildLayout> childrenComputedLayout;
         
         protected:
+            SFUI::Bool isMouseHovered(const SFUI::Vector2i& mousePosition);
             SFUI::Color resolveColorSubProp(const SFUI::SubProp::Color& color);
             SFUI::Vector4f resolveCornerRadiusSubProp(
                 SFUI::Vector2f size,
@@ -246,7 +247,6 @@ namespace SFUI {
             SFUI::Void computeToolTipTextColor();
             SFUI::Void computeToolTip();
             SFUI::Void computeToolTipLifetime();
-            SFUI::Bool isMouseHovered(const SFUI::Vector2i& mousePosition);
     };
 }
 
@@ -288,5 +288,49 @@ namespace SFUI {
             SFUI::Void computeGraphicSource();
             SFUI::Void computeGraphicAlign();
             SFUI::Void computeGraphic();
+    };
+}
+
+
+
+
+//////////////////////////////////////////////////
+// SFML-FlexUI Scroll Container Component Class //
+//////////////////////////////////////////////////
+
+namespace SFUI {
+    
+    class ScrollContainer : public Component {
+        
+        public:
+            SFUI::Prop::ScrollContainerStyle scrollContainerStyle;
+            SFUI::Prop::ScrollContainerBehavior scrollContainerBehavior;
+
+        public:
+            ScrollContainer() = default;
+            ScrollContainer(const SFUI::String& componentID);
+            ScrollContainer(const SFUI::String& componentID, const SFUI::PropGroup::ScrollContainer& scrollContainerPropGroup);
+            SFUI::Void update(const SFUI::Vector2u renderTargetSize);
+            SFUI::Void handleEvent(const SFUI::Event& event);
+            SFUI::Void draw(SFUI::RenderTarget& renderTarget);
+
+        private:
+            SFUI::Bool isHovered = false;
+            SFUI::Bool isTrackHovered = false;
+            SFUI::Bool isThumbHovered = false;
+            SFUI::Bool isTrackPressed = false;
+            SFUI::Bool isThumbPressed = false;
+            SFUI::Vector2f scrollOffset = {0.0f, 0.0f};
+            SFUI::Vector2f maxScrollOffset = {0.0f, 0.0f};
+            SFUI::Vector2f contentSize;
+            SFUI::Float dragStartPosition;
+            SFUI::ComputedProp::ScrollContainerStyle computedScrollContainerStyle;
+
+        private:
+            SFUI::Void computeAlignPrimary();
+            SFUI::Void computeScrollDirection();
+            SFUI::Void computeScrollSpeedFactor();
+            SFUI::Void computeChildrenScrollPosition();
+            SFUI::Void computeMaxScrollOffset();
     };
 }
