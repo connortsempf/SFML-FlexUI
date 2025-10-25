@@ -213,5 +213,42 @@ SFUI::Void SFUI::Label::draw(SFUI::RenderTarget& renderTarget) {
     renderTarget.draw(backgroundArcs);
     renderTarget.draw(borderRects);
     renderTarget.draw(borderArcs);
+
+    // Save Clipping State for Containing Text within Label's Bounds and Padding //
+    GLint parentClipping[4];
+    GLboolean scissorWasEnabled = glIsEnabled(GL_SCISSOR_TEST);
+    if (scissorWasEnabled) glGetIntegerv(GL_SCISSOR_BOX, parentClipping);
+    SFUI::Vector2i labelPosition = computedLayout.position;
+    SFUI::Vector2f labelSize = computedLayout.size;
+    SFUI::Float labelPadding = computedLayout.padding;
+    GLint newClipping[4] = {
+        static_cast<GLint>(labelPosition.x + labelPadding),
+        static_cast<GLint>(renderTarget.getSize().y - (labelPosition.y + labelPadding) - (labelSize.y - labelPadding * 2.0f)),
+        static_cast<GLint>(labelSize.x - (labelPadding * 2.0f)),
+        static_cast<GLint>(labelSize.y - (labelPadding * 2.0f))
+    };
+    if (scissorWasEnabled) {
+        GLint newRight = newClipping[0] + newClipping[2];
+        GLint newBottom = newClipping[1] + newClipping[3];
+        GLint parentRight = parentClipping[0] + parentClipping[2];
+        GLint parentBottom = parentClipping[1] + parentClipping[3];
+        newClipping[0] = std::max(newClipping[0], parentClipping[0]);
+        newClipping[1] = std::max(newClipping[1], parentClipping[1]);
+        newClipping[2] = std::min(newRight, parentRight) - newClipping[0];
+        newClipping[3] = std::min(newBottom, parentBottom) - newClipping[1];
+        newClipping[2] = std::max(0, newClipping[2]);
+        newClipping[3] = std::max(0, newClipping[3]);
+    };
+    glEnable(GL_SCISSOR_TEST);
+    glScissor(newClipping[0], newClipping[1], newClipping[2], newClipping[3]);        
+    
+    // Draw Clipped Text //
     renderTarget.draw(textObject);
+
+    // Restore Previous Clipping //
+    if (scissorWasEnabled) {
+        glScissor(parentClipping[0], parentClipping[1], parentClipping[2], parentClipping[3]);
+    }   else {
+        glDisable(GL_SCISSOR_TEST);
+    }
 }

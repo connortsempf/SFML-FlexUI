@@ -1,15 +1,17 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <SFML/OpenGL.hpp>
 #include <iostream>
-#include <string>
-#include <cctype>
-#include <variant>
+#include <cmath>
 #include <memory>
 #include <functional>
-#include <vector>
 #include <algorithm>
-#include <cmath>
+#include <variant>
+#include <string>
+#include <cctype>
+#include <vector>
 #include <queue>
+#include <stack>
 
 
 

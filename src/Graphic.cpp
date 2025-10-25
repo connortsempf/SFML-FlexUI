@@ -165,28 +165,41 @@ SFUI::Void SFUI::Graphic::draw(SFUI::RenderTarget& renderTarget) {
     renderTarget.draw(borderRects);
     renderTarget.draw(borderArcs);
     
-    // Image Clipping for Fill and Center ALignments //
-    if (computedGraphicStyle.graphicAlign == "fill" || computedGraphicStyle.graphicAlign == "center") {
-        
-        // View Method //
-        sf::View previousView = renderTarget.getView();
-        sf::View clipView(sf::FloatRect({0.f, 0.f}, {computedLayout.size.x, computedLayout.size.y}));
-        float rtWidth = static_cast<float>(renderTarget.getSize().x);
-        float rtHeight = static_cast<float>(renderTarget.getSize().y);
-        clipView.setViewport(sf::FloatRect(
-            {computedLayout.position.x / rtWidth, computedLayout.position.y / rtHeight},
-            {computedLayout.size.x / rtWidth, computedLayout.size.y / rtHeight}
-        ));
-        renderTarget.setView(clipView);
-        sf::Vector2f oldPosition = graphic.getPosition();
-        graphic.setPosition({
-            (computedLayout.size.x / 2.0f) - (graphic.getGlobalBounds().size.x / 2.0f),
-            (computedLayout.size.y / 2.0f) - (graphic.getGlobalBounds().size.y / 2.0f)
-        });
-        renderTarget.draw(graphic);
-        graphic.setPosition(oldPosition);
-        renderTarget.setView(previousView);
+    // Save Clipping State for Containing The Sprite within Graphic's Bounds and Padding //
+    GLint parentClipping[4];
+    GLboolean scissorWasEnabled = glIsEnabled(GL_SCISSOR_TEST);
+    if (scissorWasEnabled) glGetIntegerv(GL_SCISSOR_BOX, parentClipping);
+    SFUI::Vector2i graphicPosition = computedLayout.position;
+    SFUI::Vector2f graphicSize = computedLayout.size;
+    SFUI::Float graphicPadding = computedLayout.padding;
+    GLint newClipping[4] = {
+        static_cast<GLint>(graphicPosition.x + graphicPadding),
+        static_cast<GLint>(renderTarget.getSize().y - (graphicPosition.y + graphicPadding) - (graphicSize.y - graphicPadding * 2.0f)),
+        static_cast<GLint>(graphicSize.x - (graphicPadding * 2.0f)),
+        static_cast<GLint>(graphicSize.y - (graphicPadding * 2.0f))
+    };
+    if (scissorWasEnabled) {
+        GLint newRight = newClipping[0] + newClipping[2];
+        GLint newBottom = newClipping[1] + newClipping[3];
+        GLint parentRight = parentClipping[0] + parentClipping[2];
+        GLint parentBottom = parentClipping[1] + parentClipping[3];
+        newClipping[0] = std::max(newClipping[0], parentClipping[0]);
+        newClipping[1] = std::max(newClipping[1], parentClipping[1]);
+        newClipping[2] = std::min(newRight, parentRight) - newClipping[0];
+        newClipping[3] = std::min(newBottom, parentBottom) - newClipping[1];
+        newClipping[2] = std::max(0, newClipping[2]);
+        newClipping[3] = std::max(0, newClipping[3]);
+    };
+    glEnable(GL_SCISSOR_TEST);
+    glScissor(newClipping[0], newClipping[1], newClipping[2], newClipping[3]);        
+    
+    // Draw Clipped Sprite //
+    renderTarget.draw(graphic);
+
+    // Restore Previous Clipping //
+    if (scissorWasEnabled) {
+        glScissor(parentClipping[0], parentClipping[1], parentClipping[2], parentClipping[3]);
     }   else {
-        renderTarget.draw(graphic);
+        glDisable(GL_SCISSOR_TEST);
     }
 }

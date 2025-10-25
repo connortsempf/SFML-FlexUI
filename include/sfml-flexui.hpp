@@ -22,6 +22,9 @@ namespace SFUI {
 
         private:
             SFUI::SharedPointer<SFUI::Component> rootComponent;
+        
+        private:
+            SFUI::Void drawRecursive(SFUI::SharedPointer<SFUI::Component> component, SFUI::RenderTarget& renderTarget);
     };
 }
 

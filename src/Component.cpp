@@ -900,7 +900,7 @@ SFUI::Void SFUI::Component::computeChildrenSize() {
                         size_t index = 0;
                         SFUI::Double tempHeight = std::stod(heightString, &index);
                         if (index == heightString.size()) {
-                            computedSize.y = availableSize.y * std::clamp(static_cast<SFUI::Float>(tempHeight) / 100.0f, 0.0f, 1.0f);
+                            computedSize.y = availableSize.y * (static_cast<SFUI::Float>(tempHeight) / 100.0f);
                         }   else {
                             computedSize.y = 0.0f;
                         }
