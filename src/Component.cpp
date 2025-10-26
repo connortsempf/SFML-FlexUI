@@ -25,7 +25,7 @@ SFUI::Component::Component(const SFUI::String& componentID) :
  * @param .
  * @param .
  */
-SFUI::Component::Component(const SFUI::String& componentID, const SFUI::Prop::Layout& layout, const SFUI::Prop::Style& style) :
+SFUI::Component::Component(const SFUI::String& componentID, const SFUI::Prop::Layout::Component& layout, const SFUI::Prop::Style::Component& style) :
     componentID(componentID),
     layout(layout),
     style(style)

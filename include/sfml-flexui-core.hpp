@@ -43,13 +43,13 @@ namespace SFUI {
 
         public:
             SFUI::String componentID;
-            SFUI::Prop::Layout layout;
-            SFUI::Prop::Style style;
+            SFUI::Prop::Layout::Component layout;
+            SFUI::Prop::Style::Component style;
 
         public:
             Component() = default;
             Component(const SFUI::String& componentID);
-            Component(const SFUI::String& componentID, const SFUI::Prop::Layout& layout, const SFUI::Prop::Style& style);
+            Component(const SFUI::String& componentID, const SFUI::Prop::Layout::Component& layout, const SFUI::Prop::Style::Component& style);
             virtual ~Component() = default;
             virtual SFUI::Void handleEvent(const SFUI::Event& event) = 0;
             virtual SFUI::Void update(const SFUI::Vector2u renderTargetSize) = 0;
@@ -154,7 +154,7 @@ namespace SFUI {
     class Label : public Component {
 
         public:
-            SFUI::Prop::LabelStyle labelStyle;
+            SFUI::Prop::Style::Label labelStyle;
 
         public:
             Label() = default;
@@ -200,8 +200,8 @@ namespace SFUI {
     class Button : public Component {
         
         public:
-            SFUI::Prop::ButtonStyle buttonStyle;
-            SFUI::Prop::ButtonBehavior buttonBehavior;
+            SFUI::Prop::Style::Button buttonStyle;
+            SFUI::Prop::Behavior::Button buttonBehavior;
 
         public:
             Button() = default;
@@ -279,8 +279,8 @@ namespace SFUI {
     class Graphic : public Component {
         
         public:
-            SFUI::Prop::GraphicStyle graphicStyle;
-            SFUI::Prop::GraphicBehavior graphicBehavior;
+            SFUI::Prop::Style::Graphic graphicStyle;
+            SFUI::Prop::Behavior::Graphic graphicBehavior;
 
         public:
             Graphic() = default;
@@ -322,8 +322,8 @@ namespace SFUI {
     class ScrollContainer : public Component {
         
         public:
-            SFUI::Prop::ScrollContainerStyle scrollContainerStyle;
-            SFUI::Prop::ScrollContainerBehavior scrollContainerBehavior;
+            SFUI::Prop::Style::ScrollContainer scrollContainerStyle;
+            SFUI::Prop::Behavior::ScrollContainer scrollContainerBehavior;
 
         public:
             ScrollContainer() = default;
