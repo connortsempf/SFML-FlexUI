@@ -135,6 +135,26 @@ SFUI::Void SFUI::Label::draw(SFUI::RenderTarget& renderTarget) {
  * 
  * @return .
  */
+SFUI::String SFUI::Label::getText() {
+    return labelStyle.text;
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
+SFUI::SharedPointer<SFUI::Font> SFUI::Label::getFont() {
+    return labelStyle.font;
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
 SFUI::Float SFUI::Label::getTextSize() {
     return computedLabelStyle.textSize;
 }

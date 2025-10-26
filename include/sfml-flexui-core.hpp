@@ -163,6 +163,8 @@ namespace SFUI {
             SFUI::Void handleEvent(const SFUI::Event& event);
             SFUI::Void update(const SFUI::Vector2u renderTargetSize);
             SFUI::Void draw(SFUI::RenderTarget& renderTarget);
+            SFUI::String getText();
+            SFUI::SharedPointer<SFUI::Font> getFont();
             SFUI::Float getTextSize();
             SFUI::String getTextAlignHorizontal();
             SFUI::String getTextAlignVertical();
@@ -208,6 +210,23 @@ namespace SFUI {
             SFUI::Void handleEvent(const SFUI::Event& event);
             SFUI::Void update(const SFUI::Vector2u renderTargetSize);
             SFUI::Void draw(SFUI::RenderTarget& renderTarget);
+            SFUI::Color getHoveredFillColor();
+            SFUI::Color getHoveredBorderColor();
+            SFUI::Color getPressedFillColor();
+            SFUI::Color getPressedBorderColor();
+            SFUI::Color getDisabledFillColor();
+            SFUI::Color getDisabledBorderColor();
+            SFUI::Float getFocusWidth();
+            SFUI::Float getFocusOffset();
+            SFUI::Vector4f getFocusCornerRadius();
+            SFUI::Color getFocusFillColor();
+            SFUI::Float getToolTipPadding();
+            SFUI::Vector4f getToolTipCornerRadius();
+            SFUI::String getToolTipText();
+            SFUI::SharedPointer<SFUI::Font> getToolTipFont();
+            SFUI::Float getToolTipTextSize();
+            SFUI::Color getToolTipFillColor();
+            SFUI::Color getToolTipTextColor();
             
         private:
             static const SFUI::Time DOUBLE_PRESS_GAP_MS;
@@ -230,10 +249,9 @@ namespace SFUI {
             SFUI::Container focus;
             SFUI::Label toolTip;
             SFUI::ComputedProp::ButtonStyle computedButtonStyle;
-        
+
         private:
-            SFUI::Void computeDynamicFillColor();
-            SFUI::Void computeDynamicBorderColor();
+            SFUI::Void computeDynamicColors();
             SFUI::Void computeFocusWidth();
             SFUI::Void computeFocusOffset();
             SFUI::Void computeFocusCornerRadius();
@@ -271,6 +289,8 @@ namespace SFUI {
             SFUI::Void handleEvent(const SFUI::Event& event);
             SFUI::Void update(const SFUI::Vector2u renderTargetSize);
             SFUI::Void draw(SFUI::RenderTarget& renderTarget);
+            SFUI::String getGraphicAlign();
+            SFUI::Vector2f getOriginalTextureSize();
 
         private:
             enum class LoadType { PRE_LOAD, SELF_LOAD };
@@ -312,6 +332,20 @@ namespace SFUI {
             SFUI::Void handleEvent(const SFUI::Event& event);
             SFUI::Void update(const SFUI::Vector2u renderTargetSize);
             SFUI::Void draw(SFUI::RenderTarget& renderTarget);
+            SFUI::String getScrollDirection();
+            SFUI::Float getScrollSpeedFactor();
+            SFUI::Bool getUsingScrollBar();
+            SFUI::String getScrollBarAlign();
+            SFUI::Float getTrackOnAxisSize();
+            SFUI::Float getTrackOffAxisSize();
+            SFUI::Vector4f getTrackCornerRadius();
+            SFUI::Color getTrackFillColor();
+            SFUI::Color getTrackHoveredFillColor();
+            SFUI::Color getTrackPressedFillColor();
+            SFUI::Vector4f getThumbCornerRadius();
+            SFUI::Color getThumbFillColor();
+            SFUI::Color getThumbHoveredFillColor();
+            SFUI::Color getThumbPressedFillColor();
 
         private:
             SFUI::Bool isHovered = false;

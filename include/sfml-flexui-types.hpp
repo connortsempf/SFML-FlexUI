@@ -307,7 +307,7 @@ namespace SFUI {
         };
 
         struct ButtonStyle {
-            SFUI::SubProp::Color hoveredFillColor = SFUI::Color(0, 0, 0, 0);
+            SFUI::Optional<SFUI::SubProp::Color> hoveredFillColor;
             SFUI::Optional<SFUI::SubProp::Color> hoveredBorderColor;
             SFUI::Optional<SFUI::SubProp::Color> pressedFillColor;
             SFUI::Optional<SFUI::SubProp::Color> pressedBorderColor;
@@ -365,7 +365,6 @@ namespace SFUI {
         struct ScrollContainerStyle {
             SFUI::SubProp::Keyword scrollDirection = "vertical";
             SFUI::SubProp::Numeric scrollSpeedFactor = 15.0f;
-
             SFUI::SubProp::Binary usingScrollBar = false;
             SFUI::SubProp::Keyword scrollBarAlign = "right";
             SFUI::SubProp::Dimension trackOnAxisSize;
@@ -483,6 +482,12 @@ namespace SFUI {
         };
 
         struct ButtonStyle {
+            SFUI::Color hoveredFillColor;
+            SFUI::Color hoveredBorderColor;
+            SFUI::Color pressedFillColor;
+            SFUI::Color pressedBorderColor;
+            SFUI::Color disabledFillColor;
+            SFUI::Color disabledBorderColor;
             SFUI::Float focusWidth;
             SFUI::Float focusOffset;
             SFUI::Vector4f focusCornerRadius;

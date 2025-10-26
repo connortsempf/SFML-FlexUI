@@ -187,6 +187,146 @@ SFUI::Void SFUI::ScrollContainer::draw(SFUI::RenderTarget& renderTarget) {
 
 /**
  * @brief .
+ * 
+ * @return .
+ */
+SFUI::String SFUI::ScrollContainer::getScrollDirection() {
+    return computedScrollContainerStyle.scrollDirection;
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
+SFUI::Float SFUI::ScrollContainer::getScrollSpeedFactor() {
+    return computedScrollContainerStyle.scrollSpeedFactor;
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
+SFUI::Bool SFUI::ScrollContainer::getUsingScrollBar() {
+    return computedScrollContainerStyle.usingScrollBar;
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
+SFUI::String SFUI::ScrollContainer::getScrollBarAlign() {
+    return computedScrollContainerStyle.scrollBarAlign;
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
+SFUI::Float SFUI::ScrollContainer::getTrackOnAxisSize() {
+    return computedScrollContainerStyle.trackOnAxisSize;
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
+SFUI::Float SFUI::ScrollContainer::getTrackOffAxisSize() {
+    return computedScrollContainerStyle.trackOffAxisSize;
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
+SFUI::Vector4f SFUI::ScrollContainer::getTrackCornerRadius() {
+    return computedScrollContainerStyle.trackCornerRadius;
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
+SFUI::Color SFUI::ScrollContainer::getTrackFillColor() {
+    return computedScrollContainerStyle.trackFillColor;
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
+SFUI::Color SFUI::ScrollContainer::getTrackHoveredFillColor() {
+    return computedScrollContainerStyle.trackHoveredFillColor;
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
+SFUI::Color SFUI::ScrollContainer::getTrackPressedFillColor() {
+    return computedScrollContainerStyle.trackPressedFillColor;
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
+SFUI::Vector4f SFUI::ScrollContainer::getThumbCornerRadius() {
+    return computedScrollContainerStyle.thumbCornerRadius;
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
+SFUI::Color SFUI::ScrollContainer::getThumbFillColor() {
+    return computedScrollContainerStyle.thumbFillColor;
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
+SFUI::Color SFUI::ScrollContainer::getThumbHoveredFillColor() {
+    return computedScrollContainerStyle.thumbHoveredFillColor;
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
+SFUI::Color SFUI::ScrollContainer::getThumbPressedFillColor() {
+    return computedScrollContainerStyle.thumbPressedFillColor;
+}
+
+
+/**
+ * @brief .
  */
 SFUI::Void SFUI::ScrollContainer::computeAlignPrimary() {
     SFUI::String tempAlignPrimary = layout.alignPrimary;

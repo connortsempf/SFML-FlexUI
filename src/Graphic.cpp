@@ -127,6 +127,26 @@ SFUI::Void SFUI::Graphic::draw(SFUI::RenderTarget& renderTarget) {
 
 /**
  * @brief .
+ * 
+ * @return .
+ */
+SFUI::String SFUI::Graphic::getGraphicAlign() {
+    return computedGraphicStyle.graphicAlign;
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
+SFUI::Vector2f SFUI::Graphic::getOriginalTextureSize() {
+    return computedGraphicStyle.originalTextureSize;
+}
+
+
+/**
+ * @brief .
  */
 SFUI::Void SFUI::Graphic::computeGraphicSource() {
     // Check if Pre-Loaded Texture was Provided //

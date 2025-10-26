@@ -188,8 +188,7 @@ SFUI::Void SFUI::Button::update(const SFUI::Vector2u renderTargetSize) {
     updateChildren();
 
     // Button Specific Computation //
-    computeDynamicFillColor();
-    computeDynamicBorderColor();
+    computeDynamicColors();
     computeFocusWidth();
     computeFocusOffset();
     computeFocusCornerRadius();
@@ -222,33 +221,214 @@ SFUI::Void SFUI::Button::draw(SFUI::RenderTarget& renderTarget) {
 
 /**
  * @brief .
+ * 
+ * @return .
  */
-SFUI::Void SFUI::Button::computeDynamicFillColor() {
-    if (isDisabled && buttonStyle.disabledFillColor.has_value())
-        computedStyle.fillColor = resolveColorSubProp(buttonStyle.disabledFillColor.value());
-    else if ((isLeftPressed || isRightPressed || isMiddlePressed) && buttonStyle.pressedFillColor.has_value())
-        computedStyle.fillColor = resolveColorSubProp(buttonStyle.pressedFillColor.value());
-    // else if ((isHovered) && buttonStyle.hoveredFillColor.has_value())
-    //     computedStyle.fillColor = resolveColorSubProp(buttonStyle.hoveredFillColor.value());
-    else if (isHovered)
-        computedStyle.fillColor = resolveColorSubProp(buttonStyle.hoveredFillColor);
-    else
-        computedStyle.fillColor = resolveColorSubProp(style.fillColor);
+SFUI::Color SFUI::Button::getHoveredFillColor() {
+    return computedButtonStyle.hoveredFillColor;
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
+SFUI::Color SFUI::Button::getHoveredBorderColor() {
+    return computedButtonStyle.hoveredBorderColor;
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
+SFUI::Color SFUI::Button::getPressedFillColor() {
+    return computedButtonStyle.pressedFillColor;
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
+SFUI::Color SFUI::Button::getPressedBorderColor() {
+    return computedButtonStyle.pressedBorderColor;
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
+SFUI::Color SFUI::Button::getDisabledFillColor() {
+    return computedButtonStyle.disabledFillColor;
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
+SFUI::Color SFUI::Button::getDisabledBorderColor() {
+    return computedButtonStyle.disabledBorderColor;
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
+SFUI::Float SFUI::Button::getFocusWidth() {
+    return computedButtonStyle.focusWidth;
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
+SFUI::Float SFUI::Button::getFocusOffset() {
+    return computedButtonStyle.focusOffset;
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
+SFUI::Vector4f SFUI::Button::getFocusCornerRadius() {
+    return computedButtonStyle.focusCornerRadius;
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
+SFUI::Color SFUI::Button::getFocusFillColor() {
+    return computedButtonStyle.focusFillColor;
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
+SFUI::Float SFUI::Button::getToolTipPadding() {
+    return computedButtonStyle.toolTipPadding;
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
+SFUI::Vector4f SFUI::Button::getToolTipCornerRadius() {
+    return computedButtonStyle.toolTipCornerRadius;
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
+SFUI::String SFUI::Button::getToolTipText() {
+    return buttonStyle.toolTipText;
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
+SFUI::SharedPointer<SFUI::Font> SFUI::Button::getToolTipFont() {
+    return buttonStyle.toolTipFont;
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
+SFUI::Float SFUI::Button::getToolTipTextSize() {
+    return computedButtonStyle.toolTipTextSize;
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
+SFUI::Color SFUI::Button::getToolTipFillColor() {
+    return computedButtonStyle.toolTipFillColor;
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
+SFUI::Color SFUI::Button::getToolTipTextColor() {
+
 }
 
 
 /**
  * @brief .
  */
-SFUI::Void SFUI::Button::computeDynamicBorderColor() {
-    if (isDisabled && buttonStyle.disabledBorderColor.has_value())
-        computedStyle.borderColor = resolveColorSubProp(buttonStyle.disabledBorderColor.value());
-    else if ((isLeftPressed || isRightPressed || isMiddlePressed) && buttonStyle.pressedBorderColor.has_value())
-        computedStyle.borderColor = resolveColorSubProp(buttonStyle.pressedBorderColor.value());
-    else if ((isHovered) && buttonStyle.hoveredBorderColor.has_value())
-        computedStyle.borderColor = resolveColorSubProp(buttonStyle.hoveredBorderColor.value());
-    else
-        computedStyle.borderColor = resolveColorSubProp(style.borderColor);
+SFUI::Void SFUI::Button::computeDynamicColors() {
+    if (buttonStyle.hoveredFillColor.has_value())
+        computedButtonStyle.hoveredFillColor = resolveColorSubProp(buttonStyle.hoveredFillColor.value());
+    if (buttonStyle.hoveredBorderColor.has_value())
+        computedButtonStyle.hoveredBorderColor = resolveColorSubProp(buttonStyle.hoveredBorderColor.value());
+    if (buttonStyle.pressedFillColor.has_value())
+        computedButtonStyle.pressedFillColor = resolveColorSubProp(buttonStyle.pressedFillColor.value());
+    if (buttonStyle.pressedBorderColor.has_value())
+        computedButtonStyle.pressedBorderColor = resolveColorSubProp(buttonStyle.pressedBorderColor.value());
+    if (buttonStyle.disabledFillColor.has_value())
+        computedButtonStyle.disabledFillColor = resolveColorSubProp(buttonStyle.disabledFillColor.value());
+    if (buttonStyle.disabledBorderColor.has_value())
+        computedButtonStyle.disabledBorderColor = resolveColorSubProp(buttonStyle.disabledBorderColor.value());
+
+    // Mutate Based Container with Dynamic Fill Color //
+    if (isDisabled) {
+        if (buttonStyle.disabledFillColor.has_value())
+            computedStyle.fillColor = computedButtonStyle.disabledFillColor;
+        if (buttonStyle.disabledBorderColor.has_value())
+            computedStyle.borderColor = computedButtonStyle.disabledBorderColor;
+    }
+    else if ((isLeftPressed || isRightPressed || isMiddlePressed)) {
+        if (buttonStyle.pressedFillColor.has_value())
+            computedStyle.fillColor = computedButtonStyle.pressedFillColor;
+        if (buttonStyle.pressedBorderColor.has_value())
+            computedStyle.borderColor = computedButtonStyle.pressedBorderColor;
+    }
+    else if (isHovered) {
+        if (buttonStyle.hoveredFillColor.has_value())
+            computedStyle.fillColor = computedButtonStyle.hoveredFillColor;
+        if (buttonStyle.hoveredBorderColor.has_value())
+            computedStyle.borderColor = computedButtonStyle.hoveredBorderColor;
+    }
+    else {
+        computedStyle.fillColor = resolveColorSubProp(style.fillColor);
+        computedStyle.borderColor = resolveColorSubProp(style.fillColor);
+    }
 }
 
 
