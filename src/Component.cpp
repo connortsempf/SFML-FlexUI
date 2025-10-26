@@ -1,4 +1,5 @@
-#include <sfml-flexui.hpp>
+#include <sfml-flexui-types.hpp>
+#include <sfml-flexui-core.hpp>
 
 
 ////////////////////////////////////////
@@ -986,7 +987,7 @@ SFUI::Void SFUI::Component::computeChildrenPosition() {
             // X-Positions //
             // If Explicit X-Position Input Given by User //
             if (childComponent.layout.xPosition.has_value()) {
-                SFUI::Int xPositionValue = layout.xPosition.value();
+                SFUI::Int xPositionValue = childComponent.layout.xPosition.value();
                 computedPosition.x = xPositionValue;
             }
             // Place Component X-Position According to Alignment Direction and Axis Alignment //
@@ -1036,8 +1037,8 @@ SFUI::Void SFUI::Component::computeChildrenPosition() {
 
             // Y-Positions //
             // If Explicit Y-Position Input Given by User //
-            if (layout.yPosition.has_value()) {
-                SFUI::Int yPositionValue = layout.yPosition.value();
+            if (childComponent.layout.yPosition.has_value()) {
+                SFUI::Int yPositionValue = childComponent.layout.yPosition.value();
                 computedPosition.y = yPositionValue;
             }
             // Place Root Component Y-Position In Center of the Render Target Y-Dimension //

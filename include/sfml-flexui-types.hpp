@@ -233,9 +233,9 @@ namespace SFUI {
 
 
 
-/////////////////////////////////////////////////////////////
-// Custom Component Style/Layout/Behavior Input Prop Types //
-/////////////////////////////////////////////////////////////
+/////////////////////////////////////
+// Custom Component Sub-Prop Types //
+/////////////////////////////////////
 
 namespace SFUI {
 
@@ -258,8 +258,19 @@ namespace SFUI {
         using Callback = SFUI::Function<void(const SFUI::String&)>;
 
         using CallbackKey = SFUI::Function<void(const SFUI::String&, sf::Keyboard::Key)>;
-    }
 
+        using CallbackString = SFUI::Function<void(const SFUI::String&, const SFUI::String&)>;
+    }
+}
+
+
+
+
+//////////////////////////////////////
+// Custom Core Component Prop Types //
+//////////////////////////////////////
+
+namespace SFUI {
 
     namespace Prop {
 
@@ -282,8 +293,8 @@ namespace SFUI {
             SFUI::Optional<SFUI::SubProp::Dimension> cornerRadiusTopRight;
             SFUI::Optional<SFUI::SubProp::Dimension> cornerRadiusBottomLeft;
             SFUI::Optional<SFUI::SubProp::Dimension> cornerRadiusBottomRight;
-            SFUI::SubProp::Color fillColor = SFUI::Color(255, 255, 255, 255);
-            SFUI::SubProp::Color borderColor = SFUI::Color(0, 0, 0, 255);
+            SFUI::SubProp::Color fillColor = SFUI::Color(0, 0, 0, 0);
+            SFUI::SubProp::Color borderColor = SFUI::Color(0, 0, 0, 0);
         };
         
         struct LabelStyle {
@@ -296,7 +307,7 @@ namespace SFUI {
         };
 
         struct ButtonStyle {
-            SFUI::Optional<SFUI::SubProp::Color> hoveredFillColor;
+            SFUI::SubProp::Color hoveredFillColor = SFUI::Color(0, 0, 0, 0);
             SFUI::Optional<SFUI::SubProp::Color> hoveredBorderColor;
             SFUI::Optional<SFUI::SubProp::Color> pressedFillColor;
             SFUI::Optional<SFUI::SubProp::Color> pressedBorderColor;
@@ -328,8 +339,6 @@ namespace SFUI {
             SFUI::SubProp::Callback onDisable;
             SFUI::SubProp::Callback onFocus;
             SFUI::SubProp::Callback onBlur;
-            SFUI::SubProp::Callback onShow;
-            SFUI::SubProp::Callback onHide;
             SFUI::SubProp::Callback onHoverIn;
             SFUI::SubProp::Callback onHoverOut;
             SFUI::SubProp::Callback onLeftPressIn;
@@ -385,6 +394,16 @@ namespace SFUI {
             SFUI::SubProp::Callback onScrollDragEnd;
         };
     }
+}
+
+
+
+
+////////////////////////////////////////////
+// Custom Core Component Prop Group Types //
+////////////////////////////////////////////
+
+namespace SFUI {
 
     namespace PropGroup {
 
@@ -420,6 +439,16 @@ namespace SFUI {
             SFUI::Prop::ScrollContainerBehavior scrollContainerBehavior;
         };
     }
+}
+
+
+
+
+///////////////////////////////////////////////
+// Custom Core Component Computed Prop Types //
+///////////////////////////////////////////////
+
+namespace SFUI {
 
     namespace ComputedProp {
 
@@ -486,6 +515,77 @@ namespace SFUI {
             SFUI::Color thumbFillColor;
             SFUI::Color thumbHoveredFillColor;
             SFUI::Color thumbPressedFillColor;
+        };
+    }
+}
+
+
+
+
+//////////////////////////////////////////
+// Custom Extended Component Prop Types //
+//////////////////////////////////////////
+
+namespace SFUI {
+
+    namespace Prop {
+
+        struct TextFieldStyle {
+            SFUI::SubProp::Keyword placeholderText;
+            SFUI::SubProp::Color placeholderTextColor = SFUI::Color(100, 100, 100, 255);
+            SFUI::SubProp::Keyword caretShape = "line";
+            SFUI::SubProp::Numeric caretBlinkTime = 500.0f;
+            SFUI::SubProp::Numeric caretBlinkRatio = 1.0f;
+        };
+
+        struct TextFieldBehavior {
+            SFUI::SubProp::CallbackString onTextChange;
+            SFUI::SubProp::CallbackString onSubmit;
+        };
+    }
+}
+
+
+
+
+////////////////////////////////////////////////
+// Custom Extended Component Prop Group Types //
+////////////////////////////////////////////////
+
+namespace SFUI {
+
+    namespace PropGroup {
+
+        struct TextField {
+            SFUI::Prop::Layout layout;
+            SFUI::Prop::Style style;
+            SFUI::Prop::ButtonStyle backgroundStyle;
+            SFUI::Prop::LabelStyle inputTextStyle;
+            SFUI::Prop::Style caretStyle;
+            SFUI::Prop::TextFieldStyle textFieldStyle;
+            SFUI::Prop::ButtonBehavior backgroundBehavior;
+            SFUI::Prop::TextFieldBehavior textFieldBehavior;
+        };
+    }
+}
+
+
+
+
+///////////////////////////////////////////////////
+// Custom Extended Component Computed Prop Types //
+///////////////////////////////////////////////////
+
+namespace SFUI {
+
+    namespace ComputedProp {
+
+        struct TextFieldStyle {
+            SFUI::String placeholderText;
+            SFUI::Color placeholderTextColor;
+            SFUI::String caretShape;
+            SFUI::Float caretOnTime;
+            SFUI::Float caretOffTime;
         };
     }
 }

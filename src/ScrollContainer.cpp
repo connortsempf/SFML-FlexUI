@@ -1,8 +1,9 @@
-#include <sfml-flexui.hpp>
+#include <sfml-flexui-types.hpp>
+#include <sfml-flexui-core.hpp>
 
 
 //////////////////////////////////////////////////
-// SFML-FlexUI Scroll ScrollContainer Component Class //
+// SFML-FlexUI Scroll Container Component Class //
 //////////////////////////////////////////////////
 
 

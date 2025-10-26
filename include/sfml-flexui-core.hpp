@@ -167,10 +167,11 @@ namespace SFUI {
             SFUI::String getTextAlignHorizontal();
             SFUI::String getTextAlignVertical();
             SFUI::Color getTextColor();
+            SFUI::FloatRect getTextBounds();
 
         private:
-            static SFUI::Float VERTICAL_CENTER_OFFSET_FACTOR;
-            static SFUI::Float VERTICAL_BOTTOM_OFFSET_FACTOR;            
+            static const SFUI::Float VERTICAL_CENTER_OFFSET_FACTOR;
+            static const SFUI::Float VERTICAL_BOTTOM_OFFSET_FACTOR;
 
         private:
             SFUI::Text textObject;
@@ -209,10 +210,8 @@ namespace SFUI {
             SFUI::Void draw(SFUI::RenderTarget& renderTarget);
             
         private:
-            static SFUI::Float TEXT_VERTICAL_OFFSET_FACTOR;
-            static SFUI::Time LONG_PRESS_THRESHOLD_MS;
-            static SFUI::Time DOUBLE_PRESS_GAP_MS;
-            static SFUI::Time TOOL_TIP_THRESHOLD_MS;
+            static const SFUI::Time DOUBLE_PRESS_GAP_MS;
+            static const SFUI::Time TOOL_TIP_THRESHOLD_MS;
 
         private:
             SFUI::Bool isDisabled = false;
@@ -253,9 +252,9 @@ namespace SFUI {
 
 
 
-////////////////////////////////////////
-// SFML-FlexUI Button Component Class //
-////////////////////////////////////////
+/////////////////////////////////////////
+// SFML-FlexUI Graphic Component Class //
+/////////////////////////////////////////
 
 namespace SFUI {
     

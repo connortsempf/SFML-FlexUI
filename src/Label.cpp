@@ -1,4 +1,5 @@
-#include <sfml-flexui.hpp>
+#include <sfml-flexui-types.hpp>
+#include <sfml-flexui-core.hpp>
 
 
 ///////////////////////////////////////
@@ -7,8 +8,8 @@
 
 
 // Static Variables //
-SFUI::Float SFUI::Label::VERTICAL_CENTER_OFFSET_FACTOR = 0.65f;
-SFUI::Float SFUI::Label::VERTICAL_BOTTOM_OFFSET_FACTOR = 1.22f;
+const SFUI::Float SFUI::Label::VERTICAL_CENTER_OFFSET_FACTOR = 0.65f;
+const SFUI::Float SFUI::Label::VERTICAL_BOTTOM_OFFSET_FACTOR = 1.22f;
 
 
 /**
@@ -73,6 +74,16 @@ SFUI::String SFUI::Label::getTextAlignVertical() {
  */
 SFUI::Color SFUI::Label::getTextColor() {
     return computedLabelStyle.textColor;
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
+SFUI::FloatRect SFUI::Label::getTextBounds() {
+    return textObject.getGlobalBounds();
 }
 
 

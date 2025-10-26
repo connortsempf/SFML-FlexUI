@@ -1,4 +1,5 @@
-#include <sfml-flexui.hpp>
+#include <sfml-flexui-types.hpp>
+#include <sfml-flexui-core.hpp>
 
 
 ////////////////////////////////////////
@@ -7,10 +8,8 @@
 
 
 // Static Variables //
-SFUI::Float SFUI::Button::TEXT_VERTICAL_OFFSET_FACTOR = 0.65f;
-SFUI::Time SFUI::Button::LONG_PRESS_THRESHOLD_MS = sf::milliseconds(500);
-SFUI::Time SFUI::Button::DOUBLE_PRESS_GAP_MS = sf::milliseconds(300);
-SFUI::Time SFUI::Button::TOOL_TIP_THRESHOLD_MS = sf::milliseconds(1000);
+const SFUI::Time SFUI::Button::DOUBLE_PRESS_GAP_MS = sf::milliseconds(300);
+const SFUI::Time SFUI::Button::TOOL_TIP_THRESHOLD_MS = sf::milliseconds(1000);
 
 
 /**
@@ -22,7 +21,7 @@ SFUI::Button::Button(const SFUI::String& componentID) :
     Component(componentID),
     buttonStyle(),
     buttonBehavior(),
-    focus(componentID + "Focus"),
+    focus(componentID + "_Focus"),
     toolTip(componentID + "_ToolTip")
 {}
 
@@ -50,8 +49,10 @@ SFUI::Void SFUI::Button::computeDynamicFillColor() {
         computedStyle.fillColor = resolveColorSubProp(buttonStyle.disabledFillColor.value());
     else if ((isLeftPressed || isRightPressed || isMiddlePressed) && buttonStyle.pressedFillColor.has_value())
         computedStyle.fillColor = resolveColorSubProp(buttonStyle.pressedFillColor.value());
-    else if ((isHovered) && buttonStyle.hoveredFillColor.has_value())
-        computedStyle.fillColor = resolveColorSubProp(buttonStyle.hoveredFillColor.value());
+    // else if ((isHovered) && buttonStyle.hoveredFillColor.has_value())
+    //     computedStyle.fillColor = resolveColorSubProp(buttonStyle.hoveredFillColor.value());
+    else if (isHovered)
+        computedStyle.fillColor = resolveColorSubProp(buttonStyle.hoveredFillColor);
     else
         computedStyle.fillColor = resolveColorSubProp(style.fillColor);
 }

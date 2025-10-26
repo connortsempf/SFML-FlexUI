@@ -1,4 +1,5 @@
-#include <sfml-flexui.hpp>
+#include <sfml-flexui-types.hpp>
+#include <sfml-flexui-core.hpp>
 
 
 ///////////////////////////////////////////
