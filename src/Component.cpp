@@ -732,97 +732,6 @@ SFUI::Void SFUI::Component::computeGraphics() {
 
 
 /**
- * @brief Compute a box (two triangles) and return the VertexArray.
- * 
- * @param position The top-left position of the box to draw at.
- * @param size The size of the box to draw.
- * @param color The fill/stroke color of the box.
- */
-SFUI::Void SFUI::Component::computeBackgroundRectGeometry(SFUI::Vector2f position, SFUI::Vector2f size) {
-    SFUI::Vector2f topLeft = position;
-    SFUI::Vector2f topRight = {position.x + size.x, position.y};
-    SFUI::Vector2f bottomLeft = {position.x, position.y + size.y};
-    SFUI::Vector2f bottomRight = {position.x + size.x, position.y + size.y};
-    backgroundRects.append({topLeft, computedStyle.fillColor});
-    backgroundRects.append({topRight, computedStyle.fillColor});
-    backgroundRects.append({bottomRight, computedStyle.fillColor});
-    backgroundRects.append({topLeft, computedStyle.fillColor});
-    backgroundRects.append({bottomRight, computedStyle.fillColor});
-    backgroundRects.append({bottomLeft, computedStyle.fillColor});
-}
-
-
-/**
- * @brief Generate a stroked arc as a triangle strip and return the VertexArray.
- * 
- * @param center The center of the arc to draw.
- * @param outerRadius The outer radius of the arc to draw.
- * @param startAngleDeg The starting angle of the arc to draw.
- * @param endAngleDeg The ending angle of the arc to draw.
- * @param color The color to use for the arc vertices.
- */
-SFUI::Void SFUI::Component::computeBackgroundArcGeometry(SFUI::Vector2f center, SFUI::Float outerRadius, SFUI::Float startAngleDeg, SFUI::Float endAngleDeg) {
-    SFUI::Float arcResolution = std::clamp(static_cast<SFUI::Int>(outerRadius * 0.25f), 4, 12);
-    SFUI::Float startRadians = startAngleDeg * M_PI / 180.f;
-    SFUI::Float endRadians = endAngleDeg * M_PI / 180.f;
-    SFUI::Float angleStep = (endRadians - startRadians) / static_cast<SFUI::Float>(arcResolution);
-    for (SFUI::Int i = 0; i <= arcResolution; ++i) {
-        SFUI::Float angle = startRadians + i * angleStep;
-        SFUI::Vector2f dir(std::cos(angle), std::sin(angle));
-        SFUI::Vector2f outer = {center.x + dir.x * outerRadius, center.y + dir.y * outerRadius};
-        SFUI::Vector2f inner = center;
-        backgroundArcs.append({outer, computedStyle.fillColor});
-        backgroundArcs.append({inner, computedStyle.fillColor});
-    }
-}
-
-
-/**
- * @brief Compute a box (two triangles) and return the VertexArray.
- * 
- * @param position The top-left position of the box to draw at.
- * @param size The size of the box to draw.
- */
-SFUI::Void SFUI::Component::computeBorderRectGeometry(SFUI::Vector2f position, SFUI::Vector2f size) {
-    SFUI::Vector2f topLeft = position;
-    SFUI::Vector2f topRight = {position.x + size.x, position.y};
-    SFUI::Vector2f bottomLeft = {position.x, position.y + size.y};
-    SFUI::Vector2f bottomRight = {position.x + size.x, position.y + size.y};
-    borderRects.append({topLeft, computedStyle.borderColor});
-    borderRects.append({topRight, computedStyle.borderColor});
-    borderRects.append({bottomRight, computedStyle.borderColor});
-    borderRects.append({topLeft, computedStyle.borderColor});
-    borderRects.append({bottomRight, computedStyle.borderColor});
-    borderRects.append({bottomLeft, computedStyle.borderColor});
-}
-
-
-/**
- * @brief Generate a stroked arc as a triangle strip and return the VertexArray.
- * 
- * @param center The center of the arc to draw.
- * @param outerRadius The outer radius of the arc to draw.
- * @param innerRadius The inner radius of the arc to draw.
- * @param startAngleDeg The starting angle of the arc to draw.
- * @param endAngleDeg The ending angle of the arc to draw.
- */
-SFUI::Void SFUI::Component::computeBorderArcGeometry(SFUI::Vector2f center, SFUI::Float outerRadius, SFUI::Float innerRadius, SFUI::Float startAngleDeg, SFUI::Float endAngleDeg) {
-    SFUI::Float arcResolution = std::clamp(static_cast<SFUI::Int>(outerRadius * 0.25f), 4, 12);
-    SFUI::Float startRadians = startAngleDeg * M_PI / 180.f;
-    SFUI::Float endRadians = endAngleDeg * M_PI / 180.f;
-    SFUI::Float angleStep = (endRadians - startRadians) / static_cast<SFUI::Float>(arcResolution);
-    for (SFUI::Int i = 0; i <= arcResolution; ++i) {
-        SFUI::Float angle = startRadians + i * angleStep;
-        SFUI::Vector2f dir(std::cos(angle), std::sin(angle));
-        SFUI::Vector2f outer = {center.x + dir.x * outerRadius, center.y + dir.y * outerRadius};
-        SFUI::Vector2f inner = {center.x + dir.x * innerRadius, center.y + dir.y * innerRadius};
-        borderArcs.append({outer, computedStyle.borderColor});
-        borderArcs.append({inner, computedStyle.borderColor});
-    }
-}
-
-
-/**
  * @brief .
  */
 SFUI::Void SFUI::Component::computeChildrenMargin() {
@@ -1101,3 +1010,95 @@ SFUI::Void SFUI::Component::updateChildren() {
         children[i]->updateChildFromParent(childrenComputedLayout[i]);
     }
 }
+
+ 
+/**
+ * @brief Compute a box (two triangles) and return the VertexArray.
+ * 
+ * @param position The top-left position of the box to draw at.
+ * @param size The size of the box to draw.
+ * @param color The fill/stroke color of the box.
+ */
+SFUI::Void SFUI::Component::computeBackgroundRectGeometry(SFUI::Vector2f position, SFUI::Vector2f size) {
+    SFUI::Vector2f topLeft = position;
+    SFUI::Vector2f topRight = {position.x + size.x, position.y};
+    SFUI::Vector2f bottomLeft = {position.x, position.y + size.y};
+    SFUI::Vector2f bottomRight = {position.x + size.x, position.y + size.y};
+    backgroundRects.append({topLeft, computedStyle.fillColor});
+    backgroundRects.append({topRight, computedStyle.fillColor});
+    backgroundRects.append({bottomRight, computedStyle.fillColor});
+    backgroundRects.append({topLeft, computedStyle.fillColor});
+    backgroundRects.append({bottomRight, computedStyle.fillColor});
+    backgroundRects.append({bottomLeft, computedStyle.fillColor});
+}
+
+
+/**
+ * @brief Generate a stroked arc as a triangle strip and return the VertexArray.
+ * 
+ * @param center The center of the arc to draw.
+ * @param outerRadius The outer radius of the arc to draw.
+ * @param startAngleDeg The starting angle of the arc to draw.
+ * @param endAngleDeg The ending angle of the arc to draw.
+ * @param color The color to use for the arc vertices.
+ */
+SFUI::Void SFUI::Component::computeBackgroundArcGeometry(SFUI::Vector2f center, SFUI::Float outerRadius, SFUI::Float startAngleDeg, SFUI::Float endAngleDeg) {
+    SFUI::Float arcResolution = std::clamp(static_cast<SFUI::Int>(outerRadius * 0.25f), 4, 12);
+    SFUI::Float startRadians = startAngleDeg * M_PI / 180.f;
+    SFUI::Float endRadians = endAngleDeg * M_PI / 180.f;
+    SFUI::Float angleStep = (endRadians - startRadians) / static_cast<SFUI::Float>(arcResolution);
+    for (SFUI::Int i = 0; i <= arcResolution; ++i) {
+        SFUI::Float angle = startRadians + i * angleStep;
+        SFUI::Vector2f dir(std::cos(angle), std::sin(angle));
+        SFUI::Vector2f outer = {center.x + dir.x * outerRadius, center.y + dir.y * outerRadius};
+        SFUI::Vector2f inner = center;
+        backgroundArcs.append({outer, computedStyle.fillColor});
+        backgroundArcs.append({inner, computedStyle.fillColor});
+    }
+}
+
+
+/**
+ * @brief Compute a box (two triangles) and return the VertexArray.
+ * 
+ * @param position The top-left position of the box to draw at.
+ * @param size The size of the box to draw.
+ */
+SFUI::Void SFUI::Component::computeBorderRectGeometry(SFUI::Vector2f position, SFUI::Vector2f size) {
+    SFUI::Vector2f topLeft = position;
+    SFUI::Vector2f topRight = {position.x + size.x, position.y};
+    SFUI::Vector2f bottomLeft = {position.x, position.y + size.y};
+    SFUI::Vector2f bottomRight = {position.x + size.x, position.y + size.y};
+    borderRects.append({topLeft, computedStyle.borderColor});
+    borderRects.append({topRight, computedStyle.borderColor});
+    borderRects.append({bottomRight, computedStyle.borderColor});
+    borderRects.append({topLeft, computedStyle.borderColor});
+    borderRects.append({bottomRight, computedStyle.borderColor});
+    borderRects.append({bottomLeft, computedStyle.borderColor});
+}
+
+
+/**
+ * @brief Generate a stroked arc as a triangle strip and return the VertexArray.
+ * 
+ * @param center The center of the arc to draw.
+ * @param outerRadius The outer radius of the arc to draw.
+ * @param innerRadius The inner radius of the arc to draw.
+ * @param startAngleDeg The starting angle of the arc to draw.
+ * @param endAngleDeg The ending angle of the arc to draw.
+ */
+SFUI::Void SFUI::Component::computeBorderArcGeometry(SFUI::Vector2f center, SFUI::Float outerRadius, SFUI::Float innerRadius, SFUI::Float startAngleDeg, SFUI::Float endAngleDeg) {
+    SFUI::Float arcResolution = std::clamp(static_cast<SFUI::Int>(outerRadius * 0.25f), 4, 12);
+    SFUI::Float startRadians = startAngleDeg * M_PI / 180.f;
+    SFUI::Float endRadians = endAngleDeg * M_PI / 180.f;
+    SFUI::Float angleStep = (endRadians - startRadians) / static_cast<SFUI::Float>(arcResolution);
+    for (SFUI::Int i = 0; i <= arcResolution; ++i) {
+        SFUI::Float angle = startRadians + i * angleStep;
+        SFUI::Vector2f dir(std::cos(angle), std::sin(angle));
+        SFUI::Vector2f outer = {center.x + dir.x * outerRadius, center.y + dir.y * outerRadius};
+        SFUI::Vector2f inner = {center.x + dir.x * innerRadius, center.y + dir.y * innerRadius};
+        borderArcs.append({outer, computedStyle.borderColor});
+        borderArcs.append({inner, computedStyle.borderColor});
+    }
+}
+ 

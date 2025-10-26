@@ -33,6 +33,14 @@ SFUI::Container::Container(const SFUI::String& componentID, const SFUI::PropGrou
  * 
  * @param .
  */
+SFUI::Void SFUI::Container::handleEvent(const SFUI::Event& event) {}
+
+
+/**
+ * @brief .
+ * 
+ * @param .
+ */
 SFUI::Void SFUI::Container::update(const SFUI::Vector2u renderTargetSize) {
     this->renderTargetSize = renderTargetSize;
 
@@ -53,14 +61,6 @@ SFUI::Void SFUI::Container::update(const SFUI::Vector2u renderTargetSize) {
     computeChildrenPosition();
     updateChildren();
 }
-
-
-/**
- * @brief .
- * 
- * @param .
- */
-SFUI::Void SFUI::Container::handleEvent(const SFUI::Event& event) {}
 
 
 /**

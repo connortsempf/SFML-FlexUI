@@ -43,6 +43,185 @@ SFUI::Button::Button(const SFUI::String& componentID, const SFUI::PropGroup::But
 
 /**
  * @brief .
+ * 
+ * @param .
+ */
+SFUI::Void SFUI::Button::handleEvent(const SFUI::Event& event) {
+    if (isDisabled) return;
+
+    // Mouse Moved Event Handling //
+    if (const SFUI::Event::MouseMoved* mouseMovedEvent = event.getIf<SFUI::Event::MouseMoved>()) {
+        const SFUI::Vector2i mousePosition = SFUI::Vector2i(mouseMovedEvent->position.x, mouseMovedEvent->position.y);
+        SFUI::Bool buttonHovered = isMouseHovered(mousePosition);
+        
+        if (buttonHovered) {
+            if (!isHovered) {
+                toolTipClock.restart();
+                isHovered = true;
+                if (buttonBehavior.onHoverIn) buttonBehavior.onHoverIn(componentID);
+            }   else if (!isShowingToolTip) {
+                previousHoverPosition = {static_cast<SFUI::Float>(mousePosition.x), static_cast<SFUI::Float>(mousePosition.y)};
+            }
+        }
+        else if (!buttonHovered) {
+            if (isHovered) {
+                isHovered = false;
+                if (isShowingToolTip) {
+                    isShowingToolTip = false;
+                    toolTipClock.stop();
+                }
+                if (buttonBehavior.onHoverOut) buttonBehavior.onHoverOut(componentID);
+            }   else {
+                if (isShowingToolTip) {
+                    isShowingToolTip = false;
+                    toolTipClock.restart();
+                    toolTipClock.stop();
+                }
+            }
+        }
+    }
+
+    // Mouse Button Pressed Event Handling //
+    if (const SFUI::Event::MouseButtonPressed* mousePressedEvent = event.getIf<SFUI::Event::MouseButtonPressed>()) {
+        sf::Mouse::Button mouseButton = mousePressedEvent->button;
+        const SFUI::Vector2i mousePosition = SFUI::Vector2i(mousePressedEvent->position.x, mousePressedEvent->position.y);
+        SFUI::Bool buttonHovered = isMouseHovered(mousePosition);
+
+        if (mouseButton == sf::Mouse::Button::Left) {
+            if (isShowingToolTip) {
+                isShowingToolTip = false;
+                toolTipClock.restart();
+                toolTipClock.stop();
+            }
+            if (isFocused) {
+                isFocused = false;
+                if (buttonBehavior.onBlur) buttonBehavior.onBlur(componentID);
+            }
+        }
+        if (buttonHovered) {
+            if (isShowingToolTip) {
+                isShowingToolTip = false;
+                toolTipClock.restart();
+                toolTipClock.stop();
+            }
+            if (mouseButton == sf::Mouse::Button::Left) {
+                toolTipClock.stop();
+                if (!isLeftPressed) {
+                    isLeftPressed = true;
+                    if (buttonBehavior.onLeftPressIn) buttonBehavior.onLeftPressIn(componentID);
+                }
+            }   else if (mouseButton == sf::Mouse::Button::Right) {
+                if (!isRightPressed) {
+                    isRightPressed = true;
+                    if (buttonBehavior.onRightPressIn) buttonBehavior.onRightPressIn(componentID);
+                }
+            }   else if (mouseButton == sf::Mouse::Button::Middle) {
+                if (!isMiddlePressed) {
+                    isMiddlePressed = true;
+                    if (buttonBehavior.onMiddlePressIn) buttonBehavior.onMiddlePressIn(componentID);
+                }
+            }
+        }
+    }
+
+    // Mouse Button Released Event Handling //
+    if (const SFUI::Event::MouseButtonReleased* mouseReleasedEvent = event.getIf<SFUI::Event::MouseButtonReleased>()) {
+        sf::Mouse::Button mouseButton = mouseReleasedEvent->button;
+        const SFUI::Vector2i mousePosition = SFUI::Vector2i(mouseReleasedEvent->position.x, mouseReleasedEvent->position.y);
+        SFUI::Bool buttonHovered = isMouseHovered(mousePosition);
+
+        if (buttonHovered) {
+            SFUI::Time elapsed = doublePressClock.getElapsedTime();
+            if (elapsed < DOUBLE_PRESS_GAP_MS && std::abs(mousePosition.x - previousPressPosition.x) < 4 && std::abs(mousePosition.y - previousPressPosition.y) < 4) {
+                if (buttonBehavior.onDoublePress) buttonBehavior.onDoublePress(componentID);
+                doublePressClock.restart();
+                previousPressTime = SFUI::Time::Zero;
+            }
+            else {
+                if (mouseButton == sf::Mouse::Button::Left && isLeftPressed && buttonBehavior.onLeftPress) buttonBehavior.onLeftPress(componentID);
+                if (mouseButton == sf::Mouse::Button::Right && isRightPressed && buttonBehavior.onRightPress) buttonBehavior.onRightPress(componentID);
+                if (mouseButton == sf::Mouse::Button::Middle && isMiddlePressed && buttonBehavior.onMiddlePress) buttonBehavior.onMiddlePress(componentID);
+                doublePressClock.restart();
+                previousPressPosition = mousePosition;
+            }
+        }
+        if (isLeftPressed) isLeftPressed = false;
+        if (isRightPressed) isRightPressed = false;
+        if (isMiddlePressed) isMiddlePressed = false;
+    }
+
+    // Key Pressed Event Handling //
+    if (const SFUI::Event::KeyPressed* keyPressedEvent = event.getIf<SFUI::Event::KeyPressed>()) {
+        if (isFocused && buttonBehavior.onKeyPress)
+            buttonBehavior.onKeyPress(componentID, keyPressedEvent->code);
+        if (isShowingToolTip) {
+            isShowingToolTip = false;
+            toolTipClock.restart();
+            toolTipClock.stop();
+            if (buttonBehavior.onBlur) buttonBehavior.onBlur(componentID);
+        }
+    }
+}
+
+
+/**
+ * @brief .
+ * 
+ * @param .
+ */
+SFUI::Void SFUI::Button::update(const SFUI::Vector2u renderTargetSize) {
+    this->renderTargetSize = renderTargetSize;
+
+    computeAlignDirection();
+    computeAlignPrimary();
+    computeAlignSecondary();
+    computeMargin();
+    computeSize();
+    computePadding();
+    computePosition();
+    computeBorderWidth();
+    computeCornerRadius();
+    computeGraphics();
+    computeChildrenMargin();
+    computeChildrenSize();
+    computeChildrenPosition();
+    updateChildren();
+
+    // Button Specific Computation //
+    computeDynamicFillColor();
+    computeDynamicBorderColor();
+    computeFocusWidth();
+    computeFocusOffset();
+    computeFocusCornerRadius();
+    computeFocusFillColor();
+    computeFocus();
+    computeToolTipPadding();
+    computeToolTipCornerRadius();
+    computeToolTipTextSize();
+    computeToolTipFillColor();
+    computeToolTipTextColor();
+    computeToolTip();
+    computeToolTipLifetime();
+}
+
+
+/**
+ * @brief .
+ * 
+ * @param .
+ */
+SFUI::Void SFUI::Button::draw(SFUI::RenderTarget& renderTarget) {
+    renderTarget.draw(backgroundRects);
+    renderTarget.draw(backgroundArcs);
+    renderTarget.draw(borderRects);
+    renderTarget.draw(borderArcs);
+    if (isFocused) focus.draw(renderTarget);
+    if (isShowingToolTip) toolTip.draw(renderTarget);
+}
+
+
+/**
+ * @brief .
  */
 SFUI::Void SFUI::Button::computeDynamicFillColor() {
     if (isDisabled && buttonStyle.disabledFillColor.has_value())
@@ -295,183 +474,4 @@ SFUI::Void SFUI::Button::computeToolTipLifetime() {
         }
         toolTip.update(renderTargetSize);
     }
-}
-
-
-/**
- * @brief .
- * 
- * @param .
- */
-SFUI::Void SFUI::Button::update(const SFUI::Vector2u renderTargetSize) {
-    this->renderTargetSize = renderTargetSize;
-
-    computeAlignDirection();
-    computeAlignPrimary();
-    computeAlignSecondary();
-    computeMargin();
-    computeSize();
-    computePadding();
-    computePosition();
-    computeBorderWidth();
-    computeCornerRadius();
-    computeGraphics();
-    computeChildrenMargin();
-    computeChildrenSize();
-    computeChildrenPosition();
-    updateChildren();
-
-    // Button Specific Computation //
-    computeDynamicFillColor();
-    computeDynamicBorderColor();
-    computeFocusWidth();
-    computeFocusOffset();
-    computeFocusCornerRadius();
-    computeFocusFillColor();
-    computeFocus();
-    computeToolTipPadding();
-    computeToolTipCornerRadius();
-    computeToolTipTextSize();
-    computeToolTipFillColor();
-    computeToolTipTextColor();
-    computeToolTip();
-    computeToolTipLifetime();
-}
-
-
-/**
- * @brief .
- * 
- * @param .
- */
-SFUI::Void SFUI::Button::handleEvent(const SFUI::Event& event) {
-    if (isDisabled) return;
-
-    // Mouse Moved Event Handling //
-    if (const SFUI::Event::MouseMoved* mouseMovedEvent = event.getIf<SFUI::Event::MouseMoved>()) {
-        const SFUI::Vector2i mousePosition = SFUI::Vector2i(mouseMovedEvent->position.x, mouseMovedEvent->position.y);
-        SFUI::Bool buttonHovered = isMouseHovered(mousePosition);
-        
-        if (buttonHovered) {
-            if (!isHovered) {
-                toolTipClock.restart();
-                isHovered = true;
-                if (buttonBehavior.onHoverIn) buttonBehavior.onHoverIn(componentID);
-            }   else if (!isShowingToolTip) {
-                previousHoverPosition = {static_cast<SFUI::Float>(mousePosition.x), static_cast<SFUI::Float>(mousePosition.y)};
-            }
-        }
-        else if (!buttonHovered) {
-            if (isHovered) {
-                isHovered = false;
-                if (isShowingToolTip) {
-                    isShowingToolTip = false;
-                    toolTipClock.stop();
-                }
-                if (buttonBehavior.onHoverOut) buttonBehavior.onHoverOut(componentID);
-            }   else {
-                if (isShowingToolTip) {
-                    isShowingToolTip = false;
-                    toolTipClock.restart();
-                    toolTipClock.stop();
-                }
-            }
-        }
-    }
-
-    // Mouse Button Pressed Event Handling //
-    if (const SFUI::Event::MouseButtonPressed* mousePressedEvent = event.getIf<SFUI::Event::MouseButtonPressed>()) {
-        sf::Mouse::Button mouseButton = mousePressedEvent->button;
-        const SFUI::Vector2i mousePosition = SFUI::Vector2i(mousePressedEvent->position.x, mousePressedEvent->position.y);
-        SFUI::Bool buttonHovered = isMouseHovered(mousePosition);
-
-        if (mouseButton == sf::Mouse::Button::Left) {
-            if (isShowingToolTip) {
-                isShowingToolTip = false;
-                toolTipClock.restart();
-                toolTipClock.stop();
-            }
-            if (isFocused) {
-                isFocused = false;
-                if (buttonBehavior.onBlur) buttonBehavior.onBlur(componentID);
-            }
-        }
-        if (buttonHovered) {
-            if (isShowingToolTip) {
-                isShowingToolTip = false;
-                toolTipClock.restart();
-                toolTipClock.stop();
-            }
-            if (mouseButton == sf::Mouse::Button::Left) {
-                toolTipClock.stop();
-                if (!isLeftPressed) {
-                    isLeftPressed = true;
-                    if (buttonBehavior.onLeftPressIn) buttonBehavior.onLeftPressIn(componentID);
-                }
-            }   else if (mouseButton == sf::Mouse::Button::Right) {
-                if (!isRightPressed) {
-                    isRightPressed = true;
-                    if (buttonBehavior.onRightPressIn) buttonBehavior.onRightPressIn(componentID);
-                }
-            }   else if (mouseButton == sf::Mouse::Button::Middle) {
-                if (!isMiddlePressed) {
-                    isMiddlePressed = true;
-                    if (buttonBehavior.onMiddlePressIn) buttonBehavior.onMiddlePressIn(componentID);
-                }
-            }
-        }
-    }
-
-    // Mouse Button Released Event Handling //
-    if (const SFUI::Event::MouseButtonReleased* mouseReleasedEvent = event.getIf<SFUI::Event::MouseButtonReleased>()) {
-        sf::Mouse::Button mouseButton = mouseReleasedEvent->button;
-        const SFUI::Vector2i mousePosition = SFUI::Vector2i(mouseReleasedEvent->position.x, mouseReleasedEvent->position.y);
-        SFUI::Bool buttonHovered = isMouseHovered(mousePosition);
-
-        if (buttonHovered) {
-            SFUI::Time elapsed = doublePressClock.getElapsedTime();
-            if (elapsed < DOUBLE_PRESS_GAP_MS && std::abs(mousePosition.x - previousPressPosition.x) < 4 && std::abs(mousePosition.y - previousPressPosition.y) < 4) {
-                if (buttonBehavior.onDoublePress) buttonBehavior.onDoublePress(componentID);
-                doublePressClock.restart();
-                previousPressTime = SFUI::Time::Zero;
-            }
-            else {
-                if (mouseButton == sf::Mouse::Button::Left && isLeftPressed && buttonBehavior.onLeftPress) buttonBehavior.onLeftPress(componentID);
-                if (mouseButton == sf::Mouse::Button::Right && isRightPressed && buttonBehavior.onRightPress) buttonBehavior.onRightPress(componentID);
-                if (mouseButton == sf::Mouse::Button::Middle && isMiddlePressed && buttonBehavior.onMiddlePress) buttonBehavior.onMiddlePress(componentID);
-                doublePressClock.restart();
-                previousPressPosition = mousePosition;
-            }
-        }
-        if (isLeftPressed) isLeftPressed = false;
-        if (isRightPressed) isRightPressed = false;
-        if (isMiddlePressed) isMiddlePressed = false;
-    }
-
-    // Key Pressed Event Handling //
-    if (const SFUI::Event::KeyPressed* keyPressedEvent = event.getIf<SFUI::Event::KeyPressed>()) {
-        if (isFocused && buttonBehavior.onKeyPress)
-            buttonBehavior.onKeyPress(componentID, keyPressedEvent->code);
-        if (isShowingToolTip) {
-            isShowingToolTip = false;
-            toolTipClock.restart();
-            toolTipClock.stop();
-            if (buttonBehavior.onBlur) buttonBehavior.onBlur(componentID);
-        }
-    }
-}
-
-
-/**
- * @brief .
- * 
- * @param .
- */
-SFUI::Void SFUI::Button::draw(SFUI::RenderTarget& renderTarget) {
-    renderTarget.draw(backgroundRects);
-    renderTarget.draw(backgroundArcs);
-    renderTarget.draw(borderRects);
-    renderTarget.draw(borderArcs);
-    if (isFocused) focus.draw(renderTarget);
-    if (isShowingToolTip) toolTip.draw(renderTarget);
 }

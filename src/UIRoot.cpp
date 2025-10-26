@@ -29,29 +29,6 @@ SFUI::Void SFUI::UIRoot::setRootComponent(const SFUI::SharedPointer<SFUI::Compon
 
 /**
  * @brief .
- */
-SFUI::Void SFUI::UIRoot::update(const SFUI::Vector2u renderTargetSize) {
-    if (!rootComponent) return;
-
-    // Breadth-First Traversal Algorithm for UI Component Updating //
-    std::deque<SFUI::SharedPointer<SFUI::Component>> childrenQueue;
-    childrenQueue.push_back(rootComponent);
-
-    while (!childrenQueue.empty()) {
-        SFUI::SharedPointer<SFUI::Component> currentChild = childrenQueue.front();
-        childrenQueue.pop_front();
-
-        SFUI::Vector<SFUI::SharedPointer<SFUI::Component>> currentChildChildren = currentChild->getChildren();
-        for (const auto& currentChildChild : currentChildChildren) {
-            childrenQueue.push_back(currentChildChild);
-        }
-        currentChild->update(renderTargetSize);
-    }
-}
-
-
-/**
- * @brief .
  * 
  * @param .
  */
@@ -71,6 +48,29 @@ SFUI::Void SFUI::UIRoot::handleEvent(const SFUI::Event& event) {
             childrenQueue.push_back(currentChildChild);
         }
         currentChild->handleEvent(event);
+    }
+}
+
+
+/**
+ * @brief .
+ */
+SFUI::Void SFUI::UIRoot::update(const SFUI::Vector2u renderTargetSize) {
+    if (!rootComponent) return;
+
+    // Breadth-First Traversal Algorithm for UI Component Updating //
+    std::deque<SFUI::SharedPointer<SFUI::Component>> childrenQueue;
+    childrenQueue.push_back(rootComponent);
+
+    while (!childrenQueue.empty()) {
+        SFUI::SharedPointer<SFUI::Component> currentChild = childrenQueue.front();
+        childrenQueue.pop_front();
+
+        SFUI::Vector<SFUI::SharedPointer<SFUI::Component>> currentChildChildren = currentChild->getChildren();
+        for (const auto& currentChildChild : currentChildChildren) {
+            childrenQueue.push_back(currentChildChild);
+        }
+        currentChild->update(renderTargetSize);
     }
 }
 

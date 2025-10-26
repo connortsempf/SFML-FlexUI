@@ -32,115 +32,6 @@ SFUI::ScrollContainer::ScrollContainer(const SFUI::String& componentID, const SF
 
 /**
  * @brief .
- */
-SFUI::Void SFUI::ScrollContainer::computeAlignPrimary() {
-    SFUI::String tempAlignPrimary = layout.alignPrimary;
-    std::transform(tempAlignPrimary.begin(), tempAlignPrimary.end(), tempAlignPrimary.begin(), [](unsigned char c) {
-        return std::tolower(c);
-    });
-
-    if (tempAlignPrimary == "start" || tempAlignPrimary == "end") {
-        computedLayout.alignPrimary = tempAlignPrimary;
-    }   else {
-        computedLayout.alignPrimary = "start";
-    }
-}
-
-
-/**
- * @brief .
- */
-SFUI::Void SFUI::ScrollContainer::computeScrollDirection() {
-    SFUI::String tempAlign = scrollContainerStyle.scrollBarAlign;
-    std::transform(tempAlign.begin(), tempAlign.end(), tempAlign.begin(), [](unsigned char c) {
-        return std::tolower(c);
-    });
-
-    if (tempAlign == "vertical" || tempAlign == "horizontal" || tempAlign == "both")
-    computedScrollContainerStyle.scrollBarAlign = tempAlign;
-    else
-    computedScrollContainerStyle.scrollBarAlign = "vertical";
-}
-
-
-/**
- * @brief .
- */
-SFUI::Void SFUI::ScrollContainer::computeScrollSpeedFactor() {
-    if (scrollContainerStyle.scrollSpeedFactor == 0) {
-        computedScrollContainerStyle.scrollSpeedFactor = 15.0f;
-        return;
-    }
-    computedScrollContainerStyle.scrollSpeedFactor = scrollContainerStyle.scrollSpeedFactor;
-}
-
-
-/**
- * @brief .
- */
-SFUI::Void SFUI::ScrollContainer::computeChildrenScrollPosition() {
-    SFUI::Vector<SFUI::SharedPointer<SFUI::Component>> children = this->getChildren();
-    for (int i = 0; i < children.size(); i++) {
-        childrenComputedLayout[i].position = {
-            childrenComputedLayout[i].position.x + static_cast<SFUI::Int>(scrollOffset.x),
-            childrenComputedLayout[i].position.y + static_cast<SFUI::Int>(scrollOffset.y)
-        };
-    }
-}
-
-
-/**
- * @brief .
- */
-SFUI::Void SFUI::ScrollContainer::computeMaxScrollOffset() {
-    SFUI::Vector<SFUI::SharedPointer<SFUI::Component>> children = this->getChildren();
-    SFUI::Vector2f contentSize = {0.0f, 0.0f};
-    for (const auto& child : children) {
-        contentSize.x += (child->getSize().x + (child->getMargin() * 2.0f));
-        contentSize.y += (child->getSize().y + (child->getMargin() * 2.0f));
-    }
-    maxScrollOffset = {contentSize.x - computedLayout.size.x, contentSize.y - computedLayout.size.y};
-    if (maxScrollOffset.x < 0.0f) maxScrollOffset.x = 0.0f;
-    if (maxScrollOffset.y < 0.0f) maxScrollOffset.y = 0.0f;
-}
-
-
-/**
- * @brief .
- * 
- * @param .
- */
-SFUI::Void SFUI::ScrollContainer::update(const SFUI::Vector2u renderTargetSize) {
-    this->renderTargetSize = renderTargetSize;
-
-    computeAlignDirection();
-    computeAlignPrimary();
-    computeAlignSecondary();
-    computeMargin();
-    computeSize();
-    computePadding();
-    computePosition();
-    computeBorderWidth();
-    computeCornerRadius();
-    computeFillColor();
-    computeBorderColor();
-    computeGraphics();
-    computeChildrenMargin();
-    computeChildrenSize();
-    computeChildrenPosition();
-    
-    // Scroll Container Specific Computation //
-    computeScrollDirection();
-    computeScrollSpeedFactor();
-    computeChildrenScrollPosition();
-    computeMaxScrollOffset();
-
-    updateChildren();
-}
-
-
-/**
- * @brief .
  * 
  * @param .
  */
@@ -252,9 +143,118 @@ SFUI::Void SFUI::ScrollContainer::handleEvent(const SFUI::Event& event) {
  * 
  * @param .
  */
+SFUI::Void SFUI::ScrollContainer::update(const SFUI::Vector2u renderTargetSize) {
+    this->renderTargetSize = renderTargetSize;
+
+    computeAlignDirection();
+    computeAlignPrimary();
+    computeAlignSecondary();
+    computeMargin();
+    computeSize();
+    computePadding();
+    computePosition();
+    computeBorderWidth();
+    computeCornerRadius();
+    computeFillColor();
+    computeBorderColor();
+    computeGraphics();
+    computeChildrenMargin();
+    computeChildrenSize();
+    computeChildrenPosition();
+    
+    // Scroll Container Specific Computation //
+    computeScrollDirection();
+    computeScrollSpeedFactor();
+    computeChildrenScrollPosition();
+    computeMaxScrollOffset();
+
+    updateChildren();
+}
+
+
+/**
+ * @brief .
+ * 
+ * @param .
+ */
 SFUI::Void SFUI::ScrollContainer::draw(SFUI::RenderTarget& renderTarget) {
     renderTarget.draw(backgroundRects);
     renderTarget.draw(backgroundArcs);
     renderTarget.draw(borderRects);
     renderTarget.draw(borderArcs);
+}
+
+
+/**
+ * @brief .
+ */
+SFUI::Void SFUI::ScrollContainer::computeAlignPrimary() {
+    SFUI::String tempAlignPrimary = layout.alignPrimary;
+    std::transform(tempAlignPrimary.begin(), tempAlignPrimary.end(), tempAlignPrimary.begin(), [](unsigned char c) {
+        return std::tolower(c);
+    });
+
+    if (tempAlignPrimary == "start" || tempAlignPrimary == "end") {
+        computedLayout.alignPrimary = tempAlignPrimary;
+    }   else {
+        computedLayout.alignPrimary = "start";
+    }
+}
+
+
+/**
+ * @brief .
+ */
+SFUI::Void SFUI::ScrollContainer::computeScrollDirection() {
+    SFUI::String tempAlign = scrollContainerStyle.scrollBarAlign;
+    std::transform(tempAlign.begin(), tempAlign.end(), tempAlign.begin(), [](unsigned char c) {
+        return std::tolower(c);
+    });
+
+    if (tempAlign == "vertical" || tempAlign == "horizontal" || tempAlign == "both")
+    computedScrollContainerStyle.scrollBarAlign = tempAlign;
+    else
+    computedScrollContainerStyle.scrollBarAlign = "vertical";
+}
+
+
+/**
+ * @brief .
+ */
+SFUI::Void SFUI::ScrollContainer::computeScrollSpeedFactor() {
+    if (scrollContainerStyle.scrollSpeedFactor == 0) {
+        computedScrollContainerStyle.scrollSpeedFactor = 15.0f;
+        return;
+    }
+    computedScrollContainerStyle.scrollSpeedFactor = scrollContainerStyle.scrollSpeedFactor;
+}
+
+
+/**
+ * @brief .
+ */
+SFUI::Void SFUI::ScrollContainer::computeChildrenScrollPosition() {
+    SFUI::Vector<SFUI::SharedPointer<SFUI::Component>> children = this->getChildren();
+    for (int i = 0; i < children.size(); i++) {
+        childrenComputedLayout[i].position = {
+            childrenComputedLayout[i].position.x + static_cast<SFUI::Int>(scrollOffset.x),
+            childrenComputedLayout[i].position.y + static_cast<SFUI::Int>(scrollOffset.y)
+        };
+    }
+}
+
+
+/**
+ * @brief .
+ */
+SFUI::Void SFUI::ScrollContainer::computeMaxScrollOffset() {
+    SFUI::Vector<SFUI::SharedPointer<SFUI::Component>> children = this->getChildren();
+    SFUI::Vector2f contentSize = {0.0f, 0.0f};
+    for (const auto& child : children) {
+        contentSize.x += (child->getSize().x + (child->getMargin() * 2.0f));
+        contentSize.y += (child->getSize().y + (child->getMargin() * 2.0f));
+    }
+    maxScrollOffset = {contentSize.x - computedLayout.size.x, contentSize.y - computedLayout.size.y};
+    if (maxScrollOffset.x < 0.0f) maxScrollOffset.x = 0.0f;
+    if (maxScrollOffset.y < 0.0f) maxScrollOffset.y = 0.0f;
 }
