@@ -12,19 +12,19 @@ namespace SFUI {
     class TextField : public Component {
 
         public:
-            SFUI::Prop::ButtonStyle backgroundStyle;
-            SFUI::Prop::LabelStyle inputTextStyle;
-            SFUI::Prop::Style caretStyle;
-            SFUI::Prop::TextFieldStyle textFieldStyle;
-            SFUI::Prop::ButtonBehavior backgroundBehavior;
-            SFUI::Prop::TextFieldBehavior textFieldBehavior;
+            SFUI::Prop::Style::Button backgroundStyle;
+            SFUI::Prop::Style::Label inputTextStyle;
+            SFUI::Prop::Style::Component caretStyle;
+            SFUI::Prop::Style::TextField textFieldStyle;
+            SFUI::Prop::Behavior::Button backgroundBehavior;
+            SFUI::Prop::Behavior::TextField textFieldBehavior;
 
         public:
             TextField() = default;
             TextField(const SFUI::String& componentID);
             TextField(const SFUI::String& componentID, const SFUI::PropGroup::TextField& textFieldPropGroup);
-            SFUI::Void update(const SFUI::Vector2u renderTargetSize);
             SFUI::Void handleEvent(const SFUI::Event& event);
+            SFUI::Void update(const SFUI::Vector2u renderTargetSize);
             SFUI::Void draw(SFUI::RenderTarget& renderTarget);
         
         private:

@@ -84,14 +84,7 @@ namespace SFUI {
         protected:
             SFUI::Bool isMouseHovered(const SFUI::Vector2i& mousePosition);
             SFUI::Color resolveColorSubProp(const SFUI::SubProp::Color& color);
-            SFUI::Vector4f resolveCornerRadiusSubProp(
-                SFUI::Vector2f size,
-                SFUI::SubProp::Dimension cornerRadius,
-                SFUI::Optional<SFUI::SubProp::Dimension> cornerRadiusTopLeft,
-                SFUI::Optional<SFUI::SubProp::Dimension> cornerRadiusTopRight,
-                SFUI::Optional<SFUI::SubProp::Dimension> cornerRadiusBottomLeft,
-                SFUI::Optional<SFUI::SubProp::Dimension> cornerRadiusBottomRight
-            );
+            SFUI::Vector4f resolveUniQuadSubProp(SFUI::Vector2f size, SFUI::SubProp::UniQuad cornerRadius);
             SFUI::Void computeAlignDirection();
             SFUI::Void computeAlignPrimary();
             SFUI::Void computeAlignSecondary();

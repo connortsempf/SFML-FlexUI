@@ -59,6 +59,7 @@ SFUI::Void SFUI::Button::handleEvent(const SFUI::Event& event) {
                 toolTipClock.restart();
                 isHovered = true;
                 if (buttonBehavior.onHoverIn) buttonBehavior.onHoverIn(componentID);
+                std::cout << componentID << " Hovered In\n";
             }   else if (!isShowingToolTip) {
                 previousHoverPosition = {static_cast<SFUI::Float>(mousePosition.x), static_cast<SFUI::Float>(mousePosition.y)};
             }
@@ -186,7 +187,7 @@ SFUI::Void SFUI::Button::update(const SFUI::Vector2u renderTargetSize) {
     computeChildrenSize();
     computeChildrenPosition();
     updateChildren();
-
+    
     // Button Specific Computation //
     computeDynamicColors();
     computeFocusWidth();
@@ -385,7 +386,7 @@ SFUI::Color SFUI::Button::getToolTipFillColor() {
  * @return .
  */
 SFUI::Color SFUI::Button::getToolTipTextColor() {
-
+    return computedButtonStyle.toolTipTextColor;
 }
 
 
@@ -393,41 +394,48 @@ SFUI::Color SFUI::Button::getToolTipTextColor() {
  * @brief .
  */
 SFUI::Void SFUI::Button::computeDynamicColors() {
-    if (buttonStyle.hoveredFillColor.has_value())
+    if (buttonStyle.hoveredFillColor.isSet())
         computedButtonStyle.hoveredFillColor = resolveColorSubProp(buttonStyle.hoveredFillColor.value());
-    if (buttonStyle.hoveredBorderColor.has_value())
+    if (buttonStyle.hoveredBorderColor.isSet())
         computedButtonStyle.hoveredBorderColor = resolveColorSubProp(buttonStyle.hoveredBorderColor.value());
-    if (buttonStyle.pressedFillColor.has_value())
+    if (buttonStyle.pressedFillColor.isSet())
         computedButtonStyle.pressedFillColor = resolveColorSubProp(buttonStyle.pressedFillColor.value());
-    if (buttonStyle.pressedBorderColor.has_value())
+    if (buttonStyle.pressedBorderColor.isSet())
         computedButtonStyle.pressedBorderColor = resolveColorSubProp(buttonStyle.pressedBorderColor.value());
-    if (buttonStyle.disabledFillColor.has_value())
+    if (buttonStyle.disabledFillColor.isSet())
         computedButtonStyle.disabledFillColor = resolveColorSubProp(buttonStyle.disabledFillColor.value());
-    if (buttonStyle.disabledBorderColor.has_value())
+    if (buttonStyle.disabledBorderColor.isSet())
         computedButtonStyle.disabledBorderColor = resolveColorSubProp(buttonStyle.disabledBorderColor.value());
 
     // Mutate Based Container with Dynamic Fill Color //
     if (isDisabled) {
-        if (buttonStyle.disabledFillColor.has_value())
+        if (buttonStyle.disabledFillColor.isSet())
             computedStyle.fillColor = computedButtonStyle.disabledFillColor;
-        if (buttonStyle.disabledBorderColor.has_value())
+        if (buttonStyle.disabledBorderColor.isSet())
             computedStyle.borderColor = computedButtonStyle.disabledBorderColor;
     }
     else if ((isLeftPressed || isRightPressed || isMiddlePressed)) {
-        if (buttonStyle.pressedFillColor.has_value())
+        if (buttonStyle.pressedFillColor.isSet())
             computedStyle.fillColor = computedButtonStyle.pressedFillColor;
-        if (buttonStyle.pressedBorderColor.has_value())
+        if (buttonStyle.pressedBorderColor.isSet())
             computedStyle.borderColor = computedButtonStyle.pressedBorderColor;
     }
     else if (isHovered) {
-        if (buttonStyle.hoveredFillColor.has_value())
+        std::cout <<
+            "(" << static_cast<SFUI::Int>(computedButtonStyle.hoveredFillColor.r) << ", " <<
+            "" << static_cast<SFUI::Int>(computedButtonStyle.hoveredFillColor.g) << ", " <<
+            "" << static_cast<SFUI::Int>(computedButtonStyle.hoveredFillColor.b) << ", " <<
+            "" << static_cast<SFUI::Int>(computedButtonStyle.hoveredFillColor.a) << ")\n";
+        if (buttonStyle.hoveredFillColor.isSet()) {
+            std::cout << componentID << " Dynamic Color for Hovered\n";
             computedStyle.fillColor = computedButtonStyle.hoveredFillColor;
-        if (buttonStyle.hoveredBorderColor.has_value())
+        }
+        if (buttonStyle.hoveredBorderColor.isSet())
             computedStyle.borderColor = computedButtonStyle.hoveredBorderColor;
     }
     else {
         computedStyle.fillColor = resolveColorSubProp(style.fillColor);
-        computedStyle.borderColor = resolveColorSubProp(style.fillColor);
+        computedStyle.borderColor = resolveColorSubProp(style.borderColor);
     }
 }
 
@@ -510,16 +518,9 @@ SFUI::Void SFUI::Button::computeFocusOffset() {
  * @brief .
  */
 SFUI::Void SFUI::Button::computeFocusCornerRadius() {
-    computedButtonStyle.focusCornerRadius = resolveCornerRadiusSubProp(
-        SFUI::Vector2f(
-            computedLayout.size.x + computedButtonStyle.focusOffset * 2.0f,
-            computedLayout.size.y + computedButtonStyle.focusOffset * 2.0f
-        ),
-        buttonStyle.focusCornerRadius,
-        buttonStyle.focusCornerRadiusTopLeft,
-        buttonStyle.focusCornerRadiusTopRight,
-        buttonStyle.focusCornerRadiusBottomLeft,
-        buttonStyle.focusCornerRadiusBottomRight
+    computedButtonStyle.focusCornerRadius = resolveUniQuadSubProp(
+        SFUI::Vector2f(computedLayout.size.x + computedButtonStyle.focusOffset * 2.0f, computedLayout.size.y + computedButtonStyle.focusOffset * 2.0f),
+        buttonStyle.focusCornerRadius
     );
 }
 
@@ -539,10 +540,12 @@ SFUI::Void SFUI::Button::computeFocus() {
     focus.layout.width = computedLayout.size.x + (computedButtonStyle.focusOffset * 2.0f) + (computedButtonStyle.focusWidth * 2.0f);
     focus.layout.height = computedLayout.size.y + (computedButtonStyle.focusOffset * 2.0f) + (computedButtonStyle.focusWidth * 2.0f);
     focus.style.borderWidth = computedButtonStyle.focusWidth;
-    focus.style.cornerRadiusTopLeft = computedButtonStyle.focusCornerRadius.x;
-    focus.style.cornerRadiusTopRight = computedButtonStyle.focusCornerRadius.y;
-    focus.style.cornerRadiusBottomLeft = computedButtonStyle.focusCornerRadius.z;
-    focus.style.cornerRadiusBottomRight = computedButtonStyle.focusCornerRadius.w;
+    focus.style.cornerRadius = SFUI::SubProp::Vector4dim{
+        computedButtonStyle.focusCornerRadius.x,
+        computedButtonStyle.focusCornerRadius.y,
+        computedButtonStyle.focusCornerRadius.z,
+        computedButtonStyle.focusCornerRadius.w
+    };
     focus.style.fillColor = SFUI::Color(0, 0, 0, 0);
     focus.style.borderColor = computedButtonStyle.focusFillColor;
     focus.update(renderTargetSize);
@@ -564,18 +567,7 @@ SFUI::Void SFUI::Button::computeToolTipPadding() {
  */
 SFUI::Void SFUI::Button::computeToolTipCornerRadius() {
     if (buttonStyle.toolTipText == "" || !buttonStyle.toolTipFont) return;
-
-    computedButtonStyle.toolTipCornerRadius = resolveCornerRadiusSubProp(
-        SFUI::Vector2f(
-            toolTip.getSize().x,
-            toolTip.getSize().y
-        ),
-        buttonStyle.toolTipCornerRadius,
-        buttonStyle.toolTipCornerRadiusTopLeft,
-        buttonStyle.toolTipCornerRadiusTopRight,
-        buttonStyle.toolTipCornerRadiusBottomLeft,
-        buttonStyle.toolTipCornerRadiusBottomRight
-    );
+    computedButtonStyle.toolTipCornerRadius = resolveUniQuadSubProp(SFUI::Vector2f(toolTip.getSize().x, toolTip.getSize().y), buttonStyle.toolTipCornerRadius);
 }
 
 
@@ -621,10 +613,12 @@ SFUI::Void SFUI::Button::computeToolTip() {
     toolTip.layout.width = tempText.getGlobalBounds().size.x + (computedButtonStyle.toolTipPadding * 2.0f);
     toolTip.layout.height = tempText.getGlobalBounds().size.y + (computedButtonStyle.toolTipPadding * 2.0f);
     toolTip.layout.padding = computedButtonStyle.toolTipPadding;
-    toolTip.style.cornerRadiusTopLeft = computedButtonStyle.toolTipCornerRadius.x;
-    toolTip.style.cornerRadiusTopRight = computedButtonStyle.toolTipCornerRadius.y;
-    toolTip.style.cornerRadiusBottomLeft = computedButtonStyle.toolTipCornerRadius.z;
-    toolTip.style.cornerRadiusBottomRight = computedButtonStyle.toolTipCornerRadius.w;
+    toolTip.style.cornerRadius = SFUI::SubProp::Vector4dim{
+        computedButtonStyle.toolTipCornerRadius.x,
+        computedButtonStyle.toolTipCornerRadius.y,
+        computedButtonStyle.toolTipCornerRadius.z,
+        computedButtonStyle.toolTipCornerRadius.w
+    };
     toolTip.labelStyle.text = buttonStyle.toolTipText;
     toolTip.labelStyle.font = buttonStyle.toolTipFont;
     toolTip.labelStyle.textSize = computedButtonStyle.toolTipTextSize;

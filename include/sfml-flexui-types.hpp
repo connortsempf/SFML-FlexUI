@@ -45,13 +45,10 @@ namespace SFUI {
     using Variant = std::variant<T ...>;
 
     template <typename... T>
-    using Optional = std::optional<T ...>;
-
-    template <typename... T>
     using Vector = std::vector<T ...>;
 
-    template <typename... T>
-    using Array = std::array<T ...>;
+    template <typename T, std::size_t N>
+    using Array = std::array<T, N>;
 
     template <typename... T>
     using WeakPointer = std::weak_ptr<T ...>;
@@ -108,9 +105,9 @@ namespace SFUI {
 
 
 
-/////////////////////////////////////
-// Custom SFML-FlexUI Vector Types //
-/////////////////////////////////////
+//////////////////////////////
+// Custom SFML-FlexUI Types //
+//////////////////////////////
 
 namespace SFUI {
 
@@ -228,6 +225,24 @@ namespace SFUI {
             SFUI::Float w = 0
         ) : x(x), y(y), z(z), w(w) {}
     };
+
+    template <typename Type>
+    class Optional {
+
+        public:
+            Optional() = default;
+            template <typename U>
+            Optional(U&& newValue) : _value(std::forward<U>(newValue)), _isSet(true) {}
+            template <typename U>
+            Optional& operator=(U&& newValue) { _value = std::forward<U>(newValue); _isSet = true; return *this;}
+            operator Type() const { return _value; }
+            SFUI::Bool isSet() const { return _isSet; }
+            Type value() const { return _value; }
+
+        private:
+            Type _value{};
+            SFUI::Bool _isSet = false;
+    };
 }
 
 
@@ -246,10 +261,22 @@ namespace SFUI {
         using Numeric = SFUI::Float;
 
         using Keyword = SFUI::String;
-        
+
         using Dimension = SFUI::Variant<SFUI::Float, SFUI::String>;
-        
+
+        struct Vector4dim {
+            SFUI::SubProp::Dimension x, y, z, w;
+            Vector4dim(
+                SFUI::SubProp::Dimension x = 0.0f,
+                SFUI::SubProp::Dimension y = 0.0f,
+                SFUI::SubProp::Dimension z = 0.0f,
+                SFUI::SubProp::Dimension w = 0.0f
+            ) : x(x), y(y), z(z), w(w) {}
+        };
+
         using Color = SFUI::Variant<SFUI::Vector3ui8, SFUI::Vector4ui8, SFUI::String, SFUI::Color>;
+        
+        using UniQuad = SFUI::Variant<SFUI::SubProp::Dimension, SFUI::SubProp::Vector4dim>;
 
         using Font = SFUI::SharedPointer<SFUI::Font>;
 
@@ -295,11 +322,7 @@ namespace SFUI {
 
             struct Component {
                 SFUI::SubProp::Dimension borderWidth = 0.0f;
-                SFUI::SubProp::Dimension cornerRadius = 0.0f;
-                SFUI::Optional<SFUI::SubProp::Dimension> cornerRadiusTopLeft;
-                SFUI::Optional<SFUI::SubProp::Dimension> cornerRadiusTopRight;
-                SFUI::Optional<SFUI::SubProp::Dimension> cornerRadiusBottomLeft;
-                SFUI::Optional<SFUI::SubProp::Dimension> cornerRadiusBottomRight;
+                SFUI::SubProp::UniQuad cornerRadius;
                 SFUI::SubProp::Color fillColor = SFUI::Color(0, 0, 0, 0);
                 SFUI::SubProp::Color borderColor = SFUI::Color(0, 0, 0, 0);
             };
@@ -322,18 +345,10 @@ namespace SFUI {
                 SFUI::Optional<SFUI::SubProp::Color> disabledBorderColor;
                 SFUI::SubProp::Dimension focusWidth = 10.0f;
                 SFUI::SubProp::Dimension focusOffset = 0.0f;
-                SFUI::SubProp::Dimension focusCornerRadius = 0.0f;
-                SFUI::Optional<SFUI::SubProp::Dimension> focusCornerRadiusTopLeft;
-                SFUI::Optional<SFUI::SubProp::Dimension> focusCornerRadiusTopRight;
-                SFUI::Optional<SFUI::SubProp::Dimension> focusCornerRadiusBottomLeft;
-                SFUI::Optional<SFUI::SubProp::Dimension> focusCornerRadiusBottomRight;
+                SFUI::SubProp::UniQuad focusCornerRadius;
                 SFUI::SubProp::Color focusFillColor = SFUI::Color(0, 0, 0, 255);
                 SFUI::SubProp::Numeric toolTipPadding = 10.0f;
-                SFUI::SubProp::Dimension toolTipCornerRadius = 0.0f;
-                SFUI::Optional<SFUI::SubProp::Dimension> toolTipCornerRadiusTopLeft;
-                SFUI::Optional<SFUI::SubProp::Dimension> toolTipCornerRadiusTopRight;
-                SFUI::Optional<SFUI::SubProp::Dimension> toolTipCornerRadiusBottomLeft;
-                SFUI::Optional<SFUI::SubProp::Dimension> toolTipCornerRadiusBottomRight;
+                SFUI::SubProp::UniQuad toolTipCornerRadius;
                 SFUI::SubProp::Keyword toolTipText = "";
                 SFUI::SubProp::Font toolTipFont;
                 SFUI::SubProp::Numeric toolTipTextSize = 10.0f;
@@ -354,19 +369,11 @@ namespace SFUI {
                 SFUI::SubProp::Keyword scrollBarAlign = "right";
                 SFUI::SubProp::Dimension trackOnAxisSize;
                 SFUI::SubProp::Dimension trackOffAxisSize;
-                SFUI::SubProp::Dimension trackCornerRadius = 0.0f;
-                SFUI::Optional<SFUI::SubProp::Dimension> trackCornerRadiusTopLeft;
-                SFUI::Optional<SFUI::SubProp::Dimension> trackCornerRadiusTopRight;
-                SFUI::Optional<SFUI::SubProp::Dimension> trackCornerRadiusBottomLeft;
-                SFUI::Optional<SFUI::SubProp::Dimension> trackCornerRadiusBottomRight;
+                SFUI::SubProp::UniQuad trackCornerRadius;
                 SFUI::SubProp::Color trackFillColor;
                 SFUI::Optional<SFUI::SubProp::Color> trackHoveredFillColor;
                 SFUI::Optional<SFUI::SubProp::Color> trackPressedFillColor;
-                SFUI::SubProp::Dimension thumbCornerRadius = 0.0f;
-                SFUI::Optional<SFUI::SubProp::Dimension> thumbCornerRadiusTopLeft;
-                SFUI::Optional<SFUI::SubProp::Dimension> thumbCornerRadiusTopRight;
-                SFUI::Optional<SFUI::SubProp::Dimension> thumbCornerRadiusBottomLeft;
-                SFUI::Optional<SFUI::SubProp::Dimension> thumbCornerRadiusBottomRight;
+                SFUI::SubProp::UniQuad thumbCornerRadius;
                 SFUI::SubProp::Color thumbFillColor;
                 SFUI::Optional<SFUI::SubProp::Color> thumbHoveredFillColor;
                 SFUI::Optional<SFUI::SubProp::Color> thumbPressedFillColor;

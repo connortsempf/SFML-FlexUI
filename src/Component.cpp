@@ -265,100 +265,81 @@ SFUI::Color SFUI::Component::resolveColorSubProp(const SFUI::SubProp::Color& col
  * 
  * @return .
  */
-SFUI::Vector4f SFUI::Component::resolveCornerRadiusSubProp(
-    SFUI::Vector2f size,
-    SFUI::SubProp::Dimension cornerRadius,
-    SFUI::Optional<SFUI::SubProp::Dimension> cornerRadiusTopLeft,
-    SFUI::Optional<SFUI::SubProp::Dimension> cornerRadiusTopRight,
-    SFUI::Optional<SFUI::SubProp::Dimension> cornerRadiusBottomLeft,
-    SFUI::Optional<SFUI::SubProp::Dimension> cornerRadiusBottomRight
-) {
-    SFUI::Float relativeCornerRadiusFactor = std::min(size.x, size.y);
+SFUI::Vector4f SFUI::Component::resolveUniQuadSubProp(SFUI::Vector2f size, SFUI::SubProp::UniQuad subProp) {
+    SFUI::Vector4f computedSubProp = {0.0f, 0.0f, 0.0f, 0.0f};
+    SFUI::Float subPropSizeFactor = std::min(size.x, size.y);
 
-    // If the Master Corner Radius Style Variant Holds an Explicit Float //
-    SFUI::Float computedMasterCornerRadius = 0.0f;
+    // If the Sub Prop Holds the Master Value //
+    if (std::holds_alternative<SFUI::SubProp::Dimension>(subProp)) {
+        SFUI::SubProp::Dimension masterSubProp = std::get<SFUI::SubProp::Dimension>(subProp);
+        SFUI::Float computedMasterSubProp = 0.0f;
 
-    if (std::holds_alternative<SFUI::Float>(cornerRadius)) {
-        computedMasterCornerRadius = std::get<SFUI::Float>(cornerRadius);
-    }
-    // If the Master Corner Radius Style Variant Holds a String Percentage Input //
-    else if (std::holds_alternative<SFUI::String>(cornerRadius)) {
-        SFUI::String masterCornerRadiusString = std::get<SFUI::String>(cornerRadius);
-        if (masterCornerRadiusString.size() > 1 && masterCornerRadiusString.back() == '%') {
-            masterCornerRadiusString.pop_back();
-            try {
-                size_t index = 0;
-                SFUI::Double tempCornerRadius = std::stod(masterCornerRadiusString, &index);
-                if (index == masterCornerRadiusString.size()) {
-                    computedMasterCornerRadius = relativeCornerRadiusFactor * std::clamp(static_cast<SFUI::Float>(tempCornerRadius) / 100.0f, 0.0f, 0.5f);
-                }   else {
-                    computedMasterCornerRadius = 0.0f;
-                }
-            }   catch (...) {
-                computedMasterCornerRadius = 0.0f;
-            }
-        }   else {
-            computedMasterCornerRadius = 0.0f;
+        // If the Master Sub Prop Holds and Explicit Float Value //
+        if (std::holds_alternative<SFUI::Float>(masterSubProp)) {
+            computedMasterSubProp = std::get<SFUI::Float>(masterSubProp);
         }
+        // If the Master Sub Prop Holds a String Percentage Value //
+        else if (std::holds_alternative<SFUI::String>(masterSubProp)) {
+            SFUI::String masterSubPropString = std::get<SFUI::String>(masterSubProp);
+            if (masterSubPropString.size() > 1 && masterSubPropString.back() == '%') {
+                masterSubPropString.pop_back();
+                try {
+                    size_t index = 0;
+                    SFUI::Double tempSubProp = std::stod(masterSubPropString, &index);
+                    if (index == masterSubPropString.size()) {
+                        computedMasterSubProp = subPropSizeFactor * std::clamp(static_cast<SFUI::Float>(tempSubProp) / 100.0f, 0.0f, 0.5f);
+                    }   else {
+                        computedMasterSubProp = 0.0f;
+                    }
+                }   catch (...) {
+                    computedMasterSubProp = 0.0f;
+                }
+            }   else {
+                computedMasterSubProp = 0.0f;
+            }
+        }
+        computedSubProp.x = computedSubProp.y = computedSubProp.z = computedSubProp.w = computedMasterSubProp;
     }
 
-    // If the Partial Corner Radius Style Variant Holds an Explicit Float //
-    SFUI::Vector4f computedPartialCornerRadii = {0.0f, 0.0f, 0.0f, 0.0f};
+    // If the Sub Prop Holds the Invidiual Inputs Value //
+    if (std::holds_alternative<SFUI::SubProp::Vector4dim>(subProp)) {
+        SFUI::SubProp::Vector4dim subProps = std::get<SFUI::SubProp::Vector4dim>(subProp);
+        SFUI::Array<SFUI::SubProp::Dimension, 4> individualSubProps = {subProps.x, subProps.y, subProps.z, subProps.w};
+        SFUI::Array<SFUI::Float, 4> computedIndividualSubProps = {0.0f, 0.0f, 0.0f, 0.0f};
 
-    SFUI::Float computedPartialCornerRadius;
-    SFUI::Optional<SFUI::Variant<SFUI::Float, SFUI::String>> partialCornerRadius;
-    SFUI::Optional<SFUI::Variant<SFUI::Float, SFUI::String>>* partialCornerRadii[4] = {
-        &cornerRadiusTopLeft,
-        &cornerRadiusTopRight,
-        &cornerRadiusBottomLeft,
-        &cornerRadiusBottomRight
-    };
-
-    for (int i = 0; i < 4; i++) {
-        partialCornerRadius = *partialCornerRadii[i];
-
-        // If the Partial Corner Radius Optional was Set by the User //
-        if (partialCornerRadius.has_value()) {
-            const auto& partialCornerRadiusValue = partialCornerRadius.value();
-
-            if (std::holds_alternative<SFUI::Float>(partialCornerRadiusValue)) {
-                computedPartialCornerRadius = std::get<SFUI::Float>(partialCornerRadiusValue);
+        for (int i = 0; i < 4; i++) {
+            // If the Master Sub Prop Holds and Explicit Float Value //
+            if (std::holds_alternative<SFUI::Float>(individualSubProps[i])) {
+                computedIndividualSubProps[i] = std::get<SFUI::Float>(individualSubProps[i]);
             }
-    
-            // If the Partial Corner Radius Style Variant Holds a String Percentage Input //
-            else if (std::holds_alternative<SFUI::String>(partialCornerRadiusValue)) {
-                SFUI::String partialCornerRadiusString = std::get<SFUI::String>(partialCornerRadiusValue);
-                if (partialCornerRadiusString.size() > 1 && partialCornerRadiusString.back() == '%') {
-                    partialCornerRadiusString.pop_back();
+            // If the Master Sub Prop Holds a String Percentage Value //
+            else if (std::holds_alternative<SFUI::String>(individualSubProps[i])) {
+                SFUI::String individualSubPropString = std::get<SFUI::String>(individualSubProps[i]);
+                if (individualSubPropString.size() > 1 && individualSubPropString.back() == '%') {
+                    individualSubPropString.pop_back();
                     try {
                         size_t index = 0;
-                        SFUI::Double tempCornerRadius = std::stod(partialCornerRadiusString, &index);
-                        if (index == partialCornerRadiusString.size()) {
-                            computedPartialCornerRadius = relativeCornerRadiusFactor * std::clamp(static_cast<SFUI::Float>(tempCornerRadius) / 100.0f, 0.0f, 0.5f);
+                        SFUI::Double tempSubProp = std::stod(individualSubPropString, &index);
+                        if (index == individualSubPropString.size()) {
+                            computedIndividualSubProps[i] = subPropSizeFactor * std::clamp(static_cast<SFUI::Float>(tempSubProp) / 100.0f, 0.0f, 0.5f);
                         }   else {
-                            computedPartialCornerRadius = 0.0f;
+                            computedIndividualSubProps[i] = 0.0f;
                         }
                     }   catch (...) {
-                        computedPartialCornerRadius = 0.0f;
+                        computedIndividualSubProps[i] = 0.0f;
                     }
                 }   else {
-                    computedPartialCornerRadius = 0.0f;
+                    computedIndividualSubProps[i] = 0.0f;
                 }
-            }
+            };
         }
-        // Partial Corner Radius has No Value, It's Option was Not Used, Just Use Master Corner Radius //
-        else {
-            computedPartialCornerRadius = computedMasterCornerRadius;
-        }
-
-        if (i == 0) computedPartialCornerRadii.x = computedPartialCornerRadius;
-        else if (i == 1) computedPartialCornerRadii.y = computedPartialCornerRadius;
-        else if (i == 2) computedPartialCornerRadii.z = computedPartialCornerRadius;
-        else if (i == 3) computedPartialCornerRadii.w = computedPartialCornerRadius;
+        computedSubProp.x = computedIndividualSubProps[1];
+        computedSubProp.y = computedIndividualSubProps[2];
+        computedSubProp.z = computedIndividualSubProps[3];
+        computedSubProp.w = computedIndividualSubProps[4];
     }
 
-    // Set the Final Computed Corner Radii Values to the Computed Style Struct //
-    return computedPartialCornerRadii;
+    return computedSubProp;
 }
 
 
@@ -583,7 +564,7 @@ SFUI::Void SFUI::Component::computePosition() {
         SFUI::Vector2i computedPosition = {0, 0};
         
         // If Explicit X-Position Input Given by User //
-        if (layout.xPosition.has_value()) {
+        if (layout.xPosition.isSet()) {
             SFUI::Int xPositionValue = layout.xPosition.value();
             computedPosition.x = xPositionValue;
         }
@@ -593,7 +574,7 @@ SFUI::Void SFUI::Component::computePosition() {
         }
 
         // If Explicit Y-Position Input Given by User //
-        if (layout.yPosition.has_value()) {
+        if (layout.yPosition.isSet()) {
             SFUI::Int yPositionValue = layout.yPosition.value();
             computedPosition.y = yPositionValue;
         }
@@ -649,14 +630,23 @@ SFUI::Void SFUI::Component::computeBorderWidth() {
  * @brief .
  */
 SFUI::Void SFUI::Component::computeCornerRadius() {
-    computedStyle.cornerRadius = resolveCornerRadiusSubProp(
-        computedLayout.size,
-        style.cornerRadius,
-        style.cornerRadiusTopLeft,
-        style.cornerRadiusTopRight,
-        style.cornerRadiusBottomLeft,
-        style.cornerRadiusBottomRight
-    );
+
+    // if (componentID == "rootView") {
+    //     std::cout <<
+    //         "(" << (style.cornerRadiusTopLeft.isSet() ? "Set, " : "Not Set, ") <<
+    //         "" << (style.cornerRadiusTopRight.isSet() ? "Set, " : "Not Set, ") <<
+    //         "" << (style.cornerRadiusBottomLeft.isSet() ? "Set, " : "Not Set, ") <<
+    //         "" << (style.cornerRadiusBottomRight.isSet() ? "Set)\n" : "Not Set)\n");
+    // }
+
+    computedStyle.cornerRadius = resolveUniQuadSubProp(computedLayout.size, style.cornerRadius);
+
+    // if (componentID == "rootView") {
+    //     std::cout << "(" << computedStyle.cornerRadius.x << ", " <<
+    //         "" << computedStyle.cornerRadius.y << ", " <<
+    //         "" << computedStyle.cornerRadius.z << ", " <<
+    //         "" << computedStyle.cornerRadius.w << ")\n";
+    // }
 }
 
 
@@ -895,7 +885,7 @@ SFUI::Void SFUI::Component::computeChildrenPosition() {
             
             // X-Positions //
             // If Explicit X-Position Input Given by User //
-            if (childComponent.layout.xPosition.has_value()) {
+            if (childComponent.layout.xPosition.isSet()) {
                 SFUI::Int xPositionValue = childComponent.layout.xPosition.value();
                 computedPosition.x = xPositionValue;
             }
@@ -946,7 +936,7 @@ SFUI::Void SFUI::Component::computeChildrenPosition() {
 
             // Y-Positions //
             // If Explicit Y-Position Input Given by User //
-            if (childComponent.layout.yPosition.has_value()) {
+            if (childComponent.layout.yPosition.isSet()) {
                 SFUI::Int yPositionValue = childComponent.layout.yPosition.value();
                 computedPosition.y = yPositionValue;
             }
