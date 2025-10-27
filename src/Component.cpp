@@ -243,7 +243,31 @@ SFUI::Color SFUI::Component::resolveColorSubProp(const SFUI::SubProp::Color& col
     }
     // If Input Fill Color is a Hex String //
     else if (std::holds_alternative<SFUI::String>(color)) {
-        // Going to Do this Later -- String Parsing Code Needed //
+        SFUI::String fillColorHexString = std::get<SFUI::String>(color);
+        
+        if (!fillColorHexString.empty() && fillColorHexString[0] == '#') {
+            fillColorHexString.erase(0, 1);
+            try {
+                // RRGGBB Oct-String //
+                if (fillColorHexString.length() == 6) {
+                    unsigned int r = std::stoul(fillColorHexString.substr(0,2), nullptr, 16);
+                    unsigned int g = std::stoul(fillColorHexString.substr(2,2), nullptr, 16);
+                    unsigned int b = std::stoul(fillColorHexString.substr(4,2), nullptr, 16);
+                    resolvedFillColor = SFUI::Color(r, g, b, 255);
+                }
+                // RRGGBBAA Hex-String //
+                else if (fillColorHexString.length() == 8) {
+                    unsigned int r = std::stoul(fillColorHexString.substr(0,2), nullptr, 16);
+                    unsigned int g = std::stoul(fillColorHexString.substr(2,2), nullptr, 16);
+                    unsigned int b = std::stoul(fillColorHexString.substr(4,2), nullptr, 16);
+                    unsigned int a = std::stoul(fillColorHexString.substr(6,2), nullptr, 16);
+                    resolvedFillColor = SFUI::Color(r, g, b, a);
+                }
+            }   catch (...) {
+                resolvedFillColor = SFUI::Color(0, 0, 0, 255);
+            }
+        }
+        
     }
     // If Input Fill Color is Already Given as a SFML::Color Type //
     else if (std::holds_alternative<SFUI::Color>(color)) {
