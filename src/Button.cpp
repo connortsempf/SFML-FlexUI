@@ -59,7 +59,7 @@ SFUI::Void SFUI::Button::handleEvent(const SFUI::Event& event) {
                 toolTipClock.restart();
                 isHovered = true;
                 if (buttonBehavior.onHoverIn) buttonBehavior.onHoverIn(componentID);
-                std::cout << componentID << " Hovered In\n";
+                // std::cout << componentID << " Hovered In\n";
             }   else if (!isShowingToolTip) {
                 previousHoverPosition = {static_cast<SFUI::Float>(mousePosition.x), static_cast<SFUI::Float>(mousePosition.y)};
             }
@@ -173,6 +173,9 @@ SFUI::Void SFUI::Button::handleEvent(const SFUI::Event& event) {
 SFUI::Void SFUI::Button::update(const SFUI::Vector2u renderTargetSize) {
     this->renderTargetSize = renderTargetSize;
 
+    // Button Specific Computation (Needs to be Before Graphics Computation) //
+    computeDynamicColors();
+
     computeAlignDirection();
     computeAlignPrimary();
     computeAlignSecondary();
@@ -189,7 +192,6 @@ SFUI::Void SFUI::Button::update(const SFUI::Vector2u renderTargetSize) {
     updateChildren();
     
     // Button Specific Computation //
-    computeDynamicColors();
     computeFocusWidth();
     computeFocusOffset();
     computeFocusCornerRadius();
@@ -394,43 +396,36 @@ SFUI::Color SFUI::Button::getToolTipTextColor() {
  * @brief .
  */
 SFUI::Void SFUI::Button::computeDynamicColors() {
-    if (buttonStyle.hoveredFillColor.isSet())
+    if (buttonStyle.hoveredFillColor.has_value())
         computedButtonStyle.hoveredFillColor = resolveColorSubProp(buttonStyle.hoveredFillColor.value());
-    if (buttonStyle.hoveredBorderColor.isSet())
+    if (buttonStyle.hoveredBorderColor.has_value())
         computedButtonStyle.hoveredBorderColor = resolveColorSubProp(buttonStyle.hoveredBorderColor.value());
-    if (buttonStyle.pressedFillColor.isSet())
+    if (buttonStyle.pressedFillColor.has_value())
         computedButtonStyle.pressedFillColor = resolveColorSubProp(buttonStyle.pressedFillColor.value());
-    if (buttonStyle.pressedBorderColor.isSet())
+    if (buttonStyle.pressedBorderColor.has_value())
         computedButtonStyle.pressedBorderColor = resolveColorSubProp(buttonStyle.pressedBorderColor.value());
-    if (buttonStyle.disabledFillColor.isSet())
+    if (buttonStyle.disabledFillColor.has_value())
         computedButtonStyle.disabledFillColor = resolveColorSubProp(buttonStyle.disabledFillColor.value());
-    if (buttonStyle.disabledBorderColor.isSet())
+    if (buttonStyle.disabledBorderColor.has_value())
         computedButtonStyle.disabledBorderColor = resolveColorSubProp(buttonStyle.disabledBorderColor.value());
 
     // Mutate Based Container with Dynamic Fill Color //
     if (isDisabled) {
-        if (buttonStyle.disabledFillColor.isSet())
+        if (buttonStyle.disabledFillColor.has_value())
             computedStyle.fillColor = computedButtonStyle.disabledFillColor;
-        if (buttonStyle.disabledBorderColor.isSet())
+        if (buttonStyle.disabledBorderColor.has_value())
             computedStyle.borderColor = computedButtonStyle.disabledBorderColor;
     }
     else if ((isLeftPressed || isRightPressed || isMiddlePressed)) {
-        if (buttonStyle.pressedFillColor.isSet())
+        if (buttonStyle.pressedFillColor.has_value())
             computedStyle.fillColor = computedButtonStyle.pressedFillColor;
-        if (buttonStyle.pressedBorderColor.isSet())
+        if (buttonStyle.pressedBorderColor.has_value())
             computedStyle.borderColor = computedButtonStyle.pressedBorderColor;
     }
     else if (isHovered) {
-        std::cout <<
-            "(" << static_cast<SFUI::Int>(computedButtonStyle.hoveredFillColor.r) << ", " <<
-            "" << static_cast<SFUI::Int>(computedButtonStyle.hoveredFillColor.g) << ", " <<
-            "" << static_cast<SFUI::Int>(computedButtonStyle.hoveredFillColor.b) << ", " <<
-            "" << static_cast<SFUI::Int>(computedButtonStyle.hoveredFillColor.a) << ")\n";
-        if (buttonStyle.hoveredFillColor.isSet()) {
-            std::cout << componentID << " Dynamic Color for Hovered\n";
+        if (buttonStyle.hoveredFillColor.has_value())
             computedStyle.fillColor = computedButtonStyle.hoveredFillColor;
-        }
-        if (buttonStyle.hoveredBorderColor.isSet())
+        if (buttonStyle.hoveredBorderColor.has_value())
             computedStyle.borderColor = computedButtonStyle.hoveredBorderColor;
     }
     else {

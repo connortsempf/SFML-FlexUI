@@ -150,7 +150,7 @@ SFUI::Vector2f SFUI::Graphic::getOriginalTextureSize() {
  */
 SFUI::Void SFUI::Graphic::computeGraphicSource() {
     // Check if Pre-Loaded Texture was Provided //
-    if (graphicStyle.loadedGraphic.isSet()) {
+    if (graphicStyle.loadedGraphic.has_value()) {
         loadType = SFUI::Graphic::LoadType::PRE_LOAD;
         if (loadState == SFUI::Graphic::LoadState::PRE_LOAD_UNLOADED) {
             graphic = SFUI::Sprite(*graphicStyle.loadedGraphic.value());
@@ -161,7 +161,7 @@ SFUI::Void SFUI::Graphic::computeGraphicSource() {
     }
 
     // Check if Non-Loaded Texture Path was Given //
-    if (graphicStyle.graphicPath.isSet() && graphicStyle.graphicPath.value() != "") {
+    if (graphicStyle.graphicPath.has_value() && graphicStyle.graphicPath.value() != "") {
         SFUI::Graphic::LoadType::SELF_LOAD;
         if (graphicStyle.graphicPath.value() != computedGraphicStyle.graphicPath) {
             loadState = SFUI::Graphic::LoadState::SELF_LOAD_UNLOADED;

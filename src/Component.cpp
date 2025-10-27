@@ -564,7 +564,7 @@ SFUI::Void SFUI::Component::computePosition() {
         SFUI::Vector2i computedPosition = {0, 0};
         
         // If Explicit X-Position Input Given by User //
-        if (layout.xPosition.isSet()) {
+        if (layout.xPosition.has_value()) {
             SFUI::Int xPositionValue = layout.xPosition.value();
             computedPosition.x = xPositionValue;
         }
@@ -574,7 +574,7 @@ SFUI::Void SFUI::Component::computePosition() {
         }
 
         // If Explicit Y-Position Input Given by User //
-        if (layout.yPosition.isSet()) {
+        if (layout.yPosition.has_value()) {
             SFUI::Int yPositionValue = layout.yPosition.value();
             computedPosition.y = yPositionValue;
         }
@@ -630,23 +630,7 @@ SFUI::Void SFUI::Component::computeBorderWidth() {
  * @brief .
  */
 SFUI::Void SFUI::Component::computeCornerRadius() {
-
-    // if (componentID == "rootView") {
-    //     std::cout <<
-    //         "(" << (style.cornerRadiusTopLeft.isSet() ? "Set, " : "Not Set, ") <<
-    //         "" << (style.cornerRadiusTopRight.isSet() ? "Set, " : "Not Set, ") <<
-    //         "" << (style.cornerRadiusBottomLeft.isSet() ? "Set, " : "Not Set, ") <<
-    //         "" << (style.cornerRadiusBottomRight.isSet() ? "Set)\n" : "Not Set)\n");
-    // }
-
     computedStyle.cornerRadius = resolveUniQuadSubProp(computedLayout.size, style.cornerRadius);
-
-    // if (componentID == "rootView") {
-    //     std::cout << "(" << computedStyle.cornerRadius.x << ", " <<
-    //         "" << computedStyle.cornerRadius.y << ", " <<
-    //         "" << computedStyle.cornerRadius.z << ", " <<
-    //         "" << computedStyle.cornerRadius.w << ")\n";
-    // }
 }
 
 
@@ -885,7 +869,7 @@ SFUI::Void SFUI::Component::computeChildrenPosition() {
             
             // X-Positions //
             // If Explicit X-Position Input Given by User //
-            if (childComponent.layout.xPosition.isSet()) {
+            if (childComponent.layout.xPosition.has_value()) {
                 SFUI::Int xPositionValue = childComponent.layout.xPosition.value();
                 computedPosition.x = xPositionValue;
             }
@@ -936,7 +920,7 @@ SFUI::Void SFUI::Component::computeChildrenPosition() {
 
             // Y-Positions //
             // If Explicit Y-Position Input Given by User //
-            if (childComponent.layout.yPosition.isSet()) {
+            if (childComponent.layout.yPosition.has_value()) {
                 SFUI::Int yPositionValue = childComponent.layout.yPosition.value();
                 computedPosition.y = yPositionValue;
             }

@@ -39,6 +39,9 @@ namespace SFUI {
     using String = std::string;
 
     template <typename... T>
+    using Optional = std::optional<T ...>;
+
+    template <typename... T>
     using Function = std::function<T ...>;
 
     template <typename... T>
@@ -224,24 +227,6 @@ namespace SFUI {
             SFUI::Float z = 0,
             SFUI::Float w = 0
         ) : x(x), y(y), z(z), w(w) {}
-    };
-
-    template <typename Type>
-    class Optional {
-
-        public:
-            Optional() = default;
-            template <typename U>
-            Optional(U&& newValue) : _value(std::forward<U>(newValue)), _isSet(true) {}
-            template <typename U>
-            Optional& operator=(U&& newValue) { _value = std::forward<U>(newValue); _isSet = true; return *this;}
-            operator Type() const { return _value; }
-            SFUI::Bool isSet() const { return _isSet; }
-            Type value() const { return _value; }
-
-        private:
-            Type _value{};
-            SFUI::Bool _isSet = false;
     };
 }
 
