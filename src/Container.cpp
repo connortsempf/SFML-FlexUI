@@ -55,6 +55,7 @@ SFUI::Void SFUI::Container::update(const SFUI::Vector2u renderTargetSize) {
     computeCornerRadius();
     computeFillColor();
     computeBorderColor();
+    computeShadow();
     computeGraphics();
     computeChildrenMargin();
     computeChildrenSize();
@@ -69,6 +70,8 @@ SFUI::Void SFUI::Container::update(const SFUI::Vector2u renderTargetSize) {
  * @param .
  */
 SFUI::Void SFUI::Container::draw(SFUI::RenderTarget& renderTarget) {
+    renderTarget.draw(shadowRects);
+    renderTarget.draw(shadowArcs);
     renderTarget.draw(backgroundRects);
     renderTarget.draw(backgroundArcs);
     renderTarget.draw(borderRects);

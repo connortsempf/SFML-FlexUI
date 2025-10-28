@@ -83,26 +83,26 @@ namespace SFUI {
     using Clock = sf::Clock;
     
     using Time = sf::Time;
+
+    using Event = sf::Event;
+
+    using RectangleShape = sf::RectangleShape;
+    
+    using CircleShape = sf::CircleShape;
+    
+    using RenderTarget = sf::RenderTarget;
     
     using Texture = sf::Texture;
     
     using RenderTexture = sf::RenderTexture;
     
-    using Sprite = sf::Sprite;
-    
-    using RectangleShape = sf::RectangleShape;
-    
-    using CircleShape = sf::CircleShape;
-    
-    using VertexArray = sf::VertexArray;
-
-    using Event = sf::Event;
-
-    using RenderTarget = sf::RenderTarget;
-
-    using VertexArray = sf::VertexArray;
-
     using PrimitiveType = sf::PrimitiveType;
+
+    using VertexArray = sf::VertexArray;
+    
+    using Sprite = sf::Sprite;
+
+    using Shader = sf::Shader;
 }
 
 
@@ -263,6 +263,8 @@ namespace SFUI {
         
         using UniQuad = SFUI::Variant<SFUI::SubProp::Dimension, SFUI::SubProp::Vector4dim>;
 
+        using Duplex = SFUI::Vector2f;
+
         using Font = SFUI::SharedPointer<SFUI::Font>;
 
         using Texture = SFUI::SharedPointer<SFUI::Texture>;
@@ -310,6 +312,9 @@ namespace SFUI {
                 SFUI::SubProp::UniQuad cornerRadius;
                 SFUI::SubProp::Color fillColor = SFUI::Color(0, 0, 0, 0);
                 SFUI::SubProp::Color borderColor = SFUI::Color(0, 0, 0, 0);
+                SFUI::SubProp::Duplex shadowOffset = {0.0f, 0.0f};
+                SFUI::SubProp::Numeric shadowRadius = 1.0f;
+                SFUI::SubProp::Color shadowFillColor = SFUI::Color(0, 0, 0, 0);
             };
             
             struct Label {
@@ -481,6 +486,9 @@ namespace SFUI {
             SFUI::Vector4f cornerRadius;
             SFUI::Color fillColor;
             SFUI::Color borderColor;
+            SFUI::Vector2f shadowOffset;
+            SFUI::Float shadowRadius;
+            SFUI::Color shadowFillColor;
         };
 
         struct LabelStyle {

@@ -213,6 +213,8 @@ SFUI::Void SFUI::Button::update(const SFUI::Vector2u renderTargetSize) {
  * @param .
  */
 SFUI::Void SFUI::Button::draw(SFUI::RenderTarget& renderTarget) {
+    renderTarget.draw(shadowRects);
+    renderTarget.draw(shadowArcs);
     renderTarget.draw(backgroundRects);
     renderTarget.draw(backgroundArcs);
     renderTarget.draw(borderRects);

@@ -77,6 +77,8 @@ namespace SFUI {
             SFUI::VertexArray backgroundArcs;
             SFUI::VertexArray borderRects;
             SFUI::VertexArray borderArcs;
+            SFUI::VertexArray shadowRects;
+            SFUI::VertexArray shadowArcs;
             SFUI::ComputedProp::Layout computedLayout;
             SFUI::ComputedProp::Style computedStyle;
             SFUI::Vector<SFUI::ComputedProp::ChildLayout> childrenComputedLayout;
@@ -96,6 +98,7 @@ namespace SFUI {
             SFUI::Void computeCornerRadius();
             SFUI::Void computeFillColor();
             SFUI::Void computeBorderColor();
+            SFUI::Void computeShadow();
             SFUI::Void computeGraphics();
             SFUI::Void computeChildrenMargin();
             SFUI::Void computeChildrenSize();
@@ -111,6 +114,8 @@ namespace SFUI {
             SFUI::Void computeBackgroundArcGeometry(SFUI::Vector2f center, SFUI::Float outerRadius, SFUI::Float startAngleDeg, SFUI::Float endAngleDeg);
             SFUI::Void computeBorderRectGeometry(SFUI::Vector2f position, SFUI::Vector2f size);
             SFUI::Void computeBorderArcGeometry(SFUI::Vector2f center, SFUI::Float outerRadius, SFUI::Float innerRadius, SFUI::Float startAngleDeg, SFUI::Float endAngleDeg);
+            SFUI::Void computeShadowRectGeometry(SFUI::Vector2f position, SFUI::Vector2f size, SFUI::Color modifiedShadowColor);
+            SFUI::Void computeShadowArcGeometry(SFUI::Vector2f center, SFUI::Float outerRadius, SFUI::Float startAngleDeg, SFUI::Float endAngleDeg, SFUI::Color modifiedShadowColor);
     };
 }
 

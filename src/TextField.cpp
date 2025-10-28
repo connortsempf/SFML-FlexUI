@@ -303,6 +303,8 @@ SFUI::Void SFUI::TextField::update(const SFUI::Vector2u renderTargetSize) {
  * @param .
  */
 SFUI::Void SFUI::TextField::draw(SFUI::RenderTarget& renderTarget) {
+    renderTarget.draw(shadowRects);
+    renderTarget.draw(shadowArcs);
     renderTarget.draw(backgroundRects);
     renderTarget.draw(backgroundArcs);
     renderTarget.draw(borderRects);
@@ -430,5 +432,5 @@ SFUI::Void SFUI::TextField::editText(const sf::Event::KeyPressed* keyPressedEven
 SFUI::UnsignedInt SFUI::TextField::getCharacterGroup(const char32_t character) {
     // if (CTRL_ALPHANUMERIC_GROUP.find(character) != sf::String::InvalidPos) return 1;
     // if (CTRL_SYMBOL_GROUP.find(character) != sf::String::InvalidPos) return 2;
-    // return 0;
+    return 0;
 }

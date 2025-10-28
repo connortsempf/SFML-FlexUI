@@ -5,7 +5,7 @@
 ////////////////////////////////////////
 // SFML-FlexUI Parent Component Class //
 ////////////////////////////////////////
-
+    
 
 /**
  * @brief .
@@ -676,16 +676,30 @@ SFUI::Void SFUI::Component::computeBorderColor() {
 /**
  * @brief .
  */
+SFUI::Void SFUI::Component::computeShadow() {
+    computedStyle.shadowOffset = style.shadowOffset;
+    computedStyle.shadowRadius = std::clamp(style.shadowRadius, 1.0f, 20.0f);
+    computedStyle.shadowFillColor = resolveColorSubProp(style.shadowFillColor);
+}
+
+
+/**
+ * @brief .
+ */
 SFUI::Void SFUI::Component::computeGraphics() {
     backgroundRects.clear();
     backgroundArcs.clear();
     borderRects.clear();
     borderArcs.clear();
+    shadowRects.clear();
+    shadowArcs.clear();
 
     backgroundRects.setPrimitiveType(SFUI::PrimitiveType::Triangles);
-    backgroundArcs.setPrimitiveType(SFUI::PrimitiveType::TriangleStrip);
+    backgroundArcs.setPrimitiveType(SFUI::PrimitiveType::Triangles);
     borderRects.setPrimitiveType(SFUI::PrimitiveType::Triangles);
-    borderArcs.setPrimitiveType(SFUI::PrimitiveType::TriangleStrip);
+    borderArcs.setPrimitiveType(SFUI::PrimitiveType::Triangles);
+    shadowRects.setPrimitiveType(SFUI::PrimitiveType::Triangles);
+    shadowArcs.setPrimitiveType(SFUI::PrimitiveType::Triangles);
 
     SFUI::Float width = computedLayout.size.x;
     SFUI::Float height = computedLayout.size.y;
@@ -702,6 +716,9 @@ SFUI::Void SFUI::Component::computeGraphics() {
     SFUI::Float topInset = topLeft > topRight ? topLeft : topRight;
     SFUI::Float bottomInset = bottomLeft > bottomRight ? bottomLeft : bottomRight;
     SFUI::Float borderWidth = computedStyle.borderWidth;
+    SFUI::Float shadowXOffset = computedStyle.shadowOffset.x;
+    SFUI::Float shadowYOffset = computedStyle.shadowOffset.y;
+    SFUI::Float shadowRadius = computedStyle.shadowRadius;
 
     computeBackgroundRectGeometry({left + leftInset, top + topInset}, {width - leftInset - rightInset, height - topInset - bottomInset});
     computeBackgroundRectGeometry({left, top + topLeft}, {leftInset, height - topLeft - bottomLeft});
@@ -714,17 +731,60 @@ SFUI::Void SFUI::Component::computeGraphics() {
     if (bottomRight > 0.0f) computeBackgroundArcGeometry({right - bottomRight, bottom - bottomRight}, bottomRight, 0, 90);
     if (bottomLeft > 0.0f) computeBackgroundArcGeometry({left + bottomLeft, bottom - bottomLeft}, bottomLeft, 90, 180);
 
-    if (borderWidth <= 0.0f) return;
+    if (borderWidth > 0.0f)  {
+        computeBorderRectGeometry({left, top + topLeft}, {borderWidth, height - topLeft - bottomLeft});
+        computeBorderRectGeometry({right - borderWidth, top + topRight}, {borderWidth, height - topRight - bottomRight});
+        computeBorderRectGeometry({left + topLeft, top}, {width - topLeft - topRight, borderWidth});
+        computeBorderRectGeometry({left + bottomLeft, bottom - borderWidth}, {width - bottomLeft - bottomRight, borderWidth});
+        
+        if (topLeft > 0.0f) computeBorderArcGeometry({left + topLeft, top + topLeft}, topLeft, topLeft >= borderWidth ? topLeft - borderWidth : 0.0f, 180, 270);
+        if (topRight > 0.0f) computeBorderArcGeometry({right - topRight, top + topRight}, topRight, topRight >= borderWidth ? topRight - borderWidth : 0.0f, 270, 360);
+        if (bottomRight > 0.0f) computeBorderArcGeometry({right - bottomRight, bottom - bottomRight}, bottomRight, bottomRight >= borderWidth ? bottomRight - borderWidth : 0.0f, 0, 90);
+        if (bottomLeft > 0.0f) computeBorderArcGeometry({left + bottomLeft, bottom - bottomLeft}, bottomLeft, bottomLeft >= borderWidth ? bottomLeft - borderWidth : 0.0f, 90, 180);
+    }
 
-    computeBorderRectGeometry({left, top + topLeft}, {borderWidth, height - topLeft - bottomLeft});
-    computeBorderRectGeometry({right - borderWidth, top + topRight}, {borderWidth, height - topRight - bottomRight});
-    computeBorderRectGeometry({left + topLeft, top}, {width - topLeft - topRight, borderWidth});
-    computeBorderRectGeometry({left + bottomLeft, bottom - borderWidth}, {width - bottomLeft - bottomRight, borderWidth});
-    
-    if (topLeft > 0.0f) computeBorderArcGeometry({left + topLeft, top + topLeft}, topLeft, topLeft >= borderWidth ? topLeft - borderWidth : 0.0f, 180, 270);
-    if (topRight > 0.0f) computeBorderArcGeometry({right - topRight, top + topRight}, topRight, topRight >= borderWidth ? topRight - borderWidth : 0.0f, 270, 360);
-    if (bottomRight > 0.0f) computeBorderArcGeometry({right - bottomRight, bottom - bottomRight}, bottomRight, bottomRight >= borderWidth ? bottomRight - borderWidth : 0.0f, 0, 90);
-    if (bottomLeft > 0.0f) computeBorderArcGeometry({left + bottomLeft, bottom - bottomLeft}, bottomLeft, bottomLeft >= borderWidth ? bottomLeft - borderWidth : 0.0f, 90, 180);
+    if (static_cast<int>(computedStyle.shadowFillColor.a) > 0) {
+        SFUI::Float shadowLayers = shadowRadius;
+        SFUI::Vector2f startingSize = computedLayout.size;
+        SFUI::Vector2f startingPos = {computedLayout.position.x + shadowXOffset, computedLayout.position.y + shadowYOffset};
+        SFUI::Vector4f startingRadii = computedStyle.cornerRadius;
+        // SFUI::Float perLayerSizeInset = std::clamp(shadowLayers / 2.5f, 2.0f, 10.0f);
+        SFUI::Float perLayerSizeInset = 4.0f;
+        SFUI::Float perLayerPosInset = perLayerSizeInset / 2;
+
+        for (int i = 0; i < shadowLayers; i++) {
+            SFUI::Color layerColor = computedStyle.shadowFillColor;
+            SFUI::Float alphaFactor = static_cast<float>(i) / (shadowLayers - 1);
+            SFUI::Float layerAlpha = computedStyle.shadowFillColor.a * (1.0f - alphaFactor * alphaFactor);
+            layerColor.a = static_cast<std::uint8_t>(layerAlpha);
+
+            SFUI::Float width = startingSize.x - (perLayerSizeInset * i);
+            SFUI::Float height = startingSize.y - (perLayerSizeInset * i);
+            SFUI::Float left = startingPos.x + (perLayerPosInset * i);
+            SFUI::Float right = startingPos.x + (perLayerPosInset * i) + width;
+            SFUI::Float top = startingPos.y + (perLayerPosInset * i);
+            SFUI::Float bottom = startingPos.y + (perLayerPosInset * i) + height;
+            SFUI::Float topLeft = std::max(0.0f, startingRadii.x - (perLayerSizeInset * i));
+            SFUI::Float topRight = std::max(0.0f, startingRadii.y - (perLayerSizeInset * i));
+            SFUI::Float bottomLeft = std::max(0.0f, startingRadii.z - (perLayerSizeInset * i));
+            SFUI::Float bottomRight = std::max(0.0f, startingRadii.w - (perLayerSizeInset * i));
+            SFUI::Float leftInset = topLeft > bottomLeft ? topLeft : bottomLeft;
+            SFUI::Float rightInset = topRight > bottomRight ? topRight : bottomRight;
+            SFUI::Float topInset = topLeft > topRight ? topLeft : topRight;
+            SFUI::Float bottomInset = bottomLeft > bottomRight ? bottomLeft : bottomRight;
+
+            computeShadowRectGeometry({left + leftInset, top + topInset}, {width - leftInset - rightInset, height - topInset - bottomInset}, layerColor);
+            computeShadowRectGeometry({left, top + topLeft}, {leftInset, height - topLeft - bottomLeft}, layerColor);
+            computeShadowRectGeometry({right - rightInset, top + topRight}, {rightInset, height - topRight - bottomRight}, layerColor);
+            computeShadowRectGeometry({left + topLeft, top}, {width - topLeft - topRight, topInset}, layerColor);
+            computeShadowRectGeometry({left + bottomLeft, bottom - bottomInset}, {width - bottomLeft - bottomRight, bottomInset}, layerColor);
+        
+            if (topLeft > 0.0f) computeShadowArcGeometry({left + topLeft, top + topLeft}, topLeft, 180, 270, layerColor);
+            if (topRight > 0.0f) computeShadowArcGeometry({right - topRight, top + topRight}, topRight, 270, 360, layerColor);
+            if (bottomRight > 0.0f) computeShadowArcGeometry({right - bottomRight, bottom - bottomRight}, bottomRight, 0, 90, layerColor);
+            if (bottomLeft > 0.0f) computeShadowArcGeometry({left + bottomLeft, bottom - bottomLeft}, bottomLeft, 90, 180, layerColor);
+        }
+    }
 }
 
 
@@ -1008,13 +1068,13 @@ SFUI::Void SFUI::Component::updateChildren() {
     }
 }
 
- 
+
 /**
- * @brief Compute a box (two triangles) and return the VertexArray.
+ * @brief .
  * 
- * @param position The top-left position of the box to draw at.
- * @param size The size of the box to draw.
- * @param color The fill/stroke color of the box.
+ * @param .
+ * @param .
+ * @param .
  */
 SFUI::Void SFUI::Component::computeBackgroundRectGeometry(SFUI::Vector2f position, SFUI::Vector2f size) {
     SFUI::Vector2f topLeft = position;
@@ -1031,25 +1091,28 @@ SFUI::Void SFUI::Component::computeBackgroundRectGeometry(SFUI::Vector2f positio
 
 
 /**
- * @brief Generate a stroked arc as a triangle strip and return the VertexArray.
+ * @brief .
  * 
- * @param center The center of the arc to draw.
- * @param outerRadius The outer radius of the arc to draw.
- * @param startAngleDeg The starting angle of the arc to draw.
- * @param endAngleDeg The ending angle of the arc to draw.
- * @param color The color to use for the arc vertices.
+ * @param .
+ * @param .
+ * @param .
+ * @param .
+ * @param .
  */
 SFUI::Void SFUI::Component::computeBackgroundArcGeometry(SFUI::Vector2f center, SFUI::Float outerRadius, SFUI::Float startAngleDeg, SFUI::Float endAngleDeg) {
     SFUI::Float arcResolution = std::clamp(static_cast<SFUI::Int>(outerRadius * 0.25f), 4, 12);
     SFUI::Float startRadians = startAngleDeg * M_PI / 180.f;
     SFUI::Float endRadians = endAngleDeg * M_PI / 180.f;
     SFUI::Float angleStep = (endRadians - startRadians) / static_cast<SFUI::Float>(arcResolution);
-    for (SFUI::Int i = 0; i <= arcResolution; ++i) {
-        SFUI::Float angle = startRadians + i * angleStep;
-        SFUI::Vector2f dir(std::cos(angle), std::sin(angle));
-        SFUI::Vector2f outer = {center.x + dir.x * outerRadius, center.y + dir.y * outerRadius};
-        SFUI::Vector2f inner = center;
-        backgroundArcs.append({outer, computedStyle.fillColor});
+
+    for (SFUI::Int i = 0; i < arcResolution; ++i) {
+        SFUI::Float angle0 = startRadians + i * angleStep;
+        SFUI::Float angle1 = startRadians + (i + 1) * angleStep;
+        SFUI::Vector2f outer0(center.x + std::cos(angle0) * outerRadius, center.y + std::sin(angle0) * outerRadius);
+        SFUI::Vector2f outer1(center.x + std::cos(angle1) * outerRadius, center.y + std::sin(angle1) * outerRadius);
+        SFUI::Vector2f inner(center);
+        backgroundArcs.append({outer0, computedStyle.fillColor});
+        backgroundArcs.append({outer1, computedStyle.fillColor});
         backgroundArcs.append({inner, computedStyle.fillColor});
     }
 }
@@ -1076,26 +1139,94 @@ SFUI::Void SFUI::Component::computeBorderRectGeometry(SFUI::Vector2f position, S
 
 
 /**
- * @brief Generate a stroked arc as a triangle strip and return the VertexArray.
+ * @brief .
  * 
- * @param center The center of the arc to draw.
- * @param outerRadius The outer radius of the arc to draw.
- * @param innerRadius The inner radius of the arc to draw.
- * @param startAngleDeg The starting angle of the arc to draw.
- * @param endAngleDeg The ending angle of the arc to draw.
+ * @param .
+ * @param .
+ * @param .
+ * @param .
+ * @param .
  */
 SFUI::Void SFUI::Component::computeBorderArcGeometry(SFUI::Vector2f center, SFUI::Float outerRadius, SFUI::Float innerRadius, SFUI::Float startAngleDeg, SFUI::Float endAngleDeg) {
+    // SFUI::Float arcResolution = std::clamp(static_cast<SFUI::Int>(outerRadius * 0.25f), 4, 12);
+    // SFUI::Float startRadians = startAngleDeg * M_PI / 180.f;
+    // SFUI::Float endRadians = endAngleDeg * M_PI / 180.f;
+    // SFUI::Float angleStep = (endRadians - startRadians) / static_cast<SFUI::Float>(arcResolution);
+    // for (SFUI::Int i = 0; i <= arcResolution; ++i) {
+    //     SFUI::Float angle = startRadians + i * angleStep;
+    //     SFUI::Vector2f dir(std::cos(angle), std::sin(angle));
+    //     SFUI::Vector2f outer = {center.x + dir.x * outerRadius, center.y + dir.y * outerRadius};
+    //     SFUI::Vector2f inner = {center.x + dir.x * innerRadius, center.y + dir.y * innerRadius};
+    //     borderArcs.append({outer, computedStyle.borderColor});
+    //     borderArcs.append({inner, computedStyle.borderColor});
+    // }
+
     SFUI::Float arcResolution = std::clamp(static_cast<SFUI::Int>(outerRadius * 0.25f), 4, 12);
     SFUI::Float startRadians = startAngleDeg * M_PI / 180.f;
     SFUI::Float endRadians = endAngleDeg * M_PI / 180.f;
     SFUI::Float angleStep = (endRadians - startRadians) / static_cast<SFUI::Float>(arcResolution);
-    for (SFUI::Int i = 0; i <= arcResolution; ++i) {
-        SFUI::Float angle = startRadians + i * angleStep;
-        SFUI::Vector2f dir(std::cos(angle), std::sin(angle));
-        SFUI::Vector2f outer = {center.x + dir.x * outerRadius, center.y + dir.y * outerRadius};
-        SFUI::Vector2f inner = {center.x + dir.x * innerRadius, center.y + dir.y * innerRadius};
-        borderArcs.append({outer, computedStyle.borderColor});
-        borderArcs.append({inner, computedStyle.borderColor});
+
+    for (SFUI::Int i = 0; i < arcResolution; ++i) {
+        SFUI::Float angle0 = startRadians + i * angleStep;
+        SFUI::Float angle1 = startRadians + (i + 1) * angleStep;
+        SFUI::Vector2f outer0(center.x + std::cos(angle0) * outerRadius, center.y + std::sin(angle0) * outerRadius);
+        SFUI::Vector2f outer1(center.x + std::cos(angle1) * outerRadius, center.y + std::sin(angle1) * outerRadius);
+        SFUI::Vector2f inner0(center.x + std::cos(angle0) * innerRadius, center.y + std::sin(angle0) * innerRadius);
+        SFUI::Vector2f inner1(center.x + std::cos(angle1) * innerRadius, center.y + std::sin(angle1) * innerRadius);
+        borderArcs.append({outer0, computedStyle.borderColor});
+        borderArcs.append({outer1, computedStyle.borderColor});
+        borderArcs.append({inner0, computedStyle.borderColor});
+        borderArcs.append({inner0, computedStyle.borderColor});
+        borderArcs.append({outer1, computedStyle.borderColor});
+        borderArcs.append({inner1, computedStyle.borderColor});
     }
 }
- 
+
+
+/**
+ * @brief .
+ * 
+ * @param .
+ * @param .
+ * @param .
+ */
+SFUI::Void SFUI::Component::computeShadowRectGeometry(SFUI::Vector2f position, SFUI::Vector2f size, SFUI::Color modifiedShadowColor) {
+    SFUI::Vector2f topLeft = position;
+    SFUI::Vector2f topRight = {position.x + size.x, position.y};
+    SFUI::Vector2f bottomLeft = {position.x, position.y + size.y};
+    SFUI::Vector2f bottomRight = {position.x + size.x, position.y + size.y};
+    shadowRects.append({topLeft, modifiedShadowColor});
+    shadowRects.append({topRight, modifiedShadowColor});
+    shadowRects.append({bottomRight, modifiedShadowColor});
+    shadowRects.append({topLeft, modifiedShadowColor});
+    shadowRects.append({bottomRight, modifiedShadowColor});
+    shadowRects.append({bottomLeft, modifiedShadowColor});
+}
+
+
+/**
+ * @brief .
+ * 
+ * @param .
+ * @param .
+ * @param .
+ * @param .
+ * @param .
+ */
+SFUI::Void SFUI::Component::computeShadowArcGeometry(SFUI::Vector2f center, SFUI::Float outerRadius, SFUI::Float startAngleDeg, SFUI::Float endAngleDeg, SFUI::Color modifiedShadowColor) {
+    SFUI::Float arcResolution = std::clamp(static_cast<SFUI::Int>(outerRadius * 0.25f), 4, 12);
+    SFUI::Float startRadians = startAngleDeg * M_PI / 180.f;
+    SFUI::Float endRadians = endAngleDeg * M_PI / 180.f;
+    SFUI::Float angleStep = (endRadians - startRadians) / static_cast<SFUI::Float>(arcResolution);
+
+    for (SFUI::Int i = 0; i < arcResolution; ++i) {
+        SFUI::Float angle0 = startRadians + i * angleStep;
+        SFUI::Float angle1 = startRadians + (i + 1) * angleStep;
+        SFUI::Vector2f outer0(center.x + std::cos(angle0) * outerRadius, center.y + std::sin(angle0) * outerRadius);
+        SFUI::Vector2f outer1(center.x + std::cos(angle1) * outerRadius, center.y + std::sin(angle1) * outerRadius);
+        SFUI::Vector2f inner(center);
+        shadowArcs.append({outer0, modifiedShadowColor});
+        shadowArcs.append({outer1, modifiedShadowColor});
+        shadowArcs.append({inner, modifiedShadowColor});
+    }
+}
