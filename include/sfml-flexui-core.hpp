@@ -59,8 +59,7 @@ namespace SFUI {
             SFUI::Vector2f getCharacterPosition(SFUI::Size charIndex);
 
         private:
-            static const SFUI::Float VERTICAL_CENTER_OFFSET_FACTOR;
-            static const SFUI::Float VERTICAL_BOTTOM_OFFSET_FACTOR;
+            static const SFUI::Float BOTTOM_OFFSET_FACTOR;
 
         private:
             SFUI::Text textObject;

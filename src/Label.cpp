@@ -8,8 +8,7 @@
 
 
 // Static Variables //
-const SFUI::Float SFUI::Label::VERTICAL_CENTER_OFFSET_FACTOR = 0.65f;
-const SFUI::Float SFUI::Label::VERTICAL_BOTTOM_OFFSET_FACTOR = 1.22f;
+const SFUI::Float SFUI::Label::BOTTOM_OFFSET_FACTOR = 0.65f;
 
 
 /**
@@ -366,13 +365,13 @@ SFUI::Void SFUI::Label::computeTextLayout() {
     else if (computedLabelStyle.textAlignHorizontal == "right")
         textPosition.x = computedLayout.position.x + computedLayout.size.x - textObject.getLocalBounds().size.x - computedLayout.padding;
 
-        // Vertical Text Position //
+    // Vertical Text Position //
     if (computedLabelStyle.textAlignVertical == "top")
         textPosition.y = computedLayout.position.y + computedLayout.padding;
     else if (computedLabelStyle.textAlignVertical == "center")
-        textPosition.y = computedLayout.position.y + (computedLayout.size.y / 2.0f) - (textObject.getCharacterSize() * VERTICAL_CENTER_OFFSET_FACTOR);
+        textPosition.y = computedLayout.position.y + (computedLayout.size.y / 2.0f) - (textObject.getLocalBounds().size.y / 2.0f);
     else if (computedLabelStyle.textAlignVertical == "bottom")
-        textPosition.y = computedLayout.position.y + computedLayout.size.y - (textObject.getCharacterSize() * VERTICAL_BOTTOM_OFFSET_FACTOR) - computedLayout.padding;
+        textPosition.y = computedLayout.position.y + computedLayout.size.y - computedLayout.padding - textObject.getLocalBounds().size.y - (textObject.getCharacterSize() * BOTTOM_OFFSET_FACTOR);
 
     textObject.setPosition(textPosition);
 }
