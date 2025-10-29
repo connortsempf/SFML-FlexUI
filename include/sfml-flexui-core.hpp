@@ -287,9 +287,9 @@ namespace SFUI {
             static const SFUI::String CTRL_SYMBOL_GROUP;
 
         private:
-            SFUI::Bool isFocused;
-            SFUI::Bool isHovered;
-            SFUI::Bool caretVisible;
+            SFUI::Bool isFocused = false;
+            SFUI::Bool isHovered = false;
+            SFUI::Bool caretVisible = false;
             SFUI::UnsignedInt caretColumnIndex = 0;
             SFUI::UnsignedInt caretRowIndex = 0;
             SFUI::Clock caretClock;
@@ -299,7 +299,8 @@ namespace SFUI {
             SFUI::ComputedProp::TextFieldStyle computedTextFieldStyle;
 
         private:
-            SFUI::Void computeComposedProps();
+            SFUI::Void computeLineMode();
+            SFUI::Void computeTextInset();
             SFUI::Void computePlaceholderText();
             SFUI::Void computeCaretShape();
             SFUI::Void computeCaretBlinkTiming();

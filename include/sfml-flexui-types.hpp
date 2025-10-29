@@ -381,13 +381,20 @@ namespace SFUI {
             };
 
             struct TextField {
+                SFUI::SubProp::Keyword lineMode;
+                SFUI::SubProp::UniQuad textInset;
+
                 SFUI::SubProp::Keyword text;
                 SFUI::SubProp::Keyword placeholderText;
                 SFUI::SubProp::Font font;
                 SFUI::SubProp::Numeric textSize = 12.0f;
+                SFUI::SubProp::TextStyle textStyle = "regular";
+                SFUI::Optional<SFUI::SubProp::Numeric> letterSpacing;
+                SFUI::Optional<SFUI::SubProp::Numeric> lineSpacing;
+                SFUI::SubProp::Numeric textOutlineThickness = 0.0f;
                 SFUI::SubProp::Keyword textAlignHorizontal = "left";
-                SFUI::SubProp::Keyword textAlignVertical = "center";
                 SFUI::SubProp::Color textColor = SFUI::Color(0, 0, 0, 255);
+                SFUI::SubProp::Color textOutlineColor = SFUI::Color(255, 255, 255, 255);
                 SFUI::SubProp::Color placeholderTextColor = SFUI::Color(100, 100, 100, 255);
 
                 SFUI::Optional<SFUI::SubProp::Color> hoveredFillColor;
@@ -468,7 +475,6 @@ namespace SFUI {
                 SFUI::SubProp::Callback onPressOut;
                 SFUI::SubProp::CallbackKey onKeyPress;
                 SFUI::SubProp::CallbackString onTextChange;
-                SFUI::SubProp::CallbackString onSubmit;
             };
         }
     }
@@ -610,6 +616,8 @@ namespace SFUI {
         };
 
         struct TextFieldStyle {
+            SFUI::String lineMode;
+            SFUI::Vector4f textInset;
             SFUI::String placeholderText;
             SFUI::Color placeholderTextColor;
             SFUI::String caretShape;
