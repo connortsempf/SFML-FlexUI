@@ -584,13 +584,6 @@ namespace SFUI {
             SFUI::Color disabledBorderColor;
             SFUI::Float focusWidth;
             SFUI::Float focusOffset;
-            SFUI::Vector4f focusCornerRadius;
-            SFUI::Color focusFillColor;
-            SFUI::Vector4f toolTipPadding;
-            SFUI::Vector4f toolTipCornerRadius;
-            SFUI::Float toolTipTextSize;
-            SFUI::Color toolTipFillColor;
-            SFUI::Color toolTipTextColor;
         };
 
         struct GraphicStyle {

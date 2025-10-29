@@ -60,6 +60,7 @@ namespace SFUI {
             SFUI::Vector2f getCharacterPosition(SFUI::Size charIndex);
 
         private:
+            static const SFUI::Float VERTICAL_CENTER_OFFSET_FACTOR;
             static const SFUI::Float BOTTOM_OFFSET_FACTOR;
 
         private:
@@ -141,16 +142,8 @@ namespace SFUI {
             SFUI::Void computeDynamicColors();
             SFUI::Void computeFocusWidth();
             SFUI::Void computeFocusOffset();
-            SFUI::Void computeFocusCornerRadius();
-            SFUI::Void computeFocusFillColor();
-            SFUI::Void computeFocus();
-            SFUI::Void computeToolTipPadding();
-            SFUI::Void computeToolTipCornerRadius();
-            SFUI::Void computeToolTipTextSize();
-            SFUI::Void computeToolTipFillColor();
-            SFUI::Void computeToolTipTextColor();
-            SFUI::Void computeToolTip();
             SFUI::Void computeToolTipLifetime();
+            SFUI::Void computeComposedComponents();
     };
 }
 
