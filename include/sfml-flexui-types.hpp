@@ -381,8 +381,8 @@ namespace SFUI {
             };
 
             struct TextField {
-                SFUI::SubProp::Keyword lineMode;
-                SFUI::SubProp::UniQuad textInset;
+                SFUI::SubProp::Keyword lineMode = "single";
+                SFUI::SubProp::UniQuad textInset = SFUI::SubProp::Vector4dim{0.0f, 0.0f, 0.0f, 0.0f};
 
                 SFUI::SubProp::Keyword text;
                 SFUI::SubProp::Keyword placeholderText;
@@ -396,7 +396,6 @@ namespace SFUI {
                 SFUI::SubProp::Color textColor = SFUI::Color(0, 0, 0, 255);
                 SFUI::SubProp::Color textOutlineColor = SFUI::Color(255, 255, 255, 255);
                 SFUI::SubProp::Color placeholderTextColor = SFUI::Color(100, 100, 100, 255);
-
                 SFUI::Optional<SFUI::SubProp::Color> hoveredFillColor;
                 SFUI::Optional<SFUI::SubProp::Color> hoveredBorderColor;
                 SFUI::Optional<SFUI::SubProp::Color> pressedFillColor;
@@ -414,7 +413,6 @@ namespace SFUI {
                 SFUI::SubProp::Numeric toolTipTextSize = 10.0f;
                 SFUI::SubProp::Color toolTipFillColor = SFUI::Color(150, 150, 150, 255);
                 SFUI::SubProp::Color toolTipTextColor = SFUI::Color(0, 0, 0, 255);
-
                 SFUI::SubProp::Keyword caretShape = "line";
                 SFUI::SubProp::Numeric caretBlinkTime = 500.0f;
                 SFUI::SubProp::Numeric caretBlinkRatio = 1.0f;
@@ -475,6 +473,7 @@ namespace SFUI {
                 SFUI::SubProp::Callback onPressOut;
                 SFUI::SubProp::CallbackKey onKeyPress;
                 SFUI::SubProp::CallbackString onTextChange;
+                SFUI::SubProp::Callback onSubmit;
             };
         }
     }

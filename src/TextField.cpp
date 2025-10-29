@@ -155,6 +155,8 @@ SFUI::Void SFUI::TextField::computeLineMode() {
  */
 SFUI::Void SFUI::TextField::computeTextInset() {
     computedTextFieldStyle.textInset = resolveUniQuadSubProp(computedLayout.size, textFieldStyle.textInset);
+    if (computedTextFieldStyle.lineMode == "single")
+        computedTextFieldStyle.textInset.z = computedTextFieldStyle.textInset.w = 0.0f;
 }
 
 
@@ -339,6 +341,7 @@ SFUI::Void SFUI::TextField::computeComposedComponents() {
     inputText->layout = SFUI::Prop::Layout::Component{
         .width = computedLayout.size.x,
         .height = computedLayout.size.y,
+        .padding = (computedTextFieldStyle.lineMode == "single" ? 0.0f : 0.0f),
         .xPosition = computedLayout.position.x,
         .yPosition = computedLayout.position.y
     };
