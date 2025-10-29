@@ -198,7 +198,8 @@ SFUI::Color SFUI::Label::getTextColor() {
  * @return .
  */
 SFUI::FloatRect SFUI::Label::getTextBounds() {
-    return textObject.getGlobalBounds();
+    if (textObject.getString().getSize() > 0) return textObject.getGlobalBounds();
+    return SFUI::FloatRect({textObject.getPosition().x, textObject.getPosition().y}, {0.0f, 0.0f});
 }
 
 
@@ -266,6 +267,7 @@ SFUI::Void SFUI::Label::computeText() {
     textObject.setFillColor(computedLabelStyle.textColor);
     
     SFUI::Vector2f textPosition;
+    
     // Horizontal Text Position //
     if (computedLabelStyle.textAlignHorizontal == "left")
         textPosition.x = computedLayout.position.x + computedLayout.padding;
@@ -273,7 +275,8 @@ SFUI::Void SFUI::Label::computeText() {
         textPosition.x = computedLayout.position.x + (computedLayout.size.x / 2.0f) - (textObject.getLocalBounds().size.x / 2.0f);
     else if (computedLabelStyle.textAlignHorizontal == "right")
         textPosition.x = computedLayout.position.x + computedLayout.size.x - textObject.getLocalBounds().size.x - computedLayout.padding;
-    // Vertical Text Position //
+
+        // Vertical Text Position //
     if (computedLabelStyle.textAlignVertical == "top")
         textPosition.y = computedLayout.position.y + computedLayout.padding;
     else if (computedLabelStyle.textAlignVertical == "center")

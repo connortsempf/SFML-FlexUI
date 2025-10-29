@@ -35,7 +35,7 @@ SFUI::Component::Component(const SFUI::String& componentID, const SFUI::Prop::La
 /**
  * @brief .
  */
-SFUI::Void SFUI::Component::setParent(const SFUI::SharedPointer<Component>& newParent) {
+SFUI::Void SFUI::Component::setParent(SFUI::Component* newParent) {
     parent = newParent;
 }
 
@@ -46,7 +46,7 @@ SFUI::Void SFUI::Component::setParent(const SFUI::SharedPointer<Component>& newP
  * @param .
  */
 SFUI::Void SFUI::Component::addChild(const SFUI::SharedPointer<SFUI::Component>& newChild) {
-    newChild->setParent(this->shared_from_this());
+    newChild->setParent(this);
     children.push_back(newChild);
     childrenComputedLayout.emplace_back(SFUI::ComputedProp::ChildLayout{
         {0.f, 0.f},     // size
@@ -64,7 +64,7 @@ SFUI::Void SFUI::Component::addChild(const SFUI::SharedPointer<SFUI::Component>&
 SFUI::Void SFUI::Component::addChildren(const SFUI::Vector<SFUI::SharedPointer<SFUI::Component>>& newChildren) {
     children.insert(children.end(), newChildren.begin(), newChildren.end());
     for (int i = 0; i < newChildren.size(); i++) {
-        newChildren[i]->setParent(this->shared_from_this());
+        newChildren[i]->setParent(this);
         childrenComputedLayout.emplace_back(SFUI::ComputedProp::ChildLayout{
             {0.f, 0.f},     // size
             {0, 0},         // position
@@ -431,7 +431,7 @@ SFUI::Void SFUI::Component::computeAlignSecondary() {
  */
 SFUI::Void SFUI::Component::computeMargin() {
     // If Root Component (No Parent), Must Calculate Margin for Itself //
-    if (!parent.lock()) {
+    if (!parent) {
         SFUI::Float computedMargin = 0.0f;
     
         // If the Margin Layout Variant Holds an Explicit Width Float //
@@ -473,7 +473,7 @@ SFUI::Void SFUI::Component::computeMargin() {
  */
 SFUI::Void SFUI::Component::computeSize() {
     // If Root Component (No Parent), Use RenderTarget Dimensions for Layout Computation //
-    if (!parent.lock()) {
+    if (!parent) {
         SFUI::Vector2f computedSize = {0.0f, 0.0f};
     
         // Only Need to Consider Explicit Width/Height Values Since Children Determine Flex Changes //
@@ -583,7 +583,7 @@ SFUI::Void SFUI::Component::computePadding() {
  */
 SFUI::Void SFUI::Component::computePosition() {
     // If Root Component (No Parent), Use RenderTarget Dimensions for Layout Computation //
-    if (!parent.lock()) {
+    if (!parent) {
         SFUI::Vector2i computedPosition = {0, 0};
         
         // If Explicit X-Position Input Given by User //
@@ -908,6 +908,10 @@ SFUI::Void SFUI::Component::computeChildrenPosition() {
     // If Child Components, Calculate Children Positions for Them //
     if (children.size() > 0) {
 
+        // if (componentID == "middleChildTextField_Background") {
+        //     std::cout << "Text Field Button Calculating Position for " << children.size() << " Children\n";
+        // }
+
         // Calculate Each Component's Sizing and Margins and Total Sizing with Margins Combined //
         SFUI::Vector<SFUI::Float> componentSizeAndMargins;
         SFUI::Float totalComponentSizingAndMargins = 0.0f;
@@ -1054,6 +1058,10 @@ SFUI::Void SFUI::Component::computeChildrenPosition() {
 
             // Update the Computed Position //
             childrenComputedLayout[i].position = computedPosition;
+
+            // if (componentID == "middleChildTextField_Background") {
+            //     std::cout << "Text Field Button Input Text Position: (" << computedPosition.x << ", " << computedPosition.y << ")\n";
+            // }
         }
     }
 }

@@ -321,7 +321,7 @@ namespace SFUI {
                 SFUI::SubProp::Keyword text;
                 SFUI::SubProp::Font font;
                 SFUI::SubProp::Numeric textSize = 12.0f;
-                SFUI::SubProp::Keyword textAlignHorizontal = "center";
+                SFUI::SubProp::Keyword textAlignHorizontal = "left";
                 SFUI::SubProp::Keyword textAlignVertical = "center";
                 SFUI::SubProp::Color textColor = SFUI::Color(0, 0, 0, 255);
             };
@@ -368,6 +368,40 @@ namespace SFUI {
                 SFUI::Optional<SFUI::SubProp::Color> thumbHoveredFillColor;
                 SFUI::Optional<SFUI::SubProp::Color> thumbPressedFillColor;
             };
+
+            struct TextField {
+                SFUI::SubProp::Keyword text;
+                SFUI::SubProp::Keyword placeholderText;
+                SFUI::SubProp::Font font;
+                SFUI::SubProp::Numeric textSize = 12.0f;
+                SFUI::SubProp::Keyword textAlignHorizontal = "left";
+                SFUI::SubProp::Keyword textAlignVertical = "center";
+                SFUI::SubProp::Color textColor = SFUI::Color(0, 0, 0, 255);
+                SFUI::SubProp::Color placeholderTextColor = SFUI::Color(100, 100, 100, 255);
+
+                SFUI::Optional<SFUI::SubProp::Color> hoveredFillColor;
+                SFUI::Optional<SFUI::SubProp::Color> hoveredBorderColor;
+                SFUI::Optional<SFUI::SubProp::Color> pressedFillColor;
+                SFUI::Optional<SFUI::SubProp::Color> pressedBorderColor;
+                SFUI::Optional<SFUI::SubProp::Color> disabledFillColor;
+                SFUI::Optional<SFUI::SubProp::Color> disabledBorderColor;
+                SFUI::SubProp::Dimension focusWidth = 10.0f;
+                SFUI::SubProp::Dimension focusOffset = 0.0f;
+                SFUI::SubProp::UniQuad focusCornerRadius;
+                SFUI::SubProp::Color focusFillColor = SFUI::Color(0, 0, 0, 255);
+                SFUI::SubProp::Numeric toolTipPadding = 10.0f;
+                SFUI::SubProp::UniQuad toolTipCornerRadius;
+                SFUI::SubProp::Keyword toolTipText = "";
+                SFUI::SubProp::Font toolTipFont;
+                SFUI::SubProp::Numeric toolTipTextSize = 10.0f;
+                SFUI::SubProp::Color toolTipFillColor = SFUI::Color(150, 150, 150, 255);
+                SFUI::SubProp::Color toolTipTextColor = SFUI::Color(0, 0, 0, 255);
+
+                SFUI::SubProp::Keyword caretShape = "line";
+                SFUI::SubProp::Numeric caretBlinkTime = 500.0f;
+                SFUI::SubProp::Numeric caretBlinkRatio = 1.0f;
+                SFUI::SubProp::Color caretFillColor = SFUI::Color(0, 0, 0, 255);
+            };
         }
 
         // State Props //
@@ -392,7 +426,7 @@ namespace SFUI {
                 SFUI::SubProp::Callback onMiddlePressIn;
                 SFUI::SubProp::Callback onMiddlePress;
                 SFUI::SubProp::Callback onDoublePress;
-                SFUI::SubProp::CallbackKey onKeyPress;  
+                SFUI::SubProp::CallbackKey onKeyPress;
             };
 
             struct Graphic {
@@ -404,6 +438,26 @@ namespace SFUI {
                 SFUI::SubProp::Callback onScroll;
                 SFUI::SubProp::Callback onScrollDragStart;
                 SFUI::SubProp::Callback onScrollDragEnd;
+            };
+
+            struct TextField {
+                SFUI::SubProp::Callback onEnable;
+                SFUI::SubProp::Callback onDisable;
+                SFUI::SubProp::Callback onFocus;
+                SFUI::SubProp::Callback onBlur;
+                SFUI::SubProp::Callback onHoverIn;
+                SFUI::SubProp::Callback onHoverOut;
+                SFUI::SubProp::Callback onLeftPressIn;
+                SFUI::SubProp::Callback onLeftPress;
+                SFUI::SubProp::Callback onRightPressIn;
+                SFUI::SubProp::Callback onRightPress;
+                SFUI::SubProp::Callback onMiddlePressIn;
+                SFUI::SubProp::Callback onMiddlePress;
+                SFUI::SubProp::Callback onDoublePress;
+                SFUI::SubProp::Callback onPressOut;
+                SFUI::SubProp::CallbackKey onKeyPress;
+                SFUI::SubProp::CallbackString onTextChange;
+                SFUI::SubProp::CallbackString onSubmit;
             };
         }
     }
@@ -450,6 +504,13 @@ namespace SFUI {
             SFUI::Prop::Style::Component style;
             SFUI::Prop::Style::ScrollContainer scrollContainerStyle;
             SFUI::Prop::Behavior::ScrollContainer scrollContainerBehavior;
+        };
+
+        struct TextField {
+            SFUI::Prop::Layout::Component layout;
+            SFUI::Prop::Style::Component style;
+            SFUI::Prop::Style::TextField textFieldStyle;
+            SFUI::Prop::Behavior::TextField textFieldBehavior;
         };
     }
 }
@@ -538,6 +599,15 @@ namespace SFUI {
             SFUI::Color thumbHoveredFillColor;
             SFUI::Color thumbPressedFillColor;
         };
+
+        struct TextFieldStyle {
+            SFUI::String placeholderText;
+            SFUI::Color placeholderTextColor;
+            SFUI::String caretShape;
+            SFUI::Float caretOnTime;
+            SFUI::Float caretOffTime;
+            SFUI::Color caretFillColor;
+        };
     }
 }
 
@@ -555,13 +625,6 @@ namespace SFUI {
         // Style Props //
         namespace Style {
 
-            struct TextField {
-                SFUI::SubProp::Keyword placeholderText;
-                SFUI::SubProp::Color placeholderTextColor = SFUI::Color(100, 100, 100, 255);
-                SFUI::SubProp::Keyword caretShape = "line";
-                SFUI::SubProp::Numeric caretBlinkTime = 500.0f;
-                SFUI::SubProp::Numeric caretBlinkRatio = 1.0f;
-            };
         }
 
         // State Props //
@@ -572,13 +635,7 @@ namespace SFUI {
         // Behavior Props //
         namespace Behavior {
 
-            struct TextField {
-                SFUI::SubProp::CallbackString onTextChange;
-                SFUI::SubProp::CallbackString onSubmit;
-            };
         }
-
-
     }
 }
 
@@ -593,16 +650,6 @@ namespace SFUI {
 
     namespace PropGroup {
 
-        struct TextField {
-            SFUI::Prop::Layout::Component layout;
-            SFUI::Prop::Style::Component style;
-            SFUI::Prop::Style::Button backgroundStyle;
-            SFUI::Prop::Style::Label inputTextStyle;
-            SFUI::Prop::Style::Component caretStyle;
-            SFUI::Prop::Style::TextField textFieldStyle;
-            SFUI::Prop::Behavior::Button backgroundBehavior;
-            SFUI::Prop::Behavior::TextField textFieldBehavior;
-        };
     }
 }
 
@@ -617,12 +664,5 @@ namespace SFUI {
 
     namespace ComputedProp {
 
-        struct TextFieldStyle {
-            SFUI::String placeholderText;
-            SFUI::Color placeholderTextColor;
-            SFUI::String caretShape;
-            SFUI::Float caretOnTime;
-            SFUI::Float caretOffTime;
-        };
     }
 }

@@ -1,123 +1,6 @@
 #pragma once
 #include <sfml-flexui-types.hpp>
-
-
-///////////////////////////////////////
-// SFML-FlexUI Root UI Manager Class //
-///////////////////////////////////////
-
-namespace SFUI {
-
-    class Component;
-
-    class UIRoot {
-
-        public:
-            UIRoot() = default;
-            UIRoot(const SFUI::SharedPointer<SFUI::Component>& rootComponent);
-            SFUI::Void setRootComponent(const SFUI::SharedPointer<SFUI::Component>& rootComponent);
-            SFUI::Void handleEvent(const SFUI::Event& event);
-            SFUI::Void update(const SFUI::Vector2u renderTargetSize);
-            SFUI::Void draw(SFUI::RenderTarget& renderTarget);
-
-        private:
-            SFUI::SharedPointer<SFUI::Component> rootComponent;
-        
-        private:
-            SFUI::Void drawRecursive(SFUI::SharedPointer<SFUI::Component> component, SFUI::RenderTarget& renderTarget);
-    };
-}
-
-
-
-
-////////////////////////////////////////
-// SFML-FlexUI Parent Component Class //
-////////////////////////////////////////
-
-namespace SFUI {
-
-    class Component : public std::enable_shared_from_this<Component> {
-
-        friend class UIRoot;
-
-        public:
-            SFUI::String componentID;
-            SFUI::Prop::Layout::Component layout;
-            SFUI::Prop::Style::Component style;
-
-        public:
-            Component() = default;
-            Component(const SFUI::String& componentID);
-            Component(const SFUI::String& componentID, const SFUI::Prop::Layout::Component& layout, const SFUI::Prop::Style::Component& style);
-            virtual ~Component() = default;
-            virtual SFUI::Void handleEvent(const SFUI::Event& event) = 0;
-            virtual SFUI::Void update(const SFUI::Vector2u renderTargetSize) = 0;
-            virtual SFUI::Void draw(SFUI::RenderTarget& renderTarget) = 0;
-            SFUI::Void setParent(const SFUI::SharedPointer<Component>& newParent);
-            SFUI::Void addChild(const SFUI::SharedPointer<SFUI::Component>& newChild);
-            SFUI::Void addChildren(const SFUI::Vector<SFUI::SharedPointer<SFUI::Component>>& newChildren);
-            SFUI::Void updateChildFromParent(SFUI::ComputedProp::ChildLayout childComputedLayout);
-            SFUI::Vector<SFUI::SharedPointer<SFUI::Component>> getChildren() const;
-            SFUI::String getAlignDirection();
-            SFUI::String getAlignPrimary();
-            SFUI::String getAlignSecondary();
-            SFUI::Vector2f getSize();
-            SFUI::Vector2i getPosition();
-            SFUI::Float getPadding();
-            SFUI::Float getMargin();
-            SFUI::Float getBorderWidth();
-            SFUI::Vector4f getCornerRadius();
-            SFUI::Color getFillColor();
-            SFUI::Color getBorderColor();
-
-        protected:
-            SFUI::Vector2u renderTargetSize;
-            SFUI::VertexArray backgroundRects;
-            SFUI::VertexArray backgroundArcs;
-            SFUI::VertexArray borderRects;
-            SFUI::VertexArray borderArcs;
-            SFUI::VertexArray shadowRects;
-            SFUI::VertexArray shadowArcs;
-            SFUI::ComputedProp::Layout computedLayout;
-            SFUI::ComputedProp::Style computedStyle;
-            SFUI::Vector<SFUI::ComputedProp::ChildLayout> childrenComputedLayout;
-        
-        protected:
-            SFUI::Bool isMouseHovered(const SFUI::Vector2i& mousePosition);
-            SFUI::Color resolveColorSubProp(const SFUI::SubProp::Color& color);
-            SFUI::Vector4f resolveUniQuadSubProp(SFUI::Vector2f size, SFUI::SubProp::UniQuad cornerRadius);
-            SFUI::Void computeAlignDirection();
-            SFUI::Void computeAlignPrimary();
-            SFUI::Void computeAlignSecondary();
-            SFUI::Void computeMargin();
-            SFUI::Void computeSize();
-            SFUI::Void computePadding();
-            SFUI::Void computePosition();
-            SFUI::Void computeBorderWidth();
-            SFUI::Void computeCornerRadius();
-            SFUI::Void computeFillColor();
-            SFUI::Void computeBorderColor();
-            SFUI::Void computeShadow();
-            SFUI::Void computeGraphics();
-            SFUI::Void computeChildrenMargin();
-            SFUI::Void computeChildrenSize();
-            SFUI::Void computeChildrenPosition();
-            SFUI::Void updateChildren();
-
-        private:
-            SFUI::WeakPointer<SFUI::Component> parent;
-            SFUI::Vector<SFUI::SharedPointer<SFUI::Component>> children;
-        
-        private:
-            SFUI::Void computeBackgroundRectGeometry(SFUI::Vector2f position, SFUI::Vector2f size);
-            SFUI::Void computeBackgroundArcGeometry(SFUI::Vector2f center, SFUI::Float outerRadius, SFUI::Float startAngleDeg, SFUI::Float endAngleDeg);
-            SFUI::Void computeBorderRectGeometry(SFUI::Vector2f position, SFUI::Vector2f size);
-            SFUI::Void computeBorderArcGeometry(SFUI::Vector2f center, SFUI::Float outerRadius, SFUI::Float innerRadius, SFUI::Float startAngleDeg, SFUI::Float endAngleDeg);
-            SFUI::Void computeShadowRectGeometry(SFUI::Vector2f position, SFUI::Vector2f size, SFUI::Color modifiedShadowColor);
-            SFUI::Void computeShadowArcGeometry(SFUI::Vector2f center, SFUI::Float outerRadius, SFUI::Float startAngleDeg, SFUI::Float endAngleDeg, SFUI::Color modifiedShadowColor);
-    };
-}
+#include <sfml-flexui-base.hpp>
 
 
 
@@ -363,5 +246,64 @@ namespace SFUI {
             SFUI::Void computeScrollSpeedFactor();
             SFUI::Void computeChildrenScrollPosition();
             SFUI::Void computeMaxScrollOffset();
+    };
+}
+
+
+
+
+////////////////////////////////////////////
+// SFML-FlexUI Text Field Component Class //
+////////////////////////////////////////////
+
+namespace SFUI {
+    
+    class TextField : public Component {
+
+        public:
+            SFUI::Prop::Style::TextField textFieldStyle;
+            SFUI::Prop::Behavior::TextField textFieldBehavior;
+
+        public:
+            TextField() = default;
+            TextField(const SFUI::String& componentID);
+            TextField(const SFUI::String& componentID, const SFUI::PropGroup::TextField& textFieldPropGroup);
+            SFUI::Void handleEvent(const SFUI::Event& event);
+            SFUI::Void update(const SFUI::Vector2u renderTargetSize);
+            SFUI::Void draw(SFUI::RenderTarget& renderTarget);
+        
+        private:
+            static const SFUI::Float CARET_LINE_WIDTH_FACTOR;
+            static const SFUI::Float CARET_BOX_WIDTH_FACTOR;
+            static const SFUI::Float CARET_UNDERLINE_WIDTH_FACTOR;
+            static const SFUI::Float CARET_UNDERLINE_HEIGHT_FACTOR;
+            static const SFUI::String CTRL_WHITESPACE_GROUP;
+            static const SFUI::String CTRL_ALPHANUMERIC_GROUP;
+            static const SFUI::String CTRL_SYMBOL_GROUP;
+
+        private:
+            SFUI::Bool isFocused;
+            SFUI::Bool isHovered;
+            SFUI::Bool caretVisible;
+            SFUI::UnsignedInt caretColumnIndex = 0;
+            SFUI::UnsignedInt caretRowIndex = 0;
+            SFUI::Clock caretClock;
+            SFUI::SharedPointer<SFUI::Button> background;
+            SFUI::SharedPointer<SFUI::Label> inputText;
+            SFUI::SharedPointer<SFUI::Container> caret;
+            SFUI::ComputedProp::TextFieldStyle computedTextFieldStyle;
+
+        private:
+            SFUI::Void computeComposedProps();
+            SFUI::Void computePlaceholderText();
+            SFUI::Void computeCaretShape();
+            SFUI::Void computeCaretBlinkTiming();
+            SFUI::Void computeCaretLifetime();
+            SFUI::Void computeCaretFillColor();
+            SFUI::Void computeCaretLayout();
+            SFUI::Void computeComposedComponents();
+            SFUI::Void insertText(const char32_t newAppendedText);
+            SFUI::Void editText(const SFUI::Event::KeyPressed* keyPressedEvent);
+            SFUI::UnsignedInt getCharacterGroup(const char32_t character);
     };
 }
