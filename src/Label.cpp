@@ -71,11 +71,11 @@ SFUI::Void SFUI::Label::update(const SFUI::Vector2u renderTargetSize) {
     updateChildren();
 
     // Label Specific Computation //
-    computeTextSize();
-    computeTextAlignHorizontal();
-    computeTextAlignVertical();
-    computeTextColor();
-    computeText();
+    computeTextCore();
+    computeTextStyling();
+    computeTextAlign();
+    computeTextColors();
+    computeTextLayout();
 }
 
 
@@ -138,7 +138,7 @@ SFUI::Void SFUI::Label::draw(SFUI::RenderTarget& renderTarget) {
  * @return .
  */
 SFUI::String SFUI::Label::getText() {
-    return labelStyle.text;
+    return textObject.getString();
 }
 
 
@@ -158,7 +158,47 @@ SFUI::SharedPointer<SFUI::Font> SFUI::Label::getFont() {
  * @return .
  */
 SFUI::Float SFUI::Label::getTextSize() {
-    return computedLabelStyle.textSize;
+    return textObject.getCharacterSize();
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
+SFUI::UnsignedInt32 SFUI::Label::getTextStyle() {
+    return textObject.getStyle();
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
+SFUI::Float SFUI::Label::getLetterSpacing() {
+    return textObject.getLetterSpacing();
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
+SFUI::Float SFUI::Label::getLineSpacing() {
+    return textObject.getLineSpacing();
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
+SFUI::Float SFUI::Label::getOutlineThickness() {
+    return textObject.getOutlineThickness();
 }
 
 
@@ -188,7 +228,17 @@ SFUI::String SFUI::Label::getTextAlignVertical() {
  * @return .
  */
 SFUI::Color SFUI::Label::getTextColor() {
-    return computedLabelStyle.textColor;
+    return textObject.getFillColor();
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
+SFUI::Color SFUI::Label::getTextOutlineColor() {
+    return textObject.getOutlineColor();
 }
 
 
@@ -205,19 +255,69 @@ SFUI::FloatRect SFUI::Label::getTextBounds() {
 
 /**
  * @brief .
+ * 
+ * @param .
+ * 
+ * @return .
  */
-SFUI::Void SFUI::Label::computeTextSize() {
-    if (labelStyle.textSize > 0.0f)
-        computedLabelStyle.textSize = labelStyle.textSize;
-    else
-        computedLabelStyle.textSize = 12.0f;
+SFUI::Vector2f SFUI::Label::getCharacterPosition(SFUI::Size charIndex) {
+    sf::Vector2f position = textObject.findCharacterPos(charIndex);
+    return {position.x, position.y};
 }
 
 
 /**
  * @brief .
  */
-SFUI::Void SFUI::Label::computeTextAlignHorizontal() {
+SFUI::Void SFUI::Label::computeTextCore() {
+    textObject.setString(labelStyle.text);
+    textObject.setFont(*labelStyle.font);
+    if (labelStyle.textSize > 0.0f) textObject.setCharacterSize(labelStyle.textSize);
+    else textObject.setCharacterSize(12.0f);
+}
+
+
+/**
+ * @brief .
+ */
+SFUI::Void SFUI::Label::computeTextStyling() {
+    // Style //
+    SFUI::UnsignedInt32 computedTextStyle = SFUI::Text::Style::Regular;
+    if (std::holds_alternative<SFUI::UnsignedInt32>(labelStyle.textStyle)) {
+        computedTextStyle = std::get<SFUI::UnsignedInt32>(labelStyle.textStyle);
+    }
+    else if (std::holds_alternative<SFUI::String>(labelStyle.textStyle)) {
+        SFUI::String tempTextStyle = std::get<SFUI::String>(labelStyle.textStyle);
+        std::transform(tempTextStyle.begin(), tempTextStyle.end(), tempTextStyle.begin(), [](unsigned char c) {
+            return std::tolower(c);
+        });
+    
+        if (tempTextStyle.find("regular") != SFUI::String::npos) computedTextStyle |= SFUI::Text::Style::Regular;
+        if (tempTextStyle.find("bold") != SFUI::String::npos) computedTextStyle |= SFUI::Text::Style::Bold;
+        if (tempTextStyle.find("italic") != SFUI::String::npos) computedTextStyle |= SFUI::Text::Style::Italic;
+        if (tempTextStyle.find("underlined") != SFUI::String::npos) computedTextStyle |= SFUI::Text::Style::Underlined;
+        if (tempTextStyle.find("strikethrough") != SFUI::String::npos) computedTextStyle |= SFUI::Text::Style::StrikeThrough;
+    }
+    textObject.setStyle(computedTextStyle);
+
+    // Letter Spacing //
+    if (labelStyle.letterSpacing.has_value() && labelStyle.letterSpacing.value() >= 0.0f)
+        textObject.setLetterSpacing(labelStyle.letterSpacing.value());
+
+    // Line Spacing //
+    if (labelStyle.lineSpacing.has_value() && labelStyle.lineSpacing.value() >= 0.0f)
+        textObject.setLineSpacing(labelStyle.lineSpacing.value());
+    
+    // Outline Thickness //
+    if (labelStyle.textOutlineThickness >= 0.0f) textObject.setOutlineThickness(labelStyle.textOutlineThickness);
+}
+
+
+/**
+ * @brief .
+ */
+SFUI::Void SFUI::Label::computeTextAlign() {
+    // Horizontal Align //
     SFUI::String tempAlignHorizontal = labelStyle.textAlignHorizontal;
     std::transform(tempAlignHorizontal.begin(), tempAlignHorizontal.end(), tempAlignHorizontal.begin(), [](unsigned char c) {
         return std::tolower(c);
@@ -227,18 +327,13 @@ SFUI::Void SFUI::Label::computeTextAlignHorizontal() {
         computedLabelStyle.textAlignHorizontal = tempAlignHorizontal;
     else
         computedLabelStyle.textAlignHorizontal = "center";
-}
-
-
-/**
- * @brief .
- */
-SFUI::Void SFUI::Label::computeTextAlignVertical() {
+    
+    // Vertical Align //
     SFUI::String tempAlignVertical = labelStyle.textAlignVertical;
     std::transform(tempAlignVertical.begin(), tempAlignVertical.end(), tempAlignVertical.begin(), [](unsigned char c) {
         return std::tolower(c);
     });
-
+    
     if (tempAlignVertical == "top" || tempAlignVertical == "center" || tempAlignVertical == "bottom")
         computedLabelStyle.textAlignVertical = tempAlignVertical;
     else
@@ -249,23 +344,18 @@ SFUI::Void SFUI::Label::computeTextAlignVertical() {
 /**
  * @brief .
  */
-SFUI::Void SFUI::Label::computeTextColor() {
-    computedLabelStyle.textColor = resolveColorSubProp(labelStyle.textColor);
+SFUI::Void SFUI::Label::computeTextColors() {
+    textObject.setFillColor(resolveColorSubProp(labelStyle.textColor));
+    textObject.setOutlineColor(resolveColorSubProp(labelStyle.textOutlineColor));
 }
 
 
 /**
  * @brief .
  */
-SFUI::Void SFUI::Label::computeText() {
-    if (!labelStyle.font) return;
+SFUI::Void SFUI::Label::computeTextLayout() {
+    if (labelStyle.text.empty() || !labelStyle.font) return;
 
-    // Text Object //
-    textObject.setFont(*labelStyle.font);
-    textObject.setString(labelStyle.text);
-    textObject.setCharacterSize(computedLabelStyle.textSize);
-    textObject.setFillColor(computedLabelStyle.textColor);
-    
     SFUI::Vector2f textPosition;
     
     // Horizontal Text Position //
@@ -280,9 +370,9 @@ SFUI::Void SFUI::Label::computeText() {
     if (computedLabelStyle.textAlignVertical == "top")
         textPosition.y = computedLayout.position.y + computedLayout.padding;
     else if (computedLabelStyle.textAlignVertical == "center")
-        textPosition.y = computedLayout.position.y + (computedLayout.size.y / 2.0f) - (computedLabelStyle.textSize * VERTICAL_CENTER_OFFSET_FACTOR);
+        textPosition.y = computedLayout.position.y + (computedLayout.size.y / 2.0f) - (textObject.getCharacterSize() * VERTICAL_CENTER_OFFSET_FACTOR);
     else if (computedLabelStyle.textAlignVertical == "bottom")
-        textPosition.y = computedLayout.position.y + computedLayout.size.y - (computedLabelStyle.textSize * VERTICAL_BOTTOM_OFFSET_FACTOR) - computedLayout.padding;
+        textPosition.y = computedLayout.position.y + computedLayout.size.y - (textObject.getCharacterSize() * VERTICAL_BOTTOM_OFFSET_FACTOR) - computedLayout.padding;
 
     textObject.setPosition(textPosition);
 }

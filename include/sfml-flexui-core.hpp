@@ -47,10 +47,16 @@ namespace SFUI {
             SFUI::String getText();
             SFUI::SharedPointer<SFUI::Font> getFont();
             SFUI::Float getTextSize();
+            SFUI::UnsignedInt32 getTextStyle();
+            SFUI::Float getLetterSpacing();
+            SFUI::Float getLineSpacing();
+            SFUI::Float getOutlineThickness();
             SFUI::String getTextAlignHorizontal();
             SFUI::String getTextAlignVertical();
             SFUI::Color getTextColor();
+            SFUI::Color getTextOutlineColor();
             SFUI::FloatRect getTextBounds();
+            SFUI::Vector2f getCharacterPosition(SFUI::Size charIndex);
 
         private:
             static const SFUI::Float VERTICAL_CENTER_OFFSET_FACTOR;
@@ -61,11 +67,11 @@ namespace SFUI {
             SFUI::ComputedProp::LabelStyle computedLabelStyle;
 
         private:
-            SFUI::Void computeTextSize();
-            SFUI::Void computeTextAlignHorizontal();
-            SFUI::Void computeTextAlignVertical();
-            SFUI::Void computeTextColor();
-            SFUI::Void computeText();
+            SFUI::Void computeTextCore();
+            SFUI::Void computeTextStyling();
+            SFUI::Void computeTextAlign();
+            SFUI::Void computeTextColors();
+            SFUI::Void computeTextLayout();
     };
 }
 

@@ -28,6 +28,8 @@ namespace SFUI {
 
     using UnsignedInt8 = uint8_t;
 
+    using UnsignedInt32 = uint32_t;
+
     using UnsignedInt = unsigned int;
 
     using Int = int;
@@ -35,6 +37,8 @@ namespace SFUI {
     using Float = float;
 
     using Double = double;
+
+    using Size = std::size_t;
 
     using String = std::string;
 
@@ -259,6 +263,8 @@ namespace SFUI {
             ) : x(x), y(y), z(z), w(w) {}
         };
 
+        using TextStyle = SFUI::Variant<SFUI::String, SFUI::UnsignedInt32>;
+
         using Color = SFUI::Variant<SFUI::Vector3ui8, SFUI::Vector4ui8, SFUI::String, SFUI::Color>;
         
         using UniQuad = SFUI::Variant<SFUI::SubProp::Dimension, SFUI::SubProp::Vector4dim>;
@@ -321,9 +327,14 @@ namespace SFUI {
                 SFUI::SubProp::Keyword text;
                 SFUI::SubProp::Font font;
                 SFUI::SubProp::Numeric textSize = 12.0f;
+                SFUI::SubProp::TextStyle textStyle = "regular";
+                SFUI::Optional<SFUI::SubProp::Numeric> letterSpacing;
+                SFUI::Optional<SFUI::SubProp::Numeric> lineSpacing;
+                SFUI::SubProp::Numeric textOutlineThickness = 0.0f;
                 SFUI::SubProp::Keyword textAlignHorizontal = "left";
                 SFUI::SubProp::Keyword textAlignVertical = "center";
                 SFUI::SubProp::Color textColor = SFUI::Color(0, 0, 0, 255);
+                SFUI::SubProp::Color textOutlineColor = SFUI::Color(255, 255, 255, 255);
             };
     
             struct Button {
@@ -553,10 +564,8 @@ namespace SFUI {
         };
 
         struct LabelStyle {
-            SFUI::Float textSize;
             SFUI::String textAlignHorizontal;
             SFUI::String textAlignVertical;
-            SFUI::Color textColor;
         };
 
         struct ButtonStyle {
