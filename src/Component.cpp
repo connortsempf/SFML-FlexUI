@@ -48,7 +48,7 @@ SFUI::Void SFUI::Component::setParent(SFUI::Component* newParent) {
 SFUI::Void SFUI::Component::addChild(const SFUI::SharedPointer<SFUI::Component>& newChild) {
     newChild->setParent(this);
     children.push_back(newChild);
-    childrenComputedLayout.emplace_back(SFUI::ComputedProp::ChildLayout{
+    childrenComputedLayout.emplace_back(SFUI::ComputedProp::Layout::ComponentChild{
         {0.f, 0.f},     // size
         {0, 0},         // position
         0.f             // margin
@@ -65,7 +65,7 @@ SFUI::Void SFUI::Component::addChildren(const SFUI::Vector<SFUI::SharedPointer<S
     children.insert(children.end(), newChildren.begin(), newChildren.end());
     for (int i = 0; i < newChildren.size(); i++) {
         newChildren[i]->setParent(this);
-        childrenComputedLayout.emplace_back(SFUI::ComputedProp::ChildLayout{
+        childrenComputedLayout.emplace_back(SFUI::ComputedProp::Layout::ComponentChild{
             {0.f, 0.f},     // size
             {0, 0},         // position
             0.f             // margin
@@ -79,7 +79,7 @@ SFUI::Void SFUI::Component::addChildren(const SFUI::Vector<SFUI::SharedPointer<S
  * 
  * @param .
  */
-SFUI::Void SFUI::Component::updateChildFromParent(SFUI::ComputedProp::ChildLayout childComputedLayout) {
+SFUI::Void SFUI::Component::updateChildFromParent(SFUI::ComputedProp::Layout::ComponentChild childComputedLayout) {
     computedLayout.size = childComputedLayout.size;
     computedLayout.position = childComputedLayout.position;
     computedLayout.margin = childComputedLayout.margin;

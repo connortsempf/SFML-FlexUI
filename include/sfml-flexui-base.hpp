@@ -59,7 +59,7 @@ namespace SFUI {
             SFUI::Void setParent(SFUI::Component* newParent);
             SFUI::Void addChild(const SFUI::SharedPointer<SFUI::Component>& newChild);
             SFUI::Void addChildren(const SFUI::Vector<SFUI::SharedPointer<SFUI::Component>>& newChildren);
-            SFUI::Void updateChildFromParent(SFUI::ComputedProp::ChildLayout childComputedLayout);
+            SFUI::Void updateChildFromParent(SFUI::ComputedProp::Layout::ComponentChild childComputedLayout);
             SFUI::Vector<SFUI::SharedPointer<SFUI::Component>> getChildren() const;
             SFUI::String getAlignDirection();
             SFUI::String getAlignPrimary();
@@ -83,9 +83,9 @@ namespace SFUI {
             SFUI::VertexArray borderArcs;
             SFUI::VertexArray shadowRects;
             SFUI::VertexArray shadowArcs;
-            SFUI::ComputedProp::Layout computedLayout;
-            SFUI::ComputedProp::Style computedStyle;
-            SFUI::Vector<SFUI::ComputedProp::ChildLayout> childrenComputedLayout;
+            SFUI::ComputedProp::Layout::Component computedLayout;
+            SFUI::ComputedProp::Style::Component computedStyle;
+            SFUI::Vector<SFUI::ComputedProp::Layout::ComponentChild> childrenComputedLayout;
         
         protected:
             SFUI::Bool isMouseHovered(const SFUI::Vector2i& mousePosition);

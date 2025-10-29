@@ -543,82 +543,89 @@ namespace SFUI {
 
     namespace ComputedProp {
 
-        struct Layout {
-            SFUI::String alignDirection;
-            SFUI::String alignPrimary;
-            SFUI::String alignSecondary;
-            SFUI::Vector2f size;
-            SFUI::Vector2i position;
-            SFUI::Vector4f padding;
-            SFUI::Vector4f margin;
-        };
+        // Computed Layout Props //
+        namespace Layout {
 
-        struct ChildLayout {
-            SFUI::Vector2f size;
-            SFUI::Vector2i position;
-            SFUI::Vector4f margin;
-        };
+            struct Component {
+                SFUI::String alignDirection;
+                SFUI::String alignPrimary;
+                SFUI::String alignSecondary;
+                SFUI::Vector2f size;
+                SFUI::Vector2i position;
+                SFUI::Vector4f padding;
+                SFUI::Vector4f margin;
+            };
+    
+            struct ComponentChild {
+                SFUI::Vector2f size;
+                SFUI::Vector2i position;
+                SFUI::Vector4f margin;
+            };
+        }
 
-        struct Style {
-            SFUI::Float borderWidth;
-            SFUI::Vector4f cornerRadius;
-            SFUI::Color fillColor;
-            SFUI::Color borderColor;
-            SFUI::Vector2f shadowOffset;
-            SFUI::Float shadowRadius;
-            SFUI::Color shadowFillColor;
-        };
-
-        struct LabelStyle {
-            SFUI::String textAlignHorizontal;
-            SFUI::String textAlignVertical;
-            SFUI::Vector2f textOffset;
-        };
-
-        struct ButtonStyle {
-            SFUI::Color hoveredFillColor;
-            SFUI::Color hoveredBorderColor;
-            SFUI::Color pressedFillColor;
-            SFUI::Color pressedBorderColor;
-            SFUI::Color disabledFillColor;
-            SFUI::Color disabledBorderColor;
-            SFUI::Float focusWidth;
-            SFUI::Float focusOffset;
-        };
-
-        struct GraphicStyle {
-            SFUI::String graphicPath;
-            SFUI::String graphicAlign;
-            SFUI::Vector2f originalTextureSize;
-        };
-
-        struct ScrollContainerStyle {
-            SFUI::String scrollDirection;
-            SFUI::Float scrollSpeedFactor;
-            SFUI::Bool usingScrollBar;
-            SFUI::String scrollBarAlign;
-            SFUI::Float trackOnAxisSize;
-            SFUI::Float trackOffAxisSize;
-            SFUI::Float trackCornerRadius;
-            SFUI::Color trackFillColor;
-            SFUI::Color trackHoveredFillColor;
-            SFUI::Color trackPressedFillColor;
-            SFUI::Float thumbCornerRadius;
-            SFUI::Color thumbFillColor;
-            SFUI::Color thumbHoveredFillColor;
-            SFUI::Color thumbPressedFillColor;
-        };
-
-        struct TextFieldStyle {
-            SFUI::String lineMode;
-            SFUI::Vector4f textInset;
-            SFUI::String placeholderText;
-            SFUI::Color placeholderTextColor;
-            SFUI::String caretShape;
-            SFUI::Float caretOnTime;
-            SFUI::Float caretOffTime;
-            SFUI::Color caretFillColor;
-        };
+        // Computed Style Props //
+        namespace Style {
+            
+            struct Component {
+                SFUI::Float borderWidth;
+                SFUI::Vector4f cornerRadius;
+                SFUI::Color fillColor;
+                SFUI::Color borderColor;
+                SFUI::Vector2f shadowOffset;
+                SFUI::Float shadowRadius;
+                SFUI::Color shadowFillColor;
+            };
+            struct Label {
+                SFUI::String textAlignHorizontal;
+                SFUI::String textAlignVertical;
+                SFUI::Vector2f textOffset;
+            };
+    
+            struct Button {
+                SFUI::Color hoveredFillColor;
+                SFUI::Color hoveredBorderColor;
+                SFUI::Color pressedFillColor;
+                SFUI::Color pressedBorderColor;
+                SFUI::Color disabledFillColor;
+                SFUI::Color disabledBorderColor;
+                SFUI::Float focusWidth;
+                SFUI::Float focusOffset;
+            };
+    
+            struct Graphic {
+                SFUI::String graphicPath;
+                SFUI::String graphicAlign;
+                SFUI::Vector2f originalTextureSize;
+            };
+    
+            struct ScrollContainer {
+                SFUI::String scrollDirection;
+                SFUI::Float scrollSpeedFactor;
+                SFUI::Bool usingScrollBar;
+                SFUI::String scrollBarAlign;
+                SFUI::Float trackOnAxisSize;
+                SFUI::Float trackOffAxisSize;
+                SFUI::Float trackCornerRadius;
+                SFUI::Color trackFillColor;
+                SFUI::Color trackHoveredFillColor;
+                SFUI::Color trackPressedFillColor;
+                SFUI::Float thumbCornerRadius;
+                SFUI::Color thumbFillColor;
+                SFUI::Color thumbHoveredFillColor;
+                SFUI::Color thumbPressedFillColor;
+            };
+    
+            struct TextField {
+                SFUI::String lineMode;
+                SFUI::Vector4f textInset;
+                SFUI::String placeholderText;
+                SFUI::Color placeholderTextColor;
+                SFUI::String caretShape;
+                SFUI::Float caretOnTime;
+                SFUI::Float caretOffTime;
+                SFUI::Color caretFillColor;
+            };
+        }
     }
 }
 

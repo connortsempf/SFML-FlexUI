@@ -65,7 +65,7 @@ namespace SFUI {
 
         private:
             SFUI::Text textObject;
-            SFUI::ComputedProp::LabelStyle computedLabelStyle;
+            SFUI::ComputedProp::Style::Label computedLabelStyle;
 
         private:
             SFUI::Void computeTextCore();
@@ -136,7 +136,7 @@ namespace SFUI {
             SFUI::Time toolTipTime;
             SFUI::Container focus;
             SFUI::Label toolTip;
-            SFUI::ComputedProp::ButtonStyle computedButtonStyle;
+            SFUI::ComputedProp::Style::Button computedButtonStyle;
 
         private:
             SFUI::Void computeDynamicColors();
@@ -181,7 +181,7 @@ namespace SFUI {
             SFUI::Sprite graphic;
             SFUI::Graphic::LoadType loadType = SFUI::Graphic::LoadType::PRE_LOAD;
             SFUI::Graphic::LoadState loadState = SFUI::Graphic::LoadState::PRE_LOAD_UNLOADED;
-            SFUI::ComputedProp::GraphicStyle computedGraphicStyle;
+            SFUI::ComputedProp::Style::Graphic computedGraphicStyle;
         
         private:
             SFUI::Void computeGraphicSource();
@@ -237,7 +237,7 @@ namespace SFUI {
             SFUI::Vector2f maxScrollOffset = {0.0f, 0.0f};
             SFUI::Vector2f contentSize;
             SFUI::Float dragStartPosition;
-            SFUI::ComputedProp::ScrollContainerStyle computedScrollContainerStyle;
+            SFUI::ComputedProp::Style::ScrollContainer computedScrollContainerStyle;
 
         private:
             SFUI::Void computeAlignPrimary();
@@ -290,7 +290,7 @@ namespace SFUI {
             SFUI::SharedPointer<SFUI::Button> background;
             SFUI::SharedPointer<SFUI::Label> inputText;
             SFUI::SharedPointer<SFUI::Container> caret;
-            SFUI::ComputedProp::TextFieldStyle computedTextFieldStyle;
+            SFUI::ComputedProp::Style::TextField computedTextFieldStyle;
 
         private:
             SFUI::Void computeLineMode();
