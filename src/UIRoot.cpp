@@ -99,12 +99,12 @@ SFUI::Void SFUI::UIRoot::drawRecursive(SFUI::SharedPointer<SFUI::Component> comp
     if (scissorWasEnabled) glGetIntegerv(GL_SCISSOR_BOX, parentClipping);
     SFUI::Vector2i componentPosition = component->getPosition();
     SFUI::Vector2f componentSize = component->getSize();
-    SFUI::Float componentPadding = component->getPadding();
+    SFUI::Vector4f componentPadding = component->getPadding();
     GLint newClipping[4] = {
-        static_cast<GLint>(componentPosition.x + componentPadding),
-        static_cast<GLint>(renderTarget.getSize().y - (componentPosition.y + componentPadding) - (componentSize.y - componentPadding * 2.0f)),
-        static_cast<GLint>(componentSize.x - (componentPadding * 2.0f)),
-        static_cast<GLint>(componentSize.y - (componentPadding * 2.0f))
+        static_cast<GLint>(componentPosition.x + componentPadding.x),
+        static_cast<GLint>(renderTarget.getSize().y - (componentPosition.y + componentPadding.z) - (componentSize.y - componentPadding.z - componentPadding.w)),
+        static_cast<GLint>(componentSize.x - (componentPadding.x + componentPadding.y)),
+        static_cast<GLint>(componentSize.y - (componentPadding.z + componentPadding.w))
     };
     if (scissorWasEnabled) {
         GLint newRight = newClipping[0] + newClipping[2];

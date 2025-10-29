@@ -151,7 +151,7 @@ SFUI::Vector2i SFUI::Component::getPosition() {
  * 
  * @return .
  */
-SFUI::Float SFUI::Component::getPadding() {
+SFUI::Vector4f SFUI::Component::getPadding() {
     return computedLayout.padding;
 }
 
@@ -161,7 +161,7 @@ SFUI::Float SFUI::Component::getPadding() {
  * 
  * @return .
  */
-SFUI::Float SFUI::Component::getMargin() {
+SFUI::Vector4f SFUI::Component::getMargin() {
     return computedLayout.margin;
 }
 
@@ -356,10 +356,10 @@ SFUI::Vector4f SFUI::Component::resolveUniQuadSubProp(SFUI::Vector2f size, SFUI:
                 }
             };
         }
-        computedSubProp.x = computedIndividualSubProps[1];
-        computedSubProp.y = computedIndividualSubProps[2];
-        computedSubProp.z = computedIndividualSubProps[3];
-        computedSubProp.w = computedIndividualSubProps[4];
+        computedSubProp.x = computedIndividualSubProps[0];
+        computedSubProp.y = computedIndividualSubProps[1];
+        computedSubProp.z = computedIndividualSubProps[2];
+        computedSubProp.w = computedIndividualSubProps[3];
     }
 
     return computedSubProp;
@@ -432,36 +432,10 @@ SFUI::Void SFUI::Component::computeAlignSecondary() {
 SFUI::Void SFUI::Component::computeMargin() {
     // If Root Component (No Parent), Must Calculate Margin for Itself //
     if (!parent) {
-        SFUI::Float computedMargin = 0.0f;
-    
-        // If the Margin Layout Variant Holds an Explicit Width Float //
-        if (std::holds_alternative<SFUI::Float>(layout.margin)) {
-            computedMargin = std::get<SFUI::Float>(layout.margin);
-        }
-        // If the Margin Layout Variant Holds a String Percentage Input //
-        else if (std::holds_alternative<SFUI::String>(layout.margin)) {
-            SFUI::String marginString = std::get<SFUI::String>(layout.margin);
-            if (marginString.size() > 1 && marginString.back() == '%') {
-                marginString.pop_back();
-                try {
-                    size_t index = 0;
-                    SFUI::Double tempMargin = std::stod(marginString, &index);
-                    if (index == marginString.size()) {
-                        SFUI::Float relativeMarginFactor = std::min(renderTargetSize.x, renderTargetSize.y);
-                        computedMargin = relativeMarginFactor * std::clamp(static_cast<SFUI::Float>(tempMargin) / 100.0f, 0.0f, 1.0f);
-                    }   else {
-                        computedMargin = 0.0f;
-                    }
-                }   catch (...) {
-                    computedMargin = 0.0f;
-                }
-            }   else {
-                computedMargin = 0.0f;
-            }
-        }
-
-        // Update the Computed Margin //
-        computedLayout.margin = computedMargin;
+        computedLayout.margin = resolveUniQuadSubProp(
+            SFUI::Vector2f{static_cast<SFUI::Float>(renderTargetSize.x), static_cast<SFUI::Float>(renderTargetSize.y)},
+            layout.padding
+        );
     }
 }
 
@@ -532,7 +506,10 @@ SFUI::Void SFUI::Component::computeSize() {
         }
 
         // Update the Computed Size //
-        computedLayout.size = {computedSize.x - (computedLayout.margin * 2.0f), computedSize.y - (computedLayout.margin * 2.0f)};
+        computedLayout.size = {
+            computedSize.x - (computedLayout.margin.x + computedLayout.margin.y),
+            computedSize.y - (computedLayout.margin.z + computedLayout.margin.w)
+        };
     }
 }
 
@@ -543,36 +520,7 @@ SFUI::Void SFUI::Component::computeSize() {
  * @param .
  */
 SFUI::Void SFUI::Component::computePadding() {
-    SFUI::Float computedPadding = 0.0f;
-
-    // If the Padding Layout Variant Holds an Explicit Width Float //
-    if (std::holds_alternative<SFUI::Float>(layout.padding)) {
-        computedPadding = std::get<SFUI::Float>(layout.padding);
-    }
-    // If the Padding Layout Variant Holds a String Percentage Input //
-    else if (std::holds_alternative<SFUI::String>(layout.padding)) {
-        SFUI::String paddingString = std::get<SFUI::String>(layout.padding);
-        if (paddingString.size() > 1 && paddingString.back() == '%') {
-            paddingString.pop_back();
-            try {
-                size_t index = 0;
-                SFUI::Double tempPadding = std::stod(paddingString, &index);
-                if (index == paddingString.size()) {
-                    SFUI::Float relativePaddingFactor = std::min(computedLayout.size.x, computedLayout.size.y);
-                    computedPadding = relativePaddingFactor * std::clamp(static_cast<SFUI::Float>(tempPadding) / 100.0f, 0.0f, 0.5f);
-                }   else {
-                    computedPadding = 0.0f;
-                }
-            }   catch (...) {
-                computedPadding = 0.0f;
-            }
-        }   else {
-            computedPadding = 0.0f;
-        }
-    }
-
-    // Update the Computed Padding Style //
-    computedLayout.padding = computedPadding;
+    computedLayout.padding = resolveUniQuadSubProp(computedLayout.size, layout.padding);
 }
 
 
@@ -795,37 +743,8 @@ SFUI::Void SFUI::Component::computeChildrenMargin() {
     // If Has Child Components, Must Calculate Their Margins for Them Based on Its Own Size //
     if (children.size() > 0) {
         for (int i = 0; i < children.size(); i++) {
-            SFUI::Float computedMargin = 0.0f;
             SFUI::Component& childComponent = *children[i];
-
-            // If the Margin Layout Variant Holds an Explicit Width Float //
-            if (std::holds_alternative<SFUI::Float>(childComponent.layout.margin)) {
-                computedMargin = std::get<SFUI::Float>(childComponent.layout.margin);
-            }
-            // If the Margin Layout Variant Holds a String Percentage Input //
-            else if (std::holds_alternative<SFUI::String>(childComponent.layout.margin)) {
-                SFUI::String marginString = std::get<SFUI::String>(childComponent.layout.margin);
-                if (marginString.size() > 1 && marginString.back() == '%') {
-                    marginString.pop_back();
-                    try {
-                        size_t index = 0;
-                        SFUI::Double tempMargin = std::stod(marginString, &index);
-                        if (index == marginString.size()) {
-                            SFUI::Float relativeMarginFactor = std::min(computedLayout.size.x, computedLayout.size.y);
-                            computedMargin = relativeMarginFactor * std::clamp(static_cast<SFUI::Float>(tempMargin) / 100.0f, 0.0f, 1.0f);
-                        }   else {
-                            computedMargin = 0.0f;
-                        }
-                    }   catch (...) {
-                        computedMargin = 0.0f;
-                    }
-                }   else {
-                    computedMargin = 0.0f;
-                }
-            }
-
-            // Update the Computed Border Width Style //
-            childrenComputedLayout[i].margin = computedMargin;
+            childrenComputedLayout[i].margin = resolveUniQuadSubProp(computedLayout.size, childComponent.layout.margin);
         }
     }
 }
@@ -840,7 +759,10 @@ SFUI::Void SFUI::Component::computeChildrenSize() {
         for (int i = 0; i < children.size(); i++) {
             SFUI::Vector2f computedSize = {0.0f, 0.0f};
             SFUI::Component& childComponent = *children[i];
-            sf::Vector2i availableSize(computedLayout.size.x - (computedLayout.padding * 2), computedLayout.size.y - (computedLayout.padding * 2));
+            sf::Vector2i availableSize(
+                computedLayout.size.x - (computedLayout.padding.x + computedLayout.padding.y),
+                computedLayout.size.y - (computedLayout.padding.z + computedLayout.padding.w)
+            );
     
             // Obtain Width //
             // If Explicit Float Width Given By User //
@@ -895,7 +817,10 @@ SFUI::Void SFUI::Component::computeChildrenSize() {
             }
     
             // Update the Computed Size //
-            childrenComputedLayout[i].size = {computedSize.x - (childrenComputedLayout[i].margin * 2.0f), computedSize.y - (childrenComputedLayout[i].margin * 2.0f)};
+            childrenComputedLayout[i].size = {
+                computedSize.x - (childrenComputedLayout[i].margin.x + childrenComputedLayout[i].margin.y),
+                computedSize.y - (childrenComputedLayout[i].margin.z + childrenComputedLayout[i].margin.w)
+            };
         }
     }
 }
@@ -908,10 +833,6 @@ SFUI::Void SFUI::Component::computeChildrenPosition() {
     // If Child Components, Calculate Children Positions for Them //
     if (children.size() > 0) {
 
-        // if (componentID == "middleChildTextField_Background") {
-        //     std::cout << "Text Field Button Calculating Position for " << children.size() << " Children\n";
-        // }
-
         // Calculate Each Component's Sizing and Margins and Total Sizing with Margins Combined //
         SFUI::Vector<SFUI::Float> componentSizeAndMargins;
         SFUI::Float totalComponentSizingAndMargins = 0.0f;
@@ -922,18 +843,18 @@ SFUI::Void SFUI::Component::computeChildrenPosition() {
         for (int i = 0; i < children.size(); i++) {
             SFUI::Float childTotalSize = 0.0f;
             if (computedLayout.alignDirection == "vertical")
-                childTotalSize = childrenComputedLayout[i].size.y + (childrenComputedLayout[i].margin * 2.0f);
+                childTotalSize = childrenComputedLayout[i].size.y + (childrenComputedLayout[i].margin.z + childrenComputedLayout[i].margin.w);
             else if (computedLayout.alignDirection == "horizontal")
-                childTotalSize = childrenComputedLayout[i].size.x + (childrenComputedLayout[i].margin * 2.0f);
+                childTotalSize = childrenComputedLayout[i].size.x + (childrenComputedLayout[i].margin.x + childrenComputedLayout[i].margin.y);
             componentSizeAndMargins.push_back(childTotalSize);
             totalComponentSizingAndMargins += childTotalSize;
         }
 
         // Compute Total Gap Size Available Between Children //
         if (computedLayout.alignDirection == "vertical")
-            availableGapSize = computedLayout.size.y - (computedLayout.padding * 2.0f) - totalComponentSizingAndMargins;
+            availableGapSize = computedLayout.size.y - (computedLayout.padding.z + computedLayout.padding.w) - totalComponentSizingAndMargins;
         else if (computedLayout.alignDirection == "horizontal")
-            availableGapSize = computedLayout.size.x - (computedLayout.padding * 2.0f) - totalComponentSizingAndMargins;
+            availableGapSize = computedLayout.size.x - (computedLayout.padding.x + computedLayout.padding.y) - totalComponentSizingAndMargins;
 
         // Compute the Gap Sizes Between Children //
         if (children.size() > 1) {
@@ -965,42 +886,42 @@ SFUI::Void SFUI::Component::computeChildrenPosition() {
                 // Off-Axis Positioning //
                 if (computedLayout.alignDirection == "vertical") {
                     if (computedLayout.alignSecondary == "start")
-                        computedPosition.x = computedLayout.position.x + computedLayout.padding + childrenComputedLayout[i].margin;
+                        computedPosition.x = computedLayout.position.x + computedLayout.padding.x + childrenComputedLayout[i].margin.x;
                     else if (computedLayout.alignSecondary == "end")
-                        computedPosition.x = computedLayout.position.x + computedLayout.size.x - computedLayout.padding - childrenComputedLayout[i].margin - childrenComputedLayout[i].size.x;
+                        computedPosition.x = computedLayout.position.x + computedLayout.size.x - computedLayout.padding.y - childrenComputedLayout[i].margin.y - childrenComputedLayout[i].size.x;
                     else if (computedLayout.alignSecondary == "center")
                         computedPosition.x = computedLayout.position.x + (computedLayout.size.x / 2.0f) - (childrenComputedLayout[i].size.x / 2.0f);
                 }
                 // On-Axis Positioning //
                 else if (computedLayout.alignDirection == "horizontal") {
                     if (computedLayout.alignPrimary == "start") {
-                        if (i == 0) computedPosition.x = computedLayout.position.x + computedLayout.padding + childrenComputedLayout[i].margin;
-                        else computedPosition.x = childrenComputedLayout[i - 1].position.x + childrenComputedLayout[i - 1].size.x + childrenComputedLayout[i - 1].margin + childrenComputedLayout[i].margin;
+                        if (i == 0) computedPosition.x = computedLayout.position.x + computedLayout.padding.x + childrenComputedLayout[i].margin.x;
+                        else computedPosition.x = childrenComputedLayout[i - 1].position.x + childrenComputedLayout[i - 1].size.x + childrenComputedLayout[i - 1].margin.y + childrenComputedLayout[i].margin.x;
                     }
                     else if (computedLayout.alignPrimary == "end") {
-                        if (i == 0) computedPosition.x = computedLayout.position.x + computedLayout.size.x - computedLayout.padding - totalComponentSizingAndMargins + childrenComputedLayout[i].margin;
-                        else computedPosition.x = childrenComputedLayout[i - 1].position.x + childrenComputedLayout[i - 1].size.x + childrenComputedLayout[i - 1].margin + childrenComputedLayout[i].margin;
+                        if (i == 0) computedPosition.x = computedLayout.position.x + computedLayout.size.x - computedLayout.padding.y - totalComponentSizingAndMargins + childrenComputedLayout[i].margin.x;
+                        else computedPosition.x = childrenComputedLayout[i - 1].position.x + childrenComputedLayout[i - 1].size.x + childrenComputedLayout[i - 1].margin.y + childrenComputedLayout[i].margin.x;
                     }
                     else if (computedLayout.alignPrimary == "center") {
-                        if (i == 0) computedPosition.x = computedLayout.position.x + (computedLayout.size.x / 2.0f) - (totalComponentSizingAndMargins / 2.0f) + childrenComputedLayout[i].margin;
-                        else computedPosition.x = childrenComputedLayout[i - 1].position.x + childrenComputedLayout[i - 1].size.x + childrenComputedLayout[i - 1].margin + childrenComputedLayout[i].margin;
+                        if (i == 0) computedPosition.x = computedLayout.position.x + (computedLayout.size.x / 2.0f) - (totalComponentSizingAndMargins / 2.0f) + childrenComputedLayout[i].margin.x;
+                        else computedPosition.x = childrenComputedLayout[i - 1].position.x + childrenComputedLayout[i - 1].size.x + childrenComputedLayout[i - 1].margin.y + childrenComputedLayout[i].margin.x;
                     }
                     else if (computedLayout.alignPrimary == "space-between") {
                         if (children.size() == 1) computedPosition.x = computedLayout.position.x + (computedLayout.size.x / 2.0f) - (childrenComputedLayout[i].size.x / 2.0f);
-                        else if (i == 0) computedPosition.x = computedLayout.position.x + computedLayout.padding + childrenComputedLayout[i].margin;
-                        else if (i == children.size() - 1) computedPosition.x = computedLayout.position.x + computedLayout.size.x - computedLayout.padding - childrenComputedLayout[i].margin - childrenComputedLayout[i].size.x;
-                        else computedPosition.x = childrenComputedLayout[i - 1].position.x + childrenComputedLayout[i - 1].size.x + childrenComputedLayout[i - 1].margin + gapSize + childrenComputedLayout[i].margin;
+                        else if (i == 0) computedPosition.x = computedLayout.position.x + computedLayout.padding.x + childrenComputedLayout[i].margin.x;
+                        else if (i == children.size() - 1) computedPosition.x = computedLayout.position.x + computedLayout.size.x - computedLayout.padding.y - childrenComputedLayout[i].margin.y - childrenComputedLayout[i].size.x;
+                        else computedPosition.x = childrenComputedLayout[i - 1].position.x + childrenComputedLayout[i - 1].size.x + childrenComputedLayout[i - 1].margin.y + gapSize + childrenComputedLayout[i].margin.x;
                     }
                     else if (computedLayout.alignPrimary == "space-around") {
                         if (children.size() == 1) computedPosition.x = computedLayout.position.x + (computedLayout.size.x / 2.0f) - (childrenComputedLayout[i].size.x / 2.0f);
-                        else if (i == 0) computedPosition.x = computedLayout.position.x + computedLayout.padding + edgeGapSize + childrenComputedLayout[i].margin;
-                        else if (i == children.size() - 1) computedPosition.x = computedLayout.position.x + computedLayout.size.x - computedLayout.padding - childrenComputedLayout[i].margin - childrenComputedLayout[i].size.x - edgeGapSize;
-                        else computedPosition.x = childrenComputedLayout[i - 1].position.x + childrenComputedLayout[i - 1].size.x + childrenComputedLayout[i - 1].margin + interiorGapSize + childrenComputedLayout[i].margin;
+                        else if (i == 0) computedPosition.x = computedLayout.position.x + computedLayout.padding.x + edgeGapSize + childrenComputedLayout[i].margin.x;
+                        else if (i == children.size() - 1) computedPosition.x = computedLayout.position.x + computedLayout.size.x - computedLayout.padding.y - childrenComputedLayout[i].margin.y - childrenComputedLayout[i].size.x - edgeGapSize;
+                        else computedPosition.x = childrenComputedLayout[i - 1].position.x + childrenComputedLayout[i - 1].size.x + childrenComputedLayout[i - 1].margin.y + interiorGapSize + childrenComputedLayout[i].margin.x;
                     }
                     else if (computedLayout.alignPrimary == "space-evenly") {
                         if (children.size() == 1) computedPosition.x = computedLayout.position.x + (computedLayout.size.x / 2.0f) - (childrenComputedLayout[i].size.x / 2.0f);
-                        else if (i == 0) computedPosition.x = computedLayout.position.x + computedLayout.padding + gapSize + childrenComputedLayout[i].margin;
-                        else computedPosition.x = childrenComputedLayout[i - 1].position.x + childrenComputedLayout[i - 1].size.x + childrenComputedLayout[i - 1].margin + gapSize + childrenComputedLayout[i].margin;
+                        else if (i == 0) computedPosition.x = computedLayout.position.x + computedLayout.padding.x + gapSize + childrenComputedLayout[i].margin.x;
+                        else computedPosition.x = childrenComputedLayout[i - 1].position.x + childrenComputedLayout[i - 1].size.x + childrenComputedLayout[i - 1].margin.y + gapSize + childrenComputedLayout[i].margin.x;
                     }
                 }
             }
@@ -1016,42 +937,42 @@ SFUI::Void SFUI::Component::computeChildrenPosition() {
                 // Off-Axis Positioning //
                 if (computedLayout.alignDirection == "horizontal") {
                     if (computedLayout.alignSecondary == "start")
-                        computedPosition.y = computedLayout.position.y + computedLayout.padding;
+                        computedPosition.y = computedLayout.position.y + computedLayout.padding.z;
                     else if (computedLayout.alignSecondary == "end")
-                        computedPosition.y = computedLayout.position.y + computedLayout.size.y - computedLayout.padding - childrenComputedLayout[i].size.y;
+                        computedPosition.y = computedLayout.position.y + computedLayout.size.y - computedLayout.padding.w - childrenComputedLayout[i].size.y;
                     else if (computedLayout.alignSecondary == "center")
                         computedPosition.y = computedLayout.position.y + (computedLayout.size.y / 2.0f) - (childrenComputedLayout[i].size.y / 2.0f);
                 }
                 // On-Axis Positioning //
                 else if (computedLayout.alignDirection == "vertical") {
                     if (computedLayout.alignPrimary == "start") {
-                        if (i == 0) computedPosition.y = computedLayout.position.y + computedLayout.padding + childrenComputedLayout[i].margin;
-                        else computedPosition.y = childrenComputedLayout[i - 1].position.y + childrenComputedLayout[i - 1].size.y + childrenComputedLayout[i - 1].margin + childrenComputedLayout[i].margin;
+                        if (i == 0) computedPosition.y = computedLayout.position.y + computedLayout.padding.z + childrenComputedLayout[i].margin.z;
+                        else computedPosition.y = childrenComputedLayout[i - 1].position.y + childrenComputedLayout[i - 1].size.y + childrenComputedLayout[i - 1].margin.w + childrenComputedLayout[i].margin.z;
                     }
                     else if (computedLayout.alignPrimary == "end") {
-                        if (i == 0) computedPosition.y = computedLayout.position.y + computedLayout.size.y - computedLayout.padding - totalComponentSizingAndMargins + childrenComputedLayout[i].margin;
-                        else computedPosition.y = childrenComputedLayout[i - 1].position.y + childrenComputedLayout[i - 1].size.y + childrenComputedLayout[i - 1].margin + childrenComputedLayout[i].margin;
+                        if (i == 0) computedPosition.y = computedLayout.position.y + computedLayout.size.y - computedLayout.padding.w - totalComponentSizingAndMargins + childrenComputedLayout[i].margin.z;
+                        else computedPosition.y = childrenComputedLayout[i - 1].position.y + childrenComputedLayout[i - 1].size.y + childrenComputedLayout[i - 1].margin.w + childrenComputedLayout[i].margin.z;
                     }
                     else if (computedLayout.alignPrimary == "center") {
-                        if (i == 0) computedPosition.y = computedLayout.position.y + (computedLayout.size.y / 2.0f) - (totalComponentSizingAndMargins / 2.0f) + childrenComputedLayout[i].margin;
-                        else computedPosition.y = childrenComputedLayout[i - 1].position.y + childrenComputedLayout[i - 1].size.y + childrenComputedLayout[i - 1].margin + childrenComputedLayout[i].margin;
+                        if (i == 0) computedPosition.y = computedLayout.position.y + (computedLayout.size.y / 2.0f) - (totalComponentSizingAndMargins / 2.0f) + childrenComputedLayout[i].margin.z;
+                        else computedPosition.y = childrenComputedLayout[i - 1].position.y + childrenComputedLayout[i - 1].size.y + childrenComputedLayout[i - 1].margin.w + childrenComputedLayout[i].margin.z;
                     }
                     else if (computedLayout.alignPrimary == "space-between") {
                         if (children.size() == 1) computedPosition.y = computedLayout.position.y + (computedLayout.size.y / 2.0f) - (childrenComputedLayout[i].size.y / 2.0f);
-                        else if (i == 0) computedPosition.y = computedLayout.position.y + computedLayout.padding + childrenComputedLayout[i].margin;
-                        else if (i == children.size() - 1) computedPosition.y = computedLayout.position.y + computedLayout.size.y - computedLayout.padding - childrenComputedLayout[i].margin - childrenComputedLayout[i].size.y;
-                        else computedPosition.y = childrenComputedLayout[i - 1].position.y + childrenComputedLayout[i - 1].size.y + childrenComputedLayout[i - 1].margin + gapSize + childrenComputedLayout[i].margin;
+                        else if (i == 0) computedPosition.y = computedLayout.position.y + computedLayout.padding.z + childrenComputedLayout[i].margin.z;
+                        else if (i == children.size() - 1) computedPosition.y = computedLayout.position.y + computedLayout.size.y - computedLayout.padding.w - childrenComputedLayout[i].margin.w - childrenComputedLayout[i].size.y;
+                        else computedPosition.y = childrenComputedLayout[i - 1].position.y + childrenComputedLayout[i - 1].size.y + childrenComputedLayout[i - 1].margin.w + gapSize + childrenComputedLayout[i].margin.z;
                     }
                     else if (computedLayout.alignPrimary == "space-around") {
                         if (children.size() == 1) computedPosition.y = computedLayout.position.y + (computedLayout.size.y / 2.0f) - (childrenComputedLayout[i].size.y / 2.0f);
-                        else if (i == 0) computedPosition.y = computedLayout.position.y + computedLayout.padding + edgeGapSize + childrenComputedLayout[i].margin;
-                        else if (i == children.size() - 1) computedPosition.y = computedLayout.position.y + computedLayout.size.y - computedLayout.padding - childrenComputedLayout[i].margin - childrenComputedLayout[i].size.y - edgeGapSize;
-                        else computedPosition.y = childrenComputedLayout[i - 1].position.y + childrenComputedLayout[i - 1].size.y + childrenComputedLayout[i - 1].margin + interiorGapSize + childrenComputedLayout[i].margin;
+                        else if (i == 0) computedPosition.y = computedLayout.position.y + computedLayout.padding.z + edgeGapSize + childrenComputedLayout[i].margin.z;
+                        else if (i == children.size() - 1) computedPosition.y = computedLayout.position.y + computedLayout.size.y - computedLayout.padding.w - childrenComputedLayout[i].margin.w - childrenComputedLayout[i].size.y - edgeGapSize;
+                        else computedPosition.y = childrenComputedLayout[i - 1].position.y + childrenComputedLayout[i - 1].size.y + childrenComputedLayout[i - 1].margin.w + interiorGapSize + childrenComputedLayout[i].margin.z;
                     }
                     else if (computedLayout.alignPrimary == "space-evenly") {
                         if (children.size() == 1) computedPosition.y = computedLayout.position.y + (computedLayout.size.y / 2.0f) - (childrenComputedLayout[i].size.y / 2.0f);
-                        else if (i == 0) computedPosition.y = computedLayout.position.y + computedLayout.padding + gapSize + childrenComputedLayout[i].margin;
-                        else computedPosition.y = childrenComputedLayout[i - 1].position.y + childrenComputedLayout[i - 1].size.y + childrenComputedLayout[i - 1].margin + gapSize + childrenComputedLayout[i].margin;
+                        else if (i == 0) computedPosition.y = computedLayout.position.y + computedLayout.padding.z + gapSize + childrenComputedLayout[i].margin.z;
+                        else computedPosition.y = childrenComputedLayout[i - 1].position.y + childrenComputedLayout[i - 1].size.y + childrenComputedLayout[i - 1].margin.w + gapSize + childrenComputedLayout[i].margin.z;
                     }
                 }
             }            

@@ -97,12 +97,12 @@ SFUI::Void SFUI::Label::draw(SFUI::RenderTarget& renderTarget) {
     if (scissorWasEnabled) glGetIntegerv(GL_SCISSOR_BOX, parentClipping);
     SFUI::Vector2i labelPosition = computedLayout.position;
     SFUI::Vector2f labelSize = computedLayout.size;
-    SFUI::Float labelPadding = computedLayout.padding;
+    SFUI::Vector4f labelPadding = computedLayout.padding;
     GLint newClipping[4] = {
-        static_cast<GLint>(labelPosition.x + labelPadding),
-        static_cast<GLint>(renderTarget.getSize().y - (labelPosition.y + labelPadding) - (labelSize.y - labelPadding * 2.0f)),
-        static_cast<GLint>(labelSize.x - (labelPadding * 2.0f)),
-        static_cast<GLint>(labelSize.y - (labelPadding * 2.0f))
+        static_cast<GLint>(labelPosition.x + labelPadding.x),
+        static_cast<GLint>(renderTarget.getSize().y - (labelPosition.y + labelPadding.z) - (labelSize.y - labelPadding.z - labelPadding.w)),
+        static_cast<GLint>(labelSize.x - (labelPadding.x + labelPadding.y)),
+        static_cast<GLint>(labelSize.y - (labelPadding.z + labelPadding.w))
     };
     if (scissorWasEnabled) {
         GLint newRight = newClipping[0] + newClipping[2];
@@ -359,19 +359,19 @@ SFUI::Void SFUI::Label::computeTextLayout() {
     
     // Horizontal Text Position //
     if (computedLabelStyle.textAlignHorizontal == "left")
-        textPosition.x = computedLayout.position.x + computedLayout.padding;
+        textPosition.x = computedLayout.position.x + computedLayout.padding.x;
     else if (computedLabelStyle.textAlignHorizontal == "center")
         textPosition.x = computedLayout.position.x + (computedLayout.size.x / 2.0f) - (textObject.getLocalBounds().size.x / 2.0f);
     else if (computedLabelStyle.textAlignHorizontal == "right")
-        textPosition.x = computedLayout.position.x + computedLayout.size.x - textObject.getLocalBounds().size.x - computedLayout.padding;
+        textPosition.x = computedLayout.position.x + computedLayout.size.x - computedLayout.padding.y - textObject.getLocalBounds().size.x;
 
     // Vertical Text Position //
     if (computedLabelStyle.textAlignVertical == "top")
-        textPosition.y = computedLayout.position.y + computedLayout.padding;
+        textPosition.y = computedLayout.position.y + computedLayout.padding.z;
     else if (computedLabelStyle.textAlignVertical == "center")
         textPosition.y = computedLayout.position.y + (computedLayout.size.y / 2.0f) - (textObject.getLocalBounds().size.y / 2.0f);
     else if (computedLabelStyle.textAlignVertical == "bottom")
-        textPosition.y = computedLayout.position.y + computedLayout.size.y - computedLayout.padding - textObject.getLocalBounds().size.y - (textObject.getCharacterSize() * BOTTOM_OFFSET_FACTOR);
+        textPosition.y = computedLayout.position.y + computedLayout.size.y - computedLayout.padding.w - textObject.getLocalBounds().size.y - (textObject.getCharacterSize() * BOTTOM_OFFSET_FACTOR);
 
     textObject.setPosition(textPosition);
 }

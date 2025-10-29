@@ -106,7 +106,7 @@ namespace SFUI {
             SFUI::Float getFocusOffset();
             SFUI::Vector4f getFocusCornerRadius();
             SFUI::Color getFocusFillColor();
-            SFUI::Float getToolTipPadding();
+            SFUI::Vector4f getToolTipPadding();
             SFUI::Vector4f getToolTipCornerRadius();
             SFUI::String getToolTipText();
             SFUI::SharedPointer<SFUI::Font> getToolTipFont();

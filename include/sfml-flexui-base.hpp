@@ -66,8 +66,8 @@ namespace SFUI {
             SFUI::String getAlignSecondary();
             SFUI::Vector2f getSize();
             SFUI::Vector2i getPosition();
-            SFUI::Float getPadding();
-            SFUI::Float getMargin();
+            SFUI::Vector4f getPadding();
+            SFUI::Vector4f getMargin();
             SFUI::Float getBorderWidth();
             SFUI::Vector4f getCornerRadius();
             SFUI::Color getFillColor();

@@ -329,7 +329,7 @@ SFUI::Color SFUI::Button::getFocusFillColor() {
  * 
  * @return .
  */
-SFUI::Float SFUI::Button::getToolTipPadding() {
+SFUI::Vector4f SFUI::Button::getToolTipPadding() {
     return computedButtonStyle.toolTipPadding;
 }
 
@@ -554,8 +554,7 @@ SFUI::Void SFUI::Button::computeFocus() {
  */
 SFUI::Void SFUI::Button::computeToolTipPadding() {
     if (buttonStyle.toolTipText == "" || !buttonStyle.toolTipFont) return;
-    
-    computedButtonStyle.toolTipPadding = buttonStyle.toolTipPadding;
+    computedButtonStyle.toolTipPadding = resolveUniQuadSubProp(computedLayout.size, buttonStyle.toolTipPadding);
 }
 
 
@@ -564,7 +563,10 @@ SFUI::Void SFUI::Button::computeToolTipPadding() {
  */
 SFUI::Void SFUI::Button::computeToolTipCornerRadius() {
     if (buttonStyle.toolTipText == "" || !buttonStyle.toolTipFont) return;
-    computedButtonStyle.toolTipCornerRadius = resolveUniQuadSubProp(SFUI::Vector2f(toolTip.getSize().x, toolTip.getSize().y), buttonStyle.toolTipCornerRadius);
+    computedButtonStyle.toolTipCornerRadius = resolveUniQuadSubProp(
+        SFUI::Vector2f(toolTip.getSize().x, toolTip.getSize().y),
+        buttonStyle.toolTipCornerRadius
+    );
 }
 
 
@@ -607,9 +609,14 @@ SFUI::Void SFUI::Button::computeToolTipTextColor() {
 SFUI::Void SFUI::Button::computeToolTip() {
     if (buttonStyle.toolTipText == "" || !buttonStyle.toolTipFont) return;
     SFUI::Text tempText = SFUI::Text(*(buttonStyle.toolTipFont), buttonStyle.toolTipText, computedButtonStyle.toolTipTextSize);
-    toolTip.layout.width = tempText.getGlobalBounds().size.x + (computedButtonStyle.toolTipPadding * 2.0f);
-    toolTip.layout.height = tempText.getGlobalBounds().size.y + (computedButtonStyle.toolTipPadding * 2.0f);
-    toolTip.layout.padding = computedButtonStyle.toolTipPadding;
+    toolTip.layout.width = tempText.getGlobalBounds().size.x + (computedButtonStyle.toolTipPadding.x + computedButtonStyle.toolTipPadding.y);
+    toolTip.layout.height = tempText.getGlobalBounds().size.y + (computedButtonStyle.toolTipPadding.z + computedButtonStyle.toolTipPadding.w);
+    toolTip.layout.padding = SFUI::SubProp::Vector4dim{
+        computedButtonStyle.toolTipPadding.x,
+        computedButtonStyle.toolTipPadding.y,
+        computedButtonStyle.toolTipPadding.z,
+        computedButtonStyle.toolTipPadding.w
+    };;
     toolTip.style.cornerRadius = SFUI::SubProp::Vector4dim{
         computedButtonStyle.toolTipCornerRadius.x,
         computedButtonStyle.toolTipCornerRadius.y,
@@ -633,8 +640,8 @@ SFUI::Void SFUI::Button::computeToolTipLifetime() {
     if ((isHovered || isFocused) && !isShowingToolTip) {
         sf::Time toolTipElapsed = toolTipClock.getElapsedTime();
         if (toolTipElapsed > TOOL_TIP_THRESHOLD_MS) {
-            SFUI::Float xPosition = previousHoverPosition.x - (toolTip.getSize().x + (computedButtonStyle.toolTipPadding * 2.0f));
-            SFUI::Float yPosition = previousHoverPosition.y - (toolTip.getSize().y + (computedButtonStyle.toolTipPadding * 2.0f));
+            SFUI::Float xPosition = previousHoverPosition.x - toolTip.getSize().x;
+            SFUI::Float yPosition = previousHoverPosition.y - toolTip.getSize().y;
             if (xPosition + toolTip.getSize().x > renderTargetSize.x) xPosition = xPosition - (xPosition + toolTip.getSize().x - renderTargetSize.x);
             if (yPosition + toolTip.getSize().y > renderTargetSize.y) yPosition = yPosition - (yPosition + toolTip.getSize().y - renderTargetSize.y);
             if (xPosition < 0.0f) xPosition = 0.0f;

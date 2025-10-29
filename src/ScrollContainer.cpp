@@ -393,8 +393,9 @@ SFUI::Void SFUI::ScrollContainer::computeMaxScrollOffset() {
     SFUI::Vector<SFUI::SharedPointer<SFUI::Component>> children = this->getChildren();
     SFUI::Vector2f contentSize = {0.0f, 0.0f};
     for (const auto& child : children) {
-        contentSize.x += (child->getSize().x + (child->getMargin() * 2.0f));
-        contentSize.y += (child->getSize().y + (child->getMargin() * 2.0f));
+        SFUI::Vector4f childMargin = child->getMargin();
+        contentSize.x += (child->getSize().x + (childMargin.x + childMargin.y));
+        contentSize.y += (child->getSize().y + (childMargin.z + childMargin.w));
     }
     maxScrollOffset = {contentSize.x - computedLayout.size.x, contentSize.y - computedLayout.size.y};
     if (maxScrollOffset.x < 0.0f) maxScrollOffset.x = 0.0f;

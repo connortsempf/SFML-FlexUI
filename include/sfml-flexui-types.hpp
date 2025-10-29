@@ -303,8 +303,8 @@ namespace SFUI {
                 SFUI::SubProp::Keyword alignSecondary = "start";
                 SFUI::SubProp::Dimension width = 0.0f;
                 SFUI::SubProp::Dimension height = 0.0f;
-                SFUI::SubProp::Dimension padding = 0.0f;
-                SFUI::SubProp::Dimension margin = 0.0f;
+                SFUI::SubProp::UniQuad padding = 0.0f;
+                SFUI::SubProp::UniQuad margin = 0.0f;
                 SFUI::Optional<SFUI::SubProp::Numeric> xPosition;
                 SFUI::Optional<SFUI::SubProp::Numeric> yPosition;
             };
@@ -348,7 +348,7 @@ namespace SFUI {
                 SFUI::SubProp::Dimension focusOffset = 0.0f;
                 SFUI::SubProp::UniQuad focusCornerRadius;
                 SFUI::SubProp::Color focusFillColor = SFUI::Color(0, 0, 0, 255);
-                SFUI::SubProp::Numeric toolTipPadding = 10.0f;
+                SFUI::SubProp::UniQuad toolTipPadding = 10.0f;
                 SFUI::SubProp::UniQuad toolTipCornerRadius;
                 SFUI::SubProp::Keyword toolTipText = "";
                 SFUI::SubProp::Font toolTipFont;
@@ -382,7 +382,7 @@ namespace SFUI {
 
             struct TextField {
                 SFUI::SubProp::Keyword lineMode = "single";
-                SFUI::SubProp::UniQuad textInset = SFUI::SubProp::Vector4dim{0.0f, 0.0f, 0.0f, 0.0f};
+                SFUI::SubProp::UniQuad textInset = 0.0f;
 
                 SFUI::SubProp::Keyword text;
                 SFUI::SubProp::Keyword placeholderText;
@@ -406,7 +406,7 @@ namespace SFUI {
                 SFUI::SubProp::Dimension focusOffset = 0.0f;
                 SFUI::SubProp::UniQuad focusCornerRadius;
                 SFUI::SubProp::Color focusFillColor = SFUI::Color(0, 0, 0, 255);
-                SFUI::SubProp::Numeric toolTipPadding = 10.0f;
+                SFUI::SubProp::UniQuad toolTipPadding = 10.0f;
                 SFUI::SubProp::UniQuad toolTipCornerRadius;
                 SFUI::SubProp::Keyword toolTipText = "";
                 SFUI::SubProp::Font toolTipFont;
@@ -548,14 +548,14 @@ namespace SFUI {
             SFUI::String alignSecondary;
             SFUI::Vector2f size;
             SFUI::Vector2i position;
-            SFUI::Float padding;
-            SFUI::Float margin;
+            SFUI::Vector4f padding;
+            SFUI::Vector4f margin;
         };
 
         struct ChildLayout {
             SFUI::Vector2f size;
             SFUI::Vector2i position;
-            SFUI::Float margin;
+            SFUI::Vector4f margin;
         };
 
         struct Style {
@@ -584,7 +584,7 @@ namespace SFUI {
             SFUI::Float focusOffset;
             SFUI::Vector4f focusCornerRadius;
             SFUI::Color focusFillColor;
-            SFUI::Float toolTipPadding;
+            SFUI::Vector4f toolTipPadding;
             SFUI::Vector4f toolTipCornerRadius;
             SFUI::Float toolTipTextSize;
             SFUI::Color toolTipFillColor;

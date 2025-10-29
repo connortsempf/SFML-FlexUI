@@ -93,12 +93,12 @@ SFUI::Void SFUI::Graphic::draw(SFUI::RenderTarget& renderTarget) {
     if (scissorWasEnabled) glGetIntegerv(GL_SCISSOR_BOX, parentClipping);
     SFUI::Vector2i graphicPosition = computedLayout.position;
     SFUI::Vector2f graphicSize = computedLayout.size;
-    SFUI::Float graphicPadding = computedLayout.padding;
+    SFUI::Vector4f graphicPadding = computedLayout.padding;
     GLint newClipping[4] = {
-        static_cast<GLint>(graphicPosition.x + graphicPadding),
-        static_cast<GLint>(renderTarget.getSize().y - (graphicPosition.y + graphicPadding) - (graphicSize.y - graphicPadding * 2.0f)),
-        static_cast<GLint>(graphicSize.x - (graphicPadding * 2.0f)),
-        static_cast<GLint>(graphicSize.y - (graphicPadding * 2.0f))
+        static_cast<GLint>(graphicPosition.x + graphicPadding.x),
+        static_cast<GLint>(renderTarget.getSize().y - (graphicPosition.y + graphicPadding.z) - (graphicSize.y - graphicPadding.z - graphicPadding.w)),
+        static_cast<GLint>(graphicSize.x - (graphicPadding.x + graphicPadding.y)),
+        static_cast<GLint>(graphicSize.y - (graphicPadding.z + graphicPadding.w))
     };
     if (scissorWasEnabled) {
         GLint newRight = newClipping[0] + newClipping[2];
