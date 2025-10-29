@@ -341,7 +341,21 @@ SFUI::Void SFUI::TextField::computeComposedComponents() {
     inputText->layout = SFUI::Prop::Layout::Component{
         .width = computedLayout.size.x,
         .height = computedLayout.size.y,
-        .padding = (computedTextFieldStyle.lineMode == "single" ? 0.0f : 0.0f),
+        // .padding = (
+        //     computedTextFieldStyle.lineMode == "single" ?
+        //     SFUI::SubProp::Vector4dim{
+        //         computedTextFieldStyle.textInset.x,
+        //         computedTextFieldStyle.textInset.y,
+        //         0.0f,
+        //         0.0f
+        //     } :
+        //     SFUI::SubProp::Vector4dim{
+        //         computedTextFieldStyle.textInset.x,
+        //         computedTextFieldStyle.textInset.y,
+        //         computedTextFieldStyle.textInset.z,
+        //         computedTextFieldStyle.textInset.w
+        //     }
+        // ),
         .xPosition = computedLayout.position.x,
         .yPosition = computedLayout.position.y
     };

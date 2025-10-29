@@ -333,6 +333,7 @@ namespace SFUI {
                 SFUI::SubProp::Numeric textOutlineThickness = 0.0f;
                 SFUI::SubProp::Keyword textAlignHorizontal = "left";
                 SFUI::SubProp::Keyword textAlignVertical = "center";
+                SFUI::SubProp::Duplex textOffset = {0.0f, 0.0f};
                 SFUI::SubProp::Color textColor = SFUI::Color(0, 0, 0, 255);
                 SFUI::SubProp::Color textOutlineColor = SFUI::Color(255, 255, 255, 255);
             };
@@ -571,6 +572,7 @@ namespace SFUI {
         struct LabelStyle {
             SFUI::String textAlignHorizontal;
             SFUI::String textAlignVertical;
+            SFUI::Vector2f textOffset;
         };
 
         struct ButtonStyle {

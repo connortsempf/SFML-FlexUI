@@ -226,6 +226,16 @@ SFUI::String SFUI::Label::getTextAlignVertical() {
  * 
  * @return .
  */
+SFUI::Vector2f SFUI::Label::getTextOffset() {
+    return computedLabelStyle.textOffset;
+}
+
+
+/**
+ * @brief .
+ * 
+ * @return .
+ */
 SFUI::Color SFUI::Label::getTextColor() {
     return textObject.getFillColor();
 }
@@ -337,6 +347,9 @@ SFUI::Void SFUI::Label::computeTextAlign() {
         computedLabelStyle.textAlignVertical = tempAlignVertical;
     else
         computedLabelStyle.textAlignVertical = "center";
+
+    // Offset //
+    computedLabelStyle.textOffset = labelStyle.textOffset;
 }
 
 
@@ -372,6 +385,10 @@ SFUI::Void SFUI::Label::computeTextLayout() {
         textPosition.y = computedLayout.position.y + (computedLayout.size.y / 2.0f) - (textObject.getLocalBounds().size.y / 2.0f);
     else if (computedLabelStyle.textAlignVertical == "bottom")
         textPosition.y = computedLayout.position.y + computedLayout.size.y - computedLayout.padding.w - textObject.getLocalBounds().size.y - (textObject.getCharacterSize() * BOTTOM_OFFSET_FACTOR);
+
+    // Text Offset //
+    textPosition.x += computedLabelStyle.textOffset.x;
+    textPosition.y += computedLabelStyle.textOffset.y;
 
     textObject.setPosition(textPosition);
 }

@@ -53,6 +53,7 @@ namespace SFUI {
             SFUI::Float getOutlineThickness();
             SFUI::String getTextAlignHorizontal();
             SFUI::String getTextAlignVertical();
+            SFUI::Vector2f getTextOffset();
             SFUI::Color getTextColor();
             SFUI::Color getTextOutlineColor();
             SFUI::FloatRect getTextBounds();

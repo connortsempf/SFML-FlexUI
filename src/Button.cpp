@@ -220,7 +220,7 @@ SFUI::Void SFUI::Button::draw(SFUI::RenderTarget& renderTarget) {
     renderTarget.draw(borderRects);
     renderTarget.draw(borderArcs);
     if (isFocused) focus.draw(renderTarget);
-    if (isShowingToolTip) toolTip.draw(renderTarget);
+    if (isShowingToolTip && !buttonStyle.toolTipText.empty()) toolTip.draw(renderTarget);
 }
 
 
