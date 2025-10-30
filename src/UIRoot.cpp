@@ -76,11 +76,11 @@ SFUI::Void SFUI::UIRoot::update(const SFUI::Vector2u renderTargetSize) {
  * 
  * @param .
  */
-SFUI::Void SFUI::UIRoot::draw(SFUI::RenderTarget& renderTarget) {
+SFUI::Void SFUI::UIRoot::draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window) {
     if (!rootComponent) return;
     glDisable(GL_SCISSOR_TEST);
     // Depth-First Recursive Traversal Algorithm for UI Component Drawing //
-    drawRecursive(rootComponent, renderTarget);
+    drawRecursive(rootComponent, drawTarget, window);
 }
 
 
@@ -90,8 +90,8 @@ SFUI::Void SFUI::UIRoot::draw(SFUI::RenderTarget& renderTarget) {
  * @param .
  * @param .
  */
-SFUI::Void SFUI::UIRoot::drawRecursive(SFUI::SharedPointer<SFUI::Component> component, SFUI::RenderTarget& renderTarget) {
-    component->draw(renderTarget);
+SFUI::Void SFUI::UIRoot::drawRecursive(SFUI::SharedPointer<SFUI::Component> component, SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window) {
+    component->draw(drawTarget, window);
 
     // Save Clipping State for Containing Children within its Bounds and Padding //
     GLint parentClipping[4];
@@ -102,7 +102,7 @@ SFUI::Void SFUI::UIRoot::drawRecursive(SFUI::SharedPointer<SFUI::Component> comp
     SFUI::Vector4f componentPadding = component->getPadding();
     GLint newClipping[4] = {
         static_cast<GLint>(componentPosition.x + componentPadding.x),
-        static_cast<GLint>(renderTarget.getSize().y - (componentPosition.y + componentPadding.z) - (componentSize.y - componentPadding.z - componentPadding.w)),
+        static_cast<GLint>(drawTarget.getSize().y - (componentPosition.y + componentPadding.z) - (componentSize.y - componentPadding.z - componentPadding.w)),
         static_cast<GLint>(componentSize.x - (componentPadding.x + componentPadding.y)),
         static_cast<GLint>(componentSize.y - (componentPadding.z + componentPadding.w))
     };
@@ -123,7 +123,7 @@ SFUI::Void SFUI::UIRoot::drawRecursive(SFUI::SharedPointer<SFUI::Component> comp
     
     // Recursive Draw Call //
     for (const auto& child : component->getChildren()) {
-        drawRecursive(child, renderTarget);
+        drawRecursive(child, drawTarget, window);
     }
 
     // Restore Previous Clipping //

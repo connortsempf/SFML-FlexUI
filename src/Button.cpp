@@ -21,6 +21,7 @@ SFUI::Button::Button(const SFUI::String& componentID) :
     Component(componentID),
     buttonStyle(),
     buttonBehavior(),
+    // cursor(sf::Cursor::Type::Arrow),
     focus(componentID + "_Focus"),
     toolTip(componentID + "_ToolTip")
 {}
@@ -36,6 +37,7 @@ SFUI::Button::Button(const SFUI::String& componentID, const SFUI::PropGroup::But
     Component(componentID, buttonPropGroup.layout, buttonPropGroup.style),
     buttonStyle(buttonPropGroup.buttonStyle),
     buttonBehavior(buttonPropGroup.buttonBehavior),
+    // cursor(sf::Cursor::Type::Arrow),
     focus(componentID + "Focus"),
     toolTip(componentID + "_ToolTip")
 {}
@@ -205,15 +207,15 @@ SFUI::Void SFUI::Button::update(const SFUI::Vector2u renderTargetSize) {
  * 
  * @param .
  */
-SFUI::Void SFUI::Button::draw(SFUI::RenderTarget& renderTarget) {
-    renderTarget.draw(shadowRects);
-    renderTarget.draw(shadowArcs);
-    renderTarget.draw(backgroundRects);
-    renderTarget.draw(backgroundArcs);
-    renderTarget.draw(borderRects);
-    renderTarget.draw(borderArcs);
-    if (isFocused) focus.draw(renderTarget);
-    if (isShowingToolTip && !buttonStyle.toolTipText.empty()) toolTip.draw(renderTarget);
+SFUI::Void SFUI::Button::draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window) {
+    drawTarget.draw(shadowRects);
+    drawTarget.draw(shadowArcs);
+    drawTarget.draw(backgroundRects);
+    drawTarget.draw(backgroundArcs);
+    drawTarget.draw(borderRects);
+    drawTarget.draw(borderArcs);
+    if (isFocused) focus.draw(drawTarget, window);
+    if (isShowingToolTip && !buttonStyle.toolTipText.empty()) toolTip.draw(drawTarget, window);
 }
 
 

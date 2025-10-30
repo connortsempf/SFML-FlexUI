@@ -19,7 +19,7 @@ namespace SFUI {
             Container(const SFUI::String& componentID, const SFUI::PropGroup::Container& containerPropGroup);
             SFUI::Void handleEvent(const SFUI::Event& event);
             SFUI::Void update(const SFUI::Vector2u renderTargetSize);
-            SFUI::Void draw(SFUI::RenderTarget& renderTarget);
+            SFUI::Void draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window);
     };
 }
 
@@ -43,7 +43,7 @@ namespace SFUI {
             Label(const SFUI::String& componentID, const SFUI::PropGroup::Label& labelPropGroup);
             SFUI::Void handleEvent(const SFUI::Event& event);
             SFUI::Void update(const SFUI::Vector2u renderTargetSize);
-            SFUI::Void draw(SFUI::RenderTarget& renderTarget);
+            SFUI::Void draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window);
             SFUI::String getText();
             SFUI::SharedPointer<SFUI::Font> getFont();
             SFUI::Float getTextSize();
@@ -97,7 +97,7 @@ namespace SFUI {
             Button(const SFUI::String& componentID, const SFUI::PropGroup::Button& buttonPropGroup);
             SFUI::Void handleEvent(const SFUI::Event& event);
             SFUI::Void update(const SFUI::Vector2u renderTargetSize);
-            SFUI::Void draw(SFUI::RenderTarget& renderTarget);
+            SFUI::Void draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window);
             SFUI::Color getHoveredFillColor();
             SFUI::Color getHoveredBorderColor();
             SFUI::Color getPressedFillColor();
@@ -134,6 +134,7 @@ namespace SFUI {
             SFUI::Time previousPressTime;
             SFUI::Clock toolTipClock;
             SFUI::Time toolTipTime;
+            // SFUI::Cursor cursor;
             SFUI::Container focus;
             SFUI::Label toolTip;
             SFUI::ComputedProp::Style::Button computedButtonStyle;
@@ -168,7 +169,7 @@ namespace SFUI {
             Graphic(const SFUI::String& componentID, const SFUI::PropGroup::Graphic& graphicPropGroup);
             SFUI::Void handleEvent(const SFUI::Event& event);
             SFUI::Void update(const SFUI::Vector2u renderTargetSize);
-            SFUI::Void draw(SFUI::RenderTarget& renderTarget);
+            SFUI::Void draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window);
             SFUI::String getGraphicAlign();
             SFUI::Vector2f getOriginalTextureSize();
 
@@ -211,7 +212,7 @@ namespace SFUI {
             ScrollContainer(const SFUI::String& componentID, const SFUI::PropGroup::ScrollContainer& scrollContainerPropGroup);
             SFUI::Void handleEvent(const SFUI::Event& event);
             SFUI::Void update(const SFUI::Vector2u renderTargetSize);
-            SFUI::Void draw(SFUI::RenderTarget& renderTarget);
+            SFUI::Void draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window);
             SFUI::String getScrollDirection();
             SFUI::Float getScrollSpeedFactor();
             SFUI::Bool getUsingScrollBar();
@@ -269,7 +270,7 @@ namespace SFUI {
             TextField(const SFUI::String& componentID, const SFUI::PropGroup::TextField& textFieldPropGroup);
             SFUI::Void handleEvent(const SFUI::Event& event);
             SFUI::Void update(const SFUI::Vector2u renderTargetSize);
-            SFUI::Void draw(SFUI::RenderTarget& renderTarget);
+            SFUI::Void draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window);
         
         private:
             static const SFUI::Float CENTER_TEXT_OFFSET_FACTOR;

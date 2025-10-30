@@ -141,10 +141,10 @@ SFUI::Void SFUI::TextField::update(const SFUI::Vector2u renderTargetSize) {
  * 
  * @param .
  */
-SFUI::Void SFUI::TextField::draw(SFUI::RenderTarget& renderTarget) {
-    background->draw(renderTarget);
-    inputText->draw(renderTarget);
-    if (isFocused && caretVisible) caret->draw(renderTarget);
+SFUI::Void SFUI::TextField::draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window) {
+    background->draw(drawTarget, window);
+    inputText->draw(drawTarget, window);
+    if (isFocused && caretVisible) caret->draw(drawTarget, window);
 }
 
 

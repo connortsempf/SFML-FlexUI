@@ -79,13 +79,13 @@ SFUI::Void SFUI::Graphic::update(const SFUI::Vector2u renderTargetSize) {
  * 
  * @param .
  */
-SFUI::Void SFUI::Graphic::draw(SFUI::RenderTarget& renderTarget) {
-    renderTarget.draw(shadowRects);
-    renderTarget.draw(shadowArcs);
-    renderTarget.draw(backgroundRects);
-    renderTarget.draw(backgroundArcs);
-    renderTarget.draw(borderRects);
-    renderTarget.draw(borderArcs);
+SFUI::Void SFUI::Graphic::draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window) {
+    drawTarget.draw(shadowRects);
+    drawTarget.draw(shadowArcs);
+    drawTarget.draw(backgroundRects);
+    drawTarget.draw(backgroundArcs);
+    drawTarget.draw(borderRects);
+    drawTarget.draw(borderArcs);
     
     // Save Clipping State for Containing The Sprite within Graphic's Bounds and Padding //
     GLint parentClipping[4];
@@ -96,7 +96,7 @@ SFUI::Void SFUI::Graphic::draw(SFUI::RenderTarget& renderTarget) {
     SFUI::Vector4f graphicPadding = computedLayout.padding;
     GLint newClipping[4] = {
         static_cast<GLint>(graphicPosition.x + graphicPadding.x),
-        static_cast<GLint>(renderTarget.getSize().y - (graphicPosition.y + graphicPadding.z) - (graphicSize.y - graphicPadding.z - graphicPadding.w)),
+        static_cast<GLint>(drawTarget.getSize().y - (graphicPosition.y + graphicPadding.z) - (graphicSize.y - graphicPadding.z - graphicPadding.w)),
         static_cast<GLint>(graphicSize.x - (graphicPadding.x + graphicPadding.y)),
         static_cast<GLint>(graphicSize.y - (graphicPadding.z + graphicPadding.w))
     };
@@ -116,7 +116,7 @@ SFUI::Void SFUI::Graphic::draw(SFUI::RenderTarget& renderTarget) {
     glScissor(newClipping[0], newClipping[1], newClipping[2], newClipping[3]);        
     
     // Draw Clipped Sprite //
-    renderTarget.draw(graphic);
+    drawTarget.draw(graphic);
 
     // Restore Previous Clipping //
     if (scissorWasEnabled) {

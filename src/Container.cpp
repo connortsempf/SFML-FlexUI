@@ -69,11 +69,11 @@ SFUI::Void SFUI::Container::update(const SFUI::Vector2u renderTargetSize) {
  * 
  * @param .
  */
-SFUI::Void SFUI::Container::draw(SFUI::RenderTarget& renderTarget) {
-    renderTarget.draw(shadowRects);
-    renderTarget.draw(shadowArcs);
-    renderTarget.draw(backgroundRects);
-    renderTarget.draw(backgroundArcs);
-    renderTarget.draw(borderRects);
-    renderTarget.draw(borderArcs);
+SFUI::Void SFUI::Container::draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window) {
+    drawTarget.draw(shadowRects);
+    drawTarget.draw(shadowArcs);
+    drawTarget.draw(backgroundRects);
+    drawTarget.draw(backgroundArcs);
+    drawTarget.draw(borderRects);
+    drawTarget.draw(borderArcs);
 }

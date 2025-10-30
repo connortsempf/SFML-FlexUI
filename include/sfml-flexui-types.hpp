@@ -93,8 +93,12 @@ namespace SFUI {
     using RectangleShape = sf::RectangleShape;
     
     using CircleShape = sf::CircleShape;
+
+    using Cursor = sf::Cursor;
     
     using RenderTarget = sf::RenderTarget;
+
+    using RenderWindow = sf::RenderWindow;
     
     using Texture = sf::Texture;
     

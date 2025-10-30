@@ -84,13 +84,13 @@ SFUI::Void SFUI::Label::update(const SFUI::Vector2u renderTargetSize) {
  * 
  * @param .
  */
-SFUI::Void SFUI::Label::draw(SFUI::RenderTarget& renderTarget) {
-    renderTarget.draw(shadowRects);
-    renderTarget.draw(shadowArcs);
-    renderTarget.draw(backgroundRects);
-    renderTarget.draw(backgroundArcs);
-    renderTarget.draw(borderRects);
-    renderTarget.draw(borderArcs);
+SFUI::Void SFUI::Label::draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window) {
+    drawTarget.draw(shadowRects);
+    drawTarget.draw(shadowArcs);
+    drawTarget.draw(backgroundRects);
+    drawTarget.draw(backgroundArcs);
+    drawTarget.draw(borderRects);
+    drawTarget.draw(borderArcs);
 
     // Save Clipping State for Containing Text within Label's Bounds and Padding //
     GLint parentClipping[4];
@@ -101,7 +101,7 @@ SFUI::Void SFUI::Label::draw(SFUI::RenderTarget& renderTarget) {
     SFUI::Vector4f labelPadding = computedLayout.padding;
     GLint newClipping[4] = {
         static_cast<GLint>(labelPosition.x + labelPadding.x),
-        static_cast<GLint>(renderTarget.getSize().y - (labelPosition.y + labelPadding.z) - (labelSize.y - labelPadding.z - labelPadding.w)),
+        static_cast<GLint>(drawTarget.getSize().y - (labelPosition.y + labelPadding.z) - (labelSize.y - labelPadding.z - labelPadding.w)),
         static_cast<GLint>(labelSize.x - (labelPadding.x + labelPadding.y)),
         static_cast<GLint>(labelSize.y - (labelPadding.z + labelPadding.w))
     };
@@ -121,7 +121,7 @@ SFUI::Void SFUI::Label::draw(SFUI::RenderTarget& renderTarget) {
     glScissor(newClipping[0], newClipping[1], newClipping[2], newClipping[3]);        
     
     // Draw Clipped Text //
-    renderTarget.draw(textObject);
+    drawTarget.draw(textObject);
 
     // Restore Previous Clipping //
     if (scissorWasEnabled) {

@@ -20,13 +20,13 @@ namespace SFUI {
             SFUI::Void setRootComponent(const SFUI::SharedPointer<SFUI::Component>& rootComponent);
             SFUI::Void handleEvent(const SFUI::Event& event);
             SFUI::Void update(const SFUI::Vector2u renderTargetSize);
-            SFUI::Void draw(SFUI::RenderTarget& renderTarget);
+            SFUI::Void draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window);
 
         private:
             SFUI::SharedPointer<SFUI::Component> rootComponent;
         
         private:
-            SFUI::Void drawRecursive(SFUI::SharedPointer<SFUI::Component> component, SFUI::RenderTarget& renderTarget);
+            SFUI::Void drawRecursive(SFUI::SharedPointer<SFUI::Component> component, SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window);
     };
 }
 
@@ -55,7 +55,7 @@ namespace SFUI {
             virtual ~Component() = default;
             virtual SFUI::Void handleEvent(const SFUI::Event& event) = 0;
             virtual SFUI::Void update(const SFUI::Vector2u renderTargetSize) = 0;
-            virtual SFUI::Void draw(SFUI::RenderTarget& renderTarget) = 0;
+            virtual SFUI::Void draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window) = 0;
             SFUI::Void setParent(SFUI::Component* newParent);
             SFUI::Void addChild(const SFUI::SharedPointer<SFUI::Component>& newChild);
             SFUI::Void addChildren(const SFUI::Vector<SFUI::SharedPointer<SFUI::Component>>& newChildren);
