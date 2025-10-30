@@ -8,9 +8,13 @@
 
 
 // Static Variables //
+const SFUI::Float SFUI::TextField::CENTER_TEXT_OFFSET_FACTOR = 1.33f;
+const SFUI::Float SFUI::TextField::CARET_LINE_VERTICAL_OFFSET_FACTOR = 0.15f;
+const SFUI::Float SFUI::TextField::CARET_BOX_VERTICAL_OFFSET_FACTOR = 0.15f;
+const SFUI::Float SFUI::TextField::CARET_UNDERLINE_VERTICAL_OFFSET_FACTOR = 1.0f;
 const SFUI::Float SFUI::TextField::CARET_LINE_WIDTH_FACTOR = 0.1f;
-const SFUI::Float SFUI::TextField::CARET_BOX_WIDTH_FACTOR = 1.0f;
-const SFUI::Float SFUI::TextField::CARET_UNDERLINE_WIDTH_FACTOR = 1.0f;
+const SFUI::Float SFUI::TextField::CARET_BOX_WIDTH_FACTOR = 0.55f;
+const SFUI::Float SFUI::TextField::CARET_UNDERLINE_WIDTH_FACTOR = 0.55f;
 const SFUI::Float SFUI::TextField::CARET_UNDERLINE_HEIGHT_FACTOR = 0.1f;
 const SFUI::String SFUI::TextField::CTRL_WHITESPACE_GROUP = " \t";
 const SFUI::String SFUI::TextField::CTRL_ALPHANUMERIC_GROUP = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_";
@@ -75,8 +79,15 @@ SFUI::Void SFUI::TextField::handleEvent(const SFUI::Event& event) {
     // Key Pressed Event Handling //
     else if (const sf::Event::KeyPressed* keyPressedEvent = event.getIf<sf::Event::KeyPressed>()) {
         if (isFocused) {
-            editText(keyPressedEvent);
-            if (textFieldBehavior.onKeyPress) textFieldBehavior.onKeyPress(componentID, keyPressedEvent->code);
+            if (keyPressedEvent->code == sf::Keyboard::Key::Enter) {
+                if (computedTextFieldStyle.lineMode == "single") {
+                    if (textFieldBehavior.onSubmit) textFieldBehavior.onSubmit(componentID, textFieldStyle.text);
+                }
+                else if (computedTextFieldStyle.lineMode == "multi") {
+                    editText(keyPressedEvent);
+                }
+            }
+            else editText(keyPressedEvent);
         }
     }
 
@@ -112,13 +123,16 @@ SFUI::Void SFUI::TextField::update(const SFUI::Vector2u renderTargetSize) {
     updateChildren();
 
     // Text Field Specific Computation //
+    computeLineMode();
     computePlaceholderText();
+    computeComposedBackground();
+    computeComposedInputText();
+    computeTextInset();
     computeCaretShape();
     computeCaretBlinkTiming();
     computeCaretLifetime();
-    computeCaretFillColor();
-    computeCaretLayout();
-    computeComposedComponents();
+    computeComposedCaret();
+    computeDynamicTextOffset();
 }
 
 
@@ -153,16 +167,6 @@ SFUI::Void SFUI::TextField::computeLineMode() {
 /**
  * @brief .
  */
-SFUI::Void SFUI::TextField::computeTextInset() {
-    computedTextFieldStyle.textInset = resolveUniQuadSubProp(computedLayout.size, textFieldStyle.textInset);
-    if (computedTextFieldStyle.lineMode == "single")
-        computedTextFieldStyle.textInset.z = computedTextFieldStyle.textInset.w = 0.0f;
-}
-
-
-/**
- * @brief .
- */
 SFUI::Void SFUI::TextField::computePlaceholderText() {
     computedTextFieldStyle.placeholderText = textFieldStyle.placeholderText;
     computedTextFieldStyle.placeholderTextColor = resolveColorSubProp(textFieldStyle.placeholderTextColor);
@@ -172,88 +176,7 @@ SFUI::Void SFUI::TextField::computePlaceholderText() {
 /**
  * @brief .
  */
-SFUI::Void SFUI::TextField::computeCaretShape() {
-    SFUI::String tempShape = textFieldStyle.caretShape;
-    std::transform(tempShape.begin(), tempShape.end(), tempShape.begin(), [](unsigned char c) {
-        return std::tolower(c);
-    });
-
-    if (tempShape == "line" || tempShape == "box" || tempShape == "underline")
-        computedTextFieldStyle.caretShape = tempShape;
-    else
-        computedTextFieldStyle.caretShape = "line";
-}
-
-
-/**
- * @brief .
- */
-SFUI::Void SFUI::TextField::computeCaretBlinkTiming() {
-    computedTextFieldStyle.caretOnTime = textFieldStyle.caretBlinkTime;
-    computedTextFieldStyle.caretOffTime = textFieldStyle.caretBlinkTime / std::clamp(textFieldStyle.caretBlinkRatio, 0.0f, 2.0f);
-}
-
-
-/**
- * @brief .
- */
-SFUI::Void SFUI::TextField::computeCaretLifetime() {
-    if (isFocused) {
-        if (caretClock.getElapsedTime().asMilliseconds() < computedTextFieldStyle.caretOnTime) {
-            caretVisible = true;
-        }
-        else if ((caretClock.getElapsedTime().asMilliseconds() > computedTextFieldStyle.caretOnTime &&
-            caretClock.getElapsedTime().asMilliseconds() < (computedTextFieldStyle.caretOnTime + computedTextFieldStyle.caretOffTime))) {
-                caretVisible = false;
-        }
-        else if (caretClock.getElapsedTime().asMilliseconds() > (computedTextFieldStyle.caretOnTime + computedTextFieldStyle.caretOffTime)) {
-            caretClock.restart();
-        }
-    }
-}
-
-
-/**
- * @brief .
- */
-SFUI::Void SFUI::TextField::computeCaretFillColor() {
-    computedTextFieldStyle.caretFillColor = resolveColorSubProp(textFieldStyle.caretFillColor);
-}
-
-
-/**
- * @brief .
- */
-SFUI::Void SFUI::TextField::computeCaretLayout() {
-    SFUI::Vector2f computedSize = {0.0f, 0.0f};
-
-    if (computedTextFieldStyle.caretShape == "line")
-        computedSize = {inputText->getTextSize() * CARET_LINE_WIDTH_FACTOR, inputText->getTextSize()};
-    else if (computedTextFieldStyle.caretShape == "box")
-        computedSize = {inputText->getTextSize() * CARET_BOX_WIDTH_FACTOR, inputText->getTextSize()};
-    else if (computedTextFieldStyle.caretShape == "underline")
-        computedSize = {inputText->getTextSize() * CARET_UNDERLINE_WIDTH_FACTOR, inputText->getTextSize() * CARET_UNDERLINE_HEIGHT_FACTOR};
-
-    caret->layout.width = computedSize.x;
-    caret->layout.height = computedSize.y;
-
-    SFUI::Float caretOffset = 0.0f;
-    SFUI::Vector2f textStartingPosition = {inputText->getTextBounds().position.x, inputText->getTextBounds().position.y};
-    if (caretColumnIndex > 0 && textFieldStyle.text.size() > 0) {
-        SFUI::Text tempText(*textFieldStyle.font, textFieldStyle.text.substr(0, caretColumnIndex), inputText->getTextSize());
-        caretOffset = tempText.getGlobalBounds().size.x;
-    }
-    
-    caret->layout.xPosition = textStartingPosition.x + caretOffset;
-    caret->layout.yPosition = textStartingPosition.y;
-}
-
-
-/**
- * @brief .
- */
-SFUI::Void SFUI::TextField::computeComposedComponents() {
-    // Background -- Child Button //
+SFUI::Void SFUI::TextField::computeComposedBackground() {
     background->layout = SFUI::Prop::Layout::Component{
         .width = computedLayout.size.x,
         .height = computedLayout.size.y,
@@ -329,35 +252,25 @@ SFUI::Void SFUI::TextField::computeComposedComponents() {
             isFocused = true;
         },
         .onDoublePress = [this](const SFUI::String& componentID) {
-            if (textFieldBehavior.onDoublePress) textFieldBehavior.onDoublePress(this->componentID);\
+            if (textFieldBehavior.onDoublePress) textFieldBehavior.onDoublePress(this->componentID);
             if (!isFocused && textFieldBehavior.onFocus)
                 textFieldBehavior.onFocus(componentID);
             isFocused = true;
         }
     };
     background->update(renderTargetSize);
+}
 
-    // Input Text -- Child Label //
+
+/**
+ * @brief .
+ */
+SFUI::Void SFUI::TextField::computeComposedInputText() {
     inputText->layout = SFUI::Prop::Layout::Component{
-        .width = computedLayout.size.x,
-        .height = computedLayout.size.y,
-        // .padding = (
-        //     computedTextFieldStyle.lineMode == "single" ?
-        //     SFUI::SubProp::Vector4dim{
-        //         computedTextFieldStyle.textInset.x,
-        //         computedTextFieldStyle.textInset.y,
-        //         0.0f,
-        //         0.0f
-        //     } :
-        //     SFUI::SubProp::Vector4dim{
-        //         computedTextFieldStyle.textInset.x,
-        //         computedTextFieldStyle.textInset.y,
-        //         computedTextFieldStyle.textInset.z,
-        //         computedTextFieldStyle.textInset.w
-        //     }
-        // ),
-        .xPosition = computedLayout.position.x,
-        .yPosition = computedLayout.position.y
+        .width = computedLayout.size.x - (computedTextFieldStyle.textInset.x + computedTextFieldStyle.textInset.y),
+        .height = computedLayout.size.y - (computedTextFieldStyle.textInset.z + computedTextFieldStyle.textInset.w),
+        .xPosition = computedLayout.position.x + computedTextFieldStyle.textInset.x,
+        .yPosition = computedLayout.position.y + computedTextFieldStyle.textInset.z
     };
     inputText->labelStyle = SFUI::Prop::Style::Label{
         .text = (textFieldStyle.text.empty() ? computedTextFieldStyle.placeholderText : textFieldStyle.text),
@@ -369,13 +282,128 @@ SFUI::Void SFUI::TextField::computeComposedComponents() {
         .textOutlineThickness = textFieldStyle.textOutlineThickness,
         .textAlignHorizontal = textFieldStyle.textAlignHorizontal,
         .textAlignVertical = "top",
+        .textOffset = dynamicTextOffset,
         .textColor = (textFieldStyle.text.empty() ? computedTextFieldStyle.placeholderTextColor : textFieldStyle.textColor),
         .textOutlineColor = textFieldStyle.textOutlineColor
     };
     inputText->update(renderTargetSize);
+}
 
-    // Caret -- Child Container //
-    caret->style.fillColor = computedTextFieldStyle.caretFillColor;
+
+/**
+ * @brief .
+ */
+SFUI::Void SFUI::TextField::computeTextInset() {
+    computedTextFieldStyle.textInset = resolveUniQuadSubProp(computedLayout.size, textFieldStyle.textInset);
+    if (computedTextFieldStyle.lineMode == "single") {
+        SFUI::Float singleLineVerticalInset = (computedLayout.size.y - (inputText->getTextSize() * CENTER_TEXT_OFFSET_FACTOR)) / 2.0f;
+        computedTextFieldStyle.textInset.z = computedTextFieldStyle.textInset.w = singleLineVerticalInset;
+    }
+}
+
+
+/**
+ * @brief .
+ */
+SFUI::Void SFUI::TextField::computeCaretShape() {
+    SFUI::String tempShape = textFieldStyle.caretShape;
+    std::transform(tempShape.begin(), tempShape.end(), tempShape.begin(), [](unsigned char c) {
+        return std::tolower(c);
+    });
+
+    if (tempShape == "line" || tempShape == "box" || tempShape == "underline")
+        computedTextFieldStyle.caretShape = tempShape;
+    else
+        computedTextFieldStyle.caretShape = "line";
+}
+
+
+/**
+ * @brief .
+ */
+SFUI::Void SFUI::TextField::computeCaretBlinkTiming() {
+    computedTextFieldStyle.caretOnTime = textFieldStyle.caretBlinkTime;
+    computedTextFieldStyle.caretOffTime = textFieldStyle.caretBlinkTime / std::clamp(textFieldStyle.caretBlinkRatio, 0.0f, 2.0f);
+}
+
+
+/**
+ * @brief .
+ */
+SFUI::Void SFUI::TextField::computeCaretLifetime() {
+    if (isFocused) {
+        if (caretClock.getElapsedTime().asMilliseconds() < computedTextFieldStyle.caretOnTime) {
+            caretVisible = true;
+        }
+        else if ((caretClock.getElapsedTime().asMilliseconds() > computedTextFieldStyle.caretOnTime &&
+            caretClock.getElapsedTime().asMilliseconds() < (computedTextFieldStyle.caretOnTime + computedTextFieldStyle.caretOffTime))) {
+                caretVisible = false;
+        }
+        else if (caretClock.getElapsedTime().asMilliseconds() > (computedTextFieldStyle.caretOnTime + computedTextFieldStyle.caretOffTime)) {
+            caretClock.restart();
+        }
+    }
+}
+
+
+/**
+ * @brief .
+ */
+SFUI::Void SFUI::TextField::computeComposedCaret() {
+    SFUI::Vector2f computedSize = {0.0f, 0.0f};
+    SFUI::Vector2f computedPositionOffset = {0.0f, 0.0f};
+
+    if (computedTextFieldStyle.caretShape == "line") {
+        computedSize = {inputText->getTextSize() * CARET_LINE_WIDTH_FACTOR, inputText->getTextSize()};
+        computedPositionOffset = {0.0f, (inputText->getTextSize() * CARET_LINE_VERTICAL_OFFSET_FACTOR)};
+    }
+    else if (computedTextFieldStyle.caretShape == "box") {
+        computedSize = {inputText->getTextSize() * CARET_BOX_WIDTH_FACTOR, inputText->getTextSize()};
+        computedPositionOffset = {0.0f, (inputText->getTextSize() * CARET_BOX_VERTICAL_OFFSET_FACTOR)};
+    }
+    else if (computedTextFieldStyle.caretShape == "underline") {
+        computedSize = {inputText->getTextSize() * CARET_UNDERLINE_WIDTH_FACTOR, inputText->getTextSize() * CARET_UNDERLINE_HEIGHT_FACTOR};
+        computedPositionOffset = {0.0f, (inputText->getTextSize() * CARET_UNDERLINE_VERTICAL_OFFSET_FACTOR)};
+    }
+
+    caret->layout.width = computedSize.x;
+    caret->layout.height = computedSize.y;
+
+    SFUI::Vector2f caretPosition = inputText->getCharacterPosition(caretIndex);
+    caret->layout.xPosition = caretPosition.x + computedPositionOffset.x;
+    caret->layout.yPosition = caretPosition.y  + computedPositionOffset.y;
+    caret->style.fillColor = textFieldStyle.caretFillColor;
+    caret->update(renderTargetSize);
+}
+
+
+/**
+ * @brief .
+ */
+SFUI::Void SFUI::TextField::computeDynamicTextOffset() {
+    SFUI::Vector2i tempCaretPosition = caret->getPosition();
+    SFUI::Vector2f caretPosition = {static_cast<SFUI::Float>(tempCaretPosition.x), static_cast<SFUI::Float>(tempCaretPosition.y)};
+    SFUI::Vector2f caretSize = caret->getSize();
+    SFUI::Vector2i tempTextBoxPosition = inputText->getPosition();
+    SFUI::Vector2f textBoxPosition = {static_cast<SFUI::Float>(tempTextBoxPosition.x), static_cast<SFUI::Float>(tempTextBoxPosition.y)};
+    SFUI::Vector2f textBoxSize = inputText->getSize();
+
+    // Horizontal Offset //
+    if (caretPosition.x < textBoxPosition.x)
+        dynamicTextOffset.x += textBoxPosition.x - caretPosition.x;
+    else if (caretPosition.x + caretSize.x > textBoxPosition.x + textBoxSize.x)
+        dynamicTextOffset.x -= (caretPosition.x + caretSize.x) - (textBoxPosition.x + textBoxSize.x);
+
+    // Vertical Offset //
+    if (caretPosition.y < textBoxPosition.y)
+        dynamicTextOffset.y += textBoxPosition.y - caretPosition.y;
+    else if (caretPosition.y + caretSize.y > textBoxPosition.y + textBoxSize.y)
+        dynamicTextOffset.y -= (caretPosition.y + caretSize.y) - (textBoxPosition.y + textBoxSize.y);
+
+    inputText->labelStyle.textOffset = dynamicTextOffset;
+    inputText->update(renderTargetSize);
+
+    computeComposedCaret();
     caret->update(renderTargetSize);
 }
 
@@ -386,12 +414,11 @@ SFUI::Void SFUI::TextField::computeComposedComponents() {
  * @param .
  */
 SFUI::Void SFUI::TextField::insertText(const char32_t newAppendedText) {
-    // Make Sure Only Letter Text Unicode Characters //
-    if (newAppendedText > 29 && newAppendedText != 127) {
-        textFieldStyle.text.insert(caretColumnIndex++, sf::String(newAppendedText));
-        if (textFieldBehavior.onTextChange) textFieldBehavior.onTextChange(componentID, textFieldStyle.text);
-        caretClock.restart();
-    }
+    if (newAppendedText <= 29 || newAppendedText == 127) return;
+    
+    textFieldStyle.text.insert(caretIndex++, sf::String(newAppendedText));
+    if (textFieldBehavior.onTextChange) textFieldBehavior.onTextChange(componentID, textFieldStyle.text);
+    caretClock.restart();
 }
 
 
@@ -401,64 +428,69 @@ SFUI::Void SFUI::TextField::insertText(const char32_t newAppendedText) {
  * @param .
  */
 SFUI::Void SFUI::TextField::editText(const sf::Event::KeyPressed* keyPressedEvent) {
-    if (!isFocused || textFieldStyle.text.empty()) return;
+    if (!isFocused) return;
+
+    // Enter //
+    if (keyPressedEvent->code == sf::Keyboard::Key::Enter && computedTextFieldStyle.lineMode == "multi") {
+        textFieldStyle.text.insert(caretIndex++, "\n");
+    }
 
     // Left Arrow //
-    if (keyPressedEvent->code == sf::Keyboard::Key::Left && caretColumnIndex > 0) {
+    else if (keyPressedEvent->code == sf::Keyboard::Key::Left && caretIndex > 0) {
         if (keyPressedEvent->control) {
-            SFUI::UnsignedInt pos = caretColumnIndex;
+            SFUI::UnsignedInt pos = caretIndex;
             while (pos > 0 && CTRL_WHITESPACE_GROUP.find(textFieldStyle.text[pos - 1]) != sf::String::InvalidPos)
                 --pos;
             SFUI::UnsignedInt group = (pos > 0) ? getCharacterGroup(textFieldStyle.text[pos - 1]) : 0;
             while (pos > 0 && getCharacterGroup(textFieldStyle.text[pos - 1]) == group)
                 --pos;
-            caretColumnIndex = static_cast<SFUI::UnsignedInt>(pos);
+            caretIndex = static_cast<SFUI::UnsignedInt>(pos);
         }   else {
-            --caretColumnIndex;
+            --caretIndex;
         }
         caretClock.restart();
     }
 
     // Right Arrow //
-    else if (keyPressedEvent->code == sf::Keyboard::Key::Right && caretColumnIndex < textFieldStyle.text.size()) {
+    else if (keyPressedEvent->code == sf::Keyboard::Key::Right && caretIndex < textFieldStyle.text.size()) {
         if (keyPressedEvent->control) {
-            SFUI::UnsignedInt pos = caretColumnIndex;
+            SFUI::UnsignedInt pos = caretIndex;
             while (pos < textFieldStyle.text.size() && CTRL_WHITESPACE_GROUP.find(textFieldStyle.text[pos]) != sf::String::InvalidPos)
                 ++pos;
             SFUI::UnsignedInt group = (pos < textFieldStyle.text.size()) ? getCharacterGroup(textFieldStyle.text[pos]) : 0;
             while (pos < textFieldStyle.text.size() && getCharacterGroup(textFieldStyle.text[pos]) == group)
                 ++pos;
-            caretColumnIndex = static_cast<SFUI::UnsignedInt>(pos);
+            caretIndex = static_cast<SFUI::UnsignedInt>(pos);
         }   else {
-            ++caretColumnIndex;
+            ++caretIndex;
         }
         caretClock.restart();
     }
 
     // Backspace //
-    else if (keyPressedEvent->code == sf::Keyboard::Key::Backspace && caretColumnIndex > 0) {
+    else if (keyPressedEvent->code == sf::Keyboard::Key::Backspace && caretIndex > 0) {
         if (keyPressedEvent->control) {
-            SFUI::UnsignedInt oldCaret = caretColumnIndex;
-            SFUI::UnsignedInt pos = caretColumnIndex;
+            SFUI::UnsignedInt oldCaret = caretIndex;
+            SFUI::UnsignedInt pos = caretIndex;
             while (pos > 0 && CTRL_WHITESPACE_GROUP.find(textFieldStyle.text[pos - 1]) != sf::String::InvalidPos)
                 --pos;
             SFUI::UnsignedInt group = (pos > 0) ? getCharacterGroup(textFieldStyle.text[pos - 1]) : 0;
             while (pos > 0 && getCharacterGroup(textFieldStyle.text[pos - 1]) == group)
                 --pos;
             textFieldStyle.text.erase(pos, oldCaret - pos);
-            caretColumnIndex = static_cast<SFUI::UnsignedInt>(pos);
+            caretIndex = static_cast<SFUI::UnsignedInt>(pos);
         }   else {
-            textFieldStyle.text.erase(caretColumnIndex - 1, 1);
-            --caretColumnIndex;
+            textFieldStyle.text.erase(caretIndex - 1, 1);
+            --caretIndex;
         }
         caretClock.restart();
     }
 
     // Delete //
-    else if (keyPressedEvent->code == sf::Keyboard::Key::Delete && caretColumnIndex < textFieldStyle.text.size()) {
+    else if (keyPressedEvent->code == sf::Keyboard::Key::Delete && caretIndex < textFieldStyle.text.size()) {
         if (keyPressedEvent->control) {
-            SFUI::UnsignedInt oldCaret = caretColumnIndex;
-            SFUI::UnsignedInt pos = caretColumnIndex;
+            SFUI::UnsignedInt oldCaret = caretIndex;
+            SFUI::UnsignedInt pos = caretIndex;
             while (pos < textFieldStyle.text.size() && CTRL_WHITESPACE_GROUP.find(textFieldStyle.text[pos]) != sf::String::InvalidPos)
                 ++pos;
             SFUI::UnsignedInt group = (pos < textFieldStyle.text.size()) ? getCharacterGroup(textFieldStyle.text[pos]) : 0;
@@ -466,20 +498,102 @@ SFUI::Void SFUI::TextField::editText(const sf::Event::KeyPressed* keyPressedEven
                 ++pos;
             textFieldStyle.text.erase(oldCaret, pos - oldCaret);
         }   else {
-            textFieldStyle.text.erase(caretColumnIndex, 1);
+            textFieldStyle.text.erase(caretIndex, 1);
         }
         caretClock.restart();
     }
 
     // Up Arrow //
-    else if (keyPressedEvent->code == sf::Keyboard::Key::Up && caretColumnIndex > 0) {
-        caretColumnIndex = 0;
+    else if (keyPressedEvent->code == sf::Keyboard::Key::Up && caretIndex > 0) {
+        if (computedTextFieldStyle.lineMode == "single") {
+            caretIndex = 0;
+        }
+        else if (computedTextFieldStyle.lineMode == "multi") {
+            SFUI::UnsignedInt belowRowCharsPassed = 0;
+            SFUI::UnsignedInt aboveRowCharsPassed = 0;
+            SFUI::UnsignedInt belowRowNewlineIndex = 0;
+            SFUI::UnsignedInt aboveRowNewlineIndex = 0;
+            SFUI::Bool caretMoveNeeded = true;
+
+            for (SFUI::Int i = caretIndex - 1; i >= 0; --i) {
+                if (textFieldStyle.text[i] == '\n') {
+                    belowRowNewlineIndex = i;
+                    break;
+                }
+                else if (i == 0) {
+                    caretIndex = 0;
+                    caretMoveNeeded = false;
+                    break;
+                }
+                ++belowRowCharsPassed;
+            }
+            
+            for (SFUI::Int i = belowRowNewlineIndex - 1; i >= 0; --i) {
+                if (textFieldStyle.text[i] == '\n' || i == 0) {
+                    aboveRowNewlineIndex = i;
+                    if (i == 0) ++aboveRowCharsPassed;
+                    break;
+                }
+                ++aboveRowCharsPassed;
+            }
+
+            if (caretMoveNeeded) {
+                if (belowRowCharsPassed <= aboveRowCharsPassed)
+                    caretIndex = aboveRowNewlineIndex + belowRowCharsPassed;
+                else if (belowRowCharsPassed > aboveRowCharsPassed)
+                    caretIndex = aboveRowNewlineIndex + aboveRowCharsPassed;
+            }
+        }
         caretClock.restart();
     }
 
     // Down Arrow //
-    else if (keyPressedEvent->code == sf::Keyboard::Key::Down && caretColumnIndex < textFieldStyle.text.size()) {
-        caretColumnIndex = textFieldStyle.text.length();
+    else if (keyPressedEvent->code == sf::Keyboard::Key::Down && caretIndex < textFieldStyle.text.size()) {
+        if (computedTextFieldStyle.lineMode == "single") {
+            caretIndex = textFieldStyle.text.length();
+        }
+        else if (computedTextFieldStyle.lineMode == "multi") {
+            SFUI::UnsignedInt aboveRowCharsPassed = 0;
+            SFUI::UnsignedInt belowRowCharsPassed = 0;
+            SFUI::UnsignedInt aboveRowNewlineIndex = 0;
+            SFUI::UnsignedInt belowRowNewlineIndex = 0;
+            SFUI::UnsignedInt textLength = textFieldStyle.text.size();
+            SFUI::Bool caretMoveNeeded = true;
+
+            for (SFUI::Int i = caretIndex - 1; i >= 0; --i) {
+                if (textFieldStyle.text[i] == '\n') break;
+                ++aboveRowCharsPassed;
+            }
+
+            SFUI::Bool aboveRowNewlineMet = false;
+            for (SFUI::Int i = caretIndex - 1; i < textLength; ++i) {
+                if (!aboveRowNewlineMet) {
+                    if (textFieldStyle.text[i] == '\n') {
+                        aboveRowNewlineIndex = i;
+                        aboveRowNewlineMet = true;
+                    }
+                    else if (i == textLength - 1) {
+                        caretIndex = textLength;
+                        caretMoveNeeded = false;
+                        break;
+                    }
+                }
+                else if (aboveRowNewlineMet) {
+                    if (textFieldStyle.text[i] == '\n') {
+                        belowRowNewlineIndex = i;
+                        break;
+                    }
+                    ++belowRowCharsPassed;
+                }
+            }
+
+            if (caretMoveNeeded) {
+                if (aboveRowCharsPassed > belowRowCharsPassed)
+                    caretIndex = aboveRowNewlineIndex + belowRowCharsPassed + 1;
+                else if (aboveRowCharsPassed <= belowRowCharsPassed)
+                    caretIndex = aboveRowNewlineIndex + aboveRowCharsPassed + 1;
+            }
+        }
         caretClock.restart();
     }
 }
@@ -493,7 +607,7 @@ SFUI::Void SFUI::TextField::editText(const sf::Event::KeyPressed* keyPressedEven
  * @return .
  */
 SFUI::UnsignedInt SFUI::TextField::getCharacterGroup(const char32_t character) {
-    // if (CTRL_ALPHANUMERIC_GROUP.find(character) != sf::String::InvalidPos) return 1;
-    // if (CTRL_SYMBOL_GROUP.find(character) != sf::String::InvalidPos) return 2;
+    if (CTRL_ALPHANUMERIC_GROUP.find(character) != sf::String::InvalidPos) return 1;
+    if (CTRL_SYMBOL_GROUP.find(character) != sf::String::InvalidPos) return 2;
     return 0;
 }

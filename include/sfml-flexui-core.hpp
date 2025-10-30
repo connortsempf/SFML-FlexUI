@@ -272,6 +272,10 @@ namespace SFUI {
             SFUI::Void draw(SFUI::RenderTarget& renderTarget);
         
         private:
+            static const SFUI::Float CENTER_TEXT_OFFSET_FACTOR;
+            static const SFUI::Float CARET_LINE_VERTICAL_OFFSET_FACTOR;
+            static const SFUI::Float CARET_BOX_VERTICAL_OFFSET_FACTOR;
+            static const SFUI::Float CARET_UNDERLINE_VERTICAL_OFFSET_FACTOR;
             static const SFUI::Float CARET_LINE_WIDTH_FACTOR;
             static const SFUI::Float CARET_BOX_WIDTH_FACTOR;
             static const SFUI::Float CARET_UNDERLINE_WIDTH_FACTOR;
@@ -284,8 +288,8 @@ namespace SFUI {
             SFUI::Bool isFocused = false;
             SFUI::Bool isHovered = false;
             SFUI::Bool caretVisible = false;
-            SFUI::UnsignedInt caretColumnIndex = 0;
-            SFUI::UnsignedInt caretRowIndex = 0;
+            SFUI::UnsignedInt caretIndex = 0;
+            SFUI::Vector2f dynamicTextOffset = {0.0f, 0.0f};
             SFUI::Clock caretClock;
             SFUI::SharedPointer<SFUI::Button> background;
             SFUI::SharedPointer<SFUI::Label> inputText;
@@ -294,14 +298,15 @@ namespace SFUI {
 
         private:
             SFUI::Void computeLineMode();
-            SFUI::Void computeTextInset();
             SFUI::Void computePlaceholderText();
+            SFUI::Void computeComposedBackground();
+            SFUI::Void computeComposedInputText();
+            SFUI::Void computeTextInset();
             SFUI::Void computeCaretShape();
             SFUI::Void computeCaretBlinkTiming();
             SFUI::Void computeCaretLifetime();
-            SFUI::Void computeCaretFillColor();
-            SFUI::Void computeCaretLayout();
-            SFUI::Void computeComposedComponents();
+            SFUI::Void computeComposedCaret();
+            SFUI::Void computeDynamicTextOffset();
             SFUI::Void insertText(const char32_t newAppendedText);
             SFUI::Void editText(const SFUI::Event::KeyPressed* keyPressedEvent);
             SFUI::UnsignedInt getCharacterGroup(const char32_t character);

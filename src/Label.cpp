@@ -258,8 +258,9 @@ SFUI::Color SFUI::Label::getTextOutlineColor() {
  * @return .
  */
 SFUI::FloatRect SFUI::Label::getTextBounds() {
-    if (textObject.getString().getSize() > 0) return textObject.getGlobalBounds();
-    return SFUI::FloatRect({textObject.getPosition().x, textObject.getPosition().y}, {0.0f, 0.0f});
+    SFUI::FloatRect textBounds = {{textObject.getPosition().x, textObject.getPosition().y}, {0.0f, 0.0f}};
+    if (textObject.getString().getSize() > 0) textBounds = textObject.getGlobalBounds();
+    return textBounds;
 }
 
 
@@ -271,8 +272,12 @@ SFUI::FloatRect SFUI::Label::getTextBounds() {
  * @return .
  */
 SFUI::Vector2f SFUI::Label::getCharacterPosition(SFUI::Size charIndex) {
-    sf::Vector2f position = textObject.findCharacterPos(charIndex);
-    return {position.x, position.y};
+    SFUI::Vector2f characterPosition = {0.0f, 0.0f};
+    if (textObject.getString().getSize() > 0) {
+        sf::Vector2f position = textObject.findCharacterPos(charIndex);
+        characterPosition = {position.x, position.y};
+    }
+    return characterPosition;
 }
 
 

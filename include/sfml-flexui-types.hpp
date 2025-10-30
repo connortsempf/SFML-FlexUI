@@ -325,7 +325,7 @@ namespace SFUI {
             
             struct Label {
                 SFUI::SubProp::Keyword text;
-                SFUI::SubProp::Font font;
+                SFUI::SubProp::Font font = nullptr;
                 SFUI::SubProp::Numeric textSize = 12.0f;
                 SFUI::SubProp::TextStyle textStyle = "regular";
                 SFUI::Optional<SFUI::SubProp::Numeric> letterSpacing;
@@ -474,7 +474,7 @@ namespace SFUI {
                 SFUI::SubProp::Callback onPressOut;
                 SFUI::SubProp::CallbackKey onKeyPress;
                 SFUI::SubProp::CallbackString onTextChange;
-                SFUI::SubProp::Callback onSubmit;
+                SFUI::SubProp::CallbackString onSubmit;
             };
         }
     }
@@ -623,7 +623,6 @@ namespace SFUI {
                 SFUI::String caretShape;
                 SFUI::Float caretOnTime;
                 SFUI::Float caretOffTime;
-                SFUI::Color caretFillColor;
             };
         }
     }
