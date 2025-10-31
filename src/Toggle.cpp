@@ -146,6 +146,10 @@ SFUI::Void SFUI::Toggle::computeComposedComponents() {
         .toolTipFillColor = toggleStyle.toolTipFillColor,
         .toolTipTextColor = toggleStyle.toolTipTextColor
     };
+    toggle.buttonState = SFUI::Prop::State::Button{
+        .isDisabled = toggleState.isDisabled,
+        .isFocused = toggleState.isFocused
+    };
     toggle.buttonBehavior = SFUI::Prop::Behavior::Button{
         .onHoverIn = [this](const SFUI::String& componentID) {
             if (toggleBehavior.onHoverIn) toggleBehavior.onHoverIn(this->componentID);

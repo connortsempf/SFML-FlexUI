@@ -469,6 +469,11 @@ namespace SFUI {
                 SFUI::SubProp::Binary isFocused = false;
                 SFUI::SubProp::Binary isOn = false;
             };
+
+            struct TextField {
+                SFUI::SubProp::Binary isDisabled = false;
+                SFUI::SubProp::Binary isFocused = false;
+            };
         }
 
         // Behavior Props //
