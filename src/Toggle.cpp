@@ -15,6 +15,7 @@
 SFUI::Toggle::Toggle(const SFUI::String& componentID) :
     Component(componentID),
     toggleStyle(),
+    toggleState(),
     toggleBehavior(),
     toggle(componentID + "_InnerToggle")
 {}
@@ -29,6 +30,7 @@ SFUI::Toggle::Toggle(const SFUI::String& componentID) :
 SFUI::Toggle::Toggle(const SFUI::String& componentID, const SFUI::PropGroup::Toggle& togglePropGroup) :
     Component(componentID, togglePropGroup.layout, togglePropGroup.style),
     toggleStyle(togglePropGroup.toggleStyle),
+    toggleState(togglePropGroup.toggleState),
     toggleBehavior(togglePropGroup.toggleBehavior),
     toggle(componentID + "_InnerToggle")
 {}
@@ -151,6 +153,18 @@ SFUI::Void SFUI::Toggle::computeComposedComponents() {
         .isFocused = toggleState.isFocused
     };
     toggle.buttonBehavior = SFUI::Prop::Behavior::Button{
+        .onEnable = [this](const SFUI::String& componentID) {
+            if (toggleBehavior.onEnable) toggleBehavior.onEnable(this->componentID);
+        },
+        .onDisable = [this](const SFUI::String& componentID) {
+            if (toggleBehavior.onDisable) toggleBehavior.onDisable(this->componentID);
+        },
+        .onFocus = [this](const SFUI::String& componentID) {
+            if (toggleBehavior.onFocus) toggleBehavior.onFocus(this->componentID);
+        },
+        .onBlur = [this](const SFUI::String& componentID) {
+            if (toggleBehavior.onBlur) toggleBehavior.onBlur(this->componentID);
+        },
         .onHoverIn = [this](const SFUI::String& componentID) {
             if (toggleBehavior.onHoverIn) toggleBehavior.onHoverIn(this->componentID);
         },

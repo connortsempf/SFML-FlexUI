@@ -604,6 +604,7 @@ namespace SFUI {
             SFUI::Prop::Layout::Component layout;
             SFUI::Prop::Style::Component style;
             SFUI::Prop::Style::TextField textFieldStyle;
+            SFUI::Prop::State::TextField textFieldState;
             SFUI::Prop::Behavior::TextField textFieldBehavior;
         };
     }

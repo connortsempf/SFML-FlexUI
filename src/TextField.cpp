@@ -29,6 +29,7 @@ const SFUI::String SFUI::TextField::CTRL_SYMBOL_GROUP = "`~!@#$%^&*()-=+[]{}\\|:
 SFUI::TextField::TextField(const SFUI::String& componentID) :
     Component(componentID),
     textFieldStyle(),
+    textFieldState(),
     textFieldBehavior(),
     background(std::make_shared<SFUI::Button>(componentID + "_Background")),
     inputText(std::make_shared<SFUI::Label>(componentID + "_InputText")),
@@ -45,6 +46,7 @@ SFUI::TextField::TextField(const SFUI::String& componentID) :
 SFUI::TextField::TextField(const SFUI::String& componentID, const SFUI::PropGroup::TextField& textFieldPropGroup) :
     Component(componentID, textFieldPropGroup.layout, textFieldPropGroup.style),
     textFieldStyle(textFieldPropGroup.textFieldStyle),
+    textFieldState(textFieldPropGroup.textFieldState),
     textFieldBehavior(textFieldPropGroup.textFieldBehavior),
     background(std::make_shared<SFUI::Button>(componentID + "_Background")),
     inputText(std::make_shared<SFUI::Label>(componentID + "_InputText")),
@@ -68,8 +70,8 @@ SFUI::Void SFUI::TextField::handleEvent(const SFUI::Event& event) {
         const SFUI::Vector2i mousePosition = SFUI::Vector2i(mousePressedEvent->position.x, mousePressedEvent->position.y);
         SFUI::Bool buttonHovered = isMouseHovered(mousePosition);
 
-        if (isFocused && !buttonHovered) {
-            isFocused = false;
+        if (textFieldState.isFocused && !buttonHovered) {
+            textFieldState.isFocused = false;
             caretVisible = false;
             if (textFieldBehavior.onPressOut) textFieldBehavior.onPressOut(componentID);
             if (textFieldBehavior.onBlur) textFieldBehavior.onBlur(componentID);
@@ -78,7 +80,7 @@ SFUI::Void SFUI::TextField::handleEvent(const SFUI::Event& event) {
 
     // Key Pressed Event Handling //
     else if (const sf::Event::KeyPressed* keyPressedEvent = event.getIf<sf::Event::KeyPressed>()) {
-        if (isFocused) {
+        if (textFieldState.isFocused) {
             if (keyPressedEvent->code == sf::Keyboard::Key::Enter) {
                 if (computedTextFieldStyle.lineMode == "single") {
                     if (textFieldBehavior.onSubmit) textFieldBehavior.onSubmit(componentID, textFieldStyle.text);
@@ -93,7 +95,7 @@ SFUI::Void SFUI::TextField::handleEvent(const SFUI::Event& event) {
 
     // Text Entered Event Handling //
     else if (const sf::Event::TextEntered* textEnteredEvent = event.getIf<sf::Event::TextEntered>()) {
-        if (isFocused) insertText(textEnteredEvent->unicode);
+        if (textFieldState.isFocused) insertText(textEnteredEvent->unicode);
     }
 }
 
@@ -144,7 +146,7 @@ SFUI::Void SFUI::TextField::update(const SFUI::Vector2u renderTargetSize) {
 SFUI::Void SFUI::TextField::draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window) {
     background->draw(drawTarget, window);
     inputText->draw(drawTarget, window);
-    if (isFocused && caretVisible) caret->draw(drawTarget, window);
+    if (!textFieldState.isDisabled && textFieldState.isFocused && caretVisible) caret->draw(drawTarget, window);
 }
 
 
@@ -189,6 +191,10 @@ SFUI::Void SFUI::TextField::computeComposedBackground() {
         .fillColor = style.fillColor,
         .borderColor = style.borderColor
     };
+    background->buttonState = SFUI::Prop::State::Button{
+        .isDisabled = textFieldState.isDisabled,
+        .isFocused = textFieldState.isFocused
+    };
     background->buttonStyle = SFUI::Prop::Style::Button{
         .hoveredFillColor = textFieldStyle.hoveredFillColor,
         .hoveredBorderColor = textFieldStyle.hoveredBorderColor,
@@ -209,6 +215,18 @@ SFUI::Void SFUI::TextField::computeComposedBackground() {
         .toolTipTextColor = textFieldStyle.toolTipTextColor
     };
     background->buttonBehavior = SFUI::Prop::Behavior::Button{
+        .onEnable = [this](const SFUI::String& componentID) {
+            if (textFieldBehavior.onEnable) textFieldBehavior.onEnable(this->componentID);
+        },
+        .onDisable = [this](const SFUI::String& componentID) {
+            if (textFieldBehavior.onDisable) textFieldBehavior.onDisable(this->componentID);
+        },
+        .onFocus = [this](const SFUI::String& componentID) {
+            if (textFieldBehavior.onFocus) textFieldBehavior.onFocus(this->componentID);
+        },
+        .onBlur = [this](const SFUI::String& componentID) {
+            if (textFieldBehavior.onBlur) textFieldBehavior.onBlur(this->componentID);
+        },
         .onHoverIn = [this](const SFUI::String& componentID) {
             if (textFieldBehavior.onHoverIn) textFieldBehavior.onHoverIn(this->componentID);
         },
@@ -217,45 +235,45 @@ SFUI::Void SFUI::TextField::computeComposedBackground() {
         },
         .onLeftPressIn = [this](const SFUI::String& componentID) {
             if (textFieldBehavior.onLeftPressIn) textFieldBehavior.onLeftPress(this->componentID);
-            if (!isFocused && textFieldBehavior.onFocus)
+            if (!textFieldState.isFocused && textFieldBehavior.onFocus)
                 textFieldBehavior.onFocus(componentID);
-            isFocused = true;
+            textFieldState.isFocused = true;
         },
         .onLeftPress = [this](const SFUI::String& componentID) {
             if (textFieldBehavior.onLeftPress) textFieldBehavior.onLeftPress(this->componentID);
-            if (!isFocused && textFieldBehavior.onFocus)
+            if (!textFieldState.isFocused && textFieldBehavior.onFocus)
                 textFieldBehavior.onFocus(componentID);
-            isFocused = true;
+            textFieldState.isFocused = true;
         },
         .onRightPressIn = [this](const SFUI::String& componentID) {
             if (textFieldBehavior.onRightPressIn) textFieldBehavior.onRightPressIn(this->componentID);
-            if (!isFocused && textFieldBehavior.onFocus)
+            if (!textFieldState.isFocused && textFieldBehavior.onFocus)
                 textFieldBehavior.onFocus(componentID);
-            isFocused = true;
+            textFieldState.isFocused = true;
         },
         .onRightPress = [this](const SFUI::String& componentID) {
             if (textFieldBehavior.onRightPress) textFieldBehavior.onRightPress(this->componentID);
-            if (!isFocused && textFieldBehavior.onFocus)
+            if (!textFieldState.isFocused && textFieldBehavior.onFocus)
                 textFieldBehavior.onFocus(componentID);
-            isFocused = true;
+            textFieldState.isFocused = true;
         },
         .onMiddlePressIn = [this](const SFUI::String& componentID) {
             if (textFieldBehavior.onMiddlePressIn) textFieldBehavior.onMiddlePressIn(this->componentID);
-            if (!isFocused && textFieldBehavior.onFocus)
+            if (!textFieldState.isFocused && textFieldBehavior.onFocus)
                 textFieldBehavior.onFocus(componentID);
-            isFocused = true;
+            textFieldState.isFocused = true;
         },
         .onMiddlePress = [this](const SFUI::String& componentID) {
             if (textFieldBehavior.onMiddlePress) textFieldBehavior.onMiddlePress(this->componentID);
-            if (!isFocused && textFieldBehavior.onFocus)
+            if (!textFieldState.isFocused && textFieldBehavior.onFocus)
                 textFieldBehavior.onFocus(componentID);
-            isFocused = true;
+            textFieldState.isFocused = true;
         },
         .onDoublePress = [this](const SFUI::String& componentID) {
             if (textFieldBehavior.onDoublePress) textFieldBehavior.onDoublePress(this->componentID);
-            if (!isFocused && textFieldBehavior.onFocus)
+            if (!textFieldState.isFocused && textFieldBehavior.onFocus)
                 textFieldBehavior.onFocus(componentID);
-            isFocused = true;
+            textFieldState.isFocused = true;
         }
     };
     background->update(renderTargetSize);
@@ -331,7 +349,7 @@ SFUI::Void SFUI::TextField::computeCaretBlinkTiming() {
  * @brief .
  */
 SFUI::Void SFUI::TextField::computeCaretLifetime() {
-    if (isFocused) {
+    if (textFieldState.isFocused) {
         if (caretClock.getElapsedTime().asMilliseconds() < computedTextFieldStyle.caretOnTime) {
             caretVisible = true;
         }
@@ -428,7 +446,7 @@ SFUI::Void SFUI::TextField::insertText(const char32_t newAppendedText) {
  * @param .
  */
 SFUI::Void SFUI::TextField::editText(const sf::Event::KeyPressed* keyPressedEvent) {
-    if (!isFocused) return;
+    if (!textFieldState.isFocused) return;
 
     // Enter //
     if (keyPressedEvent->code == sf::Keyboard::Key::Enter && computedTextFieldStyle.lineMode == "multi") {

@@ -294,6 +294,7 @@ namespace SFUI {
 
         public:
             SFUI::Prop::Style::TextField textFieldStyle;
+            SFUI::Prop::State::TextField textFieldState;
             SFUI::Prop::Behavior::TextField textFieldBehavior;
 
         public:
@@ -318,8 +319,6 @@ namespace SFUI {
             static const SFUI::String CTRL_SYMBOL_GROUP;
 
         private:
-            SFUI::Bool isFocused = false;
-            SFUI::Bool isHovered = false;
             SFUI::Bool caretVisible = false;
             SFUI::UnsignedInt caretIndex = 0;
             SFUI::Vector2f dynamicTextOffset = {0.0f, 0.0f};
