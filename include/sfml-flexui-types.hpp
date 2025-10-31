@@ -430,6 +430,10 @@ namespace SFUI {
         // State Props //
         namespace State {
 
+            struct Button {
+                SFUI::SubProp::Binary isDisabled = false;
+                SFUI::SubProp::Binary isFocused = false;
+            };
         }
 
         // Behavior Props //
@@ -512,6 +516,7 @@ namespace SFUI {
             SFUI::Prop::Layout::Component layout;
             SFUI::Prop::Style::Component style;
             SFUI::Prop::Style::Button buttonStyle;
+            SFUI::Prop::State::Button buttonState;
             SFUI::Prop::Behavior::Button buttonBehavior;
         };
 

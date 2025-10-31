@@ -47,7 +47,7 @@ SFUI::Button::Button(const SFUI::String& componentID, const SFUI::PropGroup::But
  * @param .
  */
 SFUI::Void SFUI::Button::handleEvent(const SFUI::Event& event) {
-    if (isDisabled) return;
+    if (buttonState.isDisabled) return;
 
     // Mouse Moved Event Handling //
     if (const SFUI::Event::MouseMoved* mouseMovedEvent = event.getIf<SFUI::Event::MouseMoved>()) {
@@ -93,8 +93,8 @@ SFUI::Void SFUI::Button::handleEvent(const SFUI::Event& event) {
                 toolTipClock.restart();
                 toolTipClock.stop();
             }
-            if (isFocused) {
-                isFocused = false;
+            if (buttonState.isFocused) {
+                buttonState.isFocused = false;
                 if (buttonBehavior.onBlur) buttonBehavior.onBlur(componentID);
             }
         }
@@ -152,7 +152,7 @@ SFUI::Void SFUI::Button::handleEvent(const SFUI::Event& event) {
 
     // Key Pressed Event Handling //
     if (const SFUI::Event::KeyPressed* keyPressedEvent = event.getIf<SFUI::Event::KeyPressed>()) {
-        if (isFocused && buttonBehavior.onKeyPress)
+        if (buttonState.isFocused && buttonBehavior.onKeyPress)
             buttonBehavior.onKeyPress(componentID, keyPressedEvent->code);
         if (isShowingToolTip) {
             isShowingToolTip = false;
@@ -211,7 +211,7 @@ SFUI::Void SFUI::Button::draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow
     drawTarget.draw(backgroundArcs);
     drawTarget.draw(borderRects);
     drawTarget.draw(borderArcs);
-    if (isFocused) focus.draw(drawTarget, window);
+    if (buttonState.isFocused) focus.draw(drawTarget, window);
     if (isShowingToolTip && !buttonStyle.toolTipText.empty()) toolTip.draw(drawTarget, window);
 }
 
@@ -406,7 +406,7 @@ SFUI::Void SFUI::Button::computeDynamicColors() {
         computedButtonStyle.disabledBorderColor = resolveColorSubProp(buttonStyle.disabledBorderColor.value());
 
     // Mutate Based Container with Dynamic Fill Color //
-    if (isDisabled) {
+    if (buttonState.isDisabled) {
         if (buttonStyle.disabledFillColor.has_value())
             computedStyle.fillColor = computedButtonStyle.disabledFillColor;
         if (buttonStyle.disabledBorderColor.has_value())
@@ -511,7 +511,7 @@ SFUI::Void SFUI::Button::computeFocusOffset() {
 SFUI::Void SFUI::Button::computeToolTipLifetime() {
     if (buttonStyle.toolTipText == "" || !buttonStyle.toolTipFont) return;
 
-    if ((isHovered || isFocused) && !isShowingToolTip) {
+    if ((isHovered || buttonState.isFocused) && !isShowingToolTip) {
         sf::Time toolTipElapsed = toolTipClock.getElapsedTime();
         if (toolTipElapsed > TOOL_TIP_THRESHOLD_MS) {
             SFUI::Float xPosition = previousHoverPosition.x - toolTip.getSize().x;
