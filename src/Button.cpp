@@ -21,7 +21,6 @@ SFUI::Button::Button(const SFUI::String& componentID) :
     Component(componentID),
     buttonStyle(),
     buttonBehavior(),
-    // cursor(sf::Cursor::Type::Arrow),
     focus(componentID + "_Focus"),
     toolTip(componentID + "_ToolTip")
 {}
@@ -37,7 +36,6 @@ SFUI::Button::Button(const SFUI::String& componentID, const SFUI::PropGroup::But
     Component(componentID, buttonPropGroup.layout, buttonPropGroup.style),
     buttonStyle(buttonPropGroup.buttonStyle),
     buttonBehavior(buttonPropGroup.buttonBehavior),
-    // cursor(sf::Cursor::Type::Arrow),
     focus(componentID + "Focus"),
     toolTip(componentID + "_ToolTip")
 {}
@@ -61,7 +59,6 @@ SFUI::Void SFUI::Button::handleEvent(const SFUI::Event& event) {
                 toolTipClock.restart();
                 isHovered = true;
                 if (buttonBehavior.onHoverIn) buttonBehavior.onHoverIn(componentID);
-                // std::cout << componentID << " Hovered In\n";
             }   else if (!isShowingToolTip) {
                 previousHoverPosition = {static_cast<SFUI::Float>(mousePosition.x), static_cast<SFUI::Float>(mousePosition.y)};
             }
@@ -529,6 +526,78 @@ SFUI::Void SFUI::Button::computeToolTipLifetime() {
         }
     }
 }
+
+
+// /**
+//  * @brief .
+//  */
+// SFUI::Void SFUI::Button::computeSystemCursor() {
+//     SFUI::String tempSystemCursor = buttonStyle.systemCursor;
+//     std::transform(tempSystemCursor.begin(), tempSystemCursor.end(), tempSystemCursor.begin(), [](unsigned char c) {
+//         return std::tolower(c);
+//     });
+
+//     if (tempSystemCursor == "arrow") { systemCursorHelper = SFUI::Cursor::Type::Arrow; computedButtonStyle.systemCursor = tempSystemCursor; }
+//     else if (tempSystemCursor == "arrow-wait") { systemCursorHelper = SFUI::Cursor::Type::ArrowWait; computedButtonStyle.systemCursor = tempSystemCursor; }
+//     else if (tempSystemCursor == "wait") { systemCursorHelper = SFUI::Cursor::Type::Wait; computedButtonStyle.systemCursor = tempSystemCursor; }
+//     else if (tempSystemCursor == "text") { systemCursorHelper = SFUI::Cursor::Type::Text; computedButtonStyle.systemCursor = tempSystemCursor; }
+//     else if (tempSystemCursor == "hand") { systemCursorHelper = SFUI::Cursor::Type::Hand; computedButtonStyle.systemCursor = tempSystemCursor; }
+//     else if (tempSystemCursor == "size-horizontal") { systemCursorHelper = SFUI::Cursor::Type::SizeHorizontal; computedButtonStyle.systemCursor = tempSystemCursor; }
+//     else if (tempSystemCursor == "size-verical") { systemCursorHelper = SFUI::Cursor::Type::SizeVertical; computedButtonStyle.systemCursor = tempSystemCursor; }
+//     else if (tempSystemCursor == "size-top-left-bottom-right") { systemCursorHelper = SFUI::Cursor::Type::SizeTopLeftBottomRight; computedButtonStyle.systemCursor = tempSystemCursor; }
+//     else if (tempSystemCursor == "size-bottom-left-top-right") { systemCursorHelper = SFUI::Cursor::Type::SizeBottomLeftTopRight; computedButtonStyle.systemCursor = tempSystemCursor; }
+//     else if (tempSystemCursor == "size-left") { systemCursorHelper = SFUI::Cursor::Type::SizeLeft; computedButtonStyle.systemCursor = tempSystemCursor; }
+//     else if (tempSystemCursor == "size-right") { systemCursorHelper = SFUI::Cursor::Type::SizeRight; computedButtonStyle.systemCursor = tempSystemCursor; }
+//     else if (tempSystemCursor == "size-top") { systemCursorHelper = SFUI::Cursor::Type::SizeTop; computedButtonStyle.systemCursor = tempSystemCursor; }
+//     else if (tempSystemCursor == "size-bottom") { systemCursorHelper = SFUI::Cursor::Type::SizeBottom; computedButtonStyle.systemCursor = tempSystemCursor; }
+//     else if (tempSystemCursor == "size-top-left") { systemCursorHelper = SFUI::Cursor::Type::SizeTopLeft; computedButtonStyle.systemCursor = tempSystemCursor; }
+//     else if (tempSystemCursor == "size-bottom-right") { systemCursorHelper = SFUI::Cursor::Type::SizeBottomRight; computedButtonStyle.systemCursor = tempSystemCursor; }
+//     else if (tempSystemCursor == "size-bottom-left") { systemCursorHelper = SFUI::Cursor::Type::SizeBottomLeft; computedButtonStyle.systemCursor = tempSystemCursor; }
+//     else if (tempSystemCursor == "size-top-right") { systemCursorHelper = SFUI::Cursor::Type::SizeTopRight; computedButtonStyle.systemCursor = tempSystemCursor; }
+//     else if (tempSystemCursor == "size-all") { systemCursorHelper = SFUI::Cursor::Type::SizeAll; computedButtonStyle.systemCursor = tempSystemCursor; }
+//     else if (tempSystemCursor == "cross") { systemCursorHelper = SFUI::Cursor::Type::Cross; computedButtonStyle.systemCursor = tempSystemCursor; }
+//     else if (tempSystemCursor == "help") { systemCursorHelper = SFUI::Cursor::Type::Help; computedButtonStyle.systemCursor = tempSystemCursor; }
+//     else if (tempSystemCursor == "not-allowed") { systemCursorHelper = SFUI::Cursor::Type::NotAllowed; computedButtonStyle.systemCursor = tempSystemCursor; }
+//     else { systemCursorHelper = SFUI::Cursor::Type::Arrow; computedButtonStyle.systemCursor = "arrow"; }
+// }
+
+
+// /**
+//  * @brief .
+//  */
+// SFUI::Void SFUI::Button::computeCursor() {
+//     // If Custom Cusror Provided -- Default to this Over System Cursor if Both Given //
+//     if (buttonStyle.customCursorPath.has_value()) {
+//         if (buttonStyle.customCursorPath.value() != computedButtonStyle.customCursorPath) {
+//             computedButtonStyle.customCursorPath = buttonStyle.customCursorPath.value();
+//             if (!cursorImage.loadFromFile(computedButtonStyle.customCursorPath))
+//                 hoverCursorLoadError = true;
+//         }
+//         else {
+//             if (!hoverCursorLoadError) {
+//                 if (isDisabled || !isHovered) {
+//                     if (auto newCursor = SFUI::Cursor::createFromSystem(SFUI::Cursor::Type::Arrow))
+//                         cursor = std::move(*newCursor);
+//                 }
+//                 else if (!isDisabled && (isHovered || isLeftPressed || isRightPressed || isMiddlePressed)) {
+//                     if (auto newCursor = SFUI::Cursor::createFromPixels(cursorImage.getPixelsPtr(), cursorImage.getSize(), {0, 0}))
+//                         cursor = std::move(*newCursor);
+//                 }
+//             }
+//         }
+//     }
+//     // If No Custom Cursor Provided -- Use System Provided Defaults //
+//     if (!buttonStyle.customCursorPath.has_value() || hoverCursorLoadError) {
+//         if (isDisabled || !isHovered) {
+//             if (auto newCursor = SFUI::Cursor::createFromSystem(SFUI::Cursor::Type::Arrow))
+//                 cursor = std::move(*newCursor);
+//         }
+//         else if (!isDisabled && (isHovered || isLeftPressed || isRightPressed || isMiddlePressed)) {
+//             if (auto newCursor = SFUI::Cursor::createFromSystem(systemCursorHelper))
+//                 cursor = std::move(*newCursor);
+//         }
+//     }
+// }
 
 
 /**

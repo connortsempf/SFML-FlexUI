@@ -128,15 +128,17 @@ namespace SFUI {
             SFUI::Bool isRightPressed = false;
             SFUI::Bool isMiddlePressed = false;
             SFUI::Bool isShowingToolTip = false;
+            SFUI::Bool hoverCursorLoadError = false;
+            SFUI::Cursor::Type systemCursorHelper;
             SFUI::Vector2f previousHoverPosition;
             SFUI::Vector2i previousPressPosition;
             SFUI::Clock doublePressClock;
             SFUI::Time previousPressTime;
             SFUI::Clock toolTipClock;
             SFUI::Time toolTipTime;
-            // SFUI::Cursor cursor;
             SFUI::Container focus;
             SFUI::Label toolTip;
+            SFUI::Image cursorImage;
             SFUI::ComputedProp::Style::Button computedButtonStyle;
 
         private:

@@ -99,16 +99,18 @@ namespace SFUI {
     using RenderTarget = sf::RenderTarget;
 
     using RenderWindow = sf::RenderWindow;
+
+    using Image = sf::Image;
     
     using Texture = sf::Texture;
+    
+    using Sprite = sf::Sprite;
     
     using RenderTexture = sf::RenderTexture;
     
     using PrimitiveType = sf::PrimitiveType;
 
     using VertexArray = sf::VertexArray;
-    
-    using Sprite = sf::Sprite;
 
     using Shader = sf::Shader;
 }
