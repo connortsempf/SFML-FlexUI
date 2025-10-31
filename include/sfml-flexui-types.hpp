@@ -286,6 +286,8 @@ namespace SFUI {
         using CallbackKey = SFUI::Function<void(const SFUI::String&, sf::Keyboard::Key)>;
 
         using CallbackString = SFUI::Function<void(const SFUI::String&, const SFUI::String&)>;
+
+        using CallbackState = SFUI::Function<void(const SFUI::String&, const SFUI::Bool)>;
     }
 }
 
@@ -364,6 +366,34 @@ namespace SFUI {
                 SFUI::SubProp::Color toolTipTextColor = SFUI::Color(0, 0, 0, 255);
             };
 
+            struct Toggle {
+                SFUI::SubProp::Color offFillColor = SFUI::Color(0, 0, 0, 255);
+                SFUI::SubProp::Color offBorderColor = SFUI::Color(0, 0, 0, 255);
+                SFUI::SubProp::Color onFillColor = SFUI::Color(0, 0, 0, 255);
+                SFUI::SubProp::Color onBorderColor = SFUI::Color(0, 0, 0, 255);
+                SFUI::Optional<SFUI::SubProp::Color> hoveredOffFillColor;
+                SFUI::Optional<SFUI::SubProp::Color> hoveredOffBorderColor;
+                SFUI::Optional<SFUI::SubProp::Color> hoveredOnFillColor;
+                SFUI::Optional<SFUI::SubProp::Color> hoveredOnBorderColor;
+                SFUI::Optional<SFUI::SubProp::Color> pressedOffFillColor;
+                SFUI::Optional<SFUI::SubProp::Color> pressedOffBorderColor;
+                SFUI::Optional<SFUI::SubProp::Color> pressedOnFillColor;
+                SFUI::Optional<SFUI::SubProp::Color> pressedOnBorderColor;
+                SFUI::Optional<SFUI::SubProp::Color> disabledFillColor;
+                SFUI::Optional<SFUI::SubProp::Color> disabledBorderColor;
+                SFUI::SubProp::Dimension focusWidth = 10.0f;
+                SFUI::SubProp::Dimension focusOffset = 0.0f;
+                SFUI::SubProp::UniQuad focusCornerRadius;
+                SFUI::SubProp::Color focusFillColor = SFUI::Color(0, 0, 0, 255);
+                SFUI::SubProp::UniQuad toolTipPadding = 10.0f;
+                SFUI::SubProp::UniQuad toolTipCornerRadius;
+                SFUI::SubProp::Keyword toolTipText = "";
+                SFUI::SubProp::Font toolTipFont;
+                SFUI::SubProp::Numeric toolTipTextSize = 10.0f;
+                SFUI::SubProp::Color toolTipFillColor = SFUI::Color(150, 150, 150, 255);
+                SFUI::SubProp::Color toolTipTextColor = SFUI::Color(0, 0, 0, 255);
+            };
+
             struct Graphic {
                 SFUI::Optional<SFUI::SubProp::Texture> loadedGraphic;
                 SFUI::Optional<SFUI::SubProp::Keyword> graphicPath;
@@ -390,7 +420,6 @@ namespace SFUI {
             struct TextField {
                 SFUI::SubProp::Keyword lineMode = "single";
                 SFUI::SubProp::UniQuad textInset = 0.0f;
-
                 SFUI::SubProp::Keyword text;
                 SFUI::SubProp::Keyword placeholderText;
                 SFUI::SubProp::Font font;
@@ -434,6 +463,12 @@ namespace SFUI {
                 SFUI::SubProp::Binary isDisabled = false;
                 SFUI::SubProp::Binary isFocused = false;
             };
+
+            struct Toggle {
+                SFUI::SubProp::Binary isDisabled = false;
+                SFUI::SubProp::Binary isFocused = false;
+                SFUI::SubProp::Binary isOn = false;
+            };
         }
 
         // Behavior Props //
@@ -454,6 +489,24 @@ namespace SFUI {
                 SFUI::SubProp::Callback onMiddlePress;
                 SFUI::SubProp::Callback onDoublePress;
                 SFUI::SubProp::CallbackKey onKeyPress;
+            };
+
+            struct Toggle {
+                SFUI::SubProp::Callback onEnable;
+                SFUI::SubProp::Callback onDisable;
+                SFUI::SubProp::Callback onFocus;
+                SFUI::SubProp::Callback onBlur;
+                SFUI::SubProp::Callback onHoverIn;
+                SFUI::SubProp::Callback onHoverOut;
+                SFUI::SubProp::Callback onLeftPressIn;
+                SFUI::SubProp::Callback onLeftPress;
+                SFUI::SubProp::Callback onRightPressIn;
+                SFUI::SubProp::Callback onRightPress;
+                SFUI::SubProp::Callback onMiddlePressIn;
+                SFUI::SubProp::Callback onMiddlePress;
+                SFUI::SubProp::Callback onDoublePress;
+                SFUI::SubProp::CallbackKey onKeyPress;
+                SFUI::SubProp::CallbackState onToggledState;
             };
 
             struct Graphic {
@@ -518,6 +571,14 @@ namespace SFUI {
             SFUI::Prop::Style::Button buttonStyle;
             SFUI::Prop::State::Button buttonState;
             SFUI::Prop::Behavior::Button buttonBehavior;
+        };
+
+        struct Toggle {
+            SFUI::Prop::Layout::Component layout;
+            SFUI::Prop::Style::Component style;
+            SFUI::Prop::Style::Toggle toggleStyle;
+            SFUI::Prop::State::Toggle toggleState;
+            SFUI::Prop::Behavior::Toggle toggleBehavior;
         };
 
         struct Graphic {
@@ -601,6 +662,21 @@ namespace SFUI {
                 SFUI::Color disabledBorderColor;
                 SFUI::Float focusWidth;
                 SFUI::Float focusOffset;
+            };
+
+            struct Toggle {
+                SFUI::Color offFillColor;
+                SFUI::Color offBorderColor;
+                SFUI::Color onFillColor;
+                SFUI::Color onBorderColor;
+                SFUI::Color hoveredOffFillColor;
+                SFUI::Color hoveredOffBorderColor;
+                SFUI::Color hoveredOnFillColor;
+                SFUI::Color hoveredOnBorderColor;
+                SFUI::Color pressedOffFillColor;
+                SFUI::Color pressedOffBorderColor;
+                SFUI::Color pressedOnFillColor;
+                SFUI::Color pressedOnBorderColor;
             };
     
             struct Graphic {

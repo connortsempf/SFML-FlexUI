@@ -207,53 +207,36 @@ namespace SFUI {
 
 
 
-// ////////////////////////////////////////
-// // SFML-FlexUI Toggle Component Class //
-// ////////////////////////////////////////
+////////////////////////////////////////
+// SFML-FlexUI Toggle Component Class //
+////////////////////////////////////////
 
-// namespace SFUI {
+namespace SFUI {
     
-//     class Toggle : public Component {
+    class Toggle : public Component {
         
-//         public:
-//             SFUI::Prop::Style::Toggle toggleStyle;
-//             SFUI::Prop::State::Toggle toggleState;
-//             SFUI::Prop::Behavior::Toggle toggleBehavior;
+        public:
+            SFUI::Prop::Style::Toggle toggleStyle;
+            SFUI::Prop::State::Toggle toggleState;
+            SFUI::Prop::Behavior::Toggle toggleBehavior;
 
-//         public:
-//             Toggle() = default;
-//             Toggle(const SFUI::String& componentID);
-//             Toggle(const SFUI::String& componentID, const SFUI::PropGroup::Button& buttonPropGroup);
-//             SFUI::Void handleEvent(const SFUI::Event& event);
-//             SFUI::Void update(const SFUI::Vector2u renderTargetSize);
-//             SFUI::Void draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window);
+        public:
+            Toggle() = default;
+            Toggle(const SFUI::String& componentID);
+            Toggle(const SFUI::String& componentID, const SFUI::PropGroup::Toggle& togglePropGroup);
+            SFUI::Void handleEvent(const SFUI::Event& event);
+            SFUI::Void update(const SFUI::Vector2u renderTargetSize);
+            SFUI::Void draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window);
 
-//         private:
-//             SFUI::Bool isDisabled = false;
-//             SFUI::Bool isHovered = false;
-//             SFUI::Bool isFocused = false;
-//             SFUI::Bool isLeftPressed = false;
-//             SFUI::Bool isRightPressed = false;
-//             SFUI::Bool isMiddlePressed = false;
-//             SFUI::Bool isShowingToolTip = false;
-//             SFUI::Vector2f previousHoverPosition;
-//             SFUI::Vector2i previousPressPosition;
-//             SFUI::Clock doublePressClock;
-//             SFUI::Time previousPressTime;
-//             SFUI::Clock toolTipClock;
-//             SFUI::Time toolTipTime;
-//             SFUI::Container focus;
-//             SFUI::Label toolTip;
-//             SFUI::ComputedProp::Style::Toggle computedToggleStyle;
+        private:
+            SFUI::Button toggle;
+            SFUI::ComputedProp::Style::Toggle computedToggleStyle;
 
-//         private:
-//             SFUI::Void computeDynamicColors();
-//             SFUI::Void computeFocusWidth();
-//             SFUI::Void computeFocusOffset();
-//             SFUI::Void computeToolTipLifetime();
-//             SFUI::Void computeComposedComponents();
-//     };
-// }
+        private:
+            SFUI::Void computeDynamicColors();
+            SFUI::Void computeComposedComponents();
+    };
+}
 
 
 
