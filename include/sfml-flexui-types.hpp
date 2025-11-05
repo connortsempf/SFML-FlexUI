@@ -281,13 +281,15 @@ namespace SFUI {
 
         using Texture = SFUI::SharedPointer<SFUI::Texture>;
 
-        using Callback = SFUI::Function<void(const SFUI::String&)>;
+        using Callback = SFUI::Function<SFUI::Void(const SFUI::String&)>;
+        
+        using CallbackBinary = SFUI::Function<SFUI::Void(const SFUI::String&, const SFUI::Bool)>;
+        
+        using CallbackNumeric = SFUI::Function<SFUI::Void(const SFUI::String&, const SFUI::Float)>;
+        
+        using CallbackKeyword = SFUI::Function<SFUI::Void(const SFUI::String&, const SFUI::String&)>;
 
-        using CallbackKey = SFUI::Function<void(const SFUI::String&, sf::Keyboard::Key)>;
-
-        using CallbackString = SFUI::Function<void(const SFUI::String&, const SFUI::String&)>;
-
-        using CallbackState = SFUI::Function<void(const SFUI::String&, const SFUI::Bool)>;
+        using CallbackKey = SFUI::Function<SFUI::Void(const SFUI::String&, sf::Keyboard::Key)>;
     }
 }
 
@@ -454,6 +456,56 @@ namespace SFUI {
                 SFUI::SubProp::Numeric caretBlinkRatio = 1.0f;
                 SFUI::SubProp::Color caretFillColor = SFUI::Color(0, 0, 0, 255);
             };
+
+            struct Slider {
+                SFUI::SubProp::Duplex shadowOffset = {0.0f, 0.0f};
+                SFUI::SubProp::Numeric shadowRadius = 1.0f;
+                SFUI::SubProp::Color shadowFillColor = SFUI::Color(0, 0, 0, 0);
+                SFUI::SubProp::Keyword trackAlign = "horizontal";
+                SFUI::SubProp::Dimension trackWidth = 8.0f;
+                SFUI::SubProp::UniQuad trackCornerRadius = 4.0f;
+                SFUI::Optional<SFUI::SubProp::Dimension> trackProgressedWidth;
+                SFUI::SubProp::Dimension thumbWidth = 15.0f;
+                SFUI::SubProp::Dimension thumbHeight = 15.0f;
+                SFUI::SubProp::UniQuad thumbCornerRadius = 7.5f;
+                SFUI::SubProp::Color trackFillColor = SFUI::Color(175, 175, 175, 255);
+                SFUI::SubProp::Color trackBorderColor = SFUI::Color(175, 175, 175, 255);
+                SFUI::Optional<SFUI::SubProp::Color> trackUnprogressedFillColor;
+                SFUI::Optional<SFUI::SubProp::Color> trackUnprogressedBorderColor;
+                SFUI::Optional<SFUI::SubProp::Color> trackUnprogressedHoveredFillColor;
+                SFUI::Optional<SFUI::SubProp::Color> trackUnprogressedHoveredBorderColor;
+                SFUI::Optional<SFUI::SubProp::Color> trackUnprogressedPressedFillColor;
+                SFUI::Optional<SFUI::SubProp::Color> trackUnprogressedPressedBorderColor;
+                SFUI::Optional<SFUI::SubProp::Color> trackProgressedFillColor;
+                SFUI::Optional<SFUI::SubProp::Color> trackProgressedBorderColor;
+                SFUI::Optional<SFUI::SubProp::Color> trackProgressedHoveredFillColor;
+                SFUI::Optional<SFUI::SubProp::Color> trackProgressedHoveredBorderColor;
+                SFUI::Optional<SFUI::SubProp::Color> trackProgressedPressedFillColor;
+                SFUI::Optional<SFUI::SubProp::Color> trackProgressedPressedBorderColor;
+                SFUI::Optional<SFUI::SubProp::Color> trackUnprogressedDisabledFillColor;
+                SFUI::Optional<SFUI::SubProp::Color> trackUnprogressedDisabledBorderColor;
+                SFUI::Optional<SFUI::SubProp::Color> trackProgressedDisabledFillColor;
+                SFUI::Optional<SFUI::SubProp::Color> trackProgressedDisabledBorderColor;
+                SFUI::SubProp::Color thumbFillColor = SFUI::Color(0, 0, 0, 255);
+                SFUI::SubProp::Color thumbBorderColor = SFUI::Color(0, 0, 0, 255);
+                SFUI::Optional<SFUI::SubProp::Color> thumbHoveredFillColor;
+                SFUI::Optional<SFUI::SubProp::Color> thumbHoveredBorderColor;
+                SFUI::Optional<SFUI::SubProp::Color> thumbPressedFillColor;
+                SFUI::Optional<SFUI::SubProp::Color> thumbPressedBorderColor;
+                SFUI::Optional<SFUI::SubProp::Color> thumbDisabledFillColor;
+                SFUI::Optional<SFUI::SubProp::Color> thumbDisabledBorderColor;
+                SFUI::SubProp::Dimension focusWidth = 10.0f;
+                SFUI::SubProp::Dimension focusOffset = 0.0f;
+                SFUI::SubProp::UniQuad focusCornerRadius;
+                SFUI::SubProp::Color focusFillColor = SFUI::Color(0, 0, 0, 255);
+                SFUI::SubProp::UniQuad toolTipPadding = 10.0f;
+                SFUI::SubProp::UniQuad toolTipCornerRadius;
+                SFUI::SubProp::Keyword toolTipText = "";
+                SFUI::SubProp::Font toolTipFont;
+                SFUI::SubProp::Numeric toolTipTextSize = 10.0f;
+                SFUI::SubProp::Color toolTipFillColor = SFUI::Color(150, 150, 150, 255);
+                SFUI::SubProp::Color toolTipTextColor = SFUI::Color(0, 0, 0, 255);
+            };
         }
 
         // State Props //
@@ -473,6 +525,16 @@ namespace SFUI {
             struct TextField {
                 SFUI::SubProp::Binary isDisabled = false;
                 SFUI::SubProp::Binary isFocused = false;
+            };
+
+            struct Slider {
+                SFUI::SubProp::Binary isDisabled = false;
+                SFUI::SubProp::Binary isFocused = false;
+                SFUI::SubProp::Binary isInverted = false;
+                SFUI::SubProp::Numeric value = 0.0f;
+                SFUI::SubProp::Numeric minimumValue = 0.0f;
+                SFUI::SubProp::Numeric maximumValue = 20.0f;
+                SFUI::SubProp::Numeric step = 1.0f;
             };
         }
 
@@ -511,7 +573,7 @@ namespace SFUI {
                 SFUI::SubProp::Callback onMiddlePress;
                 SFUI::SubProp::Callback onDoublePress;
                 SFUI::SubProp::CallbackKey onKeyPress;
-                SFUI::SubProp::CallbackState onToggledState;
+                SFUI::SubProp::CallbackBinary onToggledState;
             };
 
             struct Graphic {
@@ -541,8 +603,34 @@ namespace SFUI {
                 SFUI::SubProp::Callback onDoublePress;
                 SFUI::SubProp::Callback onPressOut;
                 SFUI::SubProp::CallbackKey onKeyPress;
-                SFUI::SubProp::CallbackString onTextChange;
-                SFUI::SubProp::CallbackString onSubmit;
+                SFUI::SubProp::CallbackKeyword onTextChange;
+                SFUI::SubProp::CallbackKeyword onSubmit;
+            };
+
+            struct Slider {
+                SFUI::SubProp::Callback onEnable;
+                SFUI::SubProp::Callback onDisable;
+                SFUI::SubProp::Callback onFocus;
+                SFUI::SubProp::Callback onBlur;
+                SFUI::SubProp::Callback onTrackHoverIn;
+                SFUI::SubProp::Callback onTrackHoverOut;
+                SFUI::SubProp::Callback onTrackLeftPressIn;
+                SFUI::SubProp::Callback onTrackLeftPress;
+                SFUI::SubProp::Callback onTrackRightPressIn;
+                SFUI::SubProp::Callback onTrackRightPress;
+                SFUI::SubProp::Callback onTrackMiddlePressIn;
+                SFUI::SubProp::Callback onTrackMiddlePress;
+                SFUI::SubProp::Callback onThumbHoverIn;
+                SFUI::SubProp::Callback onThumbHoverOut;
+                SFUI::SubProp::Callback onThumbLeftPressIn;
+                SFUI::SubProp::Callback onThumbLeftPress;
+                SFUI::SubProp::Callback onThumbRightPressIn;
+                SFUI::SubProp::Callback onThumbRightPress;
+                SFUI::SubProp::Callback onThumbMiddlePressIn;
+                SFUI::SubProp::Callback onThumbMiddlePress;
+                SFUI::SubProp::CallbackNumeric onSlidingStart;
+                SFUI::SubProp::CallbackNumeric onSlidingEnd;
+                SFUI::SubProp::CallbackNumeric onValueChange;
             };
         }
     }
@@ -606,6 +694,14 @@ namespace SFUI {
             SFUI::Prop::Style::TextField textFieldStyle;
             SFUI::Prop::State::TextField textFieldState;
             SFUI::Prop::Behavior::TextField textFieldBehavior;
+        };
+
+        struct Slider {
+            SFUI::Prop::Layout::Component layout;
+            SFUI::Prop::Style::Component style;
+            SFUI::Prop::Style::Slider sliderStyle;
+            SFUI::Prop::State::Slider sliderState;
+            SFUI::Prop::Behavior::Slider sliderBehavior;
         };
     }
 }
@@ -716,6 +812,14 @@ namespace SFUI {
                 SFUI::String caretShape;
                 SFUI::Float caretOnTime;
                 SFUI::Float caretOffTime;
+            };
+
+            struct Slider {
+                SFUI::String trackAlign;
+                SFUI::Float trackWidth;
+                SFUI::Float trackLength;
+                SFUI::Float trackProgressedWidth;
+                SFUI::Vector2f thumbSize;
             };
         }
     }

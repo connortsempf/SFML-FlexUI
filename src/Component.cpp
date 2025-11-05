@@ -980,8 +980,8 @@ SFUI::Void SFUI::Component::computeChildrenPosition() {
             // Update the Computed Position //
             childrenComputedLayout[i].position = computedPosition;
 
-            // if (componentID == "middleChildTextField_Background") {
-            //     std::cout << "Text Field Button Input Text Position: (" << computedPosition.x << ", " << computedPosition.y << ")\n";
+            // if (childComponent.componentID == "slider") {
+            //     std::cout << "Children Computed Position: " << computedPosition.x << ", " << computedPosition.y << "\n";
             // }
         }
     }
@@ -1077,19 +1077,6 @@ SFUI::Void SFUI::Component::computeBorderRectGeometry(SFUI::Vector2f position, S
  * @param .
  */
 SFUI::Void SFUI::Component::computeBorderArcGeometry(SFUI::Vector2f center, SFUI::Float outerRadius, SFUI::Float innerRadius, SFUI::Float startAngleDeg, SFUI::Float endAngleDeg) {
-    // SFUI::Float arcResolution = std::clamp(static_cast<SFUI::Int>(outerRadius * 0.25f), 4, 12);
-    // SFUI::Float startRadians = startAngleDeg * M_PI / 180.f;
-    // SFUI::Float endRadians = endAngleDeg * M_PI / 180.f;
-    // SFUI::Float angleStep = (endRadians - startRadians) / static_cast<SFUI::Float>(arcResolution);
-    // for (SFUI::Int i = 0; i <= arcResolution; ++i) {
-    //     SFUI::Float angle = startRadians + i * angleStep;
-    //     SFUI::Vector2f dir(std::cos(angle), std::sin(angle));
-    //     SFUI::Vector2f outer = {center.x + dir.x * outerRadius, center.y + dir.y * outerRadius};
-    //     SFUI::Vector2f inner = {center.x + dir.x * innerRadius, center.y + dir.y * innerRadius};
-    //     borderArcs.append({outer, computedStyle.borderColor});
-    //     borderArcs.append({inner, computedStyle.borderColor});
-    // }
-
     SFUI::Float arcResolution = std::clamp(static_cast<SFUI::Int>(outerRadius * 0.25f), 4, 12);
     SFUI::Float startRadians = startAngleDeg * M_PI / 180.f;
     SFUI::Float endRadians = endAngleDeg * M_PI / 180.f;
