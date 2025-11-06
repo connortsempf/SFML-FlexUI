@@ -817,10 +817,7 @@ SFUI::Void SFUI::Component::computeChildrenSize() {
             }
     
             // Update the Computed Size //
-            childrenComputedLayout[i].size = {
-                computedSize.x - (childrenComputedLayout[i].margin.x + childrenComputedLayout[i].margin.y),
-                computedSize.y - (childrenComputedLayout[i].margin.z + childrenComputedLayout[i].margin.w)
-            };
+            childrenComputedLayout[i].size = {computedSize.x, computedSize.y};
         }
     }
 }
