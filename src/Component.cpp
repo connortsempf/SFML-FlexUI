@@ -101,36 +101,6 @@ SFUI::Vector<SFUI::SharedPointer<SFUI::Component>> SFUI::Component::getChildren(
  * 
  * @return .
  */
-SFUI::String SFUI::Component::getAlignDirection() {
-    return computedLayout.alignDirection;
-}
-
-
-/**
- * @brief .
- * 
- * @return .
- */
-SFUI::String SFUI::Component::getAlignPrimary() {
-    return computedLayout.alignPrimary;
-}
-
-
-/**
- * @brief .
- * 
- * @return .
- */
-SFUI::String SFUI::Component::getAlignSecondary() {
-    return computedLayout.alignSecondary;
-}
-
-
-/**
- * @brief .
- * 
- * @return .
- */
 SFUI::Vector2f SFUI::Component::getSize() {
     return computedLayout.size;
 }
@@ -163,46 +133,6 @@ SFUI::Vector4f SFUI::Component::getPadding() {
  */
 SFUI::Vector4f SFUI::Component::getMargin() {
     return computedLayout.margin;
-}
-
-
-/**
- * @brief .
- * 
- * @return .
- */
-SFUI::Float SFUI::Component::getBorderWidth() {
-    return computedStyle.borderWidth;
-}
-
-
-/**
- * @brief .
- * 
- * @return .
- */
-SFUI::Vector4f SFUI::Component::getCornerRadius() {
-    return computedStyle.cornerRadius;
-}
-
-
-/**
- * @brief .
- * 
- * @return .
- */
-SFUI::Color SFUI::Component::getFillColor() {
-    return computedStyle.fillColor;
-}
-
-
-/**
- * @brief .
- * 
- * @return .
- */
-SFUI::Color SFUI::Component::getBorderColor() {
-    return computedStyle.borderColor;
 }
 
 
@@ -369,29 +299,22 @@ SFUI::Vector4f SFUI::Component::resolveUniQuadSubProp(SFUI::Vector2f size, SFUI:
 /**
  * @brief .
  */
-SFUI::Void SFUI::Component::computeAlignDirection() {
+SFUI::Void SFUI::Component::computeAlignment() {
+    // Children Layout Axis //
     SFUI::String tempAlignDirection = layout.alignDirection;
     std::transform(tempAlignDirection.begin(), tempAlignDirection.end(), tempAlignDirection.begin(), [](unsigned char c) {
         return std::tolower(c);
     });
-
-    if (tempAlignDirection == "vertical" || tempAlignDirection == "horizontal") {
+    if (tempAlignDirection == "vertical" || tempAlignDirection == "horizontal")
         computedLayout.alignDirection = tempAlignDirection;
-    }   else {
+    else
         computedLayout.alignDirection = "vertical";
-    }
-}
 
-
-/**
- * @brief .
- */
-SFUI::Void SFUI::Component::computeAlignPrimary() {
+    // Primary (On-Axis) Children Alignment //
     SFUI::String tempAlignPrimary = layout.alignPrimary;
     std::transform(tempAlignPrimary.begin(), tempAlignPrimary.end(), tempAlignPrimary.begin(), [](unsigned char c) {
         return std::tolower(c);
     });
-
     if (tempAlignPrimary == "start" ||
         tempAlignPrimary == "end" ||
         tempAlignPrimary == "center" ||
@@ -399,28 +322,20 @@ SFUI::Void SFUI::Component::computeAlignPrimary() {
         tempAlignPrimary == "space-around" ||
         tempAlignPrimary == "space-evenly") {
         computedLayout.alignPrimary = tempAlignPrimary;
-    }   else {
-        computedLayout.alignPrimary = "start";
     }
-}
+    else computedLayout.alignPrimary = "start";
 
-
-/**
- * @brief .
- */
-SFUI::Void SFUI::Component::computeAlignSecondary() {
+    // Secondary (Off-Axis) Children Alignment //
     SFUI::String tempAlignSecondary = layout.alignSecondary;
     std::transform(tempAlignSecondary.begin(), tempAlignSecondary.end(), tempAlignSecondary.begin(), [](unsigned char c) {
         return std::tolower(c);
     });
-
     if (tempAlignSecondary == "start" ||
         tempAlignSecondary == "end" ||
         tempAlignSecondary == "center") {
         computedLayout.alignSecondary = tempAlignSecondary;
-    }   else {
-        computedLayout.alignSecondary = "start";
     }
+    else computedLayout.alignSecondary = "start";
 }
 
 
@@ -429,36 +344,21 @@ SFUI::Void SFUI::Component::computeAlignSecondary() {
  * 
  * @param .
  */
-SFUI::Void SFUI::Component::computeMargin() {
-    // If Root Component (No Parent), Must Calculate Margin for Itself //
+SFUI::Void SFUI::Component::computeLayoutBox() {
+    // If Root Component (No Parent), Calculate Your Own Layout Box Using RenderTarget Dimensions as Parent Bounds //
     if (!parent) {
+
+        // Layout Box Margin //
         computedLayout.margin = resolveUniQuadSubProp(
             SFUI::Vector2f{static_cast<SFUI::Float>(renderTargetSize.x), static_cast<SFUI::Float>(renderTargetSize.y)},
             layout.padding
         );
-    }
-}
 
-
-/**
- * @brief .
- * 
- * @param .
- */
-SFUI::Void SFUI::Component::computeSize() {
-    // If Root Component (No Parent), Use RenderTarget Dimensions for Layout Computation //
-    if (!parent) {
+        // Layout Box Size //
         SFUI::Vector2f computedSize = {0.0f, 0.0f};
-    
-        // Only Need to Consider Explicit Width/Height Values Since Children Determine Flex Changes //
         sf::Vector2i availableSize(renderTargetSize.x, renderTargetSize.y);
-
-        // Obtain Width //
-        // If Explicit Float Width Given By User //
-        if (std::holds_alternative<SFUI::Float>(layout.width)) {
+        if (std::holds_alternative<SFUI::Float>(layout.width))
             computedSize.x = std::get<SFUI::Float>(layout.width);
-        }
-        // If String Input Width Given By User //
         else if (std::holds_alternative<SFUI::String>(layout.width)) {
             SFUI::String widthString = std::get<SFUI::String>(layout.width);
             if (widthString.size() > 1 && widthString.back() == '%') {
@@ -466,25 +366,13 @@ SFUI::Void SFUI::Component::computeSize() {
                 try {
                     size_t index = 0;
                     SFUI::Double tempWidth = std::stod(widthString, &index);
-                    if (index == widthString.size()) {
+                    if (index == widthString.size())
                         computedSize.x = availableSize.x * std::clamp(static_cast<SFUI::Float>(tempWidth) / 100.0f, 0.0f, 1.0f);
-                    }   else {
-                        computedSize.x = 0.0f;
-                    }
-                }   catch (...) {
-                    computedSize.x = 0.0f;
-                }
-            }   else {
-                computedSize.x = 0.0f;
+                }   catch (...) {}
             }
         }
-
-        // Obtain Height //
-        // If Explicit Float Height Given By User //
-        if (std::holds_alternative<SFUI::Float>(layout.height)) {
+        if (std::holds_alternative<SFUI::Float>(layout.height))
             computedSize.y = std::get<SFUI::Float>(layout.height);
-        }
-        // If String Input Height Given By User //
         else if (std::holds_alternative<SFUI::String>(layout.height)) {
             SFUI::String heightString = std::get<SFUI::String>(layout.height);
             if (heightString.size() > 1 && heightString.back() == '%') {
@@ -492,85 +380,44 @@ SFUI::Void SFUI::Component::computeSize() {
                 try {
                     size_t index = 0;
                     SFUI::Double tempHeight = std::stod(heightString, &index);
-                    if (index == heightString.size()) {
+                    if (index == heightString.size())
                         computedSize.y = availableSize.y * std::clamp(static_cast<SFUI::Float>(tempHeight) / 100.0f, 0.0f, 1.0f);
-                    }   else {
-                        computedSize.y = 0.0f;
-                    }
-                }   catch (...) {
-                    computedSize.y = 0.0f;
-                }
-            }   else {
-                computedSize.y = 0.0f;
+                }   catch (...) {}
             }
         }
-
-        // Update the Computed Size //
         computedLayout.size = {
             computedSize.x - (computedLayout.margin.x + computedLayout.margin.y),
             computedSize.y - (computedLayout.margin.z + computedLayout.margin.w)
         };
+    
+        // Layout Box Position //
+        SFUI::Vector2i computedPosition = {0, 0};
+        if (layout.xPosition.has_value()) {
+            SFUI::Int xPositionValue = layout.xPosition.value();
+            computedPosition.x = xPositionValue;
+        }
+        else computedPosition.x = (renderTargetSize.x / 2.0f) - (computedLayout.size.x / 2.0f);
+        if (layout.yPosition.has_value()) {
+            SFUI::Int yPositionValue = layout.yPosition.value();
+            computedPosition.y = yPositionValue;
+        }
+        else computedPosition.y = (renderTargetSize.y / 2.0f) - (computedLayout.size.y / 2.0f);      
+        computedLayout.position = computedPosition;
     }
-}
 
-
-/**
- * @brief .
- * 
- * @param .
- */
-SFUI::Void SFUI::Component::computePadding() {
+    // Layout Box Padding //
     computedLayout.padding = resolveUniQuadSubProp(computedLayout.size, layout.padding);
 }
 
 
 /**
  * @brief .
- * 
- * @param .
  */
-SFUI::Void SFUI::Component::computePosition() {
-    // If Root Component (No Parent), Use RenderTarget Dimensions for Layout Computation //
-    if (!parent) {
-        SFUI::Vector2i computedPosition = {0, 0};
-        
-        // If Explicit X-Position Input Given by User //
-        if (layout.xPosition.has_value()) {
-            SFUI::Int xPositionValue = layout.xPosition.value();
-            computedPosition.x = xPositionValue;
-        }
-        // Place Root Component X-Position In Center of the Render Target X-Dimension //
-        else {
-            computedPosition.x = (renderTargetSize.x / 2.0f) - (computedLayout.size.x / 2.0f);
-        }
-
-        // If Explicit Y-Position Input Given by User //
-        if (layout.yPosition.has_value()) {
-            SFUI::Int yPositionValue = layout.yPosition.value();
-            computedPosition.y = yPositionValue;
-        }
-        // Place Root Component Y-Position In Center of the Render Target Y-Dimension //
-        else {
-            computedPosition.y = (renderTargetSize.y / 2.0f) - (computedLayout.size.y / 2.0f);
-        }            
-
-        // Update the Computed Position //
-        computedLayout.position = computedPosition;
-    }
-}
-
-
-/**
- * @brief .
- */
-SFUI::Void SFUI::Component::computeBorderWidth() {
+SFUI::Void SFUI::Component::computeStyles() {
+    // Border Width //
     SFUI::Float computedBorderWidth = 0.0f;
-    
-    // If the Border Width Style Variant Holds an Explicit Width Float //
-    if (std::holds_alternative<SFUI::Float>(style.borderWidth)) {
+    if (std::holds_alternative<SFUI::Float>(style.borderWidth))
         computedBorderWidth = std::get<SFUI::Float>(style.borderWidth);
-    }
-    // If the Border Width Style Variant Holds a String Percentage Input //
     else if (std::holds_alternative<SFUI::String>(style.borderWidth)) {
         SFUI::String borderWidthString = std::get<SFUI::String>(style.borderWidth);
         if (borderWidthString.size() > 1 && borderWidthString.back() == '%') {
@@ -581,26 +428,13 @@ SFUI::Void SFUI::Component::computeBorderWidth() {
                 if (index == borderWidthString.size()) {
                     SFUI::Float relativeBorderWidthFactor = std::min(computedLayout.size.x, computedLayout.size.y);
                     computedBorderWidth = relativeBorderWidthFactor * std::clamp(static_cast<SFUI::Float>(tempBorderWidth) / 100.0f, 0.0f, 0.5f);
-                }   else {
-                    computedBorderWidth = 0.0f;
                 }
-            }   catch (...) {
-                computedBorderWidth = 0.0f;
-            }
-        }   else {
-            computedBorderWidth = 0.0f;
+            }   catch (...) {}
         }
     }
-
-    // Update the Computed Border Width Style //
     computedStyle.borderWidth = computedBorderWidth;
-}
 
-
-/**
- * @brief .
- */
-SFUI::Void SFUI::Component::computeCornerRadius() {
+    // Corner Radius //
     computedStyle.cornerRadius = resolveUniQuadSubProp(computedLayout.size, style.cornerRadius);
 }
 
@@ -608,15 +442,8 @@ SFUI::Void SFUI::Component::computeCornerRadius() {
 /**
  * @brief .
  */
-SFUI::Void SFUI::Component::computeFillColor() {
+SFUI::Void SFUI::Component::computeColors() {
     computedStyle.fillColor = resolveColorSubProp(style.fillColor);
-}
-
-
-/**
- * @brief .
- */
-SFUI::Void SFUI::Component::computeBorderColor() {
     computedStyle.borderColor = resolveColorSubProp(style.borderColor);
 }
 
@@ -624,7 +451,7 @@ SFUI::Void SFUI::Component::computeBorderColor() {
 /**
  * @brief .
  */
-SFUI::Void SFUI::Component::computeShadow() {
+SFUI::Void SFUI::Component::computeShadows() {
     computedStyle.shadowOffset = style.shadowOffset;
     computedStyle.shadowRadius = std::clamp(style.shadowRadius, 1.0f, 20.0f);
     computedStyle.shadowFillColor = resolveColorSubProp(style.shadowFillColor);
@@ -739,23 +566,18 @@ SFUI::Void SFUI::Component::computeGraphics() {
 /**
  * @brief .
  */
-SFUI::Void SFUI::Component::computeChildrenMargin() {
+SFUI::Void SFUI::Component::computeChildrenLayoutBox() {
     // If Has Child Components, Must Calculate Their Margins for Them Based on Its Own Size //
     if (children.size() > 0) {
+
+        // Children Layout Box Margins //
         for (int i = 0; i < children.size(); i++) {
             SFUI::Component& childComponent = *children[i];
             childrenComputedLayout[i].margin = resolveUniQuadSubProp(computedLayout.size, childComponent.layout.margin);
         }
-    }
-}
 
 
-/**
- * @brief .
- */
-SFUI::Void SFUI::Component::computeChildrenSize() {
-    // If Has Child Components, Must Calculate Their Sizes for Them Based on Its Own Size //
-    if (children.size() > 0) {
+        // Children Layout Box Size //
         for (int i = 0; i < children.size(); i++) {
             SFUI::Vector2f computedSize = {0.0f, 0.0f};
             SFUI::Component& childComponent = *children[i];
@@ -763,13 +585,9 @@ SFUI::Void SFUI::Component::computeChildrenSize() {
                 computedLayout.size.x - (computedLayout.padding.x + computedLayout.padding.y),
                 computedLayout.size.y - (computedLayout.padding.z + computedLayout.padding.w)
             );
-    
-            // Obtain Width //
-            // If Explicit Float Width Given By User //
-            if (std::holds_alternative<SFUI::Float>(childComponent.layout.width)) {
+            // Width //
+            if (std::holds_alternative<SFUI::Float>(childComponent.layout.width))
                 computedSize.x = std::get<SFUI::Float>(childComponent.layout.width);
-            }
-            // If String Input Width Given By User //
             else if (std::holds_alternative<SFUI::String>(childComponent.layout.width)) {
                 SFUI::String widthString = std::get<SFUI::String>(childComponent.layout.width);
                 if (widthString.size() > 1 && widthString.back() == '%') {
@@ -777,25 +595,14 @@ SFUI::Void SFUI::Component::computeChildrenSize() {
                     try {
                         size_t index = 0;
                         SFUI::Double tempWidth = std::stod(widthString, &index);
-                        if (index == widthString.size()) {
+                        if (index == widthString.size())
                             computedSize.x = availableSize.x * std::clamp(static_cast<SFUI::Float>(tempWidth) / 100.0f, 0.0f, 1.0f);
-                        }   else {
-                            computedSize.x = 0.0f;
-                        }
-                    }   catch (...) {
-                        computedSize.x = 0.0f;
-                    }
-                }   else {
-                    computedSize.x = 0.0f;
+                    }   catch (...) {}
                 }
             }
-    
-            // Obtain Height //
-            // If Explicit Float Height Given By User //
-            if (std::holds_alternative<SFUI::Float>(childComponent.layout.height)) {
+            // Height //
+            if (std::holds_alternative<SFUI::Float>(childComponent.layout.height))
                 computedSize.y = std::get<SFUI::Float>(childComponent.layout.height);
-            }
-            // If String Input Height Given By User //
             else if (std::holds_alternative<SFUI::String>(childComponent.layout.height)) {
                 SFUI::String heightString = std::get<SFUI::String>(childComponent.layout.height);
                 if (heightString.size() > 1 && heightString.back() == '%') {
@@ -803,33 +610,16 @@ SFUI::Void SFUI::Component::computeChildrenSize() {
                     try {
                         size_t index = 0;
                         SFUI::Double tempHeight = std::stod(heightString, &index);
-                        if (index == heightString.size()) {
+                        if (index == heightString.size())
                             computedSize.y = availableSize.y * (static_cast<SFUI::Float>(tempHeight) / 100.0f);
-                        }   else {
-                            computedSize.y = 0.0f;
-                        }
-                    }   catch (...) {
-                        computedSize.y = 0.0f;
-                    }
-                }   else {
-                    computedSize.y = 0.0f;
+                    }   catch (...) {}
                 }
             }
-    
-            // Update the Computed Size //
             childrenComputedLayout[i].size = {computedSize.x, computedSize.y};
         }
-    }
-}
 
 
-/**
- * @brief .
- */
-SFUI::Void SFUI::Component::computeChildrenPosition() {
-    // If Child Components, Calculate Children Positions for Them //
-    if (children.size() > 0) {
-
+        // Children Layout Box Position //
         // Calculate Each Component's Sizing and Margins and Total Sizing with Margins Combined //
         SFUI::Vector<SFUI::Float> componentSizeAndMargins;
         SFUI::Float totalComponentSizingAndMargins = 0.0f;
@@ -854,32 +644,24 @@ SFUI::Void SFUI::Component::computeChildrenPosition() {
             availableGapSize = computedLayout.size.x - (computedLayout.padding.x + computedLayout.padding.y) - totalComponentSizingAndMargins;
 
         // Compute the Gap Sizes Between Children //
-        if (children.size() > 1) {
-            if (computedLayout.alignPrimary == "space-between") {
-                gapSize = availableGapSize / (children.size() - 1);
-            }
-            else if (computedLayout.alignPrimary == "space-around") {
-                edgeGapSize = availableGapSize / (2.0f * children.size());
-                interiorGapSize = availableGapSize / children.size();
-            }
-            else if (computedLayout.alignPrimary == "space-evenly") {
-                gapSize = availableGapSize / (children.size() + 1);
-            }
+        if (computedLayout.alignPrimary == "space-between")
+            gapSize = availableGapSize / (children.size() - 1);
+        else if (computedLayout.alignPrimary == "space-around") {
+            edgeGapSize = availableGapSize / (2.0f * children.size());
+            interiorGapSize = availableGapSize / children.size();
         }
+        else if (computedLayout.alignPrimary == "space-evenly")
+            gapSize = availableGapSize / (children.size() + 1);
 
         // Compute Children Positions Iteratively //
         for (int i = 0; i < children.size(); i++) {
             SFUI::Vector2i computedPosition = {0, 0};
             SFUI::Component& childComponent = *children[i];
-            
             // X-Positions //
-            // If Explicit X-Position Input Given by User //
             if (childComponent.layout.xPosition.has_value()) {
                 SFUI::Int xPositionValue = childComponent.layout.xPosition.value();
                 computedPosition.x = xPositionValue;
-            }
-            // Place Component X-Position According to Alignment Direction and Axis Alignment //
-            else {
+            }   else {
                 // Off-Axis Positioning //
                 if (computedLayout.alignDirection == "vertical") {
                     if (computedLayout.alignSecondary == "start")
@@ -924,13 +706,10 @@ SFUI::Void SFUI::Component::computeChildrenPosition() {
             }
 
             // Y-Positions //
-            // If Explicit Y-Position Input Given by User //
             if (childComponent.layout.yPosition.has_value()) {
                 SFUI::Int yPositionValue = childComponent.layout.yPosition.value();
                 computedPosition.y = yPositionValue;
-            }
-            // Place Root Component Y-Position In Center of the Render Target Y-Dimension //
-            else {
+            }   else {
                 // Off-Axis Positioning //
                 if (computedLayout.alignDirection == "horizontal") {
                     if (computedLayout.alignSecondary == "start")
@@ -973,13 +752,7 @@ SFUI::Void SFUI::Component::computeChildrenPosition() {
                     }
                 }
             }            
-
-            // Update the Computed Position //
             childrenComputedLayout[i].position = computedPosition;
-
-            // if (childComponent.componentID == "slider") {
-            //     std::cout << "Children Computed Position: " << computedPosition.x << ", " << computedPosition.y << "\n";
-            // }
         }
     }
 }

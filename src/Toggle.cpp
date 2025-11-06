@@ -54,18 +54,11 @@ SFUI::Void SFUI::Toggle::handleEvent(const SFUI::Event& event) {
 SFUI::Void SFUI::Toggle::update(const SFUI::Vector2u renderTargetSize) {
     this->renderTargetSize = renderTargetSize;
 
-    computeAlignDirection();
-    computeAlignPrimary();
-    computeAlignSecondary();
-    computeMargin();
-    computeSize();
-    computePadding();
-    computePosition();
-    computeBorderWidth();
-    computeCornerRadius();
-    computeChildrenMargin();
-    computeChildrenSize();
-    computeChildrenPosition();
+    computeAlignment();
+    computeLayoutBox();
+    computeStyles();
+    computeShadows();
+    computeChildrenLayoutBox();
     updateChildren();
     
     // Toggle Specific Computation //

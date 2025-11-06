@@ -61,17 +61,10 @@ namespace SFUI {
             SFUI::Void addChildren(const SFUI::Vector<SFUI::SharedPointer<SFUI::Component>>& newChildren);
             SFUI::Void updateChildFromParent(SFUI::ComputedProp::Layout::ComponentChild childComputedLayout);
             SFUI::Vector<SFUI::SharedPointer<SFUI::Component>> getChildren() const;
-            SFUI::String getAlignDirection();
-            SFUI::String getAlignPrimary();
-            SFUI::String getAlignSecondary();
             SFUI::Vector2f getSize();
             SFUI::Vector2i getPosition();
             SFUI::Vector4f getPadding();
             SFUI::Vector4f getMargin();
-            SFUI::Float getBorderWidth();
-            SFUI::Vector4f getCornerRadius();
-            SFUI::Color getFillColor();
-            SFUI::Color getBorderColor();
 
         protected:
             SFUI::Vector2u renderTargetSize;
@@ -91,22 +84,13 @@ namespace SFUI {
             SFUI::Bool isMouseHovered(const SFUI::Vector2i& mousePosition);
             SFUI::Color resolveColorSubProp(const SFUI::SubProp::Color& color);
             SFUI::Vector4f resolveUniQuadSubProp(SFUI::Vector2f size, SFUI::SubProp::UniQuad cornerRadius);
-            SFUI::Void computeAlignDirection();
-            SFUI::Void computeAlignPrimary();
-            SFUI::Void computeAlignSecondary();
-            SFUI::Void computeMargin();
-            SFUI::Void computeSize();
-            SFUI::Void computePadding();
-            SFUI::Void computePosition();
-            SFUI::Void computeBorderWidth();
-            SFUI::Void computeCornerRadius();
-            SFUI::Void computeFillColor();
-            SFUI::Void computeBorderColor();
-            SFUI::Void computeShadow();
+            SFUI::Void computeAlignment();
+            SFUI::Void computeLayoutBox();
+            SFUI::Void computeStyles();
+            SFUI::Void computeColors();
+            SFUI::Void computeShadows();
             SFUI::Void computeGraphics();
-            SFUI::Void computeChildrenMargin();
-            SFUI::Void computeChildrenSize();
-            SFUI::Void computeChildrenPosition();
+            SFUI::Void computeChildrenLayoutBox();
             SFUI::Void updateChildren();
         
         private:
@@ -118,30 +102,3 @@ namespace SFUI {
             SFUI::Void computeShadowArcGeometry(SFUI::Vector2f center, SFUI::Float outerRadius, SFUI::Float startAngleDeg, SFUI::Float endAngleDeg, SFUI::Color modifiedShadowColor);
     };
 }
-
-
-
-
-///////////////////////////////////////////////
-// SFML-FlexUI Extended Component Base Class //
-///////////////////////////////////////////////
-
-// namespace SFUI {
-
-//     class ExtendedComponent {
-
-//         public:
-//             SFUI::String componentID;
-
-//         public:
-//             ExtendedComponent() = default;
-//             ExtendedComponent(const SFUI::String& componentID);
-//             virtual ~ExtendedComponent() = default;
-//             virtual SFUI::Void handleEvent(const SFUI::Event& event) = 0;
-//             virtual SFUI::Void update(const SFUI::Vector2u renderTargetSize) = 0;
-//             virtual SFUI::Void draw(SFUI::RenderTarget& renderTarget) = 0;
-
-//         private:
-//             SFUI::SharedPointer<SFUI::Component> baseComponent;
-//     };
-// }

@@ -53,21 +53,13 @@ SFUI::Void SFUI::Label::handleEvent(const SFUI::Event& event) {}
 SFUI::Void SFUI::Label::update(const SFUI::Vector2u renderTargetSize) {
     this->renderTargetSize = renderTargetSize;
 
-    computeAlignDirection();
-    computeAlignPrimary();
-    computeAlignSecondary();
-    computeMargin();
-    computeSize();
-    computePadding();
-    computePosition();
-    computeBorderWidth();
-    computeCornerRadius();
-    computeFillColor();
-    computeBorderColor();
+    computeAlignment();
+    computeLayoutBox();
+    computeStyles();
+    computeColors();
+    computeShadows();
     computeGraphics();
-    computeChildrenMargin();
-    computeChildrenSize();
-    computeChildrenPosition();
+    computeChildrenLayoutBox();
     updateChildren();
 
     // Label Specific Computation //
@@ -137,16 +129,6 @@ SFUI::Void SFUI::Label::draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow&
  * 
  * @return .
  */
-SFUI::String SFUI::Label::getText() {
-    return textObject.getString();
-}
-
-
-/**
- * @brief .
- * 
- * @return .
- */
 SFUI::SharedPointer<SFUI::Font> SFUI::Label::getFont() {
     return labelStyle.font;
 }
@@ -159,96 +141,6 @@ SFUI::SharedPointer<SFUI::Font> SFUI::Label::getFont() {
  */
 SFUI::Float SFUI::Label::getTextSize() {
     return textObject.getCharacterSize();
-}
-
-
-/**
- * @brief .
- * 
- * @return .
- */
-SFUI::UnsignedInt32 SFUI::Label::getTextStyle() {
-    return textObject.getStyle();
-}
-
-
-/**
- * @brief .
- * 
- * @return .
- */
-SFUI::Float SFUI::Label::getLetterSpacing() {
-    return textObject.getLetterSpacing();
-}
-
-
-/**
- * @brief .
- * 
- * @return .
- */
-SFUI::Float SFUI::Label::getLineSpacing() {
-    return textObject.getLineSpacing();
-}
-
-
-/**
- * @brief .
- * 
- * @return .
- */
-SFUI::Float SFUI::Label::getOutlineThickness() {
-    return textObject.getOutlineThickness();
-}
-
-
-/**
- * @brief .
- * 
- * @return .
- */
-SFUI::String SFUI::Label::getTextAlignHorizontal() {
-    return computedLabelStyle.textAlignHorizontal;
-}
-
-
-/**
- * @brief .
- * 
- * @return .
- */
-SFUI::String SFUI::Label::getTextAlignVertical() {
-    return computedLabelStyle.textAlignVertical;
-}
-
-
-/**
- * @brief .
- * 
- * @return .
- */
-SFUI::Vector2f SFUI::Label::getTextOffset() {
-    return computedLabelStyle.textOffset;
-}
-
-
-/**
- * @brief .
- * 
- * @return .
- */
-SFUI::Color SFUI::Label::getTextColor() {
-    return textObject.getFillColor();
-}
-
-
-/**
- * @brief .
- * 
- * @return .
- */
-SFUI::Color SFUI::Label::getTextOutlineColor() {
-    return textObject.getOutlineColor();
 }
 
 

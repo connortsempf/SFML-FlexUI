@@ -118,21 +118,13 @@ SFUI::Void SFUI::Slider::handleEvent(const SFUI::Event& event) {
 SFUI::Void SFUI::Slider::update(const SFUI::Vector2u renderTargetSize) {
     this->renderTargetSize = renderTargetSize;
 
-    computeAlignDirection();
-    computeAlignPrimary();
-    computeAlignSecondary();
-    computeMargin();
-    computeSize();
-    computePadding();
-    computePosition();
-    computeBorderWidth();
-    computeCornerRadius();
-    computeFillColor();
-    computeBorderColor();
+    computeAlignment();
+    computeLayoutBox();
+    computeStyles();
+    computeColors();
+    computeShadows();
     computeGraphics();
-    computeChildrenMargin();
-    computeChildrenSize();
-    computeChildrenPosition();
+    computeChildrenLayoutBox();
     updateChildren();
     
     // Slider Specific Computation //

@@ -177,23 +177,15 @@ SFUI::Void SFUI::Button::update(const SFUI::Vector2u renderTargetSize) {
     // Button Specific Computation (Needs to be Before Graphics Computation) //
     computeDynamicColors();
 
-    computeAlignDirection();
-    computeAlignPrimary();
-    computeAlignSecondary();
-    computeMargin();
-    computeSize();
-    computePadding();
-    computePosition();
-    computeBorderWidth();
-    computeCornerRadius();
+    computeAlignment();
+    computeLayoutBox();
+    computeStyles();
+    computeShadows();
     computeGraphics();
-    computeChildrenMargin();
-    computeChildrenSize();
-    computeChildrenPosition();
+    computeChildrenLayoutBox();
     updateChildren();
     
     // Button Specific Computation //
-    computeDynamicColors();
     computeFocusWidth();
     computeFocusOffset();
     computeToolTipLifetime();
@@ -223,170 +215,8 @@ SFUI::Void SFUI::Button::draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow
  * 
  * @return .
  */
-SFUI::Color SFUI::Button::getHoveredFillColor() {
-    return computedButtonStyle.hoveredFillColor;
-}
-
-
-/**
- * @brief .
- * 
- * @return .
- */
-SFUI::Color SFUI::Button::getHoveredBorderColor() {
-    return computedButtonStyle.hoveredBorderColor;
-}
-
-
-/**
- * @brief .
- * 
- * @return .
- */
-SFUI::Color SFUI::Button::getPressedFillColor() {
-    return computedButtonStyle.pressedFillColor;
-}
-
-
-/**
- * @brief .
- * 
- * @return .
- */
-SFUI::Color SFUI::Button::getPressedBorderColor() {
-    return computedButtonStyle.pressedBorderColor;
-}
-
-
-/**
- * @brief .
- * 
- * @return .
- */
-SFUI::Color SFUI::Button::getDisabledFillColor() {
-    return computedButtonStyle.disabledFillColor;
-}
-
-
-/**
- * @brief .
- * 
- * @return .
- */
-SFUI::Color SFUI::Button::getDisabledBorderColor() {
-    return computedButtonStyle.disabledBorderColor;
-}
-
-
-/**
- * @brief .
- * 
- * @return .
- */
-SFUI::Float SFUI::Button::getFocusWidth() {
-    return computedButtonStyle.focusWidth;
-}
-
-
-/**
- * @brief .
- * 
- * @return .
- */
-SFUI::Float SFUI::Button::getFocusOffset() {
-    return computedButtonStyle.focusOffset;
-}
-
-
-/**
- * @brief .
- * 
- * @return .
- */
-SFUI::Vector4f SFUI::Button::getFocusCornerRadius() {
-    return focus.getCornerRadius();
-}
-
-
-/**
- * @brief .
- * 
- * @return .
- */
-SFUI::Color SFUI::Button::getFocusFillColor() {
-    return focus.getFillColor();
-}
-
-
-/**
- * @brief .
- * 
- * @return .
- */
-SFUI::Vector4f SFUI::Button::getToolTipPadding() {
-    SFUI::Vector2f size = toolTip.getSize();
-    sf::Vector2f textSize = toolTip.getTextBounds().size;
-    return {size.x - textSize.x, size.y - textSize.y};
-}
-
-
-/**
- * @brief .
- * 
- * @return .
- */
-SFUI::Vector4f SFUI::Button::getToolTipCornerRadius() {
-    return toolTip.getCornerRadius();
-}
-
-
-/**
- * @brief .
- * 
- * @return .
- */
-SFUI::String SFUI::Button::getToolTipText() {
-    return toolTip.getText();
-}
-
-
-/**
- * @brief .
- * 
- * @return .
- */
 SFUI::SharedPointer<SFUI::Font> SFUI::Button::getToolTipFont() {
     return toolTip.getFont();
-}
-
-
-/**
- * @brief .
- * 
- * @return .
- */
-SFUI::Float SFUI::Button::getToolTipTextSize() {
-    return toolTip.getTextSize();
-}
-
-
-/**
- * @brief .
- * 
- * @return .
- */
-SFUI::Color SFUI::Button::getToolTipFillColor() {
-    return toolTip.getFillColor();
-}
-
-
-/**
- * @brief .
- * 
- * @return .
- */
-SFUI::Color SFUI::Button::getToolTipTextColor() {
-    return toolTip.getTextColor();
 }
 
 

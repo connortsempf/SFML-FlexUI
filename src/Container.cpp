@@ -44,22 +44,13 @@ SFUI::Void SFUI::Container::handleEvent(const SFUI::Event& event) {}
 SFUI::Void SFUI::Container::update(const SFUI::Vector2u renderTargetSize) {
     this->renderTargetSize = renderTargetSize;
 
-    computeAlignDirection();
-    computeAlignPrimary();
-    computeAlignSecondary();
-    computeMargin();
-    computeSize();
-    computePadding();
-    computePosition();
-    computeBorderWidth();
-    computeCornerRadius();
-    computeFillColor();
-    computeBorderColor();
-    computeShadow();
+    computeAlignment();
+    computeLayoutBox();
+    computeStyles();
+    computeColors();
+    computeShadows();
     computeGraphics();
-    computeChildrenMargin();
-    computeChildrenSize();
-    computeChildrenPosition();
+    computeChildrenLayoutBox();
     updateChildren();
 }
 

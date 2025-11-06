@@ -107,21 +107,12 @@ SFUI::Void SFUI::TextField::handleEvent(const SFUI::Event& event) {
  */
 SFUI::Void SFUI::TextField::update(const SFUI::Vector2u renderTargetSize) {
     this->renderTargetSize = renderTargetSize;
-    
-    computeAlignDirection();
-    computeAlignPrimary();
-    computeAlignSecondary();
-    computeMargin();
-    computeSize();
-    computePadding();
-    computePosition();
-    computeBorderWidth();
-    computeCornerRadius();
-    computeFillColor();
-    computeBorderColor();
-    computeChildrenMargin();
-    computeChildrenSize();
-    computeChildrenPosition();
+
+    computeAlignment();
+    computeLayoutBox();
+    computeStyles();
+    computeColors();
+    computeChildrenLayoutBox();
     updateChildren();
 
     // Text Field Specific Computation //

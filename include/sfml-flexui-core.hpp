@@ -45,20 +45,6 @@ namespace SFUI {
             SFUI::Void handleEvent(const SFUI::Event& event);
             SFUI::Void update(const SFUI::Vector2u renderTargetSize);
             SFUI::Void draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window);
-            SFUI::String getScrollDirection();
-            SFUI::Float getScrollSpeedFactor();
-            SFUI::Bool getUsingScrollBar();
-            SFUI::String getScrollBarAlign();
-            SFUI::Float getTrackOnAxisSize();
-            SFUI::Float getTrackOffAxisSize();
-            SFUI::Vector4f getTrackCornerRadius();
-            SFUI::Color getTrackFillColor();
-            SFUI::Color getTrackHoveredFillColor();
-            SFUI::Color getTrackPressedFillColor();
-            SFUI::Vector4f getThumbCornerRadius();
-            SFUI::Color getThumbFillColor();
-            SFUI::Color getThumbHoveredFillColor();
-            SFUI::Color getThumbPressedFillColor();
 
         private:
             SFUI::Bool isHovered = false;
@@ -76,8 +62,8 @@ namespace SFUI {
             SFUI::Void computeAlignPrimary();
             SFUI::Void computeScrollDirection();
             SFUI::Void computeScrollSpeedFactor();
-            SFUI::Void computeChildrenScrollPosition();
             SFUI::Void computeMaxScrollOffset();
+            SFUI::Void computeChildrenScrollPosition();
     };
 }
 
@@ -102,18 +88,8 @@ namespace SFUI {
             SFUI::Void handleEvent(const SFUI::Event& event);
             SFUI::Void update(const SFUI::Vector2u renderTargetSize);
             SFUI::Void draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window);
-            SFUI::String getText();
             SFUI::SharedPointer<SFUI::Font> getFont();
             SFUI::Float getTextSize();
-            SFUI::UnsignedInt32 getTextStyle();
-            SFUI::Float getLetterSpacing();
-            SFUI::Float getLineSpacing();
-            SFUI::Float getOutlineThickness();
-            SFUI::String getTextAlignHorizontal();
-            SFUI::String getTextAlignVertical();
-            SFUI::Vector2f getTextOffset();
-            SFUI::Color getTextColor();
-            SFUI::Color getTextOutlineColor();
             SFUI::FloatRect getTextBounds();
             SFUI::Vector2f getCharacterPosition(SFUI::Size charIndex);
 
@@ -157,23 +133,7 @@ namespace SFUI {
             SFUI::Void handleEvent(const SFUI::Event& event);
             SFUI::Void update(const SFUI::Vector2u renderTargetSize);
             SFUI::Void draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window);
-            SFUI::Color getHoveredFillColor();
-            SFUI::Color getHoveredBorderColor();
-            SFUI::Color getPressedFillColor();
-            SFUI::Color getPressedBorderColor();
-            SFUI::Color getDisabledFillColor();
-            SFUI::Color getDisabledBorderColor();
-            SFUI::Float getFocusWidth();
-            SFUI::Float getFocusOffset();
-            SFUI::Vector4f getFocusCornerRadius();
-            SFUI::Color getFocusFillColor();
-            SFUI::Vector4f getToolTipPadding();
-            SFUI::Vector4f getToolTipCornerRadius();
-            SFUI::String getToolTipText();
             SFUI::SharedPointer<SFUI::Font> getToolTipFont();
-            SFUI::Float getToolTipTextSize();
-            SFUI::Color getToolTipFillColor();
-            SFUI::Color getToolTipTextColor();
             
         private:
             static const SFUI::Time DOUBLE_PRESS_GAP_MS;
@@ -260,7 +220,6 @@ namespace SFUI {
             SFUI::Void handleEvent(const SFUI::Event& event);
             SFUI::Void update(const SFUI::Vector2u renderTargetSize);
             SFUI::Void draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window);
-            SFUI::String getGraphicAlign();
             SFUI::Vector2f getOriginalTextureSize();
 
         private:

@@ -50,21 +50,13 @@ SFUI::Void SFUI::Graphic::handleEvent(const SFUI::Event& event) {}
 SFUI::Void SFUI::Graphic::update(const SFUI::Vector2u renderTargetSize) {
     this->renderTargetSize = renderTargetSize;
 
-    computeAlignDirection();
-    computeAlignPrimary();
-    computeAlignSecondary();
-    computeMargin();
-    computeSize();
-    computePadding();
-    computePosition();
-    computeBorderWidth();
-    computeCornerRadius();
-    computeFillColor();
-    computeBorderColor();
+    computeAlignment();
+    computeLayoutBox();
+    computeStyles();
+    computeColors();
+    computeShadows();
     computeGraphics();
-    computeChildrenMargin();
-    computeChildrenSize();
-    computeChildrenPosition();
+    computeChildrenLayoutBox();
     updateChildren();
 
     // Graphic Specific Computation //
@@ -124,16 +116,6 @@ SFUI::Void SFUI::Graphic::draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindo
     }   else {
         glDisable(GL_SCISSOR_TEST);
     }
-}
-
-
-/**
- * @brief .
- * 
- * @return .
- */
-SFUI::String SFUI::Graphic::getGraphicAlign() {
-    return computedGraphicStyle.graphicAlign;
 }
 
 

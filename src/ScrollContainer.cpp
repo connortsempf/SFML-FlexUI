@@ -146,28 +146,20 @@ SFUI::Void SFUI::ScrollContainer::handleEvent(const SFUI::Event& event) {
 SFUI::Void SFUI::ScrollContainer::update(const SFUI::Vector2u renderTargetSize) {
     this->renderTargetSize = renderTargetSize;
 
-    computeAlignDirection();
-    computeAlignPrimary();
-    computeAlignSecondary();
-    computeMargin();
-    computeSize();
-    computePadding();
-    computePosition();
-    computeBorderWidth();
-    computeCornerRadius();
-    computeFillColor();
-    computeBorderColor();
+    computeAlignment();
+    computeLayoutBox();
+    computeStyles();
+    computeColors();
+    computeShadows();
     computeGraphics();
-    computeChildrenMargin();
-    computeChildrenSize();
-    computeChildrenPosition();
+    computeChildrenLayoutBox();
     
     // Scroll Container Specific Computation //
     computeScrollDirection();
     computeScrollSpeedFactor();
-    computeChildrenScrollPosition();
     computeMaxScrollOffset();
-
+    computeChildrenScrollPosition();
+    
     updateChildren();
 }
 
@@ -184,146 +176,6 @@ SFUI::Void SFUI::ScrollContainer::draw(SFUI::RenderTarget& drawTarget, SFUI::Ren
     drawTarget.draw(backgroundArcs);
     drawTarget.draw(borderRects);
     drawTarget.draw(borderArcs);
-}
-
-
-/**
- * @brief .
- * 
- * @return .
- */
-SFUI::String SFUI::ScrollContainer::getScrollDirection() {
-    return computedScrollContainerStyle.scrollDirection;
-}
-
-
-/**
- * @brief .
- * 
- * @return .
- */
-SFUI::Float SFUI::ScrollContainer::getScrollSpeedFactor() {
-    return computedScrollContainerStyle.scrollSpeedFactor;
-}
-
-
-/**
- * @brief .
- * 
- * @return .
- */
-SFUI::Bool SFUI::ScrollContainer::getUsingScrollBar() {
-    return computedScrollContainerStyle.usingScrollBar;
-}
-
-
-/**
- * @brief .
- * 
- * @return .
- */
-SFUI::String SFUI::ScrollContainer::getScrollBarAlign() {
-    return computedScrollContainerStyle.scrollBarAlign;
-}
-
-
-/**
- * @brief .
- * 
- * @return .
- */
-SFUI::Float SFUI::ScrollContainer::getTrackOnAxisSize() {
-    return computedScrollContainerStyle.trackOnAxisSize;
-}
-
-
-/**
- * @brief .
- * 
- * @return .
- */
-SFUI::Float SFUI::ScrollContainer::getTrackOffAxisSize() {
-    return computedScrollContainerStyle.trackOffAxisSize;
-}
-
-
-/**
- * @brief .
- * 
- * @return .
- */
-SFUI::Vector4f SFUI::ScrollContainer::getTrackCornerRadius() {
-    return computedScrollContainerStyle.trackCornerRadius;
-}
-
-
-/**
- * @brief .
- * 
- * @return .
- */
-SFUI::Color SFUI::ScrollContainer::getTrackFillColor() {
-    return computedScrollContainerStyle.trackFillColor;
-}
-
-
-/**
- * @brief .
- * 
- * @return .
- */
-SFUI::Color SFUI::ScrollContainer::getTrackHoveredFillColor() {
-    return computedScrollContainerStyle.trackHoveredFillColor;
-}
-
-
-/**
- * @brief .
- * 
- * @return .
- */
-SFUI::Color SFUI::ScrollContainer::getTrackPressedFillColor() {
-    return computedScrollContainerStyle.trackPressedFillColor;
-}
-
-
-/**
- * @brief .
- * 
- * @return .
- */
-SFUI::Vector4f SFUI::ScrollContainer::getThumbCornerRadius() {
-    return computedScrollContainerStyle.thumbCornerRadius;
-}
-
-
-/**
- * @brief .
- * 
- * @return .
- */
-SFUI::Color SFUI::ScrollContainer::getThumbFillColor() {
-    return computedScrollContainerStyle.thumbFillColor;
-}
-
-
-/**
- * @brief .
- * 
- * @return .
- */
-SFUI::Color SFUI::ScrollContainer::getThumbHoveredFillColor() {
-    return computedScrollContainerStyle.thumbHoveredFillColor;
-}
-
-
-/**
- * @brief .
- * 
- * @return .
- */
-SFUI::Color SFUI::ScrollContainer::getThumbPressedFillColor() {
-    return computedScrollContainerStyle.thumbPressedFillColor;
 }
 
 
@@ -375,20 +227,6 @@ SFUI::Void SFUI::ScrollContainer::computeScrollSpeedFactor() {
 /**
  * @brief .
  */
-SFUI::Void SFUI::ScrollContainer::computeChildrenScrollPosition() {
-    SFUI::Vector<SFUI::SharedPointer<SFUI::Component>> children = this->getChildren();
-    for (int i = 0; i < children.size(); i++) {
-        childrenComputedLayout[i].position = {
-            childrenComputedLayout[i].position.x + static_cast<SFUI::Int>(scrollOffset.x),
-            childrenComputedLayout[i].position.y + static_cast<SFUI::Int>(scrollOffset.y)
-        };
-    }
-}
-
-
-/**
- * @brief .
- */
 SFUI::Void SFUI::ScrollContainer::computeMaxScrollOffset() {
     SFUI::Vector<SFUI::SharedPointer<SFUI::Component>> children = this->getChildren();
     SFUI::Vector2f contentSize = {0.0f, 0.0f};
@@ -400,4 +238,18 @@ SFUI::Void SFUI::ScrollContainer::computeMaxScrollOffset() {
     maxScrollOffset = {contentSize.x - computedLayout.size.x, contentSize.y - computedLayout.size.y};
     if (maxScrollOffset.x < 0.0f) maxScrollOffset.x = 0.0f;
     if (maxScrollOffset.y < 0.0f) maxScrollOffset.y = 0.0f;
+}
+
+
+/**
+ * @brief .
+ */
+SFUI::Void SFUI::ScrollContainer::computeChildrenScrollPosition() {
+    SFUI::Vector<SFUI::SharedPointer<SFUI::Component>> children = this->getChildren();
+    for (int i = 0; i < children.size(); i++) {
+        childrenComputedLayout[i].position = {
+            childrenComputedLayout[i].position.x + static_cast<SFUI::Int>(scrollOffset.x),
+            childrenComputedLayout[i].position.y + static_cast<SFUI::Int>(scrollOffset.y)
+        };
+    }
 }
