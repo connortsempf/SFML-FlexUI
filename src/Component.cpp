@@ -1,11 +1,11 @@
-#include <sfml-flexui-types.hpp>
-#include <sfml-flexui-core.hpp>
+#include "Base/Component.hpp"
+
+
 
 
 ////////////////////////////////////////
 // SFML-FlexUI Parent Component Class //
-////////////////////////////////////////
-    
+////////////////////////////////////////    
 
 /**
  * @brief Constructor for Component.

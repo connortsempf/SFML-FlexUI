@@ -1,244 +1,6 @@
 #pragma once
-#include <SFML/Graphics.hpp>
-#include <SFML/OpenGL.hpp>
-#include <iostream>
-#include <cmath>
-#include <memory>
-#include <functional>
-#include <algorithm>
-#include <variant>
-#include <string>
-#include <cctype>
-#include <vector>
-#include <queue>
-#include <stack>
-
-
-
-
-///////////////////////////
-// Standard Type Aliases //
-///////////////////////////
-
-namespace SFUI {
-
-    using Void = void;
-
-    using Bool = bool;
-
-    using UnsignedInt8 = uint8_t;
-
-    using UnsignedInt32 = uint32_t;
-
-    using UnsignedInt = unsigned int;
-
-    using Int = int;
-
-    using Float = float;
-
-    using Double = double;
-
-    using Size = std::size_t;
-
-    using String = std::string;
-
-    template <typename... T>
-    using Optional = std::optional<T ...>;
-
-    template <typename... T>
-    using Function = std::function<T ...>;
-
-    template <typename... T>
-    using Variant = std::variant<T ...>;
-
-    template <typename... T>
-    using Vector = std::vector<T ...>;
-
-    template <typename T, std::size_t N>
-    using Array = std::array<T, N>;
-
-    template <typename... T>
-    using WeakPointer = std::weak_ptr<T ...>;
-
-    template <typename... T>
-    using SharedPointer = std::shared_ptr<T ...>;
-
-    template <typename... T>
-    using UniquePointer = std::unique_ptr<T ...>;
-}
-
-
-
-
-/////////////////////////////////////////////
-// Rendering Framework (SFML) Type Aliases //
-/////////////////////////////////////////////
-
-namespace SFUI {
-
-    using FloatRect = sf::FloatRect;
-
-    using Color = sf::Color;
-    
-    using Text = sf::Text;
-    
-    using Font = sf::Font;
-    
-    using Clock = sf::Clock;
-    
-    using Time = sf::Time;
-
-    using Event = sf::Event;
-
-    using RectangleShape = sf::RectangleShape;
-    
-    using CircleShape = sf::CircleShape;
-
-    using Cursor = sf::Cursor;
-    
-    using RenderTarget = sf::RenderTarget;
-
-    using RenderWindow = sf::RenderWindow;
-
-    using Image = sf::Image;
-    
-    using Texture = sf::Texture;
-    
-    using Sprite = sf::Sprite;
-    
-    using RenderTexture = sf::RenderTexture;
-    
-    using PrimitiveType = sf::PrimitiveType;
-
-    using VertexArray = sf::VertexArray;
-
-    using Shader = sf::Shader;
-}
-
-
-
-
-//////////////////////////////
-// Custom SFML-FlexUI Types //
-//////////////////////////////
-
-namespace SFUI {
-
-    struct Vector2u {
-        SFUI::UnsignedInt x, y;
-        Vector2u(
-            SFUI::UnsignedInt x = 0,
-            SFUI::UnsignedInt y = 0
-        ) : x(x), y(y) {}
-        operator sf::Vector2u() const {
-            return sf::Vector2u{x, y};
-        }
-    };
-    
-    struct Vector2i {
-        SFUI::Int x, y;
-        Vector2i(
-            SFUI::Int x = 0,
-            SFUI::Int y = 0
-        ) : x(x), y(y) {}
-        operator sf::Vector2i() const {
-            return sf::Vector2i{x, y};
-        }
-    };
-    
-    struct Vector2f {
-        SFUI::Float x, y;
-        Vector2f(
-            SFUI::Float x = 0,
-            SFUI::Float y = 0
-        ) : x(x), y(y) {}
-        operator sf::Vector2f() const {
-            return sf::Vector2f{x, y};
-        }
-    };
-
-    struct Vector3ui8 {
-        SFUI::UnsignedInt8 x, y, z;
-        Vector3ui8(
-            SFUI::UnsignedInt8 x = 0,
-            SFUI::UnsignedInt8 y = 0,
-            SFUI::UnsignedInt8 z = 0
-        ) : x(x), y(y), z(z) {}
-    };
-
-    struct Vector3u {
-        SFUI::UnsignedInt x, y, z;
-        Vector3u(
-            SFUI::UnsignedInt x = 0,
-            SFUI::UnsignedInt y = 0,
-            SFUI::UnsignedInt z = 0
-        ) : x(x), y(y), z(z) {}
-    };
-    
-    struct Vector3i {
-        SFUI::Int x, y, z;
-        Vector3i(
-            SFUI::Int x = 0,
-            SFUI::Int y = 0,
-            SFUI::Int z = 0
-        ) : x(x), y(y), z(z) {}
-        operator sf::Vector3i() const {
-            return sf::Vector3i{x, y, z};
-        }
-    };
-
-    struct Vector4ui8 {
-        SFUI::UnsignedInt8 x, y, z, w;
-        Vector4ui8(
-            SFUI::UnsignedInt8 x = 0,
-            SFUI::UnsignedInt8 y = 0,
-            SFUI::UnsignedInt8 z = 0,
-            SFUI::UnsignedInt8 w = 0
-        ) : x(x), y(y), z(z), w(w) {}
-    };
-    
-    struct Vector3f {
-        SFUI::Float x, y, z;
-        Vector3f(
-            SFUI::Float x = 0,
-            SFUI::Float y = 0,
-            SFUI::Float z = 0
-        ) : x(x), y(y), z(z) {}
-        operator sf::Vector3f() const {
-            return sf::Vector3f{x, y, z};
-        }
-    };
-
-    struct Vector4u {
-        SFUI::UnsignedInt x, y, z, w;
-        Vector4u(
-            SFUI::UnsignedInt x = 0,
-            SFUI::UnsignedInt y = 0,
-            SFUI::UnsignedInt z = 0,
-            SFUI::UnsignedInt w = 0
-        ) : x(x), y(y), z(z), w(w) {}
-    };
-    
-    struct Vector4i {
-        SFUI::Int x, y, z, w;
-        Vector4i(
-            SFUI::Int x = 0,
-            SFUI::Int y = 0,
-            SFUI::Int z = 0,
-            SFUI::Int w = 0
-        ) : x(x), y(y), z(z), w(w) {}
-    };
-    
-    struct Vector4f {
-        SFUI::Float x, y, z, w;
-        Vector4f(
-            SFUI::Float x = 0,
-            SFUI::Float y = 0,
-            SFUI::Float z = 0,
-            SFUI::Float w = 0
-        ) : x(x), y(y), z(z), w(w) {}
-    };
-}
+#include "base.hpp"
+#include "vector.hpp"
 
 
 
@@ -296,9 +58,9 @@ namespace SFUI {
 
 
 
-//////////////////////////////////////
-// Custom Core Component Prop Types //
-//////////////////////////////////////
+//////////////////////////
+// Component Prop Types //
+//////////////////////////
 
 namespace SFUI {
 
@@ -625,9 +387,9 @@ namespace SFUI {
 
 
 
-////////////////////////////////////////////
-// Custom Core Component Prop Group Types //
-////////////////////////////////////////////
+////////////////////////////////
+// Component Prop Group Types //
+////////////////////////////////
 
 namespace SFUI {
 
@@ -695,15 +457,14 @@ namespace SFUI {
 
 
 
-///////////////////////////////////////////////
-// Custom Core Component Computed Prop Types //
-///////////////////////////////////////////////
+///////////////////////////////////
+// Component Computed Prop Types //
+///////////////////////////////////
 
 namespace SFUI {
 
     namespace ComputedProp {
 
-        // Computed Layout Props //
         namespace Layout {
 
             struct Component {
@@ -723,7 +484,6 @@ namespace SFUI {
             };
         }
 
-        // Computed Style Props //
         namespace Style {
             
             struct Component {

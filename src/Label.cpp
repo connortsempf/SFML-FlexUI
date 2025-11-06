@@ -1,10 +1,9 @@
-#include <sfml-flexui-types.hpp>
-#include <sfml-flexui-core.hpp>
+#include "components/Label.hpp"
 
 
-///////////////////////////////////////
-// SFML-FlexUI Label Component Class //
-///////////////////////////////////////
+///////////////////////////
+// Label Component Class //
+//////////////////////////
 
 
 // Static Variables //

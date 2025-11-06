@@ -1,0 +1,35 @@
+#pragma once
+#include "Types/base.hpp"
+#include "Types/render.hpp"
+#include "Types/vector.hpp"
+#include "Component.hpp"
+#include <deque>
+
+
+
+
+///////////////////////////////////////
+// SFML-FlexUI Root UI Manager Class //
+///////////////////////////////////////
+
+namespace SFUI {
+
+    class Component;
+
+    class UIRoot {
+
+        public:
+            UIRoot() = default;
+            UIRoot(const SFUI::SharedPointer<SFUI::Component>& rootComponent);
+            SFUI::Void setRootComponent(const SFUI::SharedPointer<SFUI::Component>& rootComponent);
+            SFUI::Void handleEvent(const SFUI::Event& event);
+            SFUI::Void update(const SFUI::Vector2u renderTargetSize);
+            SFUI::Void draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window);
+
+        private:
+            SFUI::SharedPointer<SFUI::Component> rootComponent;
+        
+        private:
+            SFUI::Void drawRecursive(SFUI::SharedPointer<SFUI::Component> component, SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window);
+    };
+}
