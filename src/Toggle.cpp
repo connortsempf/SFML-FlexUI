@@ -53,17 +53,14 @@ SFUI::Void SFUI::Toggle::handleEvent(const SFUI::Event& event) {
  */
 SFUI::Void SFUI::Toggle::update(const SFUI::Vector2u renderTargetSize) {
     this->renderTargetSize = renderTargetSize;
-
     computeAlignment();
     computeLayoutBox();
     computeStyles();
     computeShadows();
     computeChildrenLayoutBox();
     updateChildren();
-    
-    // Toggle Specific Computation //
     computeDynamicColors();
-    computeComposedComponents();
+    computeToggle();
 }
 
 
@@ -81,115 +78,111 @@ SFUI::Void SFUI::Toggle::draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow
  * @brief .
  */
 SFUI::Void SFUI::Toggle::computeDynamicColors() {
-    // Resting Color Styles //
-    computedToggleStyle.offFillColor = resolveColorSubProp(toggleStyle.offFillColor);
-    computedToggleStyle.offBorderColor = resolveColorSubProp(toggleStyle.offBorderColor);
-    computedToggleStyle.onFillColor = resolveColorSubProp(toggleStyle.onFillColor);
-    computedToggleStyle.onBorderColor = resolveColorSubProp(toggleStyle.onBorderColor);
-
-    // Hovered Color Styles //
-    if (toggleStyle.hoveredOffFillColor.has_value())
-        computedToggleStyle.hoveredOffFillColor = resolveColorSubProp(toggleStyle.hoveredOffFillColor.value());
-    if (toggleStyle.hoveredOffBorderColor.has_value())
-        computedToggleStyle.hoveredOffBorderColor = resolveColorSubProp(toggleStyle.hoveredOffBorderColor.value());
-    if (toggleStyle.hoveredOnFillColor.has_value())
-        computedToggleStyle.hoveredOnFillColor = resolveColorSubProp(toggleStyle.hoveredOnFillColor.value());
-    if (toggleStyle.hoveredOnBorderColor.has_value())
-        computedToggleStyle.hoveredOnBorderColor = resolveColorSubProp(toggleStyle.hoveredOnBorderColor.value());
-    
-    // Pressed Color Styles //
-    if (toggleStyle.pressedOffFillColor.has_value())
-        computedToggleStyle.pressedOffFillColor = resolveColorSubProp(toggleStyle.pressedOffFillColor.value());
-    if (toggleStyle.pressedOffBorderColor.has_value())
-        computedToggleStyle.pressedOffBorderColor = resolveColorSubProp(toggleStyle.pressedOffBorderColor.value());
-    if (toggleStyle.pressedOnFillColor.has_value())
-        computedToggleStyle.pressedOnFillColor = resolveColorSubProp(toggleStyle.pressedOnFillColor.value());
-    if (toggleStyle.pressedOnBorderColor.has_value())
-        computedToggleStyle.pressedOnBorderColor = resolveColorSubProp(toggleStyle.pressedOnBorderColor.value());
+    if (toggleStyle.disabledFillColor.has_value())
+        toggle.buttonStyle.disabledFillColor = resolveColorSubProp(toggleStyle.disabledFillColor.value());
+    if (toggleStyle.disabledBorderColor.has_value())
+        toggle.buttonStyle.disabledBorderColor = resolveColorSubProp(toggleStyle.disabledBorderColor.value());
+    if (toggleState.isOn) {
+        toggle.style.fillColor = resolveColorSubProp(toggleStyle.onFillColor);
+        toggle.style.borderColor = resolveColorSubProp(toggleStyle.onBorderColor);
+        if (toggleStyle.hoveredOnFillColor.has_value())
+            toggle.buttonStyle.hoveredFillColor = resolveColorSubProp(toggleStyle.hoveredOnFillColor.value());
+        if (toggleStyle.hoveredOnBorderColor.has_value())
+            toggle.buttonStyle.hoveredBorderColor = resolveColorSubProp(toggleStyle.hoveredOnBorderColor.value());
+        if (toggleStyle.pressedOnFillColor.has_value())
+            toggle.buttonStyle.pressedFillColor = resolveColorSubProp(toggleStyle.pressedOnFillColor.value());
+        if (toggleStyle.pressedOnBorderColor.has_value())
+            toggle.buttonStyle.pressedBorderColor = resolveColorSubProp(toggleStyle.pressedOnBorderColor.value());
+    }
+    else if (!toggleState.isOn) {
+        toggle.style.fillColor = resolveColorSubProp(toggleStyle.offFillColor);
+        toggle.style.borderColor = resolveColorSubProp(toggleStyle.offBorderColor);
+        if (toggleStyle.hoveredOffFillColor.has_value())
+            toggle.buttonStyle.hoveredFillColor = resolveColorSubProp(toggleStyle.hoveredOffFillColor.value());
+        if (toggleStyle.hoveredOffBorderColor.has_value())
+            toggle.buttonStyle.hoveredBorderColor = resolveColorSubProp(toggleStyle.hoveredOffBorderColor.value());
+        if (toggleStyle.pressedOffFillColor.has_value())
+            toggle.buttonStyle.pressedFillColor = resolveColorSubProp(toggleStyle.pressedOffFillColor.value());
+        if (toggleStyle.pressedOffBorderColor.has_value())
+            toggle.buttonStyle.pressedBorderColor = resolveColorSubProp(toggleStyle.pressedOffBorderColor.value());
+    }
 }
 
 
 /**
  * @brief .
  */
-SFUI::Void SFUI::Toggle::computeComposedComponents() {
-    toggle.layout = SFUI::Prop::Layout::Component{
-        .width = computedLayout.size.x,
-        .height = computedLayout.size.y,
-        .xPosition = computedLayout.position.x,
-        .yPosition = computedLayout.position.y
-    };
+SFUI::Void SFUI::Toggle::computeToggle() {
+    // Layout //
+    toggle.layout.width = computedLayout.size.x;
+    toggle.layout.height = computedLayout.size.y;
+    toggle.layout.xPosition = computedLayout.position.x;
+    toggle.layout.yPosition = computedLayout.position.y;
+
+    // Style //
     toggle.style = this->style;
-    toggle.style.fillColor = toggleState.isOn ? computedToggleStyle.onFillColor : computedToggleStyle.offFillColor;
-    toggle.style.borderColor = toggleState.isOn ? computedToggleStyle.onBorderColor : computedToggleStyle.offBorderColor;
-    toggle.buttonStyle = SFUI::Prop::Style::Button{
-        .hoveredFillColor = toggleState.isOn ? computedToggleStyle.hoveredOnFillColor : computedToggleStyle.hoveredOffFillColor,
-        .hoveredBorderColor = toggleState.isOn ? computedToggleStyle.hoveredOnBorderColor : computedToggleStyle.hoveredOffBorderColor,
-        .pressedFillColor = toggleState.isOn ? computedToggleStyle.pressedOnFillColor : computedToggleStyle.pressedOffFillColor,
-        .pressedBorderColor = toggleState.isOn ? computedToggleStyle.pressedOnBorderColor : computedToggleStyle.pressedOffBorderColor,
-        .disabledFillColor = toggleStyle.disabledFillColor,
-        .disabledBorderColor = toggleStyle.disabledBorderColor,
-        .focusWidth = toggleStyle.focusWidth,
-        .focusOffset = toggleStyle.focusOffset,
-        .focusCornerRadius = toggleStyle.focusCornerRadius,
-        .focusFillColor = toggleStyle.focusFillColor,
-        .toolTipPadding = toggleStyle.toolTipPadding,
-        .toolTipCornerRadius = toggleStyle.toolTipCornerRadius,
-        .toolTipText = toggleStyle.toolTipText,
-        .toolTipFont = toggleStyle.toolTipFont,
-        .toolTipTextSize = toggleStyle.toolTipTextSize,
-        .toolTipFillColor = toggleStyle.toolTipFillColor,
-        .toolTipTextColor = toggleStyle.toolTipTextColor
+    toggle.buttonStyle.focusWidth = toggleStyle.focusWidth;
+    toggle.buttonStyle.focusOffset = toggleStyle.focusOffset;
+    toggle.buttonStyle.focusCornerRadius = toggleStyle.focusCornerRadius;
+    toggle.buttonStyle.focusFillColor = toggleStyle.focusFillColor;
+    toggle.buttonStyle.toolTipPadding = toggleStyle.toolTipPadding;
+    toggle.buttonStyle.toolTipCornerRadius = toggleStyle.toolTipCornerRadius;
+    toggle.buttonStyle.toolTipText = toggleStyle.toolTipText;
+    toggle.buttonStyle.toolTipFont = toggleStyle.toolTipFont;
+    toggle.buttonStyle.toolTipTextSize = toggleStyle.toolTipTextSize;
+    toggle.buttonStyle.toolTipFillColor = toggleStyle.toolTipFillColor;
+    toggle.buttonStyle.toolTipTextColor = toggleStyle.toolTipTextColor;
+
+    // State //
+    toggle.buttonState.isDisabled = toggleState.isDisabled;
+    toggle.buttonState.isFocused = toggleState.isFocused;
+    
+    // Behavior //
+    toggle.buttonBehavior.onEnable = [this](const SFUI::String& componentID) {
+        if (toggleBehavior.onEnable) toggleBehavior.onEnable(this->componentID);
     };
-    toggle.buttonState = SFUI::Prop::State::Button{
-        .isDisabled = toggleState.isDisabled,
-        .isFocused = toggleState.isFocused
+    toggle.buttonBehavior.onDisable = [this](const SFUI::String& componentID) {
+        if (toggleBehavior.onDisable) toggleBehavior.onDisable(this->componentID);
     };
-    toggle.buttonBehavior = SFUI::Prop::Behavior::Button{
-        .onEnable = [this](const SFUI::String& componentID) {
-            if (toggleBehavior.onEnable) toggleBehavior.onEnable(this->componentID);
-        },
-        .onDisable = [this](const SFUI::String& componentID) {
-            if (toggleBehavior.onDisable) toggleBehavior.onDisable(this->componentID);
-        },
-        .onFocus = [this](const SFUI::String& componentID) {
-            if (toggleBehavior.onFocus) toggleBehavior.onFocus(this->componentID);
-        },
-        .onBlur = [this](const SFUI::String& componentID) {
-            if (toggleBehavior.onBlur) toggleBehavior.onBlur(this->componentID);
-        },
-        .onHoverIn = [this](const SFUI::String& componentID) {
-            if (toggleBehavior.onHoverIn) toggleBehavior.onHoverIn(this->componentID);
-        },
-        .onHoverOut = [this](const SFUI::String& componentID) {
-            if (toggleBehavior.onHoverOut) toggleBehavior.onHoverOut(this->componentID);
-        },
-        .onLeftPressIn = [this](const SFUI::String& componentID) {
-            if (toggleBehavior.onLeftPressIn) toggleBehavior.onLeftPress(this->componentID);
-        },
-        .onLeftPress = [this](const SFUI::String& componentID) {
-            if (toggleBehavior.onLeftPress) toggleBehavior.onLeftPress(this->componentID);
-            toggleState.isOn = !toggleState.isOn;
-            if (toggleBehavior.onToggledState) toggleBehavior.onToggledState(this->componentID, toggleState.isOn);
-        },
-        .onRightPressIn = [this](const SFUI::String& componentID) {
-            if (toggleBehavior.onRightPressIn) toggleBehavior.onRightPressIn(this->componentID);
-        },
-        .onRightPress = [this](const SFUI::String& componentID) {
-            if (toggleBehavior.onRightPress) toggleBehavior.onRightPress(this->componentID);
-        },
-        .onMiddlePressIn = [this](const SFUI::String& componentID) {
-            if (toggleBehavior.onMiddlePressIn) toggleBehavior.onMiddlePressIn(this->componentID);
-        },
-        .onMiddlePress = [this](const SFUI::String& componentID) {
-            if (toggleBehavior.onMiddlePress) toggleBehavior.onMiddlePress(this->componentID);
-        },
-        .onDoublePress = [this](const SFUI::String& componentID) {
-            if (toggleBehavior.onDoublePress) toggleBehavior.onDoublePress(this->componentID);
-        },
-        .onKeyPress = [this](const SFUI::String& componentID, sf::Keyboard::Key pressedKey) {
-            if (toggleBehavior.onKeyPress) toggleBehavior.onKeyPress(this->componentID, pressedKey);
-        }
+    toggle.buttonBehavior.onFocus = [this](const SFUI::String& componentID) {
+        if (toggleBehavior.onFocus) toggleBehavior.onFocus(this->componentID);
     };
+    toggle.buttonBehavior.onBlur = [this](const SFUI::String& componentID) {
+        if (toggleBehavior.onBlur) toggleBehavior.onBlur(this->componentID);
+    };
+    toggle.buttonBehavior.onHoverIn = [this](const SFUI::String& componentID) {
+        if (toggleBehavior.onHoverIn) toggleBehavior.onHoverIn(this->componentID);
+    };
+    toggle.buttonBehavior.onHoverOut = [this](const SFUI::String& componentID) {
+        if (toggleBehavior.onHoverOut) toggleBehavior.onHoverOut(this->componentID);
+    };
+    toggle.buttonBehavior.onLeftPressIn = [this](const SFUI::String& componentID) {
+        if (toggleBehavior.onLeftPressIn) toggleBehavior.onLeftPress(this->componentID);
+    };
+    toggle.buttonBehavior.onLeftPress = [this](const SFUI::String& componentID) {
+        if (toggleBehavior.onLeftPress) toggleBehavior.onLeftPress(this->componentID);
+        toggleState.isOn = !toggleState.isOn;
+        if (toggleBehavior.onToggledState) toggleBehavior.onToggledState(this->componentID, toggleState.isOn);
+    };
+    toggle.buttonBehavior.onRightPressIn = [this](const SFUI::String& componentID) {
+        if (toggleBehavior.onRightPressIn) toggleBehavior.onRightPressIn(this->componentID);
+    };
+    toggle.buttonBehavior.onRightPress = [this](const SFUI::String& componentID) {
+        if (toggleBehavior.onRightPress) toggleBehavior.onRightPress(this->componentID);
+    };
+    toggle.buttonBehavior.onMiddlePressIn = [this](const SFUI::String& componentID) {
+        if (toggleBehavior.onMiddlePressIn) toggleBehavior.onMiddlePressIn(this->componentID);
+    };
+    toggle.buttonBehavior.onMiddlePress = [this](const SFUI::String& componentID) {
+        if (toggleBehavior.onMiddlePress) toggleBehavior.onMiddlePress(this->componentID);
+    };
+    toggle.buttonBehavior.onDoublePress = [this](const SFUI::String& componentID) {
+        if (toggleBehavior.onDoublePress) toggleBehavior.onDoublePress(this->componentID);
+    };
+    toggle.buttonBehavior.onKeyPress = [this](const SFUI::String& componentID, sf::Keyboard::Key pressedKey) {
+        if (toggleBehavior.onKeyPress) toggleBehavior.onKeyPress(this->componentID, pressedKey);
+    };
+
+    // Update //
     toggle.update(renderTargetSize);
 }

@@ -117,7 +117,6 @@ SFUI::Void SFUI::Slider::handleEvent(const SFUI::Event& event) {
  */
 SFUI::Void SFUI::Slider::update(const SFUI::Vector2u renderTargetSize) {
     this->renderTargetSize = renderTargetSize;
-
     computeAlignment();
     computeLayoutBox();
     computeStyles();
@@ -126,15 +125,11 @@ SFUI::Void SFUI::Slider::update(const SFUI::Vector2u renderTargetSize) {
     computeGraphics();
     computeChildrenLayoutBox();
     updateChildren();
-    
-    // Slider Specific Computation //
     computeTrackAlign();
     computeValueDynamics();
-    computeThumbSize();
-    computeTrackWidth();
-    computeTrackLayout();
     computeDynamicColors();
-    computeComposedComponents();
+    computeThumb();
+    computeTracks();
 }
 
 
@@ -242,185 +237,6 @@ SFUI::Void SFUI::Slider::computeValueDynamics() {
 /**
  * @brief .
  */
-SFUI::Void SFUI::Slider::computeThumbSize() {
-    SFUI::Vector2f computedThumbSize = {0.0f, 0.0f};
-    
-    // Thumb Width //
-    // If the Width Layout Variant Holds an Explicit Width Float //
-    if (std::holds_alternative<SFUI::Float>(sliderStyle.thumbWidth)) {
-        computedThumbSize.x = std::get<SFUI::Float>(sliderStyle.thumbWidth);
-    }
-    // If the Width Variant Holds a String Percentage Input //
-    else if (std::holds_alternative<SFUI::String>(sliderStyle.thumbWidth)) {
-        SFUI::String thumbWidthString = std::get<SFUI::String>(sliderStyle.thumbWidth);
-        if (thumbWidthString.size() > 1 && thumbWidthString.back() == '%') {
-            thumbWidthString.pop_back();
-            try {
-                size_t index = 0;
-                SFUI::Double tempThumbWidth = std::stod(thumbWidthString, &index);
-                if (index == thumbWidthString.size()) {
-                    SFUI::Float relativeTrackWidthFactor = std::min(computedLayout.size.x, computedLayout.size.y);
-                    computedThumbSize.x = relativeTrackWidthFactor * std::clamp(static_cast<SFUI::Float>(tempThumbWidth) / 100.0f, 0.0f, 0.5f);
-                }   else {
-                    computedThumbSize.x = 12.0f;
-                }
-            }   catch (...) {
-                computedThumbSize.x = 12.0f;
-            }
-        }   else {
-            computedThumbSize.x = 12.0f;
-        }
-    }
-
-    // Thumb Height //
-    // If the Height Variant Holds an Explicit Width Float //
-    if (std::holds_alternative<SFUI::Float>(sliderStyle.thumbWidth)) {
-        computedThumbSize.y = std::get<SFUI::Float>(sliderStyle.thumbWidth);
-    }
-    // If the Height Variant Holds a String Percentage Input //
-    else if (std::holds_alternative<SFUI::String>(sliderStyle.thumbWidth)) {
-        SFUI::String thumbHeightString = std::get<SFUI::String>(sliderStyle.thumbWidth);
-        if (thumbHeightString.size() > 1 && thumbHeightString.back() == '%') {
-            thumbHeightString.pop_back();
-            try {
-                size_t index = 0;
-                SFUI::Double tempThumbHeight = std::stod(thumbHeightString, &index);
-                if (index == thumbHeightString.size()) {
-                    SFUI::Float relativeTrackWidthFactor = std::min(computedLayout.size.x, computedLayout.size.y);
-                    computedThumbSize.y = relativeTrackWidthFactor * std::clamp(static_cast<SFUI::Float>(tempThumbHeight) / 100.0f, 0.0f, 0.5f);
-                }   else {
-                    computedThumbSize.y = 12.0f;
-                }
-            }   catch (...) {
-                computedThumbSize.y = 12.0f;
-            }
-        }   else {
-            computedThumbSize.y = 12.0f;
-        }
-    }
-
-    computedSliderStyle.thumbSize = computedThumbSize;
-}
-
-
-/**
- * @brief .
- */
-SFUI::Void SFUI::Slider::computeTrackWidth() {
-    SFUI::Float computedTrackWidth = 0.0f;
-    
-    // Master Track Width //
-    // If the Track Width Layout Variant Holds an Explicit Width Float //
-    if (std::holds_alternative<SFUI::Float>(sliderStyle.trackWidth)) {
-        computedTrackWidth = std::get<SFUI::Float>(sliderStyle.trackWidth);
-    }
-    // If the Focus Width Style Variant Holds a String Percentage Input //
-    else if (std::holds_alternative<SFUI::String>(sliderStyle.trackWidth)) {
-        SFUI::String trackWidthString = std::get<SFUI::String>(sliderStyle.trackWidth);
-        if (trackWidthString.size() > 1 && trackWidthString.back() == '%') {
-            trackWidthString.pop_back();
-            try {
-                size_t index = 0;
-                SFUI::Double tempTrackWidth = std::stod(trackWidthString, &index);
-                if (index == trackWidthString.size()) {
-                    SFUI::Float relativeTrackWidthFactor = std::min(computedLayout.size.x, computedLayout.size.y);
-                    computedTrackWidth = relativeTrackWidthFactor * std::clamp(static_cast<SFUI::Float>(tempTrackWidth) / 100.0f, 0.0f, 0.5f);
-                }   else {
-                    computedTrackWidth = 7.0f;
-                }
-            }   catch (...) {
-                computedTrackWidth = 7.0f;
-            }
-        }   else {
-            computedTrackWidth = 7.0f;
-        }
-    }
-    computedSliderStyle.trackWidth = computedSliderStyle.trackProgressedWidth = computedTrackWidth;
-    
-    // Progressed Track Width //
-    // If the Track Width Layout Variant Holds an Explicit Width Float //
-    if (!sliderStyle.trackProgressedWidth.has_value()) return;
-    SFUI::SubProp::Dimension trackProgressedWidth = sliderStyle.trackProgressedWidth.value();
-    if (std::holds_alternative<SFUI::Float>(trackProgressedWidth)) {
-        computedTrackWidth = std::get<SFUI::Float>(trackProgressedWidth);
-    }
-    // If the Focus Width Style Variant Holds a String Percentage Input //
-    else if (std::holds_alternative<SFUI::String>(trackProgressedWidth)) {
-        SFUI::String trackWidthString = std::get<SFUI::String>(trackProgressedWidth);
-        if (trackWidthString.size() > 1 && trackWidthString.back() == '%') {
-            trackWidthString.pop_back();
-            try {
-                size_t index = 0;
-                SFUI::Double tempTrackWidth = std::stod(trackWidthString, &index);
-                if (index == trackWidthString.size()) {
-                    SFUI::Float relativeTrackWidthFactor = std::min(computedLayout.size.x, computedLayout.size.y);
-                    computedTrackWidth = relativeTrackWidthFactor * std::clamp(static_cast<SFUI::Float>(tempTrackWidth) / 100.0f, 0.0f, 0.5f);
-                }   else {
-                    computedTrackWidth = 7.0f;
-                }
-            }   catch (...) {
-                computedTrackWidth = 7.0f;
-            }
-        }   else {
-            computedTrackWidth = 7.0f;
-        }
-    }
-    computedSliderStyle.trackProgressedWidth = computedTrackWidth;
-}
-
-
-/**
- * @brief .
- */
-SFUI::Void SFUI::Slider::computeTrackLayout() {
-    SFUI::Vector2i thumbPosition = {static_cast<SFUI::Int>(thumbUpdatePosition.x), static_cast<SFUI::Int>(thumbUpdatePosition.y)};
-    SFUI::Vector2f thumbCenterPosition = {
-        static_cast<SFUI::Float>(thumbPosition.x) + (computedSliderStyle.thumbSize.x / 2.0f),
-        static_cast<SFUI::Float>(thumbPosition.y) + (computedSliderStyle.thumbSize.y / 2.0f)
-    };
-
-    if (computedSliderStyle.trackAlign == "horizontal") {
-        unprogressedTrack.layout.width = computedLayout.size.x;
-        unprogressedTrack.layout.height = computedSliderStyle.trackWidth;
-        unprogressedTrack.layout.xPosition = computedLayout.position.x;
-        unprogressedTrack.layout.yPosition = computedLayout.position.y + (computedLayout.size.y / 2.0f) - (computedSliderStyle.trackWidth / 2.0f);
-        progressedTrack.layout.height = computedSliderStyle.trackProgressedWidth;
-        progressedTrack.layout.yPosition = computedLayout.position.y + (computedLayout.size.y / 2.0f) - (computedSliderStyle.trackProgressedWidth / 2.0f);
-        thumb.layout.yPosition = computedLayout.position.y + (computedLayout.size.y / 2.0f) - (computedSliderStyle.thumbSize.y / 2.0f);
-
-        if (!sliderState.isInverted) {
-            progressedTrack.layout.xPosition = computedLayout.position.x;
-            progressedTrack.layout.width = thumbCenterPosition.x - computedLayout.position.x;
-        }
-        else if (sliderState.isInverted) {
-            progressedTrack.layout.xPosition = thumbCenterPosition.x + 1;
-            progressedTrack.layout.width = (computedLayout.position.x + computedLayout.size.x) - thumbCenterPosition.x;
-        }
-    }
-    else if (computedSliderStyle.trackAlign == "vertical") {
-        unprogressedTrack.layout.width = computedSliderStyle.trackWidth;
-        unprogressedTrack.layout.height = computedLayout.size.y;
-        unprogressedTrack.layout.xPosition = computedLayout.position.x + (computedLayout.size.x / 2.0f) - (computedSliderStyle.trackWidth / 2.0f);
-        unprogressedTrack.layout.yPosition = computedLayout.position.y;
-        progressedTrack.layout.width = computedSliderStyle.trackProgressedWidth;
-        progressedTrack.layout.xPosition = computedLayout.position.x + (computedLayout.size.x / 2.0f) - (computedSliderStyle.trackProgressedWidth / 2.0f);
-        thumb.layout.xPosition = computedLayout.position.x + (computedLayout.size.x / 2.0f) - (computedSliderStyle.thumbSize.x / 2.0f);
-
-        if (!sliderState.isInverted) {
-            progressedTrack.layout.yPosition = thumbCenterPosition.y + 1;
-            progressedTrack.layout.height = (computedLayout.position.y + computedLayout.size.y) - thumbCenterPosition.y;
-        }
-        else if (sliderState.isInverted) {
-            progressedTrack.layout.yPosition = computedLayout.position.y;
-            progressedTrack.layout.height = thumbCenterPosition.y - computedLayout.position.y;
-        }
-    }
-}
-
-
-/**
- * @brief .
- */
 SFUI::Void SFUI::Slider::computeDynamicColors() {
     unprogressedTrack.style.fillColor = sliderStyle.trackFillColor;
     unprogressedTrack.style.borderColor = sliderStyle.trackBorderColor;
@@ -486,20 +302,56 @@ SFUI::Void SFUI::Slider::computeDynamicColors() {
 /**
  * @brief .
  */
-SFUI::Void SFUI::Slider::computeComposedComponents() {
-    unprogressedTrack.style.cornerRadius = sliderStyle.trackCornerRadius;
-    unprogressedTrack.style.shadowOffset = sliderStyle.shadowOffset;
-    unprogressedTrack.style.shadowRadius = sliderStyle.shadowRadius;
-    unprogressedTrack.style.shadowFillColor = sliderStyle.shadowFillColor;
-    unprogressedTrack.update(renderTargetSize);
-    
-    progressedTrack.style.cornerRadius = sliderStyle.trackCornerRadius;
-    progressedTrack.update(renderTargetSize);
+SFUI::Void SFUI::Slider::computeThumb() {
+    // Thumb Size //
+    SFUI::Vector2f computedThumbSize = {12.0f, 12.0f};
+    if (std::holds_alternative<SFUI::Float>(sliderStyle.thumbWidth))
+        computedThumbSize.x = std::get<SFUI::Float>(sliderStyle.thumbWidth);
+    else if (std::holds_alternative<SFUI::String>(sliderStyle.thumbWidth)) {
+        SFUI::String thumbWidthString = std::get<SFUI::String>(sliderStyle.thumbWidth);
+        if (thumbWidthString.size() > 1 && thumbWidthString.back() == '%') {
+            thumbWidthString.pop_back();
+            try {
+                size_t index = 0;
+                SFUI::Double tempThumbWidth = std::stod(thumbWidthString, &index);
+                if (index == thumbWidthString.size()) {
+                    SFUI::Float relativeTrackWidthFactor = std::min(computedLayout.size.x, computedLayout.size.y);
+                    computedThumbSize.x = relativeTrackWidthFactor * std::clamp(static_cast<SFUI::Float>(tempThumbWidth) / 100.0f, 0.0f, 0.5f);
+                }
+            }   catch (...) {}
+        }
+    }
+    if (std::holds_alternative<SFUI::Float>(sliderStyle.thumbWidth))
+        computedThumbSize.y = std::get<SFUI::Float>(sliderStyle.thumbWidth);
+    else if (std::holds_alternative<SFUI::String>(sliderStyle.thumbWidth)) {
+        SFUI::String thumbHeightString = std::get<SFUI::String>(sliderStyle.thumbWidth);
+        if (thumbHeightString.size() > 1 && thumbHeightString.back() == '%') {
+            thumbHeightString.pop_back();
+            try {
+                size_t index = 0;
+                SFUI::Double tempThumbHeight = std::stod(thumbHeightString, &index);
+                if (index == thumbHeightString.size()) {
+                    SFUI::Float relativeTrackWidthFactor = std::min(computedLayout.size.x, computedLayout.size.y);
+                    computedThumbSize.y = relativeTrackWidthFactor * std::clamp(static_cast<SFUI::Float>(tempThumbHeight) / 100.0f, 0.0f, 0.5f);
+                }
+            }   catch (...) {}
+        }
+    }
+    computedSliderStyle.thumbSize = computedThumbSize;
 
-    thumb.layout.width = computedSliderStyle.thumbSize.x;
-    thumb.layout.height = computedSliderStyle.thumbSize.y;
+    // Thumb Position //
+    if (computedSliderStyle.trackAlign == "horizontal")
+        thumb.layout.yPosition = computedLayout.position.y + (computedLayout.size.y / 2.0f) - (computedThumbSize.y / 2.0f);
+    else if (computedSliderStyle.trackAlign == "vertical")
+        thumb.layout.xPosition = computedLayout.position.x + (computedLayout.size.x / 2.0f) - (computedThumbSize.x / 2.0f);
+
+    // Thumb Layout //
+    thumb.layout.width = computedThumbSize.x;
+    thumb.layout.height = computedThumbSize.y;
     thumb.layout.xPosition = thumbUpdatePosition.x;
     thumb.layout.yPosition = thumbUpdatePosition.y;
+    
+    // Thumb Style //
     thumb.style.cornerRadius = sliderStyle.thumbCornerRadius;
     thumb.buttonStyle.focusWidth = sliderStyle.focusWidth;
     thumb.buttonStyle.focusOffset = sliderStyle.focusOffset;
@@ -514,6 +366,8 @@ SFUI::Void SFUI::Slider::computeComposedComponents() {
     thumb.buttonStyle.toolTipTextColor = sliderStyle.toolTipTextColor;
     thumb.buttonState.isDisabled = sliderState.isDisabled;
     thumb.buttonState.isFocused = sliderState.isFocused;
+
+    // Thumb Behavior //
     thumb.buttonBehavior.onEnable = [this](const SFUI::String& componentID) {
         if (sliderBehavior.onEnable) sliderBehavior.onEnable(componentID);    
     };
@@ -559,7 +413,104 @@ SFUI::Void SFUI::Slider::computeComposedComponents() {
         if (sliderBehavior.onThumbMiddlePress) sliderBehavior.onThumbMiddlePress(componentID);
     };
 
+    // Update //
     thumb.update(renderTargetSize);
+}
+
+
+/**
+ * @brief .
+ */
+SFUI::Void SFUI::Slider::computeTracks() {
+    // Master Track Width //
+    SFUI::Float computedTrackWidth = 7.0f;
+    if (std::holds_alternative<SFUI::Float>(sliderStyle.trackWidth))
+        computedTrackWidth = std::get<SFUI::Float>(sliderStyle.trackWidth);
+    else if (std::holds_alternative<SFUI::String>(sliderStyle.trackWidth)) {
+        SFUI::String trackWidthString = std::get<SFUI::String>(sliderStyle.trackWidth);
+        if (trackWidthString.size() > 1 && trackWidthString.back() == '%') {
+            trackWidthString.pop_back();
+            try {
+                size_t index = 0;
+                SFUI::Double tempTrackWidth = std::stod(trackWidthString, &index);
+                if (index == trackWidthString.size()) {
+                    SFUI::Float relativeTrackWidthFactor = std::min(computedLayout.size.x, computedLayout.size.y);
+                    computedTrackWidth = relativeTrackWidthFactor * std::clamp(static_cast<SFUI::Float>(tempTrackWidth) / 100.0f, 0.0f, 0.5f);
+                }
+            }   catch (...) {}
+        }
+    }
+    
+    // Progressed Track Width //
+    SFUI::Float computedProgressedTrackWidth = computedTrackWidth;
+    if (!sliderStyle.trackProgressedWidth.has_value()) return;
+    SFUI::SubProp::Dimension trackProgressedWidth = sliderStyle.trackProgressedWidth.value();
+    if (std::holds_alternative<SFUI::Float>(trackProgressedWidth))
+        computedTrackWidth = std::get<SFUI::Float>(trackProgressedWidth);
+    else if (std::holds_alternative<SFUI::String>(trackProgressedWidth)) {
+        SFUI::String trackWidthString = std::get<SFUI::String>(trackProgressedWidth);
+        if (trackWidthString.size() > 1 && trackWidthString.back() == '%') {
+            trackWidthString.pop_back();
+            try {
+                size_t index = 0;
+                SFUI::Double tempTrackWidth = std::stod(trackWidthString, &index);
+                if (index == trackWidthString.size()) {
+                    SFUI::Float relativeTrackWidthFactor = std::min(computedLayout.size.x, computedLayout.size.y);
+                    computedTrackWidth = relativeTrackWidthFactor * std::clamp(static_cast<SFUI::Float>(tempTrackWidth) / 100.0f, 0.0f, 0.5f);
+                }
+            }   catch (...) {}
+        }
+    }
+
+    // Track Size and Positions //
+    SFUI::Vector2i thumbPosition = {static_cast<SFUI::Int>(thumbUpdatePosition.x), static_cast<SFUI::Int>(thumbUpdatePosition.y)};
+    SFUI::Vector2f thumbCenterPosition = {
+        static_cast<SFUI::Float>(thumbPosition.x) + (computedSliderStyle.thumbSize.x / 2.0f),
+        static_cast<SFUI::Float>(thumbPosition.y) + (computedSliderStyle.thumbSize.y / 2.0f)
+    };
+    if (computedSliderStyle.trackAlign == "horizontal") {
+        unprogressedTrack.layout.width = computedLayout.size.x;
+        unprogressedTrack.layout.height = computedTrackWidth;
+        unprogressedTrack.layout.xPosition = computedLayout.position.x;
+        unprogressedTrack.layout.yPosition = computedLayout.position.y + (computedLayout.size.y / 2.0f) - (computedTrackWidth / 2.0f);
+        progressedTrack.layout.height = computedProgressedTrackWidth;
+        progressedTrack.layout.yPosition = computedLayout.position.y + (computedLayout.size.y / 2.0f) - (computedProgressedTrackWidth / 2.0f);
+        if (!sliderState.isInverted) {
+            progressedTrack.layout.xPosition = computedLayout.position.x;
+            progressedTrack.layout.width = thumbCenterPosition.x - computedLayout.position.x;
+        }
+        else if (sliderState.isInverted) {
+            progressedTrack.layout.xPosition = thumbCenterPosition.x + 1;
+            progressedTrack.layout.width = (computedLayout.position.x + computedLayout.size.x) - thumbCenterPosition.x;
+        }
+    }
+    else if (computedSliderStyle.trackAlign == "vertical") {
+        unprogressedTrack.layout.width = computedTrackWidth;
+        unprogressedTrack.layout.height = computedLayout.size.y;
+        unprogressedTrack.layout.xPosition = computedLayout.position.x + (computedLayout.size.x / 2.0f) - (computedTrackWidth / 2.0f);
+        unprogressedTrack.layout.yPosition = computedLayout.position.y;
+        progressedTrack.layout.width = computedProgressedTrackWidth;
+        progressedTrack.layout.xPosition = computedLayout.position.x + (computedLayout.size.x / 2.0f) - (computedProgressedTrackWidth / 2.0f);
+        if (!sliderState.isInverted) {
+            progressedTrack.layout.yPosition = thumbCenterPosition.y + 1;
+            progressedTrack.layout.height = (computedLayout.position.y + computedLayout.size.y) - thumbCenterPosition.y;
+        }
+        else if (sliderState.isInverted) {
+            progressedTrack.layout.yPosition = computedLayout.position.y;
+            progressedTrack.layout.height = thumbCenterPosition.y - computedLayout.position.y;
+        }
+    }
+
+    // Track Style //
+    unprogressedTrack.style.cornerRadius = sliderStyle.trackCornerRadius;
+    unprogressedTrack.style.shadowOffset = sliderStyle.shadowOffset;
+    unprogressedTrack.style.shadowRadius = sliderStyle.shadowRadius;
+    unprogressedTrack.style.shadowFillColor = sliderStyle.shadowFillColor;
+    progressedTrack.style.cornerRadius = sliderStyle.trackCornerRadius;
+
+    // Update //
+    unprogressedTrack.update(renderTargetSize);
+    progressedTrack.update(renderTargetSize);
 }
 
 

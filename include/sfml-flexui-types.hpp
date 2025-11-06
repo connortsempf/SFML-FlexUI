@@ -332,6 +332,11 @@ namespace SFUI {
                 SFUI::SubProp::Numeric shadowRadius = 1.0f;
                 SFUI::SubProp::Color shadowFillColor = SFUI::Color(0, 0, 0, 0);
             };
+
+            struct ScrollContainer {
+                SFUI::SubProp::Keyword scrollDirection = "vertical";
+                SFUI::SubProp::Numeric scrollSpeedFactor = 15.0f;
+            };
             
             struct Label {
                 SFUI::SubProp::Keyword text;
@@ -400,23 +405,6 @@ namespace SFUI {
                 SFUI::Optional<SFUI::SubProp::Texture> loadedGraphic;
                 SFUI::Optional<SFUI::SubProp::Keyword> graphicPath;
                 SFUI::SubProp::Keyword graphicAlign;
-            };
-
-            struct ScrollContainer {
-                SFUI::SubProp::Keyword scrollDirection = "vertical";
-                SFUI::SubProp::Numeric scrollSpeedFactor = 15.0f;
-                SFUI::SubProp::Binary usingScrollBar = false;
-                SFUI::SubProp::Keyword scrollBarAlign = "right";
-                SFUI::SubProp::Dimension trackOnAxisSize;
-                SFUI::SubProp::Dimension trackOffAxisSize;
-                SFUI::SubProp::UniQuad trackCornerRadius;
-                SFUI::SubProp::Color trackFillColor;
-                SFUI::Optional<SFUI::SubProp::Color> trackHoveredFillColor;
-                SFUI::Optional<SFUI::SubProp::Color> trackPressedFillColor;
-                SFUI::SubProp::UniQuad thumbCornerRadius;
-                SFUI::SubProp::Color thumbFillColor;
-                SFUI::Optional<SFUI::SubProp::Color> thumbHoveredFillColor;
-                SFUI::Optional<SFUI::SubProp::Color> thumbPressedFillColor;
             };
 
             struct TextField {
@@ -540,6 +528,10 @@ namespace SFUI {
 
         // Behavior Props //
         namespace Behavior {
+    
+            struct ScrollContainer {
+                SFUI::SubProp::Callback onScroll;
+            };
 
             struct Button {
                 SFUI::SubProp::Callback onEnable;
@@ -579,12 +571,6 @@ namespace SFUI {
             struct Graphic {
                 SFUI::SubProp::Callback onLoad;
                 SFUI::SubProp::Callback onLoadError;
-            };
-    
-            struct ScrollContainer {
-                SFUI::SubProp::Callback onScroll;
-                SFUI::SubProp::Callback onScrollDragStart;
-                SFUI::SubProp::Callback onScrollDragEnd;
             };
 
             struct TextField {
@@ -749,76 +735,24 @@ namespace SFUI {
                 SFUI::Float shadowRadius;
                 SFUI::Color shadowFillColor;
             };
-            struct Label {
-                SFUI::String textAlignHorizontal;
-                SFUI::String textAlignVertical;
-                SFUI::Vector2f textOffset;
-            };
-    
-            struct Button {
-                SFUI::Color hoveredFillColor;
-                SFUI::Color hoveredBorderColor;
-                SFUI::Color pressedFillColor;
-                SFUI::Color pressedBorderColor;
-                SFUI::Color disabledFillColor;
-                SFUI::Color disabledBorderColor;
-                SFUI::Float focusWidth;
-                SFUI::Float focusOffset;
-            };
-
-            struct Toggle {
-                SFUI::Color offFillColor;
-                SFUI::Color offBorderColor;
-                SFUI::Color onFillColor;
-                SFUI::Color onBorderColor;
-                SFUI::Color hoveredOffFillColor;
-                SFUI::Color hoveredOffBorderColor;
-                SFUI::Color hoveredOnFillColor;
-                SFUI::Color hoveredOnBorderColor;
-                SFUI::Color pressedOffFillColor;
-                SFUI::Color pressedOffBorderColor;
-                SFUI::Color pressedOnFillColor;
-                SFUI::Color pressedOnBorderColor;
-            };
-    
-            struct Graphic {
-                SFUI::String graphicPath;
-                SFUI::String graphicAlign;
-                SFUI::Vector2f originalTextureSize;
-            };
     
             struct ScrollContainer {
                 SFUI::String scrollDirection;
                 SFUI::Float scrollSpeedFactor;
-                SFUI::Bool usingScrollBar;
-                SFUI::String scrollBarAlign;
-                SFUI::Float trackOnAxisSize;
-                SFUI::Float trackOffAxisSize;
-                SFUI::Float trackCornerRadius;
-                SFUI::Color trackFillColor;
-                SFUI::Color trackHoveredFillColor;
-                SFUI::Color trackPressedFillColor;
-                SFUI::Float thumbCornerRadius;
-                SFUI::Color thumbFillColor;
-                SFUI::Color thumbHoveredFillColor;
-                SFUI::Color thumbPressedFillColor;
+            };
+
+            struct Graphic {
+                SFUI::String graphicPath;
+                SFUI::Vector2f originalTextureSize;
             };
     
             struct TextField {
                 SFUI::String lineMode;
-                SFUI::Vector4f textInset;
-                SFUI::String placeholderText;
-                SFUI::Color placeholderTextColor;
-                SFUI::String caretShape;
-                SFUI::Float caretOnTime;
-                SFUI::Float caretOffTime;
             };
 
             struct Slider {
                 SFUI::String trackAlign;
-                SFUI::Float trackWidth;
                 SFUI::Float trackLength;
-                SFUI::Float trackProgressedWidth;
                 SFUI::Vector2f thumbSize;
             };
         }

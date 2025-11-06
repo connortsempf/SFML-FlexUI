@@ -52,7 +52,6 @@ SFUI::Void SFUI::Label::handleEvent(const SFUI::Event& event) {}
  */
 SFUI::Void SFUI::Label::update(const SFUI::Vector2u renderTargetSize) {
     this->renderTargetSize = renderTargetSize;
-
     computeAlignment();
     computeLayoutBox();
     computeStyles();
@@ -61,12 +60,8 @@ SFUI::Void SFUI::Label::update(const SFUI::Vector2u renderTargetSize) {
     computeGraphics();
     computeChildrenLayoutBox();
     updateChildren();
-
-    // Label Specific Computation //
     computeTextCore();
-    computeTextStyling();
-    computeTextAlign();
-    computeTextColors();
+    computeTextStyles();
     computeTextLayout();
 }
 
@@ -187,7 +182,7 @@ SFUI::Void SFUI::Label::computeTextCore() {
 /**
  * @brief .
  */
-SFUI::Void SFUI::Label::computeTextStyling() {
+SFUI::Void SFUI::Label::computeTextStyles() {
     // Style //
     SFUI::UnsignedInt32 computedTextStyle = SFUI::Text::Style::Regular;
     if (std::holds_alternative<SFUI::UnsignedInt32>(labelStyle.textStyle)) {
@@ -217,44 +212,8 @@ SFUI::Void SFUI::Label::computeTextStyling() {
     
     // Outline Thickness //
     if (labelStyle.textOutlineThickness >= 0.0f) textObject.setOutlineThickness(labelStyle.textOutlineThickness);
-}
 
-
-/**
- * @brief .
- */
-SFUI::Void SFUI::Label::computeTextAlign() {
-    // Horizontal Align //
-    SFUI::String tempAlignHorizontal = labelStyle.textAlignHorizontal;
-    std::transform(tempAlignHorizontal.begin(), tempAlignHorizontal.end(), tempAlignHorizontal.begin(), [](unsigned char c) {
-        return std::tolower(c);
-    });
-
-    if (tempAlignHorizontal == "left" || tempAlignHorizontal == "center" || tempAlignHorizontal == "right")
-        computedLabelStyle.textAlignHorizontal = tempAlignHorizontal;
-    else
-        computedLabelStyle.textAlignHorizontal = "center";
-    
-    // Vertical Align //
-    SFUI::String tempAlignVertical = labelStyle.textAlignVertical;
-    std::transform(tempAlignVertical.begin(), tempAlignVertical.end(), tempAlignVertical.begin(), [](unsigned char c) {
-        return std::tolower(c);
-    });
-    
-    if (tempAlignVertical == "top" || tempAlignVertical == "center" || tempAlignVertical == "bottom")
-        computedLabelStyle.textAlignVertical = tempAlignVertical;
-    else
-        computedLabelStyle.textAlignVertical = "center";
-
-    // Offset //
-    computedLabelStyle.textOffset = labelStyle.textOffset;
-}
-
-
-/**
- * @brief .
- */
-SFUI::Void SFUI::Label::computeTextColors() {
+    // Colors //
     textObject.setFillColor(resolveColorSubProp(labelStyle.textColor));
     textObject.setOutlineColor(resolveColorSubProp(labelStyle.textOutlineColor));
 }
@@ -264,29 +223,40 @@ SFUI::Void SFUI::Label::computeTextColors() {
  * @brief .
  */
 SFUI::Void SFUI::Label::computeTextLayout() {
-    if (labelStyle.text.empty() || !labelStyle.font) return;
+    // Horizontal Align //
+    SFUI::String computedHorizontalAlign = labelStyle.textAlignHorizontal;
+    std::transform(computedHorizontalAlign.begin(), computedHorizontalAlign.end(), computedHorizontalAlign.begin(), [](unsigned char c) {
+        return std::tolower(c);
+    });
+    if (computedHorizontalAlign != "left" && computedHorizontalAlign != "center" && computedHorizontalAlign == "right")
+        computedHorizontalAlign = "center";
 
-    SFUI::Vector2f textPosition;
+    // Vertical Align //
+    SFUI::String computedVerticalAlign = labelStyle.textAlignVertical;
+    std::transform(computedVerticalAlign.begin(), computedVerticalAlign.end(), computedVerticalAlign.begin(), [](unsigned char c) {
+        return std::tolower(c);
+    });
+    if (computedVerticalAlign != "top" && computedVerticalAlign != "center" && computedVerticalAlign == "bottom")
+        computedVerticalAlign = "center";
+
+    // Text Position //
+    if (!labelStyle.text.empty() && labelStyle.font) {
+        SFUI::Vector2f textPosition;
+        if (computedHorizontalAlign == "left")
+            textPosition.x = computedLayout.position.x + computedLayout.padding.x;
+        else if (computedHorizontalAlign == "center")
+            textPosition.x = computedLayout.position.x + (computedLayout.size.x / 2.0f) - (textObject.getLocalBounds().size.x / 2.0f);
+        else if (computedHorizontalAlign == "right")
+            textPosition.x = computedLayout.position.x + computedLayout.size.x - computedLayout.padding.y - textObject.getLocalBounds().size.x;
+        if (computedVerticalAlign == "top")
+            textPosition.y = computedLayout.position.y + computedLayout.padding.z;
+        else if (computedVerticalAlign == "center")
+            textPosition.y = computedLayout.position.y + (computedLayout.size.y / 2.0f) - (textObject.getLocalBounds().size.y / 2.0f) - (textObject.getCharacterSize() * VERTICAL_CENTER_OFFSET_FACTOR);
+        else if (computedVerticalAlign == "bottom")
+            textPosition.y = computedLayout.position.y + computedLayout.size.y - computedLayout.padding.w - textObject.getLocalBounds().size.y - (textObject.getCharacterSize() * BOTTOM_OFFSET_FACTOR);
     
-    // Horizontal Text Position //
-    if (computedLabelStyle.textAlignHorizontal == "left")
-        textPosition.x = computedLayout.position.x + computedLayout.padding.x;
-    else if (computedLabelStyle.textAlignHorizontal == "center")
-        textPosition.x = computedLayout.position.x + (computedLayout.size.x / 2.0f) - (textObject.getLocalBounds().size.x / 2.0f);
-    else if (computedLabelStyle.textAlignHorizontal == "right")
-        textPosition.x = computedLayout.position.x + computedLayout.size.x - computedLayout.padding.y - textObject.getLocalBounds().size.x;
-
-    // Vertical Text Position //
-    if (computedLabelStyle.textAlignVertical == "top")
-        textPosition.y = computedLayout.position.y + computedLayout.padding.z;
-    else if (computedLabelStyle.textAlignVertical == "center")
-        textPosition.y = computedLayout.position.y + (computedLayout.size.y / 2.0f) - (textObject.getLocalBounds().size.y / 2.0f) - (textObject.getCharacterSize() * VERTICAL_CENTER_OFFSET_FACTOR);
-    else if (computedLabelStyle.textAlignVertical == "bottom")
-        textPosition.y = computedLayout.position.y + computedLayout.size.y - computedLayout.padding.w - textObject.getLocalBounds().size.y - (textObject.getCharacterSize() * BOTTOM_OFFSET_FACTOR);
-
-    // Text Offset //
-    textPosition.x += computedLabelStyle.textOffset.x;
-    textPosition.y += computedLabelStyle.textOffset.y;
-
-    textObject.setPosition(textPosition);
+        textPosition.x += labelStyle.textOffset.x;
+        textPosition.y += labelStyle.textOffset.y;
+        textObject.setPosition(textPosition);
+    }
 }

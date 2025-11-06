@@ -31,9 +31,9 @@ SFUI::TextField::TextField(const SFUI::String& componentID) :
     textFieldStyle(),
     textFieldState(),
     textFieldBehavior(),
-    background(std::make_shared<SFUI::Button>(componentID + "_Background")),
-    inputText(std::make_shared<SFUI::Label>(componentID + "_InputText")),
-    caret(std::make_shared<SFUI::Container>(componentID + "_Caret"))
+    background(SFUI::Button(componentID + "_Background")),
+    inputText(SFUI::Label(componentID + "_InputText")),
+    caret(SFUI::Container(componentID + "_Caret"))
 {}
 
 
@@ -48,9 +48,9 @@ SFUI::TextField::TextField(const SFUI::String& componentID, const SFUI::PropGrou
     textFieldStyle(textFieldPropGroup.textFieldStyle),
     textFieldState(textFieldPropGroup.textFieldState),
     textFieldBehavior(textFieldPropGroup.textFieldBehavior),
-    background(std::make_shared<SFUI::Button>(componentID + "_Background")),
-    inputText(std::make_shared<SFUI::Label>(componentID + "_InputText")),
-    caret(std::make_shared<SFUI::Container>(componentID + "_Caret"))
+    background(SFUI::Button(componentID + "_Background")),
+    inputText(SFUI::Label(componentID + "_InputText")),
+    caret(SFUI::Container(componentID + "_Caret"))
 {}
 
 
@@ -60,9 +60,9 @@ SFUI::TextField::TextField(const SFUI::String& componentID, const SFUI::PropGrou
  * @param .
  */
 SFUI::Void SFUI::TextField::handleEvent(const SFUI::Event& event) {
-    background->handleEvent(event);
-    inputText->handleEvent(event);
-    caret->handleEvent(event);
+    background.handleEvent(event);
+    inputText.handleEvent(event);
+    caret.handleEvent(event);
 
     // Mouse Button Pressed Event Handling //
     if (const SFUI::Event::MouseButtonPressed* mousePressedEvent = event.getIf<SFUI::Event::MouseButtonPressed>()) {
@@ -107,24 +107,16 @@ SFUI::Void SFUI::TextField::handleEvent(const SFUI::Event& event) {
  */
 SFUI::Void SFUI::TextField::update(const SFUI::Vector2u renderTargetSize) {
     this->renderTargetSize = renderTargetSize;
-
     computeAlignment();
     computeLayoutBox();
     computeStyles();
     computeColors();
     computeChildrenLayoutBox();
     updateChildren();
-
-    // Text Field Specific Computation //
     computeLineMode();
-    computePlaceholderText();
-    computeComposedBackground();
-    computeComposedInputText();
-    computeTextInset();
-    computeCaretShape();
-    computeCaretBlinkTiming();
-    computeCaretLifetime();
-    computeComposedCaret();
+    computeBackground();
+    computeInputText();
+    computeCaret();
     computeDynamicTextOffset();
 }
 
@@ -135,9 +127,9 @@ SFUI::Void SFUI::TextField::update(const SFUI::Vector2u renderTargetSize) {
  * @param .
  */
 SFUI::Void SFUI::TextField::draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window) {
-    background->draw(drawTarget, window);
-    inputText->draw(drawTarget, window);
-    if (!textFieldState.isDisabled && textFieldState.isFocused && caretVisible) caret->draw(drawTarget, window);
+    background.draw(drawTarget, window);
+    inputText.draw(drawTarget, window);
+    if (!textFieldState.isDisabled && textFieldState.isFocused && caretVisible) caret.draw(drawTarget, window);
 }
 
 
@@ -160,229 +152,193 @@ SFUI::Void SFUI::TextField::computeLineMode() {
 /**
  * @brief .
  */
-SFUI::Void SFUI::TextField::computePlaceholderText() {
-    computedTextFieldStyle.placeholderText = textFieldStyle.placeholderText;
-    computedTextFieldStyle.placeholderTextColor = resolveColorSubProp(textFieldStyle.placeholderTextColor);
+SFUI::Void SFUI::TextField::computeBackground() {
+    // Background Layout //
+    background.layout.width = computedLayout.size.x;
+    background.layout.height = computedLayout.size.y;
+    background.layout.xPosition = computedLayout.position.x;
+    background.layout.yPosition = computedLayout.position.y;
+    
+    // Background Style //
+    background.style.borderWidth = style.borderWidth;
+    background.style.cornerRadius = style.cornerRadius;
+    background.style.fillColor = style.fillColor;
+    background.style.borderColor = style.borderColor;
+    background.buttonStyle.hoveredFillColor = textFieldStyle.hoveredFillColor;
+    background.buttonStyle.hoveredBorderColor = textFieldStyle.hoveredBorderColor;
+    background.buttonStyle.pressedFillColor = textFieldStyle.pressedFillColor;
+    background.buttonStyle.pressedBorderColor = textFieldStyle.pressedBorderColor;
+    background.buttonStyle.disabledFillColor = textFieldStyle.disabledFillColor;
+    background.buttonStyle.disabledBorderColor = textFieldStyle.disabledBorderColor;
+    background.buttonStyle.focusWidth = textFieldStyle.focusWidth;
+    background.buttonStyle.focusOffset = textFieldStyle.focusOffset;
+    background.buttonStyle.focusCornerRadius = textFieldStyle.focusCornerRadius;
+    background.buttonStyle.focusFillColor = textFieldStyle.focusFillColor;
+    background.buttonStyle.toolTipPadding = textFieldStyle.toolTipPadding;
+    background.buttonStyle.toolTipCornerRadius = textFieldStyle.toolTipCornerRadius;
+    background.buttonStyle.toolTipText = textFieldStyle.toolTipText;
+    background.buttonStyle.toolTipFont = textFieldStyle.toolTipFont;
+    background.buttonStyle.toolTipTextSize = textFieldStyle.toolTipTextSize;
+    background.buttonStyle.toolTipFillColor = textFieldStyle.toolTipFillColor;
+    background.buttonStyle.toolTipTextColor = textFieldStyle.toolTipTextColor;
+
+    // Background Sate //
+    background.buttonState.isDisabled = textFieldState.isDisabled;
+    background.buttonState.isFocused = textFieldState.isFocused;
+    
+    background.buttonBehavior.onEnable = [this](const SFUI::String& componentID) {
+        if (textFieldBehavior.onEnable) textFieldBehavior.onEnable(this->componentID);
+    };
+    background.buttonBehavior.onDisable = [this](const SFUI::String& componentID) {
+        if (textFieldBehavior.onDisable) textFieldBehavior.onDisable(this->componentID);
+    };
+    background.buttonBehavior.onFocus = [this](const SFUI::String& componentID) {
+        if (textFieldBehavior.onFocus) textFieldBehavior.onFocus(this->componentID);
+    };
+    background.buttonBehavior.onBlur = [this](const SFUI::String& componentID) {
+        if (textFieldBehavior.onBlur) textFieldBehavior.onBlur(this->componentID);
+    };
+    background.buttonBehavior.onHoverIn = [this](const SFUI::String& componentID) {
+        if (textFieldBehavior.onHoverIn) textFieldBehavior.onHoverIn(this->componentID);
+    };
+    background.buttonBehavior.onHoverOut = [this](const SFUI::String& componentID) {
+        if (textFieldBehavior.onHoverOut) textFieldBehavior.onHoverOut(this->componentID);
+    };
+    background.buttonBehavior.onLeftPressIn = [this](const SFUI::String& componentID) {
+        if (textFieldBehavior.onLeftPressIn) textFieldBehavior.onLeftPress(this->componentID);
+        if (!textFieldState.isFocused && textFieldBehavior.onFocus)
+            textFieldBehavior.onFocus(componentID);
+        textFieldState.isFocused = true;
+    };
+    background.buttonBehavior.onLeftPress = [this](const SFUI::String& componentID) {
+        if (textFieldBehavior.onLeftPress) textFieldBehavior.onLeftPress(this->componentID);
+        if (!textFieldState.isFocused && textFieldBehavior.onFocus)
+            textFieldBehavior.onFocus(componentID);
+        textFieldState.isFocused = true;
+    };
+    background.buttonBehavior.onRightPressIn = [this](const SFUI::String& componentID) {
+        if (textFieldBehavior.onRightPressIn) textFieldBehavior.onRightPressIn(this->componentID);
+        if (!textFieldState.isFocused && textFieldBehavior.onFocus)
+            textFieldBehavior.onFocus(componentID);
+        textFieldState.isFocused = true;
+    };
+    background.buttonBehavior.onRightPress = [this](const SFUI::String& componentID) {
+        if (textFieldBehavior.onRightPress) textFieldBehavior.onRightPress(this->componentID);
+        if (!textFieldState.isFocused && textFieldBehavior.onFocus)
+            textFieldBehavior.onFocus(componentID);
+        textFieldState.isFocused = true;
+    };
+    background.buttonBehavior.onMiddlePressIn = [this](const SFUI::String& componentID) {
+        if (textFieldBehavior.onMiddlePressIn) textFieldBehavior.onMiddlePressIn(this->componentID);
+        if (!textFieldState.isFocused && textFieldBehavior.onFocus)
+            textFieldBehavior.onFocus(componentID);
+        textFieldState.isFocused = true;
+    };
+    background.buttonBehavior.onMiddlePress = [this](const SFUI::String& componentID) {
+        if (textFieldBehavior.onMiddlePress) textFieldBehavior.onMiddlePress(this->componentID);
+        if (!textFieldState.isFocused && textFieldBehavior.onFocus)
+            textFieldBehavior.onFocus(componentID);
+        textFieldState.isFocused = true;
+    };
+    background.buttonBehavior.onDoublePress = [this](const SFUI::String& componentID) {
+        if (textFieldBehavior.onDoublePress) textFieldBehavior.onDoublePress(this->componentID);
+        if (!textFieldState.isFocused && textFieldBehavior.onFocus)
+            textFieldBehavior.onFocus(componentID);
+        textFieldState.isFocused = true;
+    };
+
+    // Update //
+    background.update(renderTargetSize);
 }
 
 
 /**
  * @brief .
  */
-SFUI::Void SFUI::TextField::computeComposedBackground() {
-    background->layout = SFUI::Prop::Layout::Component{
-        .width = computedLayout.size.x,
-        .height = computedLayout.size.y,
-        .xPosition = computedLayout.position.x,
-        .yPosition = computedLayout.position.y
-    };
-    background->style = SFUI::Prop::Style::Component{
-        .borderWidth = style.borderWidth,
-        .cornerRadius = style.cornerRadius,
-        .fillColor = style.fillColor,
-        .borderColor = style.borderColor
-    };
-    background->buttonState = SFUI::Prop::State::Button{
-        .isDisabled = textFieldState.isDisabled,
-        .isFocused = textFieldState.isFocused
-    };
-    background->buttonStyle = SFUI::Prop::Style::Button{
-        .hoveredFillColor = textFieldStyle.hoveredFillColor,
-        .hoveredBorderColor = textFieldStyle.hoveredBorderColor,
-        .pressedFillColor = textFieldStyle.pressedFillColor,
-        .pressedBorderColor = textFieldStyle.pressedBorderColor,
-        .disabledFillColor = textFieldStyle.disabledFillColor,
-        .disabledBorderColor = textFieldStyle.disabledBorderColor,
-        .focusWidth = textFieldStyle.focusWidth,
-        .focusOffset = textFieldStyle.focusOffset,
-        .focusCornerRadius = textFieldStyle.focusCornerRadius,
-        .focusFillColor = textFieldStyle.focusFillColor,
-        .toolTipPadding = textFieldStyle.toolTipPadding,
-        .toolTipCornerRadius = textFieldStyle.toolTipCornerRadius,
-        .toolTipText = textFieldStyle.toolTipText,
-        .toolTipFont = textFieldStyle.toolTipFont,
-        .toolTipTextSize = textFieldStyle.toolTipTextSize,
-        .toolTipFillColor = textFieldStyle.toolTipFillColor,
-        .toolTipTextColor = textFieldStyle.toolTipTextColor
-    };
-    background->buttonBehavior = SFUI::Prop::Behavior::Button{
-        .onEnable = [this](const SFUI::String& componentID) {
-            if (textFieldBehavior.onEnable) textFieldBehavior.onEnable(this->componentID);
-        },
-        .onDisable = [this](const SFUI::String& componentID) {
-            if (textFieldBehavior.onDisable) textFieldBehavior.onDisable(this->componentID);
-        },
-        .onFocus = [this](const SFUI::String& componentID) {
-            if (textFieldBehavior.onFocus) textFieldBehavior.onFocus(this->componentID);
-        },
-        .onBlur = [this](const SFUI::String& componentID) {
-            if (textFieldBehavior.onBlur) textFieldBehavior.onBlur(this->componentID);
-        },
-        .onHoverIn = [this](const SFUI::String& componentID) {
-            if (textFieldBehavior.onHoverIn) textFieldBehavior.onHoverIn(this->componentID);
-        },
-        .onHoverOut = [this](const SFUI::String& componentID) {
-            if (textFieldBehavior.onHoverOut) textFieldBehavior.onHoverOut(this->componentID);
-        },
-        .onLeftPressIn = [this](const SFUI::String& componentID) {
-            if (textFieldBehavior.onLeftPressIn) textFieldBehavior.onLeftPress(this->componentID);
-            if (!textFieldState.isFocused && textFieldBehavior.onFocus)
-                textFieldBehavior.onFocus(componentID);
-            textFieldState.isFocused = true;
-        },
-        .onLeftPress = [this](const SFUI::String& componentID) {
-            if (textFieldBehavior.onLeftPress) textFieldBehavior.onLeftPress(this->componentID);
-            if (!textFieldState.isFocused && textFieldBehavior.onFocus)
-                textFieldBehavior.onFocus(componentID);
-            textFieldState.isFocused = true;
-        },
-        .onRightPressIn = [this](const SFUI::String& componentID) {
-            if (textFieldBehavior.onRightPressIn) textFieldBehavior.onRightPressIn(this->componentID);
-            if (!textFieldState.isFocused && textFieldBehavior.onFocus)
-                textFieldBehavior.onFocus(componentID);
-            textFieldState.isFocused = true;
-        },
-        .onRightPress = [this](const SFUI::String& componentID) {
-            if (textFieldBehavior.onRightPress) textFieldBehavior.onRightPress(this->componentID);
-            if (!textFieldState.isFocused && textFieldBehavior.onFocus)
-                textFieldBehavior.onFocus(componentID);
-            textFieldState.isFocused = true;
-        },
-        .onMiddlePressIn = [this](const SFUI::String& componentID) {
-            if (textFieldBehavior.onMiddlePressIn) textFieldBehavior.onMiddlePressIn(this->componentID);
-            if (!textFieldState.isFocused && textFieldBehavior.onFocus)
-                textFieldBehavior.onFocus(componentID);
-            textFieldState.isFocused = true;
-        },
-        .onMiddlePress = [this](const SFUI::String& componentID) {
-            if (textFieldBehavior.onMiddlePress) textFieldBehavior.onMiddlePress(this->componentID);
-            if (!textFieldState.isFocused && textFieldBehavior.onFocus)
-                textFieldBehavior.onFocus(componentID);
-            textFieldState.isFocused = true;
-        },
-        .onDoublePress = [this](const SFUI::String& componentID) {
-            if (textFieldBehavior.onDoublePress) textFieldBehavior.onDoublePress(this->componentID);
-            if (!textFieldState.isFocused && textFieldBehavior.onFocus)
-                textFieldBehavior.onFocus(componentID);
-            textFieldState.isFocused = true;
-        }
-    };
-    background->update(renderTargetSize);
-}
-
-
-/**
- * @brief .
- */
-SFUI::Void SFUI::TextField::computeComposedInputText() {
-    inputText->layout = SFUI::Prop::Layout::Component{
-        .width = computedLayout.size.x - (computedTextFieldStyle.textInset.x + computedTextFieldStyle.textInset.y),
-        .height = computedLayout.size.y - (computedTextFieldStyle.textInset.z + computedTextFieldStyle.textInset.w),
-        .xPosition = computedLayout.position.x + computedTextFieldStyle.textInset.x,
-        .yPosition = computedLayout.position.y + computedTextFieldStyle.textInset.z
-    };
-    inputText->labelStyle = SFUI::Prop::Style::Label{
-        .text = (textFieldStyle.text.empty() ? computedTextFieldStyle.placeholderText : textFieldStyle.text),
-        .font = textFieldStyle.font,
-        .textSize = textFieldStyle.textSize,
-        .textStyle = textFieldStyle.textStyle,
-        .letterSpacing = textFieldStyle.letterSpacing,
-        .lineSpacing = textFieldStyle.lineSpacing,
-        .textOutlineThickness = textFieldStyle.textOutlineThickness,
-        .textAlignHorizontal = textFieldStyle.textAlignHorizontal,
-        .textAlignVertical = "top",
-        .textOffset = dynamicTextOffset,
-        .textColor = (textFieldStyle.text.empty() ? computedTextFieldStyle.placeholderTextColor : textFieldStyle.textColor),
-        .textOutlineColor = textFieldStyle.textOutlineColor
-    };
-    inputText->update(renderTargetSize);
-}
-
-
-/**
- * @brief .
- */
-SFUI::Void SFUI::TextField::computeTextInset() {
-    computedTextFieldStyle.textInset = resolveUniQuadSubProp(computedLayout.size, textFieldStyle.textInset);
+SFUI::Void SFUI::TextField::computeInputText() {
+    // Text Inset //
+    SFUI::Vector4f computedTextInset = resolveUniQuadSubProp(computedLayout.size, textFieldStyle.textInset);
     if (computedTextFieldStyle.lineMode == "single") {
-        SFUI::Float singleLineVerticalInset = (computedLayout.size.y - (inputText->getTextSize() * CENTER_TEXT_OFFSET_FACTOR)) / 2.0f;
-        computedTextFieldStyle.textInset.z = computedTextFieldStyle.textInset.w = singleLineVerticalInset;
+        SFUI::Float singleLineVerticalInset = (computedLayout.size.y - (inputText.getTextSize() * CENTER_TEXT_OFFSET_FACTOR)) / 2.0f;
+        computedTextInset.z = computedTextInset.w = singleLineVerticalInset;
     }
+
+    // Input Text Layout //
+    inputText.layout.width = computedLayout.size.x - (computedTextInset.x + computedTextInset.y);
+    inputText.layout.height = computedLayout.size.y - (computedTextInset.z + computedTextInset.w);
+    inputText.layout.xPosition = computedLayout.position.x + computedTextInset.x;
+    inputText.layout.yPosition = computedLayout.position.y + computedTextInset.z;
+
+    // Input Text Styles //
+    inputText.labelStyle.text = (textFieldStyle.text.empty() ? textFieldStyle.placeholderText : textFieldStyle.text);
+    inputText.labelStyle.font = textFieldStyle.font;
+    inputText.labelStyle.textSize = textFieldStyle.textSize;
+    inputText.labelStyle.textStyle = textFieldStyle.textStyle;
+    inputText.labelStyle.letterSpacing = textFieldStyle.letterSpacing;
+    inputText.labelStyle.lineSpacing = textFieldStyle.lineSpacing;
+    inputText.labelStyle.textOutlineThickness = textFieldStyle.textOutlineThickness;
+    inputText.labelStyle.textAlignHorizontal = textFieldStyle.textAlignHorizontal;
+    inputText.labelStyle.textAlignVertical = "top";
+    inputText.labelStyle.textOffset = dynamicTextOffset;
+    inputText.labelStyle.textColor = (textFieldStyle.text.empty() ? textFieldStyle.placeholderTextColor : textFieldStyle.textColor);
+    inputText.labelStyle.textOutlineColor = textFieldStyle.textOutlineColor;
+
+    // Update //
+    inputText.update(renderTargetSize);
 }
 
 
 /**
  * @brief .
  */
-SFUI::Void SFUI::TextField::computeCaretShape() {
-    SFUI::String tempShape = textFieldStyle.caretShape;
-    std::transform(tempShape.begin(), tempShape.end(), tempShape.begin(), [](unsigned char c) {
+SFUI::Void SFUI::TextField::computeCaret() {
+    // Caret Shape //
+    SFUI::String computedCaretShape = textFieldStyle.caretShape;
+    std::transform(computedCaretShape.begin(), computedCaretShape.end(), computedCaretShape.begin(), [](unsigned char c) {
         return std::tolower(c);
     });
-
-    if (tempShape == "line" || tempShape == "box" || tempShape == "underline")
-        computedTextFieldStyle.caretShape = tempShape;
-    else
-        computedTextFieldStyle.caretShape = "line";
-}
-
-
-/**
- * @brief .
- */
-SFUI::Void SFUI::TextField::computeCaretBlinkTiming() {
-    computedTextFieldStyle.caretOnTime = textFieldStyle.caretBlinkTime;
-    computedTextFieldStyle.caretOffTime = textFieldStyle.caretBlinkTime / std::clamp(textFieldStyle.caretBlinkRatio, 0.0f, 2.0f);
-}
-
-
-/**
- * @brief .
- */
-SFUI::Void SFUI::TextField::computeCaretLifetime() {
+    if (computedCaretShape != "line" && computedCaretShape != "box" && computedCaretShape != "underline")
+        computedCaretShape = "line";
+        
+    // Caret On/Off State //
+    SFUI::Float caretOnTime = textFieldStyle.caretBlinkTime;
+    SFUI::Float caretOffTime = textFieldStyle.caretBlinkTime / std::clamp(textFieldStyle.caretBlinkRatio, 0.0f, 2.0f);
     if (textFieldState.isFocused) {
-        if (caretClock.getElapsedTime().asMilliseconds() < computedTextFieldStyle.caretOnTime) {
+        if (caretClock.getElapsedTime().asMilliseconds() < caretOnTime)
             caretVisible = true;
-        }
-        else if ((caretClock.getElapsedTime().asMilliseconds() > computedTextFieldStyle.caretOnTime &&
-            caretClock.getElapsedTime().asMilliseconds() < (computedTextFieldStyle.caretOnTime + computedTextFieldStyle.caretOffTime))) {
-                caretVisible = false;
-        }
-        else if (caretClock.getElapsedTime().asMilliseconds() > (computedTextFieldStyle.caretOnTime + computedTextFieldStyle.caretOffTime)) {
+        else if ((caretClock.getElapsedTime().asMilliseconds() > caretOnTime &&
+        caretClock.getElapsedTime().asMilliseconds() < (caretOnTime + caretOffTime)))
+            caretVisible = false;
+        else if (caretClock.getElapsedTime().asMilliseconds() > (caretOnTime + caretOffTime))
             caretClock.restart();
-        }
     }
-}
 
-
-/**
- * @brief .
- */
-SFUI::Void SFUI::TextField::computeComposedCaret() {
+    // Caret Size //
     SFUI::Vector2f computedSize = {0.0f, 0.0f};
+    if (computedCaretShape == "line")
+        computedSize = {inputText.getTextSize() * CARET_LINE_WIDTH_FACTOR, inputText.getTextSize()};
+    else if (computedCaretShape == "box")
+        computedSize = {inputText.getTextSize() * CARET_BOX_WIDTH_FACTOR, inputText.getTextSize()};
+    else if (computedCaretShape == "underline")
+        computedSize = {inputText.getTextSize() * CARET_UNDERLINE_WIDTH_FACTOR, inputText.getTextSize() * CARET_UNDERLINE_HEIGHT_FACTOR};
+    caret.layout.width = computedSize.x;
+    caret.layout.height = computedSize.y;
+
+    // Caret Position //
     SFUI::Vector2f computedPositionOffset = {0.0f, 0.0f};
+    if (computedCaretShape == "line")
+        computedPositionOffset = {0.0f, (inputText.getTextSize() * CARET_LINE_VERTICAL_OFFSET_FACTOR)};
+    else if (computedCaretShape == "box")
+        computedPositionOffset = {0.0f, (inputText.getTextSize() * CARET_BOX_VERTICAL_OFFSET_FACTOR)};
+    else if (computedCaretShape == "underline")
+        computedPositionOffset = {0.0f, (inputText.getTextSize() * CARET_UNDERLINE_VERTICAL_OFFSET_FACTOR)};
+    SFUI::Vector2f caretPosition = inputText.getCharacterPosition(caretIndex);
+    caret.layout.xPosition = caretPosition.x + computedPositionOffset.x;
+    caret.layout.yPosition = caretPosition.y  + computedPositionOffset.y;
+    caret.style.fillColor = textFieldStyle.caretFillColor;
 
-    if (computedTextFieldStyle.caretShape == "line") {
-        computedSize = {inputText->getTextSize() * CARET_LINE_WIDTH_FACTOR, inputText->getTextSize()};
-        computedPositionOffset = {0.0f, (inputText->getTextSize() * CARET_LINE_VERTICAL_OFFSET_FACTOR)};
-    }
-    else if (computedTextFieldStyle.caretShape == "box") {
-        computedSize = {inputText->getTextSize() * CARET_BOX_WIDTH_FACTOR, inputText->getTextSize()};
-        computedPositionOffset = {0.0f, (inputText->getTextSize() * CARET_BOX_VERTICAL_OFFSET_FACTOR)};
-    }
-    else if (computedTextFieldStyle.caretShape == "underline") {
-        computedSize = {inputText->getTextSize() * CARET_UNDERLINE_WIDTH_FACTOR, inputText->getTextSize() * CARET_UNDERLINE_HEIGHT_FACTOR};
-        computedPositionOffset = {0.0f, (inputText->getTextSize() * CARET_UNDERLINE_VERTICAL_OFFSET_FACTOR)};
-    }
-
-    caret->layout.width = computedSize.x;
-    caret->layout.height = computedSize.y;
-
-    SFUI::Vector2f caretPosition = inputText->getCharacterPosition(caretIndex);
-    caret->layout.xPosition = caretPosition.x + computedPositionOffset.x;
-    caret->layout.yPosition = caretPosition.y  + computedPositionOffset.y;
-    caret->style.fillColor = textFieldStyle.caretFillColor;
-    caret->update(renderTargetSize);
+    // Update //
+    caret.update(renderTargetSize);
 }
 
 
@@ -390,30 +346,36 @@ SFUI::Void SFUI::TextField::computeComposedCaret() {
  * @brief .
  */
 SFUI::Void SFUI::TextField::computeDynamicTextOffset() {
-    SFUI::Vector2i tempCaretPosition = caret->getPosition();
+    SFUI::Vector2i tempCaretPosition = caret.getPosition();
     SFUI::Vector2f caretPosition = {static_cast<SFUI::Float>(tempCaretPosition.x), static_cast<SFUI::Float>(tempCaretPosition.y)};
-    SFUI::Vector2f caretSize = caret->getSize();
-    SFUI::Vector2i tempTextBoxPosition = inputText->getPosition();
+    SFUI::Vector2f caretSize = caret.getSize();
+    SFUI::Vector2i tempTextBoxPosition = inputText.getPosition();
     SFUI::Vector2f textBoxPosition = {static_cast<SFUI::Float>(tempTextBoxPosition.x), static_cast<SFUI::Float>(tempTextBoxPosition.y)};
-    SFUI::Vector2f textBoxSize = inputText->getSize();
+    SFUI::Vector2f textBoxSize = inputText.getSize();
+    SFUI::Bool dynamicUpdateNeeded = false;
 
-    // Horizontal Offset //
-    if (caretPosition.x < textBoxPosition.x)
+    if (caretPosition.x < textBoxPosition.x) {
+        dynamicUpdateNeeded = true;
         dynamicTextOffset.x += textBoxPosition.x - caretPosition.x;
-    else if (caretPosition.x + caretSize.x > textBoxPosition.x + textBoxSize.x)
+    }
+    else if (caretPosition.x + caretSize.x > textBoxPosition.x + textBoxSize.x) {
+        dynamicUpdateNeeded = true;
         dynamicTextOffset.x -= (caretPosition.x + caretSize.x) - (textBoxPosition.x + textBoxSize.x);
-
-    // Vertical Offset //
-    if (caretPosition.y < textBoxPosition.y)
+    }
+    if (caretPosition.y < textBoxPosition.y) {
+        dynamicUpdateNeeded = true;
         dynamicTextOffset.y += textBoxPosition.y - caretPosition.y;
-    else if (caretPosition.y + caretSize.y > textBoxPosition.y + textBoxSize.y)
+    }
+    else if (caretPosition.y + caretSize.y > textBoxPosition.y + textBoxSize.y) {
+        dynamicUpdateNeeded = true;
         dynamicTextOffset.y -= (caretPosition.y + caretSize.y) - (textBoxPosition.y + textBoxSize.y);
+    }
 
-    inputText->labelStyle.textOffset = dynamicTextOffset;
-    inputText->update(renderTargetSize);
-
-    computeComposedCaret();
-    caret->update(renderTargetSize);
+    if (dynamicUpdateNeeded) {
+        inputText.labelStyle.textOffset = dynamicTextOffset;
+        inputText.update(renderTargetSize);
+        computeCaret();
+    }
 }
 
 

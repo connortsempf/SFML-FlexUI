@@ -60,9 +60,7 @@ namespace SFUI {
 
         private:
             SFUI::Void computeAlignPrimary();
-            SFUI::Void computeScrollDirection();
-            SFUI::Void computeScrollSpeedFactor();
-            SFUI::Void computeMaxScrollOffset();
+            SFUI::Void computeScrollDynamics();
             SFUI::Void computeChildrenScrollPosition();
     };
 }
@@ -99,13 +97,10 @@ namespace SFUI {
 
         private:
             SFUI::Text textObject;
-            SFUI::ComputedProp::Style::Label computedLabelStyle;
 
         private:
             SFUI::Void computeTextCore();
-            SFUI::Void computeTextStyling();
-            SFUI::Void computeTextAlign();
-            SFUI::Void computeTextColors();
+            SFUI::Void computeTextStyles();
             SFUI::Void computeTextLayout();
     };
 }
@@ -153,14 +148,11 @@ namespace SFUI {
             SFUI::Time toolTipTime;
             SFUI::Container focus;
             SFUI::Label toolTip;
-            SFUI::ComputedProp::Style::Button computedButtonStyle;
 
         private:
             SFUI::Void computeDynamicColors();
-            SFUI::Void computeFocusWidth();
-            SFUI::Void computeFocusOffset();
-            SFUI::Void computeToolTipLifetime();
-            SFUI::Void computeComposedComponents();
+            SFUI::Void computeFocus();
+            SFUI::Void computeToolTip();
     };
 }
 
@@ -190,11 +182,10 @@ namespace SFUI {
 
         private:
             SFUI::Button toggle;
-            SFUI::ComputedProp::Style::Toggle computedToggleStyle;
 
         private:
             SFUI::Void computeDynamicColors();
-            SFUI::Void computeComposedComponents();
+            SFUI::Void computeToggle();
     };
 }
 
@@ -235,8 +226,7 @@ namespace SFUI {
         
         private:
             SFUI::Void computeGraphicSource();
-            SFUI::Void computeGraphicAlign();
-            SFUI::Void computeGraphic();
+            SFUI::Void computeGraphicLayout();
     };
 }
 
@@ -282,21 +272,16 @@ namespace SFUI {
             SFUI::UnsignedInt caretIndex = 0;
             SFUI::Vector2f dynamicTextOffset = {0.0f, 0.0f};
             SFUI::Clock caretClock;
-            SFUI::SharedPointer<SFUI::Button> background;
-            SFUI::SharedPointer<SFUI::Label> inputText;
-            SFUI::SharedPointer<SFUI::Container> caret;
+            SFUI::Button background;
+            SFUI::Label inputText;
+            SFUI::Container caret;
             SFUI::ComputedProp::Style::TextField computedTextFieldStyle;
 
         private:
             SFUI::Void computeLineMode();
-            SFUI::Void computePlaceholderText();
-            SFUI::Void computeComposedBackground();
-            SFUI::Void computeComposedInputText();
-            SFUI::Void computeTextInset();
-            SFUI::Void computeCaretShape();
-            SFUI::Void computeCaretBlinkTiming();
-            SFUI::Void computeCaretLifetime();
-            SFUI::Void computeComposedCaret();
+            SFUI::Void computeBackground();
+            SFUI::Void computeInputText();
+            SFUI::Void computeCaret();
             SFUI::Void computeDynamicTextOffset();
             SFUI::Void insertText(const char32_t newAppendedText);
             SFUI::Void editText(const SFUI::Event::KeyPressed* keyPressedEvent);
@@ -349,11 +334,9 @@ namespace SFUI {
         private:
             SFUI::Void computeTrackAlign();
             SFUI::Void computeValueDynamics();
-            SFUI::Void computeThumbSize();
-            SFUI::Void computeTrackWidth();
-            SFUI::Void computeTrackLayout();
             SFUI::Void computeDynamicColors();
-            SFUI::Void computeComposedComponents();
+            SFUI::Void computeThumb();
+            SFUI::Void computeTracks();
             SFUI::Bool trackHovered(SFUI::Vector2i mousePosition);
             SFUI::Void handleThumbMove(SFUI::Vector2i mousePosition);
     };

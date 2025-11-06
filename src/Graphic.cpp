@@ -49,7 +49,6 @@ SFUI::Void SFUI::Graphic::handleEvent(const SFUI::Event& event) {}
  */
 SFUI::Void SFUI::Graphic::update(const SFUI::Vector2u renderTargetSize) {
     this->renderTargetSize = renderTargetSize;
-
     computeAlignment();
     computeLayoutBox();
     computeStyles();
@@ -58,11 +57,8 @@ SFUI::Void SFUI::Graphic::update(const SFUI::Vector2u renderTargetSize) {
     computeGraphics();
     computeChildrenLayoutBox();
     updateChildren();
-
-    // Graphic Specific Computation //
     computeGraphicSource();
-    computeGraphicAlign();
-    computeGraphic();
+    computeGraphicLayout();
 }
 
 
@@ -165,43 +161,34 @@ SFUI::Void SFUI::Graphic::computeGraphicSource() {
 /**
  * @brief .
  */
-SFUI::Void SFUI::Graphic::computeGraphicAlign() {
-    SFUI::String tempAlign = graphicStyle.graphicAlign;
-    std::transform(tempAlign.begin(), tempAlign.end(), tempAlign.begin(), [](unsigned char c) {
+SFUI::Void SFUI::Graphic::computeGraphicLayout() {
+
+    // Alignment //
+    SFUI::String computedAlign = graphicStyle.graphicAlign;
+    std::transform(computedAlign.begin(), computedAlign.end(), computedAlign.begin(), [](unsigned char c) {
         return std::tolower(c);
     });
+    if (computedAlign != "fit" && computedAlign != "fill" && computedAlign != "stretch" && computedAlign != "center")
+        computedAlign = "fit";
 
-    if (tempAlign == "fit" || tempAlign == "fill" || tempAlign == "stretch" || tempAlign == "center")
-        computedGraphicStyle.graphicAlign = tempAlign;
-    else
-        computedLayout.alignSecondary = "fit";
-}
-
-
-
-/**
- * @brief .
- */
-SFUI::Void SFUI::Graphic::computeGraphic() {
+    // Scale //
     SFUI::Vector2f computedScale = {0.0f, 0.0f};
     SFUI::Float scaleX = computedLayout.size.x / computedGraphicStyle.originalTextureSize.x;
     SFUI::Float scaleY = computedLayout.size.y / computedGraphicStyle.originalTextureSize.y;
-
-    if (computedGraphicStyle.graphicAlign == "fit") {
+    if (computedAlign == "fit") {
         SFUI::Float fitScale = std::min(scaleX, scaleY);
         computedScale = {fitScale, fitScale};
     }
-    else if (computedGraphicStyle.graphicAlign == "fill") {
+    else if (computedAlign == "fill") {
         SFUI::Float fillScale = std::max(scaleX, scaleY);
         computedScale = {fillScale, fillScale};
     }
-    else if (computedGraphicStyle.graphicAlign == "stretch") {
+    else if (computedAlign == "stretch")
         computedScale = {scaleX, scaleY};
-    }
-    else if (computedGraphicStyle.graphicAlign == "center") {
-        computedScale = {1.0f, 1.0f};        
-    }
+    else if (computedAlign == "center")
+        computedScale = {1.0f, 1.0f};
 
+    // Position //
     graphic.setScale(computedScale);
     graphic.setPosition({
         computedLayout.position.x + (computedLayout.size.x / 2.0f) - (graphic.getGlobalBounds().size.x / 2.0f),

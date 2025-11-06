@@ -43,7 +43,6 @@ SFUI::Void SFUI::Container::handleEvent(const SFUI::Event& event) {}
  */
 SFUI::Void SFUI::Container::update(const SFUI::Vector2u renderTargetSize) {
     this->renderTargetSize = renderTargetSize;
-
     computeAlignment();
     computeLayoutBox();
     computeStyles();

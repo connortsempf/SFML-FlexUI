@@ -40,74 +40,20 @@ SFUI::Void SFUI::ScrollContainer::handleEvent(const SFUI::Event& event) {
     // Mouse Moved Event Handling //
     if (const SFUI::Event::MouseMoved* mouseMovedEvent = event.getIf<SFUI::Event::MouseMoved>()) {
         const SFUI::Vector2i mousePosition = SFUI::Vector2i(mouseMovedEvent->position.x, mouseMovedEvent->position.y);
-        SFUI::Bool buttonHovered = isMouseHovered(mousePosition);
+        SFUI::Bool scrollAreaHovered = isMouseHovered(mousePosition);
         
-        if (buttonHovered) {
-            if (!isHovered) {
-                isHovered = true;
-                // if (buttonBehavior.onHoverIn) buttonBehavior.onHoverIn(componentID);
-            }
+        if (scrollAreaHovered) {
+            if (!isHovered) isHovered = true;
         }
-        else if (!buttonHovered) {
-            if (isHovered) {
-                isHovered = false;
-                // if (buttonBehavior.onHoverOut) buttonBehavior.onHoverOut(componentID);
-            }
+        else if (!scrollAreaHovered) {
+            if (isHovered) isHovered = false;
         }
     }
-
-    // Mouse Button Pressed Event Handling //
-    // if (const SFUI::Event::MouseButtonPressed* mousePressedEvent = event.getIf<SFUI::Event::MouseButtonPressed>()) {
-    //     sf::Mouse::Button mouseButton = mousePressedEvent->button;
-    //     const SFUI::Vector2i mousePosition = SFUI::Vector2i(mousePressedEvent->position.x, mousePressedEvent->position.y);
-    //     SFUI::Bool buttonHovered = isMouseHovered(mousePosition);
-
-    //     if (mouseButton == sf::Mouse::Button::Left) {
-    //         if (isFocused) {
-    //             isFocused = false;
-    //             if (buttonBehavior.onBlur) buttonBehavior.onBlur(componentID);
-    //         }
-    //     }
-    //     if (buttonHovered) {
-    //         if (mouseButton == sf::Mouse::Button::Left) {
-    //             if (!isLeftPressed) {
-    //                 isLeftPressed = true;
-    //                 if (buttonBehavior.onLeftPressIn) buttonBehavior.onLeftPressIn(componentID);
-    //             }
-    //         }   else if (mouseButton == sf::Mouse::Button::Right) {
-    //             if (!isRightPressed) {
-    //                 isRightPressed = true;
-    //                 if (buttonBehavior.onRightPressIn) buttonBehavior.onRightPressIn(componentID);
-    //             }
-    //         }   else if (mouseButton == sf::Mouse::Button::Middle) {
-    //             if (!isMiddlePressed) {
-    //                 isMiddlePressed = true;
-    //                 if (buttonBehavior.onMiddlePressIn) buttonBehavior.onMiddlePressIn(componentID);
-    //             }
-    //         }
-    //     }
-    // }
-
-    // Mouse Button Released Event Handling //
-    // if (const SFUI::Event::MouseButtonReleased* mouseReleasedEvent = event.getIf<SFUI::Event::MouseButtonReleased>()) {
-    //     sf::Mouse::Button mouseButton = mouseReleasedEvent->button;
-    //     const SFUI::Vector2i mousePosition = SFUI::Vector2i(mouseReleasedEvent->position.x, mouseReleasedEvent->position.y);
-    //     SFUI::Bool buttonHovered = isMouseHovered(mousePosition);
-
-    //     if (buttonHovered) {
-    //         if (mouseButton == sf::Mouse::Button::Left && isLeftPressed && buttonBehavior.onLeftPress) buttonBehavior.onLeftPress(componentID);
-    //         if (mouseButton == sf::Mouse::Button::Right && isRightPressed && buttonBehavior.onRightPress) buttonBehavior.onRightPress(componentID);
-    //         if (mouseButton == sf::Mouse::Button::Middle && isMiddlePressed && buttonBehavior.onMiddlePress) buttonBehavior.onMiddlePress(componentID);
-    //     }
-    //     if (isLeftPressed) isLeftPressed = false;
-    //     if (isRightPressed) isRightPressed = false;
-    //     if (isMiddlePressed) isMiddlePressed = false;
-    // }
 
     // Mouse Wheel Scrolled Event Handling //
     if (const SFUI::Event::MouseWheelScrolled* mouseWheelScrolledEvent = event.getIf<SFUI::Event::MouseWheelScrolled>()) {
         if (mouseWheelScrolledEvent->wheel == sf::Mouse::Wheel::Vertical) {
-            if (computedScrollContainerStyle.scrollBarAlign == "vertical" || computedScrollContainerStyle.scrollBarAlign == "both") {
+            if (computedScrollContainerStyle.scrollDirection == "vertical" || computedScrollContainerStyle.scrollDirection == "both") {
                 SFUI::Float newScrollOffsetY = scrollOffset.y + (mouseWheelScrolledEvent->delta * computedScrollContainerStyle.scrollSpeedFactor);
                 if ((computedLayout.alignDirection == "vertical" && computedLayout.alignPrimary == "start") ||
                     (computedLayout.alignDirection == "horizontal" && computedLayout.alignSecondary == "start")) {
@@ -120,7 +66,7 @@ SFUI::Void SFUI::ScrollContainer::handleEvent(const SFUI::Event& event) {
                 }
             }
         }   else if (mouseWheelScrolledEvent->wheel == sf::Mouse::Wheel::Vertical) {
-            if (computedScrollContainerStyle.scrollBarAlign == "horizontal" || computedScrollContainerStyle.scrollBarAlign == "both") {
+            if (computedScrollContainerStyle.scrollDirection == "horizontal" || computedScrollContainerStyle.scrollDirection == "both") {
                 SFUI::Float newScrollOffsetX = scrollOffset.x + (mouseWheelScrolledEvent->delta * computedScrollContainerStyle.scrollSpeedFactor);
                 if ((computedLayout.alignDirection == "horizontal" && computedLayout.alignPrimary == "start") ||
                     (computedLayout.alignDirection == "vertical" && computedLayout.alignSecondary == "start")) {
@@ -145,7 +91,6 @@ SFUI::Void SFUI::ScrollContainer::handleEvent(const SFUI::Event& event) {
  */
 SFUI::Void SFUI::ScrollContainer::update(const SFUI::Vector2u renderTargetSize) {
     this->renderTargetSize = renderTargetSize;
-
     computeAlignment();
     computeLayoutBox();
     computeStyles();
@@ -153,13 +98,9 @@ SFUI::Void SFUI::ScrollContainer::update(const SFUI::Vector2u renderTargetSize) 
     computeShadows();
     computeGraphics();
     computeChildrenLayoutBox();
-    
-    // Scroll Container Specific Computation //
-    computeScrollDirection();
-    computeScrollSpeedFactor();
-    computeMaxScrollOffset();
+    computeAlignPrimary();
+    computeScrollDynamics();
     computeChildrenScrollPosition();
-    
     updateChildren();
 }
 
@@ -199,35 +140,22 @@ SFUI::Void SFUI::ScrollContainer::computeAlignPrimary() {
 /**
  * @brief .
  */
-SFUI::Void SFUI::ScrollContainer::computeScrollDirection() {
-    SFUI::String tempAlign = scrollContainerStyle.scrollBarAlign;
+SFUI::Void SFUI::ScrollContainer::computeScrollDynamics() {
+    // Scroll Direction //
+    SFUI::String tempAlign = scrollContainerStyle.scrollDirection;
     std::transform(tempAlign.begin(), tempAlign.end(), tempAlign.begin(), [](unsigned char c) {
         return std::tolower(c);
     });
-
     if (tempAlign == "vertical" || tempAlign == "horizontal" || tempAlign == "both")
-    computedScrollContainerStyle.scrollBarAlign = tempAlign;
+        computedScrollContainerStyle.scrollDirection = tempAlign;
     else
-    computedScrollContainerStyle.scrollBarAlign = "vertical";
-}
+        computedScrollContainerStyle.scrollDirection = "vertical";
 
+    // Scroll Speed Factor //
+    if (scrollContainerStyle.scrollSpeedFactor == 0) computedScrollContainerStyle.scrollSpeedFactor = 15.0f;
+    else computedScrollContainerStyle.scrollSpeedFactor = scrollContainerStyle.scrollSpeedFactor;
 
-/**
- * @brief .
- */
-SFUI::Void SFUI::ScrollContainer::computeScrollSpeedFactor() {
-    if (scrollContainerStyle.scrollSpeedFactor == 0) {
-        computedScrollContainerStyle.scrollSpeedFactor = 15.0f;
-        return;
-    }
-    computedScrollContainerStyle.scrollSpeedFactor = scrollContainerStyle.scrollSpeedFactor;
-}
-
-
-/**
- * @brief .
- */
-SFUI::Void SFUI::ScrollContainer::computeMaxScrollOffset() {
+    // Maximum Scroll Offset //
     SFUI::Vector<SFUI::SharedPointer<SFUI::Component>> children = this->getChildren();
     SFUI::Vector2f contentSize = {0.0f, 0.0f};
     for (const auto& child : children) {
