@@ -8,9 +8,9 @@
 
 
 /**
- * @brief .
+ * @brief The constructor for ScrollContainer.
  * 
- * @param .
+ * @param componentID The unique identifier for the scroll container component.
  */
 SFUI::ScrollContainer::ScrollContainer(const SFUI::String& componentID) :
     Component(componentID)
@@ -18,10 +18,10 @@ SFUI::ScrollContainer::ScrollContainer(const SFUI::String& componentID) :
 
 
 /**
- * @brief .
+ * @brief The constructor for ScrollContainer.
  * 
- * @param .
- * @param .
+ * @param componentID The unique identifier for the scroll container component.
+ * @param scrollContainerPropGroup The property group for the scroll container component.
  */
 SFUI::ScrollContainer::ScrollContainer(const SFUI::String& componentID, const SFUI::PropGroup::ScrollContainer& scrollContainerPropGroup) :
     Component(componentID, scrollContainerPropGroup.layout, scrollContainerPropGroup.style),
@@ -31,12 +31,11 @@ SFUI::ScrollContainer::ScrollContainer(const SFUI::String& componentID, const SF
 
 
 /**
- * @brief .
+ * @brief Handle input events for the scroll container.
  * 
- * @param .
+ * @param event The input event to handle.
  */
 SFUI::Void SFUI::ScrollContainer::handleEvent(const SFUI::Event& event) {
-
     // Mouse Moved Event Handling //
     if (const SFUI::Event::MouseMoved* mouseMovedEvent = event.getIf<SFUI::Event::MouseMoved>()) {
         const SFUI::Vector2i mousePosition = SFUI::Vector2i(mouseMovedEvent->position.x, mouseMovedEvent->position.y);
@@ -85,9 +84,9 @@ SFUI::Void SFUI::ScrollContainer::handleEvent(const SFUI::Event& event) {
 
 
 /**
- * @brief .
+ * @brief Recalculate the properties of the scroll container.
  * 
- * @param .
+ * @param renderTargetSize The size of the render target.
  */
 SFUI::Void SFUI::ScrollContainer::update(const SFUI::Vector2u renderTargetSize) {
     this->renderTargetSize = renderTargetSize;
@@ -106,9 +105,10 @@ SFUI::Void SFUI::ScrollContainer::update(const SFUI::Vector2u renderTargetSize) 
 
 
 /**
- * @brief .
+ * @brief Draw the scroll container and its contents.
  * 
- * @param .
+ * @param drawTarget The render target to draw to.
+ * @param window The render window associated with the render target.
  */
 SFUI::Void SFUI::ScrollContainer::draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window) {
     drawTarget.draw(shadowRects);
@@ -121,7 +121,7 @@ SFUI::Void SFUI::ScrollContainer::draw(SFUI::RenderTarget& drawTarget, SFUI::Ren
 
 
 /**
- * @brief .
+ * @brief Compute primary alignment for the scroll container.
  */
 SFUI::Void SFUI::ScrollContainer::computeAlignPrimary() {
     SFUI::String tempAlignPrimary = layout.alignPrimary;
@@ -138,7 +138,7 @@ SFUI::Void SFUI::ScrollContainer::computeAlignPrimary() {
 
 
 /**
- * @brief .
+ * @brief Compute scroll dynamics for the scroll container.
  */
 SFUI::Void SFUI::ScrollContainer::computeScrollDynamics() {
     // Scroll Direction //
@@ -170,7 +170,7 @@ SFUI::Void SFUI::ScrollContainer::computeScrollDynamics() {
 
 
 /**
- * @brief .
+ * @brief Compute the scroll position of all child components.
  */
 SFUI::Void SFUI::ScrollContainer::computeChildrenScrollPosition() {
     SFUI::Vector<SFUI::SharedPointer<SFUI::Component>> children = this->getChildren();

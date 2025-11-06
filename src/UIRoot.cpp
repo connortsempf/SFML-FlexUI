@@ -8,7 +8,9 @@
 
 
 /**
- * @brief .
+ * @brief Constructor for UIRoot.
+ * 
+ * @param rootComponent The root component of the UI hierarchy.
  */
 SFUI::UIRoot::UIRoot(const SFUI::SharedPointer<SFUI::Component>& rootComponent) :
     rootComponent(rootComponent)
@@ -16,7 +18,9 @@ SFUI::UIRoot::UIRoot(const SFUI::SharedPointer<SFUI::Component>& rootComponent) 
 
 
 /**
- * @brief .
+ * @brief Sets the root component of the UI hierarchy.
+ * 
+ * @param rootComponent The new root component.
  */
 SFUI::Void SFUI::UIRoot::setRootComponent(const SFUI::SharedPointer<SFUI::Component>& rootComponent) {
     this->rootComponent = rootComponent;
@@ -24,9 +28,9 @@ SFUI::Void SFUI::UIRoot::setRootComponent(const SFUI::SharedPointer<SFUI::Compon
 
 
 /**
- * @brief .
+ * @brief Handles input events by propagating to all children in the contained UI.
  * 
- * @param .
+ * @param event The input event to handle.
  */
 SFUI::Void SFUI::UIRoot::handleEvent(const SFUI::Event& event) {
     if (!rootComponent) return;
@@ -49,7 +53,7 @@ SFUI::Void SFUI::UIRoot::handleEvent(const SFUI::Event& event) {
 
 
 /**
- * @brief .
+ * @brief Updates all children in the contained UI.
  */
 SFUI::Void SFUI::UIRoot::update(const SFUI::Vector2u renderTargetSize) {
     if (!rootComponent) return;
@@ -72,9 +76,10 @@ SFUI::Void SFUI::UIRoot::update(const SFUI::Vector2u renderTargetSize) {
 
 
 /**
- * @brief .
+ * @brief Draws all children in the contained UI.
  * 
- * @param .
+ * @param drawTarget The render target to draw on.
+ * @param window The render window associated with the render target.
  */
 SFUI::Void SFUI::UIRoot::draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window) {
     if (!rootComponent) return;
@@ -85,10 +90,11 @@ SFUI::Void SFUI::UIRoot::draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow
 
 
 /**
- * @brief .
+ * @brief Recursive helper function to draw components and their children.
  * 
- * @param .
- * @param .
+ * @param component The current component to draw.
+ * @param drawTarget The render target to draw on.
+ * @param window The render window associated with the render target.
  */
 SFUI::Void SFUI::UIRoot::drawRecursive(SFUI::SharedPointer<SFUI::Component> component, SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window) {
     component->draw(drawTarget, window);

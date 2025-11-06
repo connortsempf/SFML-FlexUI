@@ -8,9 +8,9 @@
 
 
 /**
- * @brief .
+ * @brief The constructor for Container.
  * 
- * @param .
+ * @param componentID The unique identifier for the container component.
  */
 SFUI::Container::Container(const SFUI::String& componentID) :
     Component(componentID)
@@ -18,10 +18,10 @@ SFUI::Container::Container(const SFUI::String& componentID) :
 
 
 /**
- * @brief .
+ * @brief The constructor for Container.
  * 
- * @param .
- * @param .
+ * @param componentID The unique identifier for the container component.
+ * @param containerPropGroup The property group for the container component.
  */
 SFUI::Container::Container(const SFUI::String& componentID, const SFUI::PropGroup::Container& containerPropGroup) :
     Component(componentID, containerPropGroup.layout, containerPropGroup.style)
@@ -29,17 +29,17 @@ SFUI::Container::Container(const SFUI::String& componentID, const SFUI::PropGrou
 
 
 /**
- * @brief .
+ * @brief Handle input events for the container.
  * 
- * @param .
+ * @param event The input event to handle.
  */
 SFUI::Void SFUI::Container::handleEvent(const SFUI::Event& event) {}
 
 
 /**
- * @brief .
+ * @brief Recalculate the properties of the container.
  * 
- * @param .
+ * @param renderTargetSize The size of the render target.
  */
 SFUI::Void SFUI::Container::update(const SFUI::Vector2u renderTargetSize) {
     this->renderTargetSize = renderTargetSize;
@@ -55,9 +55,10 @@ SFUI::Void SFUI::Container::update(const SFUI::Vector2u renderTargetSize) {
 
 
 /**
- * @brief .
+ * @brief Draw the container and its contents.
  * 
- * @param .
+ * @param drawTarget The render target to draw to.
+ * @param window The render window associated with the render target.
  */
 SFUI::Void SFUI::Container::draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window) {
     drawTarget.draw(shadowRects);

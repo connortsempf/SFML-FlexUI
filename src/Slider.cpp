@@ -8,9 +8,9 @@
 
 
 /**
- * @brief .
+ * @brief The constrctor for the slider component.
  * 
- * @param .
+ * @param componentID The unique identifier for the slider component.
  */
 SFUI::Slider::Slider(const SFUI::String& componentID) :
     Component(componentID),
@@ -24,10 +24,10 @@ SFUI::Slider::Slider(const SFUI::String& componentID) :
 
 
 /**
- * @brief .
+ * @brief The constrctor for the slider component.
  * 
- * @param .
- * @param .
+ * @param componentID The unique identifier for the slider component.
+ * @param togglePropGroup The property group for the slider component.
  */
 SFUI::Slider::Slider(const SFUI::String& componentID, const SFUI::PropGroup::Slider& togglePropGroup) :
     Component(componentID, togglePropGroup.layout, togglePropGroup.style),
@@ -41,9 +41,9 @@ SFUI::Slider::Slider(const SFUI::String& componentID, const SFUI::PropGroup::Sli
 
 
 /**
- * @brief .
+ * @brief Handle a user input event.
  * 
- * @param .
+ * @param event The event to handle.
  */
 SFUI::Void SFUI::Slider::handleEvent(const SFUI::Event& event) {
     thumb.handleEvent(event);
@@ -111,9 +111,9 @@ SFUI::Void SFUI::Slider::handleEvent(const SFUI::Event& event) {
 
 
 /**
- * @brief .
+ * @brief Recalculate the slider component's properties.
  * 
- * @param .
+ * @param renderTargetSize The size of the render target the component is being drawn to.
  */
 SFUI::Void SFUI::Slider::update(const SFUI::Vector2u renderTargetSize) {
     this->renderTargetSize = renderTargetSize;
@@ -134,9 +134,10 @@ SFUI::Void SFUI::Slider::update(const SFUI::Vector2u renderTargetSize) {
 
 
 /**
- * @brief .
+ * @brief Draw the slider component to a render target.
  * 
- * @param .
+ * @param drawTarget The render target to draw to.
+ * @param window The render window associated with the render target.
  */
 SFUI::Void SFUI::Slider::draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window) {
     drawTarget.draw(shadowRects);
@@ -152,7 +153,7 @@ SFUI::Void SFUI::Slider::draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow
 
 
 /**
- * @brief .
+ * @brief Compute the alignment of the tracks within its bounding box.
  */
 SFUI::Void SFUI::Slider::computeTrackAlign() {
     SFUI::String tempTrackAlign = sliderStyle.trackAlign;
@@ -168,7 +169,7 @@ SFUI::Void SFUI::Slider::computeTrackAlign() {
 
 
 /**
- * @brief .
+ * @brief Compute the value dynamics of the slider component.
  */
 SFUI::Void SFUI::Slider::computeValueDynamics() {
     // Sanitize Minimum and Maximum Values //
@@ -235,7 +236,7 @@ SFUI::Void SFUI::Slider::computeValueDynamics() {
 
 
 /**
- * @brief .
+ * @brief Compute the dynamic colors of the slider component.
  */
 SFUI::Void SFUI::Slider::computeDynamicColors() {
     unprogressedTrack.style.fillColor = sliderStyle.trackFillColor;
@@ -300,7 +301,7 @@ SFUI::Void SFUI::Slider::computeDynamicColors() {
 
 
 /**
- * @brief .
+ * @brief Compute the thumb properties of the slider component.
  */
 SFUI::Void SFUI::Slider::computeThumb() {
     // Thumb Size //
@@ -419,7 +420,7 @@ SFUI::Void SFUI::Slider::computeThumb() {
 
 
 /**
- * @brief .
+ * @brief Compute the thumb properties of the slider component.
  */
 SFUI::Void SFUI::Slider::computeTracks() {
     // Master Track Width //
@@ -515,11 +516,11 @@ SFUI::Void SFUI::Slider::computeTracks() {
 
 
 /**
- * @brief .
+ * @brief Check if the track is being hovered by the mouse.
  * 
- * @param .
+ * @param mousePosition The current mouse position.
  * 
- * @return .
+ * @return True if the track is being hovered, false otherwise.
  */
 SFUI::Bool SFUI::Slider::trackHovered(SFUI::Vector2i mousePosition) {
     return (
@@ -530,9 +531,9 @@ SFUI::Bool SFUI::Slider::trackHovered(SFUI::Vector2i mousePosition) {
 
 
 /**
- * @brief .
+ * @brief Handle thumb movement and update the slider value accordingly.
  * 
- * @param .
+ * @param mousePosition The current mouse position.
  */
 SFUI::Void SFUI::Slider::handleThumbMove(SFUI::Vector2i mousePosition) {
     SFUI::Float oldValue = sliderState.value;

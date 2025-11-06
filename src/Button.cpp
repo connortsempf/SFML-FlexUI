@@ -13,9 +13,9 @@ const SFUI::Time SFUI::Button::TOOL_TIP_THRESHOLD_MS = sf::milliseconds(1000);
 
 
 /**
- * @brief .
+ * @brief The constructor for Button.
  * 
- * @param .
+ * @param componentID The unique identifier for the button component.
  */
 SFUI::Button::Button(const SFUI::String& componentID) :
     Component(componentID),
@@ -28,10 +28,10 @@ SFUI::Button::Button(const SFUI::String& componentID) :
 
 
 /**
- * @brief .
+ * @brief The constructor for Button with properties.
  * 
- * @param .
- * @param .
+ * @param componentID The unique identifier for the button component.
+ * @param buttonPropGroup The property group containing layout, style, state, and behavior properties.
  */
 SFUI::Button::Button(const SFUI::String& componentID, const SFUI::PropGroup::Button& buttonPropGroup) :
     Component(componentID, buttonPropGroup.layout, buttonPropGroup.style),
@@ -44,9 +44,9 @@ SFUI::Button::Button(const SFUI::String& componentID, const SFUI::PropGroup::But
 
 
 /**
- * @brief .
+ * @brief Handle events for the Button component.
  * 
- * @param .
+ * @param event The event to handle.
  */
 SFUI::Void SFUI::Button::handleEvent(const SFUI::Event& event) {
     if (buttonState.isDisabled) return;
@@ -167,9 +167,9 @@ SFUI::Void SFUI::Button::handleEvent(const SFUI::Event& event) {
 
 
 /**
- * @brief .
+ * @brief Recalculate the Button's properties.
  * 
- * @param .
+ * @param renderTargetSize The size of the render target.
  */
 SFUI::Void SFUI::Button::update(const SFUI::Vector2u renderTargetSize) {
     this->renderTargetSize = renderTargetSize;
@@ -187,9 +187,10 @@ SFUI::Void SFUI::Button::update(const SFUI::Vector2u renderTargetSize) {
 
 
 /**
- * @brief .
+ * @brief Draw the Button component.
  * 
- * @param .
+ * @param drawTarget The render target to draw on.
+ * @param window The render window associated with the render target.
  */
 SFUI::Void SFUI::Button::draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window) {
     drawTarget.draw(shadowRects);
@@ -204,9 +205,9 @@ SFUI::Void SFUI::Button::draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow
 
 
 /**
- * @brief .
+ * @brief Get the font used for the tool tip.
  * 
- * @return .
+ * @return The shared pointer to the font used for the tool tip.
  */
 SFUI::SharedPointer<SFUI::Font> SFUI::Button::getToolTipFont() {
     return toolTip.getFont();
@@ -214,7 +215,7 @@ SFUI::SharedPointer<SFUI::Font> SFUI::Button::getToolTipFont() {
 
 
 /**
- * @brief .
+ * @brief Compute dynamic colors based on button state.
  */
 SFUI::Void SFUI::Button::computeDynamicColors() {
     if (buttonState.isDisabled) {
@@ -243,7 +244,7 @@ SFUI::Void SFUI::Button::computeDynamicColors() {
 
 
 /**
- * @brief .
+ * @brief Compute the focus graphics for the Button component.
  */
 SFUI::Void SFUI::Button::computeFocus() {
     // Focus Width //
@@ -298,7 +299,7 @@ SFUI::Void SFUI::Button::computeFocus() {
 
 
 /**
- * @brief .
+ * @brief Compute the tool tip for the Button component.
  */
 SFUI::Void SFUI::Button::computeToolTip() {
     // Tool Tip Lifetime //

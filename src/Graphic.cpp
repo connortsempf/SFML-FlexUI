@@ -8,9 +8,9 @@
 
 
 /**
- * @brief .
+ * @brief The constructor of the Graphic component.
  * 
- * @param .
+ * @param componentID The unique identifier for the component.
  */
 SFUI::Graphic::Graphic(const SFUI::String& componentID) :
     Component(componentID),
@@ -21,10 +21,10 @@ SFUI::Graphic::Graphic(const SFUI::String& componentID) :
 
 
 /**
- * @brief .
+ * @brief The constructor of the Graphic component.
  * 
- * @param .
- * @param .
+ * @param componentID The unique identifier for the component.
+ * @param graphicPropGroup The property group containing layout, style, and behavior properties.
  */
 SFUI::Graphic::Graphic(const SFUI::String& componentID, const SFUI::PropGroup::Graphic& graphicPropGroup) :
     Component(componentID, graphicPropGroup.layout, graphicPropGroup.style),
@@ -35,17 +35,17 @@ SFUI::Graphic::Graphic(const SFUI::String& componentID, const SFUI::PropGroup::G
 
 
 /**
- * @brief .
+ * @brief Handle the given event.
  * 
- * @param .
+ * @param event The event to handle.
  */
 SFUI::Void SFUI::Graphic::handleEvent(const SFUI::Event& event) {}
 
 
 /**
- * @brief .
+ * @brief Recalculate the component's properties.
  * 
- * @param .
+ * @param renderTargetSize The size of the render target.
  */
 SFUI::Void SFUI::Graphic::update(const SFUI::Vector2u renderTargetSize) {
     this->renderTargetSize = renderTargetSize;
@@ -63,9 +63,10 @@ SFUI::Void SFUI::Graphic::update(const SFUI::Vector2u renderTargetSize) {
 
 
 /**
- * @brief .
+ * @brief Draw the component to the given render target.
  * 
- * @param .
+ * @param drawTarget The render target to draw to.
+ * @param window The render window associated with the render target.
  */
 SFUI::Void SFUI::Graphic::draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window) {
     drawTarget.draw(shadowRects);
@@ -116,9 +117,9 @@ SFUI::Void SFUI::Graphic::draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindo
 
 
 /**
- * @brief .
+ * @brief Get the original size at the time of loading for the texture used in the graphic.
  * 
- * @return .
+ * @return The original texture size as a Vector2f.
  */
 SFUI::Vector2f SFUI::Graphic::getOriginalTextureSize() {
     return computedGraphicStyle.originalTextureSize;
@@ -126,7 +127,7 @@ SFUI::Vector2f SFUI::Graphic::getOriginalTextureSize() {
 
 
 /**
- * @brief .
+ * @brief Compute the graphic source based on the loading type and state.
  */
 SFUI::Void SFUI::Graphic::computeGraphicSource() {
     // Check if Pre-Loaded Texture was Provided //
@@ -159,7 +160,7 @@ SFUI::Void SFUI::Graphic::computeGraphicSource() {
 
 
 /**
- * @brief .
+ * @brief Compute the layout of the graphic within its allocated space.
  */
 SFUI::Void SFUI::Graphic::computeGraphicLayout() {
 

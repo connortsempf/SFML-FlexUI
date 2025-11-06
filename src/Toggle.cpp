@@ -8,9 +8,9 @@
 
 
 /**
- * @brief .
+ * @brief The constructor for the Toggle component.
  * 
- * @param .
+ * @param componentID The unique identifier for the Toggle component.
  */
 SFUI::Toggle::Toggle(const SFUI::String& componentID) :
     Component(componentID),
@@ -22,10 +22,10 @@ SFUI::Toggle::Toggle(const SFUI::String& componentID) :
 
 
 /**
- * @brief .
+ * @brief The constructor for the Toggle component.
  * 
- * @param .
- * @param .
+ * @param componentID The unique identifier for the Toggle component.
+ * @param togglePropGroup The property group containing layout, style, state, and behavior properties for the Toggle component.
  */
 SFUI::Toggle::Toggle(const SFUI::String& componentID, const SFUI::PropGroup::Toggle& togglePropGroup) :
     Component(componentID, togglePropGroup.layout, togglePropGroup.style),
@@ -37,9 +37,9 @@ SFUI::Toggle::Toggle(const SFUI::String& componentID, const SFUI::PropGroup::Tog
 
 
 /**
- * @brief .
+ * @brief Handle a user input event.
  * 
- * @param .
+ * @param event The event to handle.
  */
 SFUI::Void SFUI::Toggle::handleEvent(const SFUI::Event& event) {
     toggle.handleEvent(event);
@@ -47,9 +47,9 @@ SFUI::Void SFUI::Toggle::handleEvent(const SFUI::Event& event) {
 
 
 /**
- * @brief .
+ * @brief Recalculate the Toggle component's properties.
  * 
- * @param .
+ * @param renderTargetSize The size of the render target.
  */
 SFUI::Void SFUI::Toggle::update(const SFUI::Vector2u renderTargetSize) {
     this->renderTargetSize = renderTargetSize;
@@ -65,9 +65,10 @@ SFUI::Void SFUI::Toggle::update(const SFUI::Vector2u renderTargetSize) {
 
 
 /**
- * @brief .
+ * @brief Draw the Toggle component.
  * 
- * @param .
+ * @param drawTarget The render target to draw to.
+ * @param window The render window associated with the render target.
  */
 SFUI::Void SFUI::Toggle::draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window) {
     toggle.draw(drawTarget, window);
@@ -75,7 +76,7 @@ SFUI::Void SFUI::Toggle::draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow
 
 
 /**
- * @brief .
+ * @brief Compute dynamic colors based on the Toggle's state.
  */
 SFUI::Void SFUI::Toggle::computeDynamicColors() {
     if (toggleStyle.disabledFillColor.has_value())
@@ -110,7 +111,7 @@ SFUI::Void SFUI::Toggle::computeDynamicColors() {
 
 
 /**
- * @brief .
+ * @brief Compute the Toggle component's internal Button properties.
  */
 SFUI::Void SFUI::Toggle::computeToggle() {
     // Layout //

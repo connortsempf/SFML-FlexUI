@@ -8,9 +8,9 @@
     
 
 /**
- * @brief .
+ * @brief Constructor for Component.
  * 
- * @param .
+ * @param componentID The unique identifier for the component.
  */
 SFUI::Component::Component(const SFUI::String& componentID) :
     componentID(componentID),
@@ -20,10 +20,11 @@ SFUI::Component::Component(const SFUI::String& componentID) :
 
 
 /**
- * @brief .
+ * @brief Constructor for Component.
  * 
- * @param .
- * @param .
+ * @param componentID The unique identifier for the component.
+ * @param layout The layout properties for the component.
+ * @param style The style properties for the component.
  */
 SFUI::Component::Component(const SFUI::String& componentID, const SFUI::Prop::Layout::Component& layout, const SFUI::Prop::Style::Component& style) :
     componentID(componentID),
@@ -33,7 +34,9 @@ SFUI::Component::Component(const SFUI::String& componentID, const SFUI::Prop::La
 
 
 /**
- * @brief .
+ * @brief Set a new parent component for this component.
+ * 
+ * @param newParent The new parent component.
  */
 SFUI::Void SFUI::Component::setParent(SFUI::Component* newParent) {
     parent = newParent;
@@ -41,9 +44,9 @@ SFUI::Void SFUI::Component::setParent(SFUI::Component* newParent) {
 
 
 /**
- * @brief .
+ * @brief Add a child component to this component.
  * 
- * @param .
+ * @param newChild The new child component to add.
  */
 SFUI::Void SFUI::Component::addChild(const SFUI::SharedPointer<SFUI::Component>& newChild) {
     newChild->setParent(this);
@@ -57,9 +60,9 @@ SFUI::Void SFUI::Component::addChild(const SFUI::SharedPointer<SFUI::Component>&
 
 
 /**
- * @brief .
+ * @brief Add multiple child components to this component.
  * 
- * @param .
+ * @param newChildren The new child components to add.
  */
 SFUI::Void SFUI::Component::addChildren(const SFUI::Vector<SFUI::SharedPointer<SFUI::Component>>& newChildren) {
     children.insert(children.end(), newChildren.begin(), newChildren.end());
@@ -75,9 +78,9 @@ SFUI::Void SFUI::Component::addChildren(const SFUI::Vector<SFUI::SharedPointer<S
 
 
 /**
- * @brief .
+ * @brief Update this component from its parent's parent component's own layout computation.
  * 
- * @param .
+ * @param childComputedLayout The computed layout information computed from the parent component.
  */
 SFUI::Void SFUI::Component::updateChildFromParent(SFUI::ComputedProp::Layout::ComponentChild childComputedLayout) {
     computedLayout.size = childComputedLayout.size;
@@ -87,9 +90,9 @@ SFUI::Void SFUI::Component::updateChildFromParent(SFUI::ComputedProp::Layout::Co
 
 
 /**
- * @brief .
+ * @brief Get the child components of this component.
  * 
- * @return .
+ * @return The vector of child components.
  */
 SFUI::Vector<SFUI::SharedPointer<SFUI::Component>> SFUI::Component::getChildren() const {
     return children;
@@ -97,9 +100,9 @@ SFUI::Vector<SFUI::SharedPointer<SFUI::Component>> SFUI::Component::getChildren(
 
 
 /**
- * @brief .
+ * @brief Get the final computed size of this component.
  * 
- * @return .
+ * @return The size of the component.
  */
 SFUI::Vector2f SFUI::Component::getSize() {
     return computedLayout.size;
@@ -107,9 +110,9 @@ SFUI::Vector2f SFUI::Component::getSize() {
 
 
 /**
- * @brief .
+ * @brief Get the final computed position of this component.
  * 
- * @return .
+ * @return The position of the component.
  */
 SFUI::Vector2i SFUI::Component::getPosition() {
     return computedLayout.position;
@@ -117,9 +120,9 @@ SFUI::Vector2i SFUI::Component::getPosition() {
 
 
 /**
- * @brief .
+ * @brief Get the final computed padding of this component.
  * 
- * @return .
+ * @return The padding of the component.
  */
 SFUI::Vector4f SFUI::Component::getPadding() {
     return computedLayout.padding;
@@ -127,9 +130,9 @@ SFUI::Vector4f SFUI::Component::getPadding() {
 
 
 /**
- * @brief .
+ * @brief Get the final computed margin of this component.
  * 
- * @return .
+ * @return The margin of the component.
  */
 SFUI::Vector4f SFUI::Component::getMargin() {
     return computedLayout.margin;
@@ -137,11 +140,11 @@ SFUI::Vector4f SFUI::Component::getMargin() {
 
 
 /**
- * @brief .
+ * @brief Check if the mouse is hovering over this component.
  * 
- * @param .
+ * @param mousePosition The current mouse position.
  * 
- * @return .
+ * @return True if the mouse is hovering over the component, false otherwise.
  */
 SFUI::Bool SFUI::Component::isMouseHovered(const SFUI::Vector2i& mousePosition) {
     SFUI::Vector2f mousePos(mousePosition.x, mousePosition.y);
@@ -152,11 +155,11 @@ SFUI::Bool SFUI::Component::isMouseHovered(const SFUI::Vector2i& mousePosition) 
 
 
 /**
- * @brief .
+ * @brief Resolve a Color Sub Property into an actual SFML Color.
  * 
- * @param .
+ * @param color The color sub property to resolve.
  * 
- * @return .
+ * @return The resolved SFML Color.
  */
 SFUI::Color SFUI::Component::resolveColorSubProp(const SFUI::SubProp::Color& color) {
     SFUI::Color resolvedFillColor;
@@ -208,15 +211,12 @@ SFUI::Color SFUI::Component::resolveColorSubProp(const SFUI::SubProp::Color& col
 
 
 /**
- * @brief .
+ * @brief Resolve a UniQuad Sub Property into a Vector4f.
  * 
- * @param .
- * @param .
- * @param .
- * @param .
- * @param .
+ * @param size The size of the component for percentage calculations.
+ * @param subProp The UniQuad sub property to resolve.
  * 
- * @return .
+ * @return The resolved sub-prop as a Vector4f.
  */
 SFUI::Vector4f SFUI::Component::resolveUniQuadSubProp(SFUI::Vector2f size, SFUI::SubProp::UniQuad subProp) {
     SFUI::Vector4f computedSubProp = {0.0f, 0.0f, 0.0f, 0.0f};
@@ -297,7 +297,7 @@ SFUI::Vector4f SFUI::Component::resolveUniQuadSubProp(SFUI::Vector2f size, SFUI:
 
 
 /**
- * @brief .
+ * @brief Compute the final alignment properties for this component.
  */
 SFUI::Void SFUI::Component::computeAlignment() {
     // Children Layout Axis //
@@ -340,9 +340,7 @@ SFUI::Void SFUI::Component::computeAlignment() {
 
 
 /**
- * @brief .
- * 
- * @param .
+ * @brief Compute the margin, size, position, and padding of this component.
  */
 SFUI::Void SFUI::Component::computeLayoutBox() {
     // If Root Component (No Parent), Calculate Your Own Layout Box Using RenderTarget Dimensions as Parent Bounds //
@@ -411,7 +409,7 @@ SFUI::Void SFUI::Component::computeLayoutBox() {
 
 
 /**
- * @brief .
+ * @brief Compute the style properties for this component.
  */
 SFUI::Void SFUI::Component::computeStyles() {
     // Border Width //
@@ -440,7 +438,7 @@ SFUI::Void SFUI::Component::computeStyles() {
 
 
 /**
- * @brief .
+ * @brief Compute the color properties for this component.
  */
 SFUI::Void SFUI::Component::computeColors() {
     computedStyle.fillColor = resolveColorSubProp(style.fillColor);
@@ -449,7 +447,7 @@ SFUI::Void SFUI::Component::computeColors() {
 
 
 /**
- * @brief .
+ * @brief Compute the shadow properties for this component.
  */
 SFUI::Void SFUI::Component::computeShadows() {
     computedStyle.shadowOffset = style.shadowOffset;
@@ -459,7 +457,7 @@ SFUI::Void SFUI::Component::computeShadows() {
 
 
 /**
- * @brief .
+ * @brief Compute the graphical geometry for this component.
  */
 SFUI::Void SFUI::Component::computeGraphics() {
     backgroundRects.clear();
@@ -564,7 +562,7 @@ SFUI::Void SFUI::Component::computeGraphics() {
 
 
 /**
- * @brief .
+ * @brief Compute the magrgin, size, and position for all child components.
  */
 SFUI::Void SFUI::Component::computeChildrenLayoutBox() {
     // If Has Child Components, Must Calculate Their Margins for Them Based on Its Own Size //
@@ -759,7 +757,7 @@ SFUI::Void SFUI::Component::computeChildrenLayoutBox() {
 
 
 /**
- * @brief .
+ * @brief Update all child components with their computed layout box properties.
  */
 SFUI::Void SFUI::Component::updateChildren() {
     for (int i = 0; i < children.size(); i++) {
@@ -769,11 +767,10 @@ SFUI::Void SFUI::Component::updateChildren() {
 
 
 /**
- * @brief .
+ * @brief Compute a box (two triangles).
  * 
- * @param .
- * @param .
- * @param .
+ * @param position The top-left position of the box to draw at.
+ * @param size The size of the box to draw.
  */
 SFUI::Void SFUI::Component::computeBackgroundRectGeometry(SFUI::Vector2f position, SFUI::Vector2f size) {
     SFUI::Vector2f topLeft = position;
@@ -790,13 +787,12 @@ SFUI::Void SFUI::Component::computeBackgroundRectGeometry(SFUI::Vector2f positio
 
 
 /**
- * @brief .
+ * @brief Compute a circular arc (triangle fan) .
  * 
- * @param .
- * @param .
- * @param .
- * @param .
- * @param .
+ * @param center The center position of the arc.
+ * @param outerRadius The outer radius of the arc.
+ * @param startAngleDeg The starting angle of the arc in degrees.
+ * @param endAngleDeg The ending angle of the arc in degrees.
  */
 SFUI::Void SFUI::Component::computeBackgroundArcGeometry(SFUI::Vector2f center, SFUI::Float outerRadius, SFUI::Float startAngleDeg, SFUI::Float endAngleDeg) {
     SFUI::Float arcResolution = std::clamp(static_cast<SFUI::Int>(outerRadius * 0.25f), 4, 12);
@@ -818,7 +814,7 @@ SFUI::Void SFUI::Component::computeBackgroundArcGeometry(SFUI::Vector2f center, 
 
 
 /**
- * @brief Compute a box (two triangles) and return the VertexArray.
+ * @brief Compute a box (two triangles).
  * 
  * @param position The top-left position of the box to draw at.
  * @param size The size of the box to draw.
@@ -838,13 +834,13 @@ SFUI::Void SFUI::Component::computeBorderRectGeometry(SFUI::Vector2f position, S
 
 
 /**
- * @brief .
+ * @brief Compute a circular arc (triangle strip).
  * 
- * @param .
- * @param .
- * @param .
- * @param .
- * @param .
+ * @param center The center position of the arc.
+ * @param outerRadius The outer radius of the arc.
+ * @param innerRadius The inner radius of the arc.
+ * @param startAngleDeg The starting angle of the arc in degrees.
+ * @param endAngleDeg The ending angle of the arc in degrees.
  */
 SFUI::Void SFUI::Component::computeBorderArcGeometry(SFUI::Vector2f center, SFUI::Float outerRadius, SFUI::Float innerRadius, SFUI::Float startAngleDeg, SFUI::Float endAngleDeg) {
     SFUI::Float arcResolution = std::clamp(static_cast<SFUI::Int>(outerRadius * 0.25f), 4, 12);
@@ -870,11 +866,11 @@ SFUI::Void SFUI::Component::computeBorderArcGeometry(SFUI::Vector2f center, SFUI
 
 
 /**
- * @brief .
+ * @brief Compute a shadow box (two triangles).
  * 
- * @param .
- * @param .
- * @param .
+ * @param position The top-left position of the box to draw at.
+ * @param size The size of the box to draw.
+ * @param modifiedShadowColor The modified shadow color for this layer.
  */
 SFUI::Void SFUI::Component::computeShadowRectGeometry(SFUI::Vector2f position, SFUI::Vector2f size, SFUI::Color modifiedShadowColor) {
     SFUI::Vector2f topLeft = position;
@@ -891,13 +887,13 @@ SFUI::Void SFUI::Component::computeShadowRectGeometry(SFUI::Vector2f position, S
 
 
 /**
- * @brief .
+ * @brief Compute a shadow circular arc (triangle fan).
  * 
- * @param .
- * @param .
- * @param .
- * @param .
- * @param .
+ * @param center The center position of the arc.
+ * @param outerRadius The outer radius of the arc.
+ * @param startAngleDeg The starting angle of the arc in degrees.
+ * @param endAngleDeg The ending angle of the arc in degrees.
+ * @param modifiedShadowColor The modified shadow color for this layer.
  */
 SFUI::Void SFUI::Component::computeShadowArcGeometry(SFUI::Vector2f center, SFUI::Float outerRadius, SFUI::Float startAngleDeg, SFUI::Float endAngleDeg, SFUI::Color modifiedShadowColor) {
     SFUI::Float arcResolution = std::clamp(static_cast<SFUI::Int>(outerRadius * 0.25f), 4, 12);

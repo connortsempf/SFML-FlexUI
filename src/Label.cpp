@@ -13,9 +13,9 @@ const SFUI::Float SFUI::Label::BOTTOM_OFFSET_FACTOR = 0.65f;
 
 
 /**
- * @brief .
+ * @brief The constructor for Label.
  * 
- * @param .
+ * @param componentID The unique identifier for the label component.
  */
 SFUI::Label::Label(const SFUI::String& componentID) :
     Component(componentID),
@@ -25,10 +25,10 @@ SFUI::Label::Label(const SFUI::String& componentID) :
 
 
 /**
- * @brief .
+ * @brief The constructor for Label.
  * 
- * @param .
- * @param .
+ * @param componentID The unique identifier for the label component.
+ * @param labelPropGroup The property group for the label component.
  */
 SFUI::Label::Label(const SFUI::String& componentID, const SFUI::PropGroup::Label& labelPropGroup) :
     Component(componentID, labelPropGroup.layout, labelPropGroup.style),
@@ -38,17 +38,17 @@ SFUI::Label::Label(const SFUI::String& componentID, const SFUI::PropGroup::Label
 
 
 /**
- * @brief .
+ * @brief Handle input events for the label.
  * 
- * @param .
+ * @param event The input event to handle.
  */
 SFUI::Void SFUI::Label::handleEvent(const SFUI::Event& event) {}
 
 
 /**
- * @brief .
+ * @brief Recalculate the properties of the label.
  * 
- * @param .
+ * @param renderTargetSize The size of the render target.
  */
 SFUI::Void SFUI::Label::update(const SFUI::Vector2u renderTargetSize) {
     this->renderTargetSize = renderTargetSize;
@@ -67,9 +67,10 @@ SFUI::Void SFUI::Label::update(const SFUI::Vector2u renderTargetSize) {
 
 
 /**
- * @brief .
+ * @brief Draw the label and its contents.
  * 
- * @param .
+ * @param drawTarget The render target to draw to.
+ * @param window The render window associated with the render target.
  */
 SFUI::Void SFUI::Label::draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window) {
     drawTarget.draw(shadowRects);
@@ -120,9 +121,9 @@ SFUI::Void SFUI::Label::draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow&
 
 
 /**
- * @brief .
+ * @brief Get the font used by the label.
  * 
- * @return .
+ * @return The font used by the label.
  */
 SFUI::SharedPointer<SFUI::Font> SFUI::Label::getFont() {
     return labelStyle.font;
@@ -130,9 +131,9 @@ SFUI::SharedPointer<SFUI::Font> SFUI::Label::getFont() {
 
 
 /**
- * @brief .
+ * @brief Get the text size of the label.
  * 
- * @return .
+ * @return The text size of the label.
  */
 SFUI::Float SFUI::Label::getTextSize() {
     return textObject.getCharacterSize();
@@ -140,9 +141,9 @@ SFUI::Float SFUI::Label::getTextSize() {
 
 
 /**
- * @brief .
+ * @brief Get the bounds of the label's text.
  * 
- * @return .
+ * @return The bounds of the label's text.
  */
 SFUI::FloatRect SFUI::Label::getTextBounds() {
     SFUI::FloatRect textBounds = {{textObject.getPosition().x, textObject.getPosition().y}, {0.0f, 0.0f}};
@@ -152,11 +153,11 @@ SFUI::FloatRect SFUI::Label::getTextBounds() {
 
 
 /**
- * @brief .
+ * @brief Get the position of a character in the label's text.
  * 
- * @param .
+ * @param charIndex The index of the character to get the position of.
  * 
- * @return .
+ * @return The position of the character in the label's text.
  */
 SFUI::Vector2f SFUI::Label::getCharacterPosition(SFUI::Size charIndex) {
     SFUI::Vector2f characterPosition = {0.0f, 0.0f};
@@ -169,7 +170,7 @@ SFUI::Vector2f SFUI::Label::getCharacterPosition(SFUI::Size charIndex) {
 
 
 /**
- * @brief .
+ * @brief Compute the core properties of the character text.
  */
 SFUI::Void SFUI::Label::computeTextCore() {
     textObject.setString(labelStyle.text);
@@ -180,7 +181,7 @@ SFUI::Void SFUI::Label::computeTextCore() {
 
 
 /**
- * @brief .
+ * @brief Compute the style properties of the character text.
  */
 SFUI::Void SFUI::Label::computeTextStyles() {
     // Style //
@@ -220,7 +221,7 @@ SFUI::Void SFUI::Label::computeTextStyles() {
 
 
 /**
- * @brief .
+ * @brief Compute the layout of the character text.
  */
 SFUI::Void SFUI::Label::computeTextLayout() {
     // Horizontal Align //

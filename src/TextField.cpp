@@ -22,9 +22,9 @@ const SFUI::String SFUI::TextField::CTRL_SYMBOL_GROUP = "`~!@#$%^&*()-=+[]{}\\|:
 
 
 /**
- * @brief .
+ * @brief The constructor for the TextField component.
  * 
- * @param .
+ * @param componentID The unique identifier for the TextField component.
  */
 SFUI::TextField::TextField(const SFUI::String& componentID) :
     Component(componentID),
@@ -38,10 +38,10 @@ SFUI::TextField::TextField(const SFUI::String& componentID) :
 
 
 /**
- * @brief .
+ * @brief The constructor for the TextField component.
  * 
- * @param .
- * @param .
+ * @param componentID The unique identifier for the TextField component.
+ * @param textFieldPropGroup The property group for the TextField component.
  */
 SFUI::TextField::TextField(const SFUI::String& componentID, const SFUI::PropGroup::TextField& textFieldPropGroup) :
     Component(componentID, textFieldPropGroup.layout, textFieldPropGroup.style),
@@ -55,9 +55,9 @@ SFUI::TextField::TextField(const SFUI::String& componentID, const SFUI::PropGrou
 
 
 /**
- * @brief .
+ * @brief Handle a user input event.
  * 
- * @param .
+ * @param event The event to handle.
  */
 SFUI::Void SFUI::TextField::handleEvent(const SFUI::Event& event) {
     background.handleEvent(event);
@@ -101,9 +101,9 @@ SFUI::Void SFUI::TextField::handleEvent(const SFUI::Event& event) {
 
 
 /**
- * @brief .
+ * @brief Recalculate the component's properties.
  * 
- * @param .
+ * @param renderTargetSize The size of the render target.
  */
 SFUI::Void SFUI::TextField::update(const SFUI::Vector2u renderTargetSize) {
     this->renderTargetSize = renderTargetSize;
@@ -122,9 +122,10 @@ SFUI::Void SFUI::TextField::update(const SFUI::Vector2u renderTargetSize) {
 
 
 /**
- * @brief .
+ * @brief Draw the component.
  * 
- * @param .
+ * @param drawTarget The target to draw to.
+ * @param window The render window associated with the render target.
  */
 SFUI::Void SFUI::TextField::draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window) {
     background.draw(drawTarget, window);
@@ -134,7 +135,7 @@ SFUI::Void SFUI::TextField::draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWin
 
 
 /**
- * @brief .
+ * @brief Compute the line mode property.
  */
 SFUI::Void SFUI::TextField::computeLineMode() {
     SFUI::String tempLineMode = textFieldStyle.lineMode;
@@ -150,7 +151,7 @@ SFUI::Void SFUI::TextField::computeLineMode() {
 
 
 /**
- * @brief .
+ * @brief Compute the background properties.
  */
 SFUI::Void SFUI::TextField::computeBackground() {
     // Background Layout //
@@ -253,7 +254,7 @@ SFUI::Void SFUI::TextField::computeBackground() {
 
 
 /**
- * @brief .
+ * @brief Compute the input text properties.
  */
 SFUI::Void SFUI::TextField::computeInputText() {
     // Text Inset //
@@ -289,7 +290,7 @@ SFUI::Void SFUI::TextField::computeInputText() {
 
 
 /**
- * @brief .
+ * @brief Compute the caret properties.
  */
 SFUI::Void SFUI::TextField::computeCaret() {
     // Caret Shape //
@@ -343,7 +344,7 @@ SFUI::Void SFUI::TextField::computeCaret() {
 
 
 /**
- * @brief .
+ * @brief Compute the dynamic text offset to ensure caret visibility.
  */
 SFUI::Void SFUI::TextField::computeDynamicTextOffset() {
     SFUI::Vector2i tempCaretPosition = caret.getPosition();
@@ -380,9 +381,9 @@ SFUI::Void SFUI::TextField::computeDynamicTextOffset() {
 
 
 /**
- * @brief .
+ * @brief Handle inserting new text into the text field.
  *
- * @param .
+ * @param newAppendedText The new text to insert.
  */
 SFUI::Void SFUI::TextField::insertText(const char32_t newAppendedText) {
     if (newAppendedText <= 29 || newAppendedText == 127) return;
@@ -394,9 +395,9 @@ SFUI::Void SFUI::TextField::insertText(const char32_t newAppendedText) {
 
 
 /**
- * @brief .
+ * @brief Handle editing the text in the text field.
  *
- * @param .
+ * @param keyPressedEvent The key pressed event to handle.
  */
 SFUI::Void SFUI::TextField::editText(const sf::Event::KeyPressed* keyPressedEvent) {
     if (!textFieldState.isFocused) return;
@@ -571,11 +572,11 @@ SFUI::Void SFUI::TextField::editText(const sf::Event::KeyPressed* keyPressedEven
 
 
 /**
- * @brief .
+ * @brief Get the character group for a given character.
  * 
- * @param .
+ * @param character The character to evaluate.
  * 
- * @return .
+ * @return The character group identifier (1 for Alphanumeric, 2 for Symbol, 0 otherwise for white space).
  */
 SFUI::UnsignedInt SFUI::TextField::getCharacterGroup(const char32_t character) {
     if (CTRL_ALPHANUMERIC_GROUP.find(character) != sf::String::InvalidPos) return 1;
