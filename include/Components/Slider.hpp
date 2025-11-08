@@ -43,6 +43,8 @@ namespace SFUI {
             SFUI::Container unprogressedTrack;
             SFUI::Container progressedTrack;
             SFUI::Button thumb;
+            SFUI::Prop::Style::Slider dirtySliderStyle;
+            SFUI::Prop::State::Slider dirtySliderState;
             SFUI::ComputedProp::Style::Slider computedSliderStyle;
         
         private:

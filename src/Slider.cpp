@@ -65,6 +65,8 @@ SFUI::Void SFUI::Slider::handleEvent(const SFUI::Event& event) {
     else if (const SFUI::Event::MouseButtonPressed* mouseButtonPressedEvent = event.getIf<SFUI::Event::MouseButtonPressed>()) {
         const SFUI::Vector2i mousePosition = SFUI::Vector2i(mouseButtonPressedEvent->position.x, mouseButtonPressedEvent->position.y);
         const sf::Mouse::Button mouseButton = mouseButtonPressedEvent->button;
+        
+        if (mouseButton == sf::Mouse::Button::Left) sliderState.isFocused = false;
 
         // Track Handling //
         if (isTrackHovered && !isThumbHovered) {
@@ -106,6 +108,32 @@ SFUI::Void SFUI::Slider::handleEvent(const SFUI::Event& event) {
         if (isSliding && sliderBehavior.onSlidingEnd) sliderBehavior.onSlidingEnd(componentID, sliderState.value); 
         isSliding = false;
     }
+
+    // Key Pressed Event //
+    if (const SFUI::Event::KeyPressed* keyPressedEvent = event.getIf<SFUI::Event::KeyPressed>()) {
+        if (sliderState.isFocused) {
+            SFUI::Float minValue = std::min(intervalValues.front(), intervalValues.back());
+            SFUI::Float maxValue = std::max(intervalValues.front(), intervalValues.back());
+            if (
+                ((sliderStyle.trackAlign == "horizontal") &&
+                ((keyPressedEvent->code == sf::Keyboard::Key::Left && !sliderState.isInverted) ||
+                (keyPressedEvent->code == sf::Keyboard::Key::Right && sliderState.isInverted))) ||
+                ((sliderStyle.trackAlign == "vertical") &&
+                (keyPressedEvent->code == sf::Keyboard::Key::Down && !sliderState.isInverted) ||
+                (keyPressedEvent->code == sf::Keyboard::Key::Up && sliderState.isInverted))) {   
+                    sliderState.value = std::clamp(sliderState.value - sliderState.step, minValue, maxValue);
+            }
+            else if (
+                ((sliderStyle.trackAlign == "horizontal") &&
+                ((keyPressedEvent->code == sf::Keyboard::Key::Right && !sliderState.isInverted) ||
+                (keyPressedEvent->code == sf::Keyboard::Key::Left && sliderState.isInverted))) ||
+                (sliderStyle.trackAlign == "vertical") &&
+                ((keyPressedEvent->code == sf::Keyboard::Key::Up && !sliderState.isInverted) ||
+                (keyPressedEvent->code == sf::Keyboard::Key::Down && sliderState.isInverted))) {
+                    sliderState.value = std::clamp(sliderState.value + sliderState.step, minValue, maxValue);        
+            }
+        }
+    }
 }
 
 
@@ -115,20 +143,33 @@ SFUI::Void SFUI::Slider::handleEvent(const SFUI::Event& event) {
  * @param renderTargetSize The size of the render target the component is being drawn to.
  */
 SFUI::Void SFUI::Slider::update(const SFUI::Vector2u renderTargetSize) {
+    if (
+        this->renderTargetSize != renderTargetSize ||
+        layout != dirtyLayout ||
+        style != dirtyStyle ||
+        sliderStyle != dirtySliderStyle ||
+        sliderState != dirtySliderState
+    ) {
+        this->renderTargetSize = renderTargetSize;
+        computeAlignment();
+        computeLayoutBox();
+        computeStyles();
+        computeColors();
+        computeShadows();
+        computeGraphics();
+        computeChildrenLayoutBox();
+        updateChildren();
+        computeTrackAlign();
+        computeValueDynamics();
+        computeDynamicColors();
+        computeThumb();
+        computeTracks();
+    }
     this->renderTargetSize = renderTargetSize;
-    computeAlignment();
-    computeLayoutBox();
-    computeStyles();
-    computeColors();
-    computeShadows();
-    computeGraphics();
-    computeChildrenLayoutBox();
-    updateChildren();
-    computeTrackAlign();
-    computeValueDynamics();
-    computeDynamicColors();
-    computeThumb();
-    computeTracks();
+    dirtyLayout = layout;
+    dirtyStyle = style;
+    dirtySliderStyle = sliderStyle;
+    dirtySliderState = sliderState;
 }
 
 
@@ -220,16 +261,12 @@ SFUI::Void SFUI::Slider::computeValueDynamics() {
     }
     sliderState.value = snappedValue;
     if (computedSliderStyle.trackAlign == "horizontal") {
-        thumbUpdatePosition = {
-            intervalPositions[nearestIndex] - (computedSliderStyle.thumbSize.x / 2.0f),
-            computedLayout.position.y + (computedLayout.size.y / 2.0f) - (computedSliderStyle.thumbSize.y / 2.0f)
-        };
+        thumbUpdatePosition.x = intervalPositions[nearestIndex] - (computedSliderStyle.thumbSize.x / 2.0f);
+        thumbUpdatePosition.y = computedLayout.position.y + (computedLayout.size.y / 2.0f) - (computedSliderStyle.thumbSize.y / 2.0f);
     }
     else if (computedSliderStyle.trackAlign == "vertical") {
-        thumbUpdatePosition = {
-            computedLayout.position.x + (computedLayout.size.x / 2.0f) - (computedSliderStyle.thumbSize.x / 2.0f),
-            intervalPositions[nearestIndex] - (computedSliderStyle.thumbSize.y / 2.0f)
-        };
+        thumbUpdatePosition.x = computedLayout.position.x + (computedLayout.size.x / 2.0f) - (computedSliderStyle.thumbSize.x / 2.0f);
+        thumbUpdatePosition.y = intervalPositions[nearestIndex] - (computedSliderStyle.thumbSize.y / 2.0f);
     }
 }
 
@@ -338,18 +375,18 @@ SFUI::Void SFUI::Slider::computeThumb() {
         }
     }
     computedSliderStyle.thumbSize = computedThumbSize;
-
-    // Thumb Position //
-    if (computedSliderStyle.trackAlign == "horizontal")
-        thumb.layout.yPosition = computedLayout.position.y + (computedLayout.size.y / 2.0f) - (computedThumbSize.y / 2.0f);
-    else if (computedSliderStyle.trackAlign == "vertical")
-        thumb.layout.xPosition = computedLayout.position.x + (computedLayout.size.x / 2.0f) - (computedThumbSize.x / 2.0f);
-
+    
     // Thumb Layout //
     thumb.layout.width = computedThumbSize.x;
     thumb.layout.height = computedThumbSize.y;
-    thumb.layout.xPosition = thumbUpdatePosition.x;
-    thumb.layout.yPosition = thumbUpdatePosition.y;
+    if (computedSliderStyle.trackAlign == "horizontal") {
+        thumb.layout.xPosition = thumbUpdatePosition.x;
+        thumb.layout.yPosition = computedLayout.position.y + (computedLayout.size.y / 2.0f) - (computedThumbSize.y / 2.0f);
+    }
+    else if (computedSliderStyle.trackAlign == "vertical") {
+        thumb.layout.xPosition = computedLayout.position.x + (computedLayout.size.x / 2.0f) - (computedThumbSize.x / 2.0f);
+        thumb.layout.yPosition = thumbUpdatePosition.y;
+    }
     
     // Thumb Style //
     thumb.style.cornerRadius = sliderStyle.thumbCornerRadius;
@@ -364,6 +401,8 @@ SFUI::Void SFUI::Slider::computeThumb() {
     thumb.buttonStyle.toolTipTextSize = sliderStyle.toolTipTextSize;
     thumb.buttonStyle.toolTipFillColor = sliderStyle.toolTipFillColor;
     thumb.buttonStyle.toolTipTextColor = sliderStyle.toolTipTextColor;
+
+    // Thumb State //
     thumb.buttonState.isDisabled = sliderState.isDisabled;
     thumb.buttonState.isFocused = sliderState.isFocused;
 
@@ -393,6 +432,7 @@ SFUI::Void SFUI::Slider::computeThumb() {
         if (sliderBehavior.onSlidingStart) sliderBehavior.onSlidingStart(componentID, sliderState.value);
         isThumbLeftPressed = true;
         isSliding = true;
+        sliderState.isFocused = false;
     };
     thumb.buttonBehavior.onLeftPress = [this](const SFUI::String& componentID) {
         if (sliderBehavior.onThumbLeftPress) sliderBehavior.onThumbLeftPress(componentID);
@@ -411,6 +451,9 @@ SFUI::Void SFUI::Slider::computeThumb() {
     };
     thumb.buttonBehavior.onMiddlePress = [this](const SFUI::String& componentID) {
         if (sliderBehavior.onThumbMiddlePress) sliderBehavior.onThumbMiddlePress(componentID);
+    };
+    thumb.buttonBehavior.onKeyPress = [this](const SFUI::String& componentID, sf::Keyboard::Key pressedKey) {
+        if (sliderBehavior.onKeyPress) sliderBehavior.onKeyPress(componentID, pressedKey);
     };
 
     // Update //
@@ -443,22 +486,23 @@ SFUI::Void SFUI::Slider::computeTracks() {
     
     // Progressed Track Width //
     SFUI::Float computedProgressedTrackWidth = computedTrackWidth;
-    if (!sliderStyle.trackProgressedWidth.has_value()) return;
-    SFUI::SubProp::Dimension trackProgressedWidth = sliderStyle.trackProgressedWidth.value();
-    if (std::holds_alternative<SFUI::Float>(trackProgressedWidth))
-        computedTrackWidth = std::get<SFUI::Float>(trackProgressedWidth);
-    else if (std::holds_alternative<SFUI::String>(trackProgressedWidth)) {
-        SFUI::String trackWidthString = std::get<SFUI::String>(trackProgressedWidth);
-        if (trackWidthString.size() > 1 && trackWidthString.back() == '%') {
-            trackWidthString.pop_back();
-            try {
-                size_t index = 0;
-                SFUI::Double tempTrackWidth = std::stod(trackWidthString, &index);
-                if (index == trackWidthString.size()) {
-                    SFUI::Float relativeTrackWidthFactor = std::min(computedLayout.size.x, computedLayout.size.y);
-                    computedTrackWidth = relativeTrackWidthFactor * std::clamp(static_cast<SFUI::Float>(tempTrackWidth) / 100.0f, 0.0f, 0.5f);
-                }
-            }   catch (...) {}
+    if (sliderStyle.trackProgressedWidth.has_value()) {
+        SFUI::SubProp::Dimension trackProgressedWidth = sliderStyle.trackProgressedWidth.value();
+        if (std::holds_alternative<SFUI::Float>(trackProgressedWidth))
+            computedTrackWidth = std::get<SFUI::Float>(trackProgressedWidth);
+        else if (std::holds_alternative<SFUI::String>(trackProgressedWidth)) {
+            SFUI::String trackWidthString = std::get<SFUI::String>(trackProgressedWidth);
+            if (trackWidthString.size() > 1 && trackWidthString.back() == '%') {
+                trackWidthString.pop_back();
+                try {
+                    size_t index = 0;
+                    SFUI::Double tempTrackWidth = std::stod(trackWidthString, &index);
+                    if (index == trackWidthString.size()) {
+                        SFUI::Float relativeTrackWidthFactor = std::min(computedLayout.size.x, computedLayout.size.y);
+                        computedTrackWidth = relativeTrackWidthFactor * std::clamp(static_cast<SFUI::Float>(tempTrackWidth) / 100.0f, 0.0f, 0.5f);
+                    }
+                }   catch (...) {}
+            }
         }
     }
 
@@ -578,15 +622,11 @@ SFUI::Void SFUI::Slider::handleThumbMove(SFUI::Vector2i mousePosition) {
     // Update Slider Value and Thumb Position //
     sliderState.value = newValue;
     if (computedSliderStyle.trackAlign == "horizontal") {
-        thumbUpdatePosition = {
-            intervalPositions[nearestIndex] - (computedSliderStyle.thumbSize.x / 2.0f),
-            computedLayout.position.y + (computedLayout.size.y / 2.0f) - (computedSliderStyle.thumbSize.y / 2.0f)
-        };
+        thumbUpdatePosition.x = intervalPositions[nearestIndex] - (computedSliderStyle.thumbSize.x / 2.0f);
+        thumbUpdatePosition.y = computedLayout.position.y + (computedLayout.size.y / 2.0f) - (computedSliderStyle.thumbSize.y / 2.0f);
     }
     else if (computedSliderStyle.trackAlign == "vertical") {
-        thumbUpdatePosition = {
-            computedLayout.position.x + (computedLayout.size.x / 2.0f) - (computedSliderStyle.thumbSize.x / 2.0f),
-            intervalPositions[nearestIndex] - (computedSliderStyle.thumbSize.y / 2.0f)
-        };
+        thumbUpdatePosition.x = computedLayout.position.x + (computedLayout.size.x / 2.0f) - (computedSliderStyle.thumbSize.x / 2.0f);
+        thumbUpdatePosition.y = intervalPositions[nearestIndex] - (computedSliderStyle.thumbSize.y / 2.0f);
     }
 }

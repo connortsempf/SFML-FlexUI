@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 3.16)
 project(SFML_FlexUI VERSION 1.0.0 LANGUAGES CXX)
 
 ## C++ Version Requirement ##
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 ## User Option for Linking Type of SFML Libraries -- Static or Dynamic ##

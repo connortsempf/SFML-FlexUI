@@ -46,6 +46,9 @@ namespace SFUI {
             SFUI::Time toolTipTime;
             SFUI::Container focus;
             SFUI::Label toolTip;
+            SFUI::Bool dirtyEvent = false;
+            SFUI::Prop::Style::Button dirtyButtonStyle;
+            SFUI::Prop::State::Button dirtyButtonState;
 
         private:
             SFUI::Void computeDynamicColors();

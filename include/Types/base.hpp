@@ -5,6 +5,7 @@
 #include <variant>
 #include <vector>
 #include <array>
+#include <unordered_map>
 #include <memory>
 
 
@@ -50,6 +51,9 @@ namespace SFUI {
 
     template <typename T, std::size_t N>
     using Array = std::array<T, N>;
+
+    template <typename T, typename N>
+    using UnorderedMap = std::unordered_map<T, N>;
 
     template <typename... T>
     using WeakPointer = std::weak_ptr<T ...>;

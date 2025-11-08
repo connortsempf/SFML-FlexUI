@@ -2,6 +2,8 @@
 #include "base.hpp"
 #include "vector.hpp"
 
+#include <iostream>
+
 
 
 
@@ -29,6 +31,9 @@ namespace SFUI {
                 SFUI::SubProp::Dimension z = 0.0f,
                 SFUI::SubProp::Dimension w = 0.0f
             ) : x(x), y(y), z(z), w(w) {}
+            bool operator==(const Vector4dim& other) const {
+                return (x == other.x && y == other.y && z == other.z && w == other.w);
+            }
         };
 
         using TextStyle = SFUI::Variant<SFUI::String, SFUI::UnsignedInt32>;
@@ -79,6 +84,9 @@ namespace SFUI {
                 SFUI::SubProp::UniQuad margin = 0.0f;
                 SFUI::Optional<SFUI::SubProp::Numeric> xPosition;
                 SFUI::Optional<SFUI::SubProp::Numeric> yPosition;
+
+                bool operator==(const Component&) const = default;
+                bool operator!=(const Component&) const = default;
             };
         }
 
@@ -93,11 +101,17 @@ namespace SFUI {
                 SFUI::SubProp::Duplex shadowOffset = {0.0f, 0.0f};
                 SFUI::SubProp::Numeric shadowRadius = 1.0f;
                 SFUI::SubProp::Color shadowFillColor = SFUI::Color(0, 0, 0, 0);
+
+                bool operator==(const Component&) const = default;
+                bool operator!=(const Component&) const = default;
             };
 
             struct ScrollContainer {
                 SFUI::SubProp::Keyword scrollDirection = "vertical";
                 SFUI::SubProp::Numeric scrollSpeedFactor = 15.0f;
+
+                bool operator==(const ScrollContainer&) const = default;
+                bool operator!=(const ScrollContainer&) const = default;
             };
             
             struct Label {
@@ -113,6 +127,9 @@ namespace SFUI {
                 SFUI::SubProp::Duplex textOffset = {0.0f, 0.0f};
                 SFUI::SubProp::Color textColor = SFUI::Color(0, 0, 0, 255);
                 SFUI::SubProp::Color textOutlineColor = SFUI::Color(255, 255, 255, 255);
+
+                bool operator==(const Label&) const = default;
+                bool operator!=(const Label&) const = default;
             };
     
             struct Button {
@@ -133,6 +150,9 @@ namespace SFUI {
                 SFUI::SubProp::Numeric toolTipTextSize = 10.0f;
                 SFUI::SubProp::Color toolTipFillColor = SFUI::Color(150, 150, 150, 255);
                 SFUI::SubProp::Color toolTipTextColor = SFUI::Color(0, 0, 0, 255);
+
+                bool operator==(const Button&) const = default;
+                bool operator!=(const Button&) const = default;
             };
 
             struct Toggle {
@@ -161,12 +181,18 @@ namespace SFUI {
                 SFUI::SubProp::Numeric toolTipTextSize = 10.0f;
                 SFUI::SubProp::Color toolTipFillColor = SFUI::Color(150, 150, 150, 255);
                 SFUI::SubProp::Color toolTipTextColor = SFUI::Color(0, 0, 0, 255);
+
+                bool operator==(const Toggle&) const = default;
+                bool operator!=(const Toggle&) const = default;
             };
 
             struct Graphic {
                 SFUI::Optional<SFUI::SubProp::Texture> loadedGraphic;
                 SFUI::Optional<SFUI::SubProp::Keyword> graphicPath;
                 SFUI::SubProp::Keyword graphicAlign;
+
+                bool operator==(const Graphic&) const = default;
+                bool operator!=(const Graphic&) const = default;
             };
 
             struct TextField {
@@ -184,16 +210,8 @@ namespace SFUI {
                 SFUI::SubProp::Color textColor = SFUI::Color(0, 0, 0, 255);
                 SFUI::SubProp::Color textOutlineColor = SFUI::Color(255, 255, 255, 255);
                 SFUI::SubProp::Color placeholderTextColor = SFUI::Color(100, 100, 100, 255);
-                SFUI::Optional<SFUI::SubProp::Color> hoveredFillColor;
-                SFUI::Optional<SFUI::SubProp::Color> hoveredBorderColor;
-                SFUI::Optional<SFUI::SubProp::Color> pressedFillColor;
-                SFUI::Optional<SFUI::SubProp::Color> pressedBorderColor;
                 SFUI::Optional<SFUI::SubProp::Color> disabledFillColor;
                 SFUI::Optional<SFUI::SubProp::Color> disabledBorderColor;
-                SFUI::SubProp::Dimension focusWidth = 10.0f;
-                SFUI::SubProp::Dimension focusOffset = 0.0f;
-                SFUI::SubProp::UniQuad focusCornerRadius;
-                SFUI::SubProp::Color focusFillColor = SFUI::Color(0, 0, 0, 255);
                 SFUI::SubProp::UniQuad toolTipPadding = 10.0f;
                 SFUI::SubProp::UniQuad toolTipCornerRadius;
                 SFUI::SubProp::Keyword toolTipText = "";
@@ -205,6 +223,9 @@ namespace SFUI {
                 SFUI::SubProp::Numeric caretBlinkTime = 500.0f;
                 SFUI::SubProp::Numeric caretBlinkRatio = 1.0f;
                 SFUI::SubProp::Color caretFillColor = SFUI::Color(0, 0, 0, 255);
+
+                bool operator==(const TextField&) const = default;
+                bool operator!=(const TextField&) const = default;
             };
 
             struct Slider {
@@ -244,7 +265,7 @@ namespace SFUI {
                 SFUI::Optional<SFUI::SubProp::Color> thumbPressedBorderColor;
                 SFUI::Optional<SFUI::SubProp::Color> thumbDisabledFillColor;
                 SFUI::Optional<SFUI::SubProp::Color> thumbDisabledBorderColor;
-                SFUI::SubProp::Dimension focusWidth = 10.0f;
+                SFUI::SubProp::Dimension focusWidth = 5.0f;
                 SFUI::SubProp::Dimension focusOffset = 0.0f;
                 SFUI::SubProp::UniQuad focusCornerRadius;
                 SFUI::SubProp::Color focusFillColor = SFUI::Color(0, 0, 0, 255);
@@ -255,6 +276,9 @@ namespace SFUI {
                 SFUI::SubProp::Numeric toolTipTextSize = 10.0f;
                 SFUI::SubProp::Color toolTipFillColor = SFUI::Color(150, 150, 150, 255);
                 SFUI::SubProp::Color toolTipTextColor = SFUI::Color(0, 0, 0, 255);
+
+                bool operator==(const Slider&) const = default;
+                bool operator!=(const Slider&) const = default;
             };
         }
 
@@ -264,17 +288,26 @@ namespace SFUI {
             struct Button {
                 SFUI::SubProp::Binary isDisabled = false;
                 SFUI::SubProp::Binary isFocused = false;
+
+                bool operator==(const Button&) const = default;
+                bool operator!=(const Button&) const = default;
             };
 
             struct Toggle {
                 SFUI::SubProp::Binary isDisabled = false;
                 SFUI::SubProp::Binary isFocused = false;
                 SFUI::SubProp::Binary isOn = false;
+
+                bool operator==(const Toggle&) const = default;
+                bool operator!=(const Toggle&) const = default;
             };
 
             struct TextField {
                 SFUI::SubProp::Binary isDisabled = false;
                 SFUI::SubProp::Binary isFocused = false;
+
+                bool operator==(const TextField&) const = default;
+                bool operator!=(const TextField&) const = default;
             };
 
             struct Slider {
@@ -285,6 +318,9 @@ namespace SFUI {
                 SFUI::SubProp::Numeric minimumValue = 0.0f;
                 SFUI::SubProp::Numeric maximumValue = 20.0f;
                 SFUI::SubProp::Numeric step = 1.0f;
+
+                bool operator==(const Slider&) const = default;
+                bool operator!=(const Slider&) const = default;
             };
         }
 
@@ -376,6 +412,7 @@ namespace SFUI {
                 SFUI::SubProp::Callback onThumbRightPress;
                 SFUI::SubProp::Callback onThumbMiddlePressIn;
                 SFUI::SubProp::Callback onThumbMiddlePress;
+                SFUI::SubProp::CallbackKey onKeyPress;
                 SFUI::SubProp::CallbackNumeric onSlidingStart;
                 SFUI::SubProp::CallbackNumeric onSlidingEnd;
                 SFUI::SubProp::CallbackNumeric onValueChange;
@@ -465,36 +502,7 @@ namespace SFUI {
 
     namespace ComputedProp {
 
-        namespace Layout {
-
-            struct Component {
-                SFUI::String alignDirection;
-                SFUI::String alignPrimary;
-                SFUI::String alignSecondary;
-                SFUI::Vector2f size;
-                SFUI::Vector2i position;
-                SFUI::Vector4f padding;
-                SFUI::Vector4f margin;
-            };
-    
-            struct ComponentChild {
-                SFUI::Vector2f size;
-                SFUI::Vector2i position;
-                SFUI::Vector4f margin;
-            };
-        }
-
         namespace Style {
-            
-            struct Component {
-                SFUI::Float borderWidth;
-                SFUI::Vector4f cornerRadius;
-                SFUI::Color fillColor;
-                SFUI::Color borderColor;
-                SFUI::Vector2f shadowOffset;
-                SFUI::Float shadowRadius;
-                SFUI::Color shadowFillColor;
-            };
     
             struct ScrollContainer {
                 SFUI::String scrollDirection;

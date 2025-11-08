@@ -47,17 +47,29 @@ SFUI::Void SFUI::Graphic::handleEvent(const SFUI::Event& event) {}
  * @param renderTargetSize The size of the render target.
  */
 SFUI::Void SFUI::Graphic::update(const SFUI::Vector2u renderTargetSize) {
+    if (
+        this->renderTargetSize != renderTargetSize ||
+        layout != dirtyLayout ||
+        style != dirtyStyle ||
+        graphicStyle != dirtyGraphicStyle
+    ) {
+        this->renderTargetSize = renderTargetSize;
+        computeAlignment();
+        computeLayoutBox();
+        computeStyles();
+        computeColors();
+        computeShadows();
+        computeGraphics();
+        computeChildrenLayoutBox();
+        updateChildren();
+        computeGraphicSource();
+        computeGraphicLayout();
+    }
     this->renderTargetSize = renderTargetSize;
-    computeAlignment();
-    computeLayoutBox();
-    computeStyles();
-    computeColors();
-    computeShadows();
-    computeGraphics();
-    computeChildrenLayoutBox();
-    updateChildren();
-    computeGraphicSource();
-    computeGraphicLayout();
+    dirtyLayout = layout;
+    dirtyStyle = style;
+    dirtyGraphicStyle = graphicStyle;
+
 }
 
 

@@ -49,6 +49,9 @@ namespace SFUI {
             SFUI::Button background;
             SFUI::Label inputText;
             SFUI::Container caret;
+            SFUI::Bool dirtyEvent = false;
+            SFUI::Prop::Style::TextField dirtyTextFieldStyle;
+            SFUI::Prop::State::TextField dirtyTextFieldState;
             SFUI::ComputedProp::Style::TextField computedTextFieldStyle;
 
         private:

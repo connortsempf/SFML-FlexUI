@@ -59,6 +59,7 @@ SFUI::Void SFUI::Button::handleEvent(const SFUI::Event& event) {
             if (!isHovered) {
                 toolTipClock.restart();
                 isHovered = true;
+                dirtyEvent = true;
                 if (buttonBehavior.onHoverIn) buttonBehavior.onHoverIn(componentID);
             }   else if (!isShowingToolTip) {
                 previousHoverPosition = {static_cast<SFUI::Float>(mousePosition.x), static_cast<SFUI::Float>(mousePosition.y)};
@@ -67,6 +68,7 @@ SFUI::Void SFUI::Button::handleEvent(const SFUI::Event& event) {
         else if (!buttonHovered) {
             if (isHovered) {
                 isHovered = false;
+                dirtyEvent = true;
                 if (isShowingToolTip) {
                     isShowingToolTip = false;
                     toolTipClock.stop();
@@ -96,6 +98,7 @@ SFUI::Void SFUI::Button::handleEvent(const SFUI::Event& event) {
             }
             if (buttonState.isFocused) {
                 buttonState.isFocused = false;
+                dirtyEvent = true;
                 if (buttonBehavior.onBlur) buttonBehavior.onBlur(componentID);
             }
         }
@@ -109,16 +112,19 @@ SFUI::Void SFUI::Button::handleEvent(const SFUI::Event& event) {
                 toolTipClock.stop();
                 if (!isLeftPressed) {
                     isLeftPressed = true;
+                    dirtyEvent = true;
                     if (buttonBehavior.onLeftPressIn) buttonBehavior.onLeftPressIn(componentID);
                 }
             }   else if (mouseButton == sf::Mouse::Button::Right) {
                 if (!isRightPressed) {
                     isRightPressed = true;
+                    dirtyEvent = true;
                     if (buttonBehavior.onRightPressIn) buttonBehavior.onRightPressIn(componentID);
                 }
             }   else if (mouseButton == sf::Mouse::Button::Middle) {
                 if (!isMiddlePressed) {
                     isMiddlePressed = true;
+                    dirtyEvent = true;
                     if (buttonBehavior.onMiddlePressIn) buttonBehavior.onMiddlePressIn(componentID);
                 }
             }
@@ -146,9 +152,10 @@ SFUI::Void SFUI::Button::handleEvent(const SFUI::Event& event) {
                 previousPressPosition = mousePosition;
             }
         }
-        if (isLeftPressed) isLeftPressed = false;
-        if (isRightPressed) isRightPressed = false;
-        if (isMiddlePressed) isMiddlePressed = false;
+        if (isLeftPressed || isRightPressed || isMiddlePressed) {
+            isLeftPressed = isRightPressed = isMiddlePressed = false;
+            dirtyEvent = true;
+        }
     }
 
     // Key Pressed Event Handling //
@@ -157,6 +164,7 @@ SFUI::Void SFUI::Button::handleEvent(const SFUI::Event& event) {
             buttonBehavior.onKeyPress(componentID, keyPressedEvent->code);
         if (isShowingToolTip) {
             isShowingToolTip = false;
+            dirtyEvent = true;
             toolTipClock.restart();
             toolTipClock.stop();
             if (buttonBehavior.onBlur) buttonBehavior.onBlur(componentID);
@@ -171,17 +179,32 @@ SFUI::Void SFUI::Button::handleEvent(const SFUI::Event& event) {
  * @param renderTargetSize The size of the render target.
  */
 SFUI::Void SFUI::Button::update(const SFUI::Vector2u renderTargetSize) {
+    if (
+        this->renderTargetSize != renderTargetSize ||
+        layout != dirtyLayout ||
+        style != dirtyStyle ||
+        buttonStyle != dirtyButtonStyle ||
+        buttonState != dirtyButtonState ||
+        dirtyEvent
+    ) {
+        this->renderTargetSize = renderTargetSize;
+        computeAlignment();
+        computeLayoutBox();
+        computeStyles();
+        computeDynamicColors();
+        computeShadows();
+        computeGraphics();
+        computeChildrenLayoutBox();
+        updateChildren();
+        computeFocus();
+        dirtyEvent = false;
+    }
     this->renderTargetSize = renderTargetSize;
-    computeAlignment();
-    computeLayoutBox();
-    computeStyles();
-    computeDynamicColors();
-    computeShadows();
-    computeGraphics();
-    computeChildrenLayoutBox();
-    updateChildren();
-    computeFocus();
     computeToolTip();
+    dirtyLayout = layout;
+    dirtyStyle = style;
+    dirtyButtonStyle = buttonStyle;
+    dirtyButtonState = buttonState;
 }
 
 
@@ -217,13 +240,15 @@ SFUI::SharedPointer<SFUI::Font> SFUI::Button::getToolTipFont() {
  * @brief Compute dynamic colors based on button state.
  */
 SFUI::Void SFUI::Button::computeDynamicColors() {
+    computedStyle.fillColor = resolveColorSubProp(style.fillColor);
+    computedStyle.borderColor = resolveColorSubProp(style.borderColor);
     if (buttonState.isDisabled) {
         if (buttonStyle.disabledFillColor.has_value())
             computedStyle.fillColor = resolveColorSubProp(buttonStyle.disabledFillColor.value());
         if (buttonStyle.disabledBorderColor.has_value())
             computedStyle.borderColor = resolveColorSubProp(buttonStyle.disabledBorderColor.value());
     }
-    else if ((isLeftPressed || isRightPressed || isMiddlePressed)) {
+    else if ((isLeftPressed || isRightPressed || isMiddlePressed) && isHovered) {
         if (buttonStyle.pressedFillColor.has_value())
             computedStyle.fillColor = resolveColorSubProp(buttonStyle.pressedFillColor.value());
         if (buttonStyle.pressedBorderColor.has_value())
@@ -234,10 +259,6 @@ SFUI::Void SFUI::Button::computeDynamicColors() {
             computedStyle.fillColor = resolveColorSubProp(buttonStyle.hoveredFillColor.value());
         if (buttonStyle.hoveredBorderColor.has_value())
             computedStyle.borderColor = resolveColorSubProp(buttonStyle.hoveredBorderColor.value());
-    }
-    else {
-        computedStyle.fillColor = resolveColorSubProp(style.fillColor);
-        computedStyle.borderColor = resolveColorSubProp(style.borderColor);
     }
 }
 

@@ -19,6 +19,9 @@ namespace SFUI {
 
         friend class UIRoot;
 
+        protected:
+            struct ComputedChildLayout;
+
         public:
             SFUI::String componentID;
             SFUI::Prop::Layout::Component layout;
@@ -35,12 +38,42 @@ namespace SFUI {
             SFUI::Void setParent(SFUI::Component* newParent);
             SFUI::Void addChild(const SFUI::SharedPointer<SFUI::Component>& newChild);
             SFUI::Void addChildren(const SFUI::Vector<SFUI::SharedPointer<SFUI::Component>>& newChildren);
-            SFUI::Void updateChildFromParent(SFUI::ComputedProp::Layout::ComponentChild childComputedLayout);
-            SFUI::Vector<SFUI::SharedPointer<SFUI::Component>> getChildren() const;
-            SFUI::Vector2f getSize();
-            SFUI::Vector2i getPosition();
-            SFUI::Vector4f getPadding();
-            SFUI::Vector4f getMargin();
+            SFUI::Void updateChildFromParent(SFUI::Component::ComputedChildLayout computedChildLayout);
+            const SFUI::Vector<SFUI::SharedPointer<SFUI::Component>>& getChildren() const;
+            const SFUI::Vector2f& getSize() const;
+            const SFUI::Vector2i& getPosition() const;
+            const SFUI::Vector4f& getPadding() const;
+            const SFUI::Vector4f& getMargin() const;
+
+        protected:
+            enum class AlignDirection { Vertical, Horizontal };
+            enum class AlignPrimary { Start, End, Center, SpaceBetween, SpaceAround, SpaceEvenly };
+            enum class AlignSecondary { Start, End, Center };
+        
+        protected:
+            struct ComputedLayout {
+                SFUI::Component::AlignDirection alignDirection;
+                SFUI::Component::AlignPrimary alignPrimary;
+                SFUI::Component::AlignSecondary alignSecondary;
+                SFUI::Vector2f size;
+                SFUI::Vector2i position;
+                SFUI::Vector4f padding;
+                SFUI::Vector4f margin;
+            };
+            struct ComputedChildLayout {
+                SFUI::Vector2f size;
+                SFUI::Vector2i position;
+                SFUI::Vector4f margin;
+            };
+            struct ComputedStyle {
+                SFUI::Float borderWidth;
+                SFUI::Vector4f cornerRadius;
+                SFUI::Color fillColor;
+                SFUI::Color borderColor;
+                SFUI::Vector2f shadowOffset;
+                SFUI::Float shadowRadius;
+                SFUI::Color shadowFillColor;
+            };
 
         protected:
             SFUI::Vector2u renderTargetSize;
@@ -52,14 +85,16 @@ namespace SFUI {
             SFUI::VertexArray borderArcs;
             SFUI::VertexArray shadowRects;
             SFUI::VertexArray shadowArcs;
-            SFUI::ComputedProp::Layout::Component computedLayout;
-            SFUI::ComputedProp::Style::Component computedStyle;
-            SFUI::Vector<SFUI::ComputedProp::Layout::ComponentChild> childrenComputedLayout;
+            SFUI::Prop::Layout::Component dirtyLayout;
+            SFUI::Prop::Style::Component dirtyStyle;
+            SFUI::Component::ComputedLayout computedLayout;
+            SFUI::Component::ComputedStyle computedStyle;
+            SFUI::Vector<SFUI::Component::ComputedChildLayout> computedChildrenLayout;
         
         protected:
             SFUI::Bool isMouseHovered(const SFUI::Vector2i& mousePosition);
             SFUI::Color resolveColorSubProp(const SFUI::SubProp::Color& color);
-            SFUI::Vector4f resolveUniQuadSubProp(SFUI::Vector2f size, SFUI::SubProp::UniQuad cornerRadius);
+            SFUI::Vector4f resolveUniQuadSubProp(const SFUI::Vector2f& size, const SFUI::SubProp::UniQuad& subProp);
             SFUI::Void computeAlignment();
             SFUI::Void computeLayoutBox();
             SFUI::Void computeStyles();

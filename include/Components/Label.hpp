@@ -33,6 +33,7 @@ namespace SFUI {
 
         private:
             SFUI::Text textObject;
+            SFUI::Prop::Style::Label dirtyLabelStyle;
 
         private:
             SFUI::Void computeTextCore();

@@ -52,27 +52,29 @@ SFUI::Void SFUI::ScrollContainer::handleEvent(const SFUI::Event& event) {
     if (const SFUI::Event::MouseWheelScrolled* mouseWheelScrolledEvent = event.getIf<SFUI::Event::MouseWheelScrolled>()) {
         if (mouseWheelScrolledEvent->wheel == sf::Mouse::Wheel::Vertical) {
             if (computedScrollContainerStyle.scrollDirection == "vertical" || computedScrollContainerStyle.scrollDirection == "both") {
+                dirtyEvent = true;
                 SFUI::Float newScrollOffsetY = scrollOffset.y + (mouseWheelScrolledEvent->delta * computedScrollContainerStyle.scrollSpeedFactor);
-                if ((computedLayout.alignDirection == "vertical" && computedLayout.alignPrimary == "start") ||
-                    (computedLayout.alignDirection == "horizontal" && computedLayout.alignSecondary == "start")) {
+                if ((computedLayout.alignDirection == SFUI::Component::AlignDirection::Vertical && computedLayout.alignPrimary == SFUI::Component::AlignPrimary::Start) ||
+                    (computedLayout.alignDirection == SFUI::Component::AlignDirection::Horizontal && computedLayout.alignSecondary == SFUI::Component::AlignSecondary::Start)) {
                         if (newScrollOffsetY > -maxScrollOffset.y && newScrollOffsetY < 0.0f && scrollContainerBehavior.onScroll) scrollContainerBehavior.onScroll(componentID); 
                         scrollOffset.y = std::clamp(newScrollOffsetY, -maxScrollOffset.y, 0.0f);
-                }   else if ((computedLayout.alignDirection == "vertical" && computedLayout.alignPrimary == "end") ||
-                    (computedLayout.alignDirection == "horizontal" && computedLayout.alignSecondary == "end")) {
+                }   else if ((computedLayout.alignDirection == SFUI::Component::AlignDirection::Vertical && computedLayout.alignPrimary == SFUI::Component::AlignPrimary::End) ||
+                    (computedLayout.alignDirection == SFUI::Component::AlignDirection::Horizontal && computedLayout.alignSecondary == SFUI::Component::AlignSecondary::End)) {
                         if (newScrollOffsetY > 0.0f && newScrollOffsetY < maxScrollOffset.y && scrollContainerBehavior.onScroll) scrollContainerBehavior.onScroll(componentID);
                         scrollOffset.y = std::clamp(newScrollOffsetY, 0.0f, maxScrollOffset.y);
                 }
             }
         }   else if (mouseWheelScrolledEvent->wheel == sf::Mouse::Wheel::Vertical) {
             if (computedScrollContainerStyle.scrollDirection == "horizontal" || computedScrollContainerStyle.scrollDirection == "both") {
+                dirtyEvent = true;
                 SFUI::Float newScrollOffsetX = scrollOffset.x + (mouseWheelScrolledEvent->delta * computedScrollContainerStyle.scrollSpeedFactor);
-                if ((computedLayout.alignDirection == "horizontal" && computedLayout.alignPrimary == "start") ||
-                    (computedLayout.alignDirection == "vertical" && computedLayout.alignSecondary == "start")) {
+                if ((computedLayout.alignDirection == SFUI::Component::AlignDirection::Horizontal && computedLayout.alignPrimary == SFUI::Component::AlignPrimary::Start) ||
+                    (computedLayout.alignDirection == SFUI::Component::AlignDirection::Vertical && computedLayout.alignSecondary == SFUI::Component::AlignSecondary::Start)) {
                         if (newScrollOffsetX > -maxScrollOffset.y && newScrollOffsetX < 0.0f && scrollContainerBehavior.onScroll) scrollContainerBehavior.onScroll(componentID);
                         scrollOffset.x = std::clamp(newScrollOffsetX, -maxScrollOffset.x, 0.0f);
                 }
-                else if ((computedLayout.alignDirection == "horizontal" && computedLayout.alignPrimary == "end") ||
-                    (computedLayout.alignDirection == "vertical" && computedLayout.alignSecondary == "end")) {
+                else if ((computedLayout.alignDirection == SFUI::Component::AlignDirection::Horizontal && computedLayout.alignPrimary == SFUI::Component::AlignPrimary::End) ||
+                    (computedLayout.alignDirection == SFUI::Component::AlignDirection::Vertical && computedLayout.alignSecondary == SFUI::Component::AlignSecondary::End)) {
                         if (newScrollOffsetX > 0.0f && newScrollOffsetX < maxScrollOffset.x && scrollContainerBehavior.onScroll) scrollContainerBehavior.onScroll(componentID);
                         scrollOffset.x = std::clamp(newScrollOffsetX, 0.0f, maxScrollOffset.x);
                 }
@@ -88,18 +90,31 @@ SFUI::Void SFUI::ScrollContainer::handleEvent(const SFUI::Event& event) {
  * @param renderTargetSize The size of the render target.
  */
 SFUI::Void SFUI::ScrollContainer::update(const SFUI::Vector2u renderTargetSize) {
+    if (
+        this->renderTargetSize != renderTargetSize ||
+        layout != dirtyLayout ||
+        style != dirtyStyle ||
+        scrollContainerStyle != dirtyScrollContainerStyle ||
+        dirtyEvent
+    ) {
+        this->renderTargetSize = renderTargetSize;
+        computeAlignment();
+        computeLayoutBox();
+        computeStyles();
+        computeColors();
+        computeShadows();
+        computeGraphics();
+        computeChildrenLayoutBox();
+        computeAlignPrimary();
+        computeScrollDynamics();
+        computeChildrenScrollPosition();
+        updateChildren();
+        dirtyEvent = false;
+    }
     this->renderTargetSize = renderTargetSize;
-    computeAlignment();
-    computeLayoutBox();
-    computeStyles();
-    computeColors();
-    computeShadows();
-    computeGraphics();
-    computeChildrenLayoutBox();
-    computeAlignPrimary();
-    computeScrollDynamics();
-    computeChildrenScrollPosition();
-    updateChildren();
+    dirtyLayout = layout;
+    dirtyStyle = style;
+    dirtyScrollContainerStyle = scrollContainerStyle;
 }
 
 
@@ -128,11 +143,9 @@ SFUI::Void SFUI::ScrollContainer::computeAlignPrimary() {
         return std::tolower(c);
     });
 
-    if (tempAlignPrimary == "start" || tempAlignPrimary == "end") {
-        computedLayout.alignPrimary = tempAlignPrimary;
-    }   else {
-        computedLayout.alignPrimary = "start";
-    }
+    if (tempAlignPrimary == "start") computedLayout.alignPrimary = SFUI::Component::AlignPrimary::Start;
+    else if (tempAlignPrimary == "end") computedLayout.alignPrimary = SFUI::Component::AlignPrimary::End;
+    else computedLayout.alignPrimary = SFUI::Component::AlignPrimary::Start;
 }
 
 
@@ -174,9 +187,9 @@ SFUI::Void SFUI::ScrollContainer::computeScrollDynamics() {
 SFUI::Void SFUI::ScrollContainer::computeChildrenScrollPosition() {
     SFUI::Vector<SFUI::SharedPointer<SFUI::Component>> children = this->getChildren();
     for (int i = 0; i < children.size(); i++) {
-        childrenComputedLayout[i].position = {
-            childrenComputedLayout[i].position.x + static_cast<SFUI::Int>(scrollOffset.x),
-            childrenComputedLayout[i].position.y + static_cast<SFUI::Int>(scrollOffset.y)
+        computedChildrenLayout[i].position = {
+            computedChildrenLayout[i].position.x + static_cast<SFUI::Int>(scrollOffset.x),
+            computedChildrenLayout[i].position.y + static_cast<SFUI::Int>(scrollOffset.y)
         };
     }
 }

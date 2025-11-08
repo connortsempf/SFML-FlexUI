@@ -20,6 +20,9 @@ namespace SFUI {
         operator sf::Vector2u() const {
             return sf::Vector2u{x, y};
         }
+        bool operator==(const Vector2u& other) const {
+            return (x == other.x && y == other.y);
+        }
     };
     
     struct Vector2i {
@@ -30,6 +33,9 @@ namespace SFUI {
         ) : x(x), y(y) {}
         operator sf::Vector2i() const {
             return sf::Vector2i{x, y};
+        }
+        bool operator==(const Vector2i& other) const {
+            return (x == other.x && y == other.y);
         }
     };
     
@@ -42,6 +48,9 @@ namespace SFUI {
         operator sf::Vector2f() const {
             return sf::Vector2f{x, y};
         }
+        bool operator==(const Vector2f& other) const {
+            return (x == other.x && y == other.y);
+        }
     };
 
     struct Vector3ui8 {
@@ -51,6 +60,9 @@ namespace SFUI {
             SFUI::UnsignedInt8 y = 0,
             SFUI::UnsignedInt8 z = 0
         ) : x(x), y(y), z(z) {}
+        bool operator==(const Vector3ui8& other) const {
+            return (x == other.x && y == other.y && z == other.z);
+        }
     };
 
     struct Vector3u {
@@ -60,6 +72,9 @@ namespace SFUI {
             SFUI::UnsignedInt y = 0,
             SFUI::UnsignedInt z = 0
         ) : x(x), y(y), z(z) {}
+        bool operator==(const Vector3u& other) const {
+            return (x == other.x && y == other.y && z == other.z);
+        }
     };
     
     struct Vector3i {
@@ -72,16 +87,9 @@ namespace SFUI {
         operator sf::Vector3i() const {
             return sf::Vector3i{x, y, z};
         }
-    };
-
-    struct Vector4ui8 {
-        SFUI::UnsignedInt8 x, y, z, w;
-        Vector4ui8(
-            SFUI::UnsignedInt8 x = 0,
-            SFUI::UnsignedInt8 y = 0,
-            SFUI::UnsignedInt8 z = 0,
-            SFUI::UnsignedInt8 w = 0
-        ) : x(x), y(y), z(z), w(w) {}
+        bool operator==(const Vector3i& other) const {
+            return (x == other.x && y == other.y && z == other.z);
+        }
     };
     
     struct Vector3f {
@@ -94,6 +102,22 @@ namespace SFUI {
         operator sf::Vector3f() const {
             return sf::Vector3f{x, y, z};
         }
+        bool operator==(const Vector3f& other) const {
+            return (x == other.x && y == other.y && z == other.z);
+        }
+    };
+
+    struct Vector4ui8 {
+        SFUI::UnsignedInt8 x, y, z, w;
+        Vector4ui8(
+            SFUI::UnsignedInt8 x = 0,
+            SFUI::UnsignedInt8 y = 0,
+            SFUI::UnsignedInt8 z = 0,
+            SFUI::UnsignedInt8 w = 0
+        ) : x(x), y(y), z(z), w(w) {}
+        bool operator==(const Vector4ui8& other) const {
+            return (x == other.x && y == other.y && z == other.z && w == other.w);
+        }
     };
 
     struct Vector4u {
@@ -104,6 +128,9 @@ namespace SFUI {
             SFUI::UnsignedInt z = 0,
             SFUI::UnsignedInt w = 0
         ) : x(x), y(y), z(z), w(w) {}
+        bool operator==(const Vector4u& other) const {
+            return (x == other.x && y == other.y && z == other.z && w == other.w);
+        }
     };
     
     struct Vector4i {
@@ -114,6 +141,9 @@ namespace SFUI {
             SFUI::Int z = 0,
             SFUI::Int w = 0
         ) : x(x), y(y), z(z), w(w) {}
+        bool operator==(const Vector4i& other) const {
+            return (x == other.x && y == other.y && z == other.z && w == other.w);
+        }
     };
     
     struct Vector4f {
@@ -124,5 +154,8 @@ namespace SFUI {
             SFUI::Float z = 0,
             SFUI::Float w = 0
         ) : x(x), y(y), z(z), w(w) {}
+        bool operator==(const Vector4f& other) const {
+            return (x == other.x && y == other.y && z == other.z && w == other.w);
+        }
     };
 }

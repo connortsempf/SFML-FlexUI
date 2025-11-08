@@ -34,6 +34,7 @@ namespace SFUI {
             SFUI::Sprite graphic;
             SFUI::Graphic::LoadType loadType = SFUI::Graphic::LoadType::PRE_LOAD;
             SFUI::Graphic::LoadState loadState = SFUI::Graphic::LoadState::PRE_LOAD_UNLOADED;
+            SFUI::Prop::Style::Graphic dirtyGraphicStyle;
             SFUI::ComputedProp::Style::Graphic computedGraphicStyle;
         
         private:

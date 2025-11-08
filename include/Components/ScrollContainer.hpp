@@ -34,6 +34,8 @@ namespace SFUI {
             SFUI::Vector2f maxScrollOffset = {0.0f, 0.0f};
             SFUI::Vector2f contentSize;
             SFUI::Float dragStartPosition;
+            SFUI::Bool dirtyEvent = false;
+            SFUI::Prop::Style::ScrollContainer dirtyScrollContainerStyle;
             SFUI::ComputedProp::Style::ScrollContainer computedScrollContainerStyle;
 
         private:

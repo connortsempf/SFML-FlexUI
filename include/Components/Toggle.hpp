@@ -27,7 +27,10 @@ namespace SFUI {
             SFUI::Void draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window);
 
         private:
+            SFUI::Bool dirtyEvent = false;
             SFUI::Button toggle;
+            SFUI::Prop::Style::Toggle dirtyToggleStyle;
+            SFUI::Prop::State::Toggle dirtyToggleState;
 
         private:
             SFUI::Void computeDynamicColors();

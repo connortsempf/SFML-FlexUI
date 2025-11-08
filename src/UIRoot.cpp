@@ -1,5 +1,7 @@
 #include "base/UIRoot.hpp"
 
+#include <chrono>
+
 
 ///////////////////////////
 // Root UI Manager Class //
@@ -69,7 +71,19 @@ SFUI::Void SFUI::UIRoot::update(const SFUI::Vector2u renderTargetSize) {
         for (const auto& currentChildChild : currentChildChildren) {
             childrenQueue.push_back(currentChildChild);
         }
+
+        // auto start = std::chrono::high_resolution_clock::now();
+
         currentChild->update(renderTargetSize);
+
+        // auto end = std::chrono::high_resolution_clock::now();
+        // std::chrono::duration<double, std::micro> elapsed = end - start;
+        // accumulator += elapsed.count();
+        // if (count >= 100.0) {
+        //     std::cout << "\rAverage Update Time: " << accumulator / count << " us";
+        //     count = 0.0;
+        //     accumulator = 0.0;
+        // }   else count += 1.0;
     }
 }
 

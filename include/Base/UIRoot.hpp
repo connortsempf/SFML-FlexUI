@@ -28,6 +28,10 @@ namespace SFUI {
 
         private:
             SFUI::SharedPointer<SFUI::Component> rootComponent;
+
+            double count = 0.0;
+            double accumulator = 0.0;
+
         
         private:
             SFUI::Void drawRecursive(SFUI::SharedPointer<SFUI::Component> component, SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window);
