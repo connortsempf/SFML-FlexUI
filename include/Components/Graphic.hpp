@@ -18,8 +18,8 @@ namespace SFUI {
 
         public:
             Graphic() = default;
-            Graphic(const SFUI::String& componentID);
-            Graphic(const SFUI::String& componentID, const SFUI::PropGroup::Graphic& graphicPropGroup);
+            Graphic(SFUI::String componentID);
+            Graphic(SFUI::String componentID, SFUI::PropGroup::Graphic graphicPropGroup);
             SFUI::Void handleEvent(const SFUI::Event& event);
             SFUI::Void update(const SFUI::Vector2u renderTargetSize);
             SFUI::Void draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window);

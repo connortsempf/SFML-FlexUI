@@ -16,10 +16,9 @@ const SFUI::Float SFUI::Label::BOTTOM_OFFSET_FACTOR = 0.65f;
  * 
  * @param componentID The unique identifier for the label component.
  */
-SFUI::Label::Label(const SFUI::String& componentID) :
-    Component(componentID),
-    labelStyle(),
-    textObject(SFUI::Text(*(labelStyle.font), labelStyle.text, labelStyle.textSize))
+SFUI::Label::Label(SFUI::String componentID) :
+    Component(std::move(componentID)),
+    textObject(*(labelStyle.font), labelStyle.text, labelStyle.textSize)
 {}
 
 
@@ -29,10 +28,10 @@ SFUI::Label::Label(const SFUI::String& componentID) :
  * @param componentID The unique identifier for the label component.
  * @param labelPropGroup The property group for the label component.
  */
-SFUI::Label::Label(const SFUI::String& componentID, const SFUI::PropGroup::Label& labelPropGroup) :
-    Component(componentID, labelPropGroup.layout, labelPropGroup.style),
-    labelStyle(labelPropGroup.labelStyle),
-    textObject(SFUI::Text(*(labelStyle.font), labelStyle.text, labelStyle.textSize))
+SFUI::Label::Label(SFUI::String componentID, SFUI::PropGroup::Label labelPropGroup) :
+    Component(std::move(componentID), std::move(labelPropGroup.layout), std::move(labelPropGroup.style)),
+    labelStyle(std::move(labelPropGroup.labelStyle)),
+    textObject(*(labelStyle.font), labelStyle.text, labelStyle.textSize)
 {}
 
 

@@ -25,14 +25,11 @@ const SFUI::String SFUI::TextField::CTRL_SYMBOL_GROUP = "`~!@#$%^&*()-=+[]{}\\|:
  * 
  * @param componentID The unique identifier for the TextField component.
  */
-SFUI::TextField::TextField(const SFUI::String& componentID) :
-    Component(componentID),
-    textFieldStyle(),
-    textFieldState(),
-    textFieldBehavior(),
-    background(SFUI::Button(componentID + "_Background")),
-    inputText(SFUI::Label(componentID + "_InputText")),
-    caret(SFUI::Container(componentID + "_Caret"))
+SFUI::TextField::TextField(SFUI::String componentID) :
+    Component(std::move(componentID)),
+    background(componentID + "_Background"),
+    inputText(componentID + "_InputText"),
+    caret(componentID + "_Caret")
 {}
 
 
@@ -42,14 +39,14 @@ SFUI::TextField::TextField(const SFUI::String& componentID) :
  * @param componentID The unique identifier for the TextField component.
  * @param textFieldPropGroup The property group for the TextField component.
  */
-SFUI::TextField::TextField(const SFUI::String& componentID, const SFUI::PropGroup::TextField& textFieldPropGroup) :
-    Component(componentID, textFieldPropGroup.layout, textFieldPropGroup.style),
-    textFieldStyle(textFieldPropGroup.textFieldStyle),
-    textFieldState(textFieldPropGroup.textFieldState),
-    textFieldBehavior(textFieldPropGroup.textFieldBehavior),
-    background(SFUI::Button(componentID + "_Background")),
-    inputText(SFUI::Label(componentID + "_InputText")),
-    caret(SFUI::Container(componentID + "_Caret"))
+SFUI::TextField::TextField(SFUI::String componentID, SFUI::PropGroup::TextField textFieldPropGroup) :
+    Component(std::move(componentID), std::move(textFieldPropGroup.layout), std::move(textFieldPropGroup.style)),
+    textFieldStyle(std::move(textFieldPropGroup.textFieldStyle)),
+    textFieldState(std::move(textFieldPropGroup.textFieldState)),
+    textFieldBehavior(std::move(textFieldPropGroup.textFieldBehavior)),
+    background(componentID + "_Background"),
+    inputText(componentID + "_InputText"),
+    caret(componentID + "_Caret")
 {}
 
 

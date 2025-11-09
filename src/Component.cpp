@@ -13,10 +13,8 @@
  * 
  * @param componentID The unique identifier for the component.
  */
-SFUI::Component::Component(const SFUI::String& componentID) :
-    componentID(componentID),
-    layout(),
-    style()
+SFUI::Component::Component(SFUI::String componentID) :
+    componentID(std::move(componentID))
 {}
 
 
@@ -26,11 +24,12 @@ SFUI::Component::Component(const SFUI::String& componentID) :
  * @param componentID The unique identifier for the component.
  * @param layout The layout properties for the component.
  * @param style The style properties for the component.
+ * @param children The child components for the component.
  */
-SFUI::Component::Component(const SFUI::String& componentID, const SFUI::Prop::Layout::Component& layout, const SFUI::Prop::Style::Component& style) :
-    componentID(componentID),
-    layout(layout),
-    style(style)
+SFUI::Component::Component(SFUI::String componentID, SFUI::Prop::Layout::Component layout, SFUI::Prop::Style::Component style) :
+    componentID(std::move(componentID)),
+    layout(std::move(layout)),
+    style(std::move(style))
 {}
 
 

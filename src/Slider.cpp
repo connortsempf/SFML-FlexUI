@@ -11,11 +11,8 @@
  * 
  * @param componentID The unique identifier for the slider component.
  */
-SFUI::Slider::Slider(const SFUI::String& componentID) :
-    Component(componentID),
-    sliderStyle(),
-    sliderState(),
-    sliderBehavior(),
+SFUI::Slider::Slider(SFUI::String componentID) :
+    Component(std::move(componentID)),
     unprogressedTrack(componentID + "_UnprogressedTrack"),
     progressedTrack(componentID + "_ProgressedTrack"),
     thumb(componentID + "_Thumb")
@@ -28,11 +25,11 @@ SFUI::Slider::Slider(const SFUI::String& componentID) :
  * @param componentID The unique identifier for the slider component.
  * @param togglePropGroup The property group for the slider component.
  */
-SFUI::Slider::Slider(const SFUI::String& componentID, const SFUI::PropGroup::Slider& togglePropGroup) :
-    Component(componentID, togglePropGroup.layout, togglePropGroup.style),
-    sliderStyle(togglePropGroup.sliderStyle),
-    sliderState(togglePropGroup.sliderState),
-    sliderBehavior(togglePropGroup.sliderBehavior),
+SFUI::Slider::Slider(SFUI::String componentID, SFUI::PropGroup::Slider togglePropGroup) :
+    Component(std::move(componentID), std::move(togglePropGroup.layout), std::move(togglePropGroup.style)),
+    sliderStyle(std::move(togglePropGroup.sliderStyle)),
+    sliderState(std::move(togglePropGroup.sliderState)),
+    sliderBehavior(std::move(togglePropGroup.sliderBehavior)),
     unprogressedTrack(componentID + "_UnprogressedTrack"),
     progressedTrack(componentID + "_ProgressedTrack"),
     thumb(componentID + "_Thumb")
@@ -452,7 +449,7 @@ SFUI::Void SFUI::Slider::computeThumb() {
     thumb.buttonBehavior.onMiddlePress = [this](const SFUI::String& componentID) {
         if (sliderBehavior.onThumbMiddlePress) sliderBehavior.onThumbMiddlePress(componentID);
     };
-    thumb.buttonBehavior.onKeyPress = [this](const SFUI::String& componentID, sf::Keyboard::Key pressedKey) {
+    thumb.buttonBehavior.onKeyPress = [this](SFUI::String componentID, sf::Keyboard::Key pressedKey) {
         if (sliderBehavior.onKeyPress) sliderBehavior.onKeyPress(componentID, pressedKey);
     };
 

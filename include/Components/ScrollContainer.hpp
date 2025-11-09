@@ -18,8 +18,8 @@ namespace SFUI {
 
         public:
             ScrollContainer() = default;
-            ScrollContainer(const SFUI::String& componentID);
-            ScrollContainer(const SFUI::String& componentID, const SFUI::PropGroup::ScrollContainer& scrollContainerPropGroup);
+            ScrollContainer(SFUI::String componentID);
+            ScrollContainer(SFUI::String componentID, SFUI::PropGroup::ScrollContainer scrollContainerPropGroup);
             SFUI::Void handleEvent(const SFUI::Event& event);
             SFUI::Void update(const SFUI::Vector2u renderTargetSize);
             SFUI::Void draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window);

@@ -22,8 +22,8 @@ namespace SFUI {
 
         public:
             TextField() = default;
-            TextField(const SFUI::String& componentID);
-            TextField(const SFUI::String& componentID, const SFUI::PropGroup::TextField& textFieldPropGroup);
+            TextField(SFUI::String componentID);
+            TextField(SFUI::String componentID, SFUI::PropGroup::TextField textFieldPropGroup);
             SFUI::Void handleEvent(const SFUI::Event& event);
             SFUI::Void update(const SFUI::Vector2u renderTargetSize);
             SFUI::Void draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window);

@@ -11,11 +11,9 @@
  * 
  * @param componentID The unique identifier for the component.
  */
-SFUI::Graphic::Graphic(const SFUI::String& componentID) :
-    Component(componentID),
-    graphicStyle(),
-    graphicBehavior(),
-    graphic(sf::Sprite(graphicSource))
+SFUI::Graphic::Graphic(SFUI::String componentID) :
+    Component(std::move(componentID)),
+    graphic(graphicSource)
 {}
 
 
@@ -25,11 +23,11 @@ SFUI::Graphic::Graphic(const SFUI::String& componentID) :
  * @param componentID The unique identifier for the component.
  * @param graphicPropGroup The property group containing layout, style, and behavior properties.
  */
-SFUI::Graphic::Graphic(const SFUI::String& componentID, const SFUI::PropGroup::Graphic& graphicPropGroup) :
-    Component(componentID, graphicPropGroup.layout, graphicPropGroup.style),
-    graphicStyle(graphicPropGroup.graphicStyle),
-    graphicBehavior(graphicPropGroup.graphicBehavior),
-    graphic(sf::Sprite(graphicSource))
+SFUI::Graphic::Graphic(SFUI::String componentID, SFUI::PropGroup::Graphic graphicPropGroup) :
+    Component(std::move(componentID), graphicPropGroup.layout, graphicPropGroup.style),
+    graphicStyle(std::move(graphicPropGroup.graphicStyle)),
+    graphicBehavior(std::move(graphicPropGroup.graphicBehavior)),
+    graphic(graphicSource)
 {}
 
 

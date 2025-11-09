@@ -21,8 +21,8 @@ namespace SFUI {
 
         public:
             Slider() = default;
-            Slider(const SFUI::String& componentID);
-            Slider(const SFUI::String& componentID, const SFUI::PropGroup::Slider& sliderPropGroup);
+            Slider(SFUI::String componentID);
+            Slider(SFUI::String componentID, SFUI::PropGroup::Slider sliderPropGroup);
             SFUI::Void handleEvent(const SFUI::Event& event);
             SFUI::Void update(const SFUI::Vector2u renderTargetSize);
             SFUI::Void draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window);

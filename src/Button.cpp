@@ -16,11 +16,8 @@ const SFUI::Time SFUI::Button::TOOL_TIP_THRESHOLD_MS = sf::milliseconds(1000);
  * 
  * @param componentID The unique identifier for the button component.
  */
-SFUI::Button::Button(const SFUI::String& componentID) :
-    Component(componentID),
-    buttonStyle(),
-    buttonState(),
-    buttonBehavior(),
+SFUI::Button::Button(SFUI::String componentID) :
+    Component(std::move(componentID)),
     focus(componentID + "_Focus"),
     toolTip(componentID + "_ToolTip")
 {}
@@ -32,11 +29,11 @@ SFUI::Button::Button(const SFUI::String& componentID) :
  * @param componentID The unique identifier for the button component.
  * @param buttonPropGroup The property group containing layout, style, state, and behavior properties.
  */
-SFUI::Button::Button(const SFUI::String& componentID, const SFUI::PropGroup::Button& buttonPropGroup) :
-    Component(componentID, buttonPropGroup.layout, buttonPropGroup.style),
-    buttonStyle(buttonPropGroup.buttonStyle),
-    buttonState(buttonPropGroup.buttonState),
-    buttonBehavior(buttonPropGroup.buttonBehavior),
+SFUI::Button::Button(SFUI::String componentID, SFUI::PropGroup::Button buttonPropGroup) :
+    Component(std::move(componentID), std::move(buttonPropGroup.layout), std::move(buttonPropGroup.style)),
+    buttonStyle(std::move(buttonPropGroup.buttonStyle)),
+    buttonState(std::move(buttonPropGroup.buttonState)),
+    buttonBehavior(std::move(buttonPropGroup.buttonBehavior)),
     focus(componentID + "Focus"),
     toolTip(componentID + "_ToolTip")
 {}

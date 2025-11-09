@@ -17,8 +17,8 @@ namespace SFUI {
 
         public:
             Label() = default;
-            Label(const SFUI::String& componentID);
-            Label(const SFUI::String& componentID, const SFUI::PropGroup::Label& labelPropGroup);
+            Label(SFUI::String componentID);
+            Label(SFUI::String componentID, SFUI::PropGroup::Label labelPropGroup);
             SFUI::Void handleEvent(const SFUI::Event& event);
             SFUI::Void update(const SFUI::Vector2u renderTargetSize);
             SFUI::Void draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window);

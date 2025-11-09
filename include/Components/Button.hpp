@@ -21,8 +21,8 @@ namespace SFUI {
 
         public:
             Button() = default;
-            Button(const SFUI::String& componentID);
-            Button(const SFUI::String& componentID, const SFUI::PropGroup::Button& buttonPropGroup);
+            Button(SFUI::String componentID);
+            Button(SFUI::String componentID, SFUI::PropGroup::Button buttonPropGroup);
             SFUI::Void handleEvent(const SFUI::Event& event);
             SFUI::Void update(const SFUI::Vector2u renderTargetSize);
             SFUI::Void draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window);

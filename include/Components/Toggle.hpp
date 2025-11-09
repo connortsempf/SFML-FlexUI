@@ -20,8 +20,8 @@ namespace SFUI {
 
         public:
             Toggle() = default;
-            Toggle(const SFUI::String& componentID);
-            Toggle(const SFUI::String& componentID, const SFUI::PropGroup::Toggle& togglePropGroup);
+            Toggle(SFUI::String componentID);
+            Toggle(SFUI::String componentID, SFUI::PropGroup::Toggle togglePropGroup);
             SFUI::Void handleEvent(const SFUI::Event& event);
             SFUI::Void update(const SFUI::Vector2u renderTargetSize);
             SFUI::Void draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window);

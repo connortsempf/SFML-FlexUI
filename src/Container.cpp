@@ -11,8 +11,8 @@
  * 
  * @param componentID The unique identifier for the container component.
  */
-SFUI::Container::Container(const SFUI::String& componentID) :
-    Component(componentID)
+SFUI::Container::Container(SFUI::String componentID) :
+    Component(std::move(componentID))
 {}
 
 
@@ -22,8 +22,8 @@ SFUI::Container::Container(const SFUI::String& componentID) :
  * @param componentID The unique identifier for the container component.
  * @param containerPropGroup The property group for the container component.
  */
-SFUI::Container::Container(const SFUI::String& componentID, const SFUI::PropGroup::Container& containerPropGroup) :
-    Component(componentID, containerPropGroup.layout, containerPropGroup.style)
+SFUI::Container::Container(SFUI::String componentID, SFUI::PropGroup::Container containerPropGroup) :
+    Component(std::move(componentID), std::move(containerPropGroup.layout), std::move(containerPropGroup.style))
 {}
 
 

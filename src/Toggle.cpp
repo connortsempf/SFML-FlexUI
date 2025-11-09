@@ -11,11 +11,8 @@
  * 
  * @param componentID The unique identifier for the Toggle component.
  */
-SFUI::Toggle::Toggle(const SFUI::String& componentID) :
-    Component(componentID),
-    toggleStyle(),
-    toggleState(),
-    toggleBehavior(),
+SFUI::Toggle::Toggle(SFUI::String componentID) :
+    Component(std::move(componentID)),
     toggle(componentID + "_InnerToggle")
 {}
 
@@ -26,11 +23,11 @@ SFUI::Toggle::Toggle(const SFUI::String& componentID) :
  * @param componentID The unique identifier for the Toggle component.
  * @param togglePropGroup The property group containing layout, style, state, and behavior properties for the Toggle component.
  */
-SFUI::Toggle::Toggle(const SFUI::String& componentID, const SFUI::PropGroup::Toggle& togglePropGroup) :
-    Component(componentID, togglePropGroup.layout, togglePropGroup.style),
-    toggleStyle(togglePropGroup.toggleStyle),
-    toggleState(togglePropGroup.toggleState),
-    toggleBehavior(togglePropGroup.toggleBehavior),
+SFUI::Toggle::Toggle(SFUI::String componentID, SFUI::PropGroup::Toggle togglePropGroup) :
+    Component(std::move(componentID), std::move(togglePropGroup.layout), std::move(togglePropGroup.style)),
+    toggleStyle(std::move(togglePropGroup.toggleStyle)),
+    toggleState(std::move(togglePropGroup.toggleState)),
+    toggleBehavior(std::move(togglePropGroup.toggleBehavior)),
     toggle(componentID + "_InnerToggle")
 {}
 
@@ -202,7 +199,7 @@ SFUI::Void SFUI::Toggle::computeToggle() {
     toggle.buttonBehavior.onDoublePress = [this](const SFUI::String& componentID) {
         if (toggleBehavior.onDoublePress) toggleBehavior.onDoublePress(this->componentID);
     };
-    toggle.buttonBehavior.onKeyPress = [this](const SFUI::String& componentID, sf::Keyboard::Key pressedKey) {
+    toggle.buttonBehavior.onKeyPress = [this](SFUI::String componentID, sf::Keyboard::Key pressedKey) {
         if (toggleBehavior.onKeyPress) toggleBehavior.onKeyPress(this->componentID, pressedKey);
     };
 
