@@ -1,8 +1,6 @@
 #include "Base/Component.hpp"
 
 
-
-
 ////////////////////////////////////////
 // SFML-FlexUI Parent Component Class //
 ////////////////////////////////////////
@@ -48,14 +46,10 @@ SFUI::Void SFUI::Component::setParent(SFUI::Component* newParent) {
  * 
  * @param newChild The new child component to add.
  */
-SFUI::Void SFUI::Component::addChild(const SFUI::SharedPointer<SFUI::Component>& newChild) {
+SFUI::Void SFUI::Component::addChild(SFUI::UniquePointer<SFUI::Component> newChild) {
     newChild->setParent(this);
-    children.push_back(newChild);
-    computedChildrenLayout.emplace_back(SFUI::Component::ComputedChildLayout{
-        {0.f, 0.f},     // size
-        {0, 0},         // position
-        0.f             // margin
-    });
+    children.push_back(std::move(newChild));
+    computedChildrenLayout.emplace_back(SFUI::Component::ComputedChildLayout{{0.0f, 0.0f}, {0, 0}, 0.0f});
 }
 
 
@@ -64,15 +58,11 @@ SFUI::Void SFUI::Component::addChild(const SFUI::SharedPointer<SFUI::Component>&
  * 
  * @param newChildren The new child components to add.
  */
-SFUI::Void SFUI::Component::addChildren(const SFUI::Vector<SFUI::SharedPointer<SFUI::Component>>& newChildren) {
-    children.insert(children.end(), newChildren.begin(), newChildren.end());
+SFUI::Void SFUI::Component::addChildren(SFUI::Vector<SFUI::UniquePointer<SFUI::Component>> newChildren) {
     for (int i = 0; i < newChildren.size(); i++) {
         newChildren[i]->setParent(this);
-        computedChildrenLayout.emplace_back(SFUI::Component::ComputedChildLayout{
-            {0.f, 0.f},     // size
-            {0, 0},         // position
-            0.f             // margin
-        });
+        children.push_back(std::move(newChildren[i]));
+        computedChildrenLayout.emplace_back(SFUI::Component::ComputedChildLayout{{0.0f, 0.0f}, {0, 0}, 0.0f});
     }
 }
 
@@ -94,7 +84,7 @@ SFUI::Void SFUI::Component::updateChildFromParent(SFUI::Component::ComputedChild
  * 
  * @return The vector of child components.
  */
-const SFUI::Vector<SFUI::SharedPointer<SFUI::Component>>& SFUI::Component::getChildren() const {
+const SFUI::Vector<SFUI::UniquePointer<SFUI::Component>>& SFUI::Component::getChildren() const {
     return children;
 }
 

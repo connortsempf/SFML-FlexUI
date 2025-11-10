@@ -11,8 +11,8 @@
  * 
  * @param rootComponent The root component of the UI hierarchy.
  */
-SFUI::UIRoot::UIRoot(const SFUI::SharedPointer<SFUI::Component>& rootComponent) :
-    rootComponent(rootComponent)
+SFUI::UIRoot::UIRoot(SFUI::UniquePointer<SFUI::Component> rootComponent) :
+    rootComponent(std::move(rootComponent))
 {}
 
 
@@ -21,8 +21,8 @@ SFUI::UIRoot::UIRoot(const SFUI::SharedPointer<SFUI::Component>& rootComponent) 
  * 
  * @param rootComponent The new root component.
  */
-SFUI::Void SFUI::UIRoot::setRootComponent(const SFUI::SharedPointer<SFUI::Component>& rootComponent) {
-    this->rootComponent = rootComponent;
+SFUI::Void SFUI::UIRoot::setRootComponent(SFUI::UniquePointer<SFUI::Component> rootComponent) {
+    this->rootComponent = std::move(rootComponent);
 }
 
 
@@ -35,16 +35,16 @@ SFUI::Void SFUI::UIRoot::handleEvent(const SFUI::Event& event) {
     if (!rootComponent) return;
         
     // Breadth-First Traversal Algorithm for UI Component Drawing //
-    std::deque<SFUI::SharedPointer<SFUI::Component>> childrenQueue;
-    childrenQueue.push_back(rootComponent);
+    std::deque<SFUI::Component*> childrenQueue;
+    childrenQueue.push_back(rootComponent.get());
 
     while (!childrenQueue.empty()) {
-        SFUI::SharedPointer<SFUI::Component> currentChild = childrenQueue.front();
+        SFUI::Component* currentChild = childrenQueue.front();
         childrenQueue.pop_front();
 
-        SFUI::Vector<SFUI::SharedPointer<SFUI::Component>> currentChildChildren = currentChild->getChildren();
+        const SFUI::Vector<SFUI::UniquePointer<SFUI::Component>>& currentChildChildren = currentChild->getChildren();
         for (const auto& currentChildChild : currentChildChildren) {
-            childrenQueue.push_back(currentChildChild);
+            childrenQueue.push_back(currentChildChild.get());
         }
         currentChild->handleEvent(event);
     }
@@ -58,16 +58,16 @@ SFUI::Void SFUI::UIRoot::update(const SFUI::Vector2u renderTargetSize) {
     if (!rootComponent) return;
 
     // Breadth-First Traversal Algorithm for UI Component Updating //
-    std::deque<SFUI::SharedPointer<SFUI::Component>> childrenQueue;
-    childrenQueue.push_back(rootComponent);
+    std::deque<SFUI::Component*> childrenQueue;
+    childrenQueue.push_back(rootComponent.get());
 
     while (!childrenQueue.empty()) {
-        SFUI::SharedPointer<SFUI::Component> currentChild = childrenQueue.front();
+        SFUI::Component* currentChild = childrenQueue.front();
         childrenQueue.pop_front();
 
-        SFUI::Vector<SFUI::SharedPointer<SFUI::Component>> currentChildChildren = currentChild->getChildren();
+        const SFUI::Vector<SFUI::UniquePointer<SFUI::Component>>& currentChildChildren = currentChild->getChildren();
         for (const auto& currentChildChild : currentChildChildren) {
-            childrenQueue.push_back(currentChildChild);
+            childrenQueue.push_back(currentChildChild.get());
         }
 
         currentChild->update(renderTargetSize);
@@ -96,7 +96,7 @@ SFUI::Void SFUI::UIRoot::draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow
  * @param drawTarget The render target to draw on.
  * @param window The render window associated with the render target.
  */
-SFUI::Void SFUI::UIRoot::drawRecursive(SFUI::SharedPointer<SFUI::Component> component, SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window) {
+SFUI::Void SFUI::UIRoot::drawRecursive(const SFUI::UniquePointer<SFUI::Component>& component, SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window) {
     component->draw(drawTarget, window);
 
     // Save Clipping State for Containing Children within its Bounds and Padding //

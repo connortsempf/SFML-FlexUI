@@ -36,10 +36,10 @@ namespace SFUI {
             virtual SFUI::Void update(const SFUI::Vector2u renderTargetSize) = 0;
             virtual SFUI::Void draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window) = 0;
             SFUI::Void setParent(SFUI::Component* newParent);
-            SFUI::Void addChild(const SFUI::SharedPointer<SFUI::Component>& newChild);
-            SFUI::Void addChildren(const SFUI::Vector<SFUI::SharedPointer<SFUI::Component>>& newChildren);
+            SFUI::Void addChild(SFUI::UniquePointer<SFUI::Component> newChild);
+            SFUI::Void addChildren(SFUI::Vector<SFUI::UniquePointer<SFUI::Component>> newChildren);
             SFUI::Void updateChildFromParent(SFUI::Component::ComputedChildLayout computedChildLayout);
-            const SFUI::Vector<SFUI::SharedPointer<SFUI::Component>>& getChildren() const;
+            const SFUI::Vector<SFUI::UniquePointer<SFUI::Component>>& getChildren() const;
             const SFUI::Vector2f& getSize() const;
             const SFUI::Vector2i& getPosition() const;
             const SFUI::Vector4f& getPadding() const;
@@ -78,7 +78,7 @@ namespace SFUI {
         protected:
             SFUI::Vector2u renderTargetSize;
             SFUI::Component* parent;
-            SFUI::Vector<SFUI::SharedPointer<SFUI::Component>> children;
+            SFUI::Vector<SFUI::UniquePointer<SFUI::Component>> children;
             SFUI::VertexArray backgroundRects;
             SFUI::VertexArray backgroundArcs;
             SFUI::VertexArray borderRects;

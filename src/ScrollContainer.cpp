@@ -168,7 +168,7 @@ SFUI::Void SFUI::ScrollContainer::computeScrollDynamics() {
     else computedScrollContainerStyle.scrollSpeedFactor = scrollContainerStyle.scrollSpeedFactor;
 
     // Maximum Scroll Offset //
-    SFUI::Vector<SFUI::SharedPointer<SFUI::Component>> children = this->getChildren();
+    const SFUI::Vector<SFUI::UniquePointer<SFUI::Component>>& children = this->getChildren();
     SFUI::Vector2f contentSize = {0.0f, 0.0f};
     for (const auto& child : children) {
         SFUI::Vector4f childMargin = child->getMargin();
@@ -185,7 +185,7 @@ SFUI::Void SFUI::ScrollContainer::computeScrollDynamics() {
  * @brief Compute the scroll position of all child components.
  */
 SFUI::Void SFUI::ScrollContainer::computeChildrenScrollPosition() {
-    SFUI::Vector<SFUI::SharedPointer<SFUI::Component>> children = this->getChildren();
+    const SFUI::Vector<SFUI::UniquePointer<SFUI::Component>>& children = this->getChildren();
     for (int i = 0; i < children.size(); i++) {
         computedChildrenLayout[i].position = {
             computedChildrenLayout[i].position.x + static_cast<SFUI::Int>(scrollOffset.x),
