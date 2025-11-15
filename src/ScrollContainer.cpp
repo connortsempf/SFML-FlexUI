@@ -17,19 +17,6 @@ SFUI::ScrollContainer::ScrollContainer(SFUI::String componentID) :
 
 
 /**
- * @brief The constructor for ScrollContainer.
- * 
- * @param componentID The unique identifier for the scroll container component.
- * @param scrollContainerPropGroup The property group for the scroll container component.
- */
-SFUI::ScrollContainer::ScrollContainer(SFUI::String componentID, SFUI::PropGroup::ScrollContainer scrollContainerPropGroup) :
-    Component(std::move(componentID), std::move(scrollContainerPropGroup.layout), std::move(scrollContainerPropGroup.style)),
-    scrollContainerStyle(std::move(scrollContainerPropGroup.scrollContainerStyle)),
-    scrollContainerBehavior(std::move(scrollContainerPropGroup.scrollContainerBehavior))
-{}
-
-
-/**
  * @brief Handle input events for the scroll container.
  * 
  * @param event The input event to handle.

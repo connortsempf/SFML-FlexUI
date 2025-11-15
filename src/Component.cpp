@@ -322,6 +322,9 @@ SFUI::Void SFUI::Component::computeLayoutBox() {
                         computedLayout.size.x = renderTargetSize.x * std::clamp(static_cast<SFUI::Float>(tempWidth) / 100.0f, 0.0f, 1.0f);
                 }   catch (...) {}
             }
+            else if (widthString == "auto") {
+                computedLayout.size.x = renderTargetSize.x;
+            }
         }
         if (std::holds_alternative<SFUI::Float>(layout.height))
             computedLayout.size.y = std::get<SFUI::Float>(layout.height);
@@ -335,6 +338,9 @@ SFUI::Void SFUI::Component::computeLayoutBox() {
                     if (index == heightString.size())
                         computedLayout.size.y = renderTargetSize.y * std::clamp(static_cast<SFUI::Float>(tempHeight) / 100.0f, 0.0f, 1.0f);
                 }   catch (...) {}
+            }
+            else if (heightString == "auto") {
+                computedLayout.size.y = renderTargetSize.y;
             }
         }
         computedLayout.size.x -= (computedLayout.margin.x + computedLayout.margin.y);
@@ -522,13 +528,16 @@ SFUI::Void SFUI::Component::computeChildrenLayoutBox() {
 
 
         // Children Layout Box Size //
+        SFUI::UnsignedInt autoSizedWidthChildren = 0;
+        SFUI::UnsignedInt autoSizedHeightChildren = 0;
+        SFUI::Vector2f usedSize = {0.0f, 0.0f};
+        sf::Vector2i availableSize(
+            computedLayout.size.x - (computedLayout.padding.x + computedLayout.padding.y),
+            computedLayout.size.y - (computedLayout.padding.z + computedLayout.padding.w)
+        );
         for (int i = 0; i < children.size(); i++) {
             SFUI::Vector2f computedSize = {0.0f, 0.0f};
             SFUI::Component& childComponent = *children[i];
-            sf::Vector2i availableSize(
-                computedLayout.size.x - (computedLayout.padding.x + computedLayout.padding.y),
-                computedLayout.size.y - (computedLayout.padding.z + computedLayout.padding.w)
-            );
             // Width //
             if (std::holds_alternative<SFUI::Float>(childComponent.layout.width))
                 computedSize.x = std::get<SFUI::Float>(childComponent.layout.width);
@@ -540,9 +549,13 @@ SFUI::Void SFUI::Component::computeChildrenLayoutBox() {
                         size_t index = 0;
                         SFUI::Double tempWidth = std::stod(widthString, &index);
                         if (index == widthString.size())
-                            computedSize.x = availableSize.x * std::clamp(static_cast<SFUI::Float>(tempWidth) / 100.0f, 0.0f, 1.0f);
+                            computedSize.x = (
+                                availableSize.x * std::clamp(static_cast<SFUI::Float>(tempWidth) / 100.0f, 0.0f, 1.0f) -
+                                (computedChildrenLayout[i].margin.x + computedChildrenLayout[i].margin.y)
+                            );
                     }   catch (...) {}
                 }
+                else if (widthString == "auto") ++autoSizedWidthChildren;
             }
             // Height //
             if (std::holds_alternative<SFUI::Float>(childComponent.layout.height))
@@ -555,11 +568,33 @@ SFUI::Void SFUI::Component::computeChildrenLayoutBox() {
                         size_t index = 0;
                         SFUI::Double tempHeight = std::stod(heightString, &index);
                         if (index == heightString.size())
-                            computedSize.y = availableSize.y * (static_cast<SFUI::Float>(tempHeight) / 100.0f);
+                            computedSize.y = (
+                                availableSize.y * (static_cast<SFUI::Float>(tempHeight) / 100.0f) -
+                                (computedChildrenLayout[i].margin.z + computedChildrenLayout[i].margin.w)
+                            );
                     }   catch (...) {}
                 }
+                else if (heightString == "auto") ++autoSizedHeightChildren;
             }
+            usedSize = {usedSize.x + computedSize.x, usedSize.y + computedSize.y};
             computedChildrenLayout[i].size = {computedSize.x, computedSize.y};
+        }
+        // Second Pass for Auto-Sized Children //
+        SFUI::Vector2f autoAvailableSize = {0.0f, 0.0f};
+        if (autoSizedWidthChildren > 0)
+            autoAvailableSize.x = std::max(0.0f, (availableSize.x - usedSize.x) / static_cast<SFUI::Float>(autoSizedWidthChildren));
+        if (autoSizedHeightChildren > 0)
+            autoAvailableSize.y = std::max(0.0f, (availableSize.y - usedSize.y) / static_cast<SFUI::Float>(autoSizedHeightChildren));
+        for (int i = 0; i < children.size(); i++) {
+            SFUI::Component& childComponent = *children[i];
+            if (std::holds_alternative<SFUI::String>(childComponent.layout.width) &&
+                std::get<SFUI::String>(childComponent.layout.width) == "auto") {
+                computedChildrenLayout[i].size.x = std::round(autoAvailableSize.x) - (computedChildrenLayout[i].margin.x + computedChildrenLayout[i].margin.y);
+            }
+            if (std::holds_alternative<SFUI::String>(childComponent.layout.height) &&
+                std::get<SFUI::String>(childComponent.layout.height) == "auto") {
+                computedChildrenLayout[i].size.y = std::round(autoAvailableSize.y) - (computedChildrenLayout[i].margin.z + computedChildrenLayout[i].margin.w);
+            }
         }
 
 
@@ -695,7 +730,7 @@ SFUI::Void SFUI::Component::computeChildrenLayoutBox() {
                         else computedPosition.y = computedChildrenLayout[i - 1].position.y + computedChildrenLayout[i - 1].size.y + computedChildrenLayout[i - 1].margin.w + gapSize + computedChildrenLayout[i].margin.z;
                     }
                 }
-            }            
+            }
             computedChildrenLayout[i].position = computedPosition;
         }
     }

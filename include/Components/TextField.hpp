@@ -22,8 +22,21 @@ namespace SFUI {
 
         public:
             TextField() = default;
+            TextField(TextField&&) = default;
+            TextField& operator=(TextField&&) = default;
             TextField(SFUI::String componentID);
-            TextField(SFUI::String componentID, SFUI::PropGroup::TextField textFieldPropGroup);
+            template<typename... Children>
+            TextField(SFUI::String componentID, SFUI::PropGroup::TextField textFieldPropGroup, Children&&... children) :
+                Component(std::move(componentID), std::move(textFieldPropGroup.layout), std::move(textFieldPropGroup.style)),
+                textFieldStyle(std::move(textFieldPropGroup.textFieldStyle)),
+                textFieldState(std::move(textFieldPropGroup.textFieldState)),
+                textFieldBehavior(std::move(textFieldPropGroup.textFieldBehavior)),
+                background(componentID + "_Background"),
+                inputText(componentID + "_InputText"),
+                caret(componentID + "_Caret") {
+                (addChild(std::make_unique<std::decay_t<Children>>(std::forward<Children>(children))), ...);
+
+            }
             SFUI::Void handleEvent(const SFUI::Event& event);
             SFUI::Void update(const SFUI::Vector2u renderTargetSize);
             SFUI::Void draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window);

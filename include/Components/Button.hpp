@@ -21,8 +21,20 @@ namespace SFUI {
 
         public:
             Button() = default;
+            Button(Button&&) = default;
+            Button& operator=(Button&&) = default;
             Button(SFUI::String componentID);
-            Button(SFUI::String componentID, SFUI::PropGroup::Button buttonPropGroup);
+            template<typename... Children>
+            Button(SFUI::String componentID, SFUI::PropGroup::Button buttonPropGroup, Children&&... children) :
+                Component(std::move(componentID), std::move(buttonPropGroup.layout), std::move(buttonPropGroup.style)),
+                buttonStyle(std::move(buttonPropGroup.buttonStyle)),
+                buttonState(std::move(buttonPropGroup.buttonState)),
+                buttonBehavior(std::move(buttonPropGroup.buttonBehavior)),
+                focus(componentID + "Focus"),
+                toolTip(componentID + "_ToolTip") {
+                (addChild(std::make_unique<std::decay_t<Children>>(std::forward<Children>(children))), ...);
+
+            }
             SFUI::Void handleEvent(const SFUI::Event& event);
             SFUI::Void update(const SFUI::Vector2u renderTargetSize);
             SFUI::Void draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window);

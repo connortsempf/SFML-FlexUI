@@ -116,7 +116,7 @@ namespace SFUI {
             
             struct Label {
                 SFUI::SubProp::Keyword text;
-                SFUI::SubProp::Font font = nullptr;
+                SFUI::SubProp::Font font = std::make_shared<SFUI::Font>();
                 SFUI::SubProp::Numeric textSize = 12.0f;
                 SFUI::SubProp::TextStyle textStyle = "regular";
                 SFUI::Optional<SFUI::SubProp::Numeric> letterSpacing;
@@ -146,7 +146,7 @@ namespace SFUI {
                 SFUI::SubProp::UniQuad toolTipPadding = 10.0f;
                 SFUI::SubProp::UniQuad toolTipCornerRadius;
                 SFUI::SubProp::Keyword toolTipText = "";
-                SFUI::SubProp::Font toolTipFont;
+                SFUI::SubProp::Font toolTipFont = std::make_shared<SFUI::Font>();
                 SFUI::SubProp::Numeric toolTipTextSize = 10.0f;
                 SFUI::SubProp::Color toolTipFillColor = SFUI::Color(150, 150, 150, 255);
                 SFUI::SubProp::Color toolTipTextColor = SFUI::Color(0, 0, 0, 255);
@@ -177,7 +177,7 @@ namespace SFUI {
                 SFUI::SubProp::UniQuad toolTipPadding = 10.0f;
                 SFUI::SubProp::UniQuad toolTipCornerRadius;
                 SFUI::SubProp::Keyword toolTipText = "";
-                SFUI::SubProp::Font toolTipFont;
+                SFUI::SubProp::Font toolTipFont = std::make_shared<SFUI::Font>();
                 SFUI::SubProp::Numeric toolTipTextSize = 10.0f;
                 SFUI::SubProp::Color toolTipFillColor = SFUI::Color(150, 150, 150, 255);
                 SFUI::SubProp::Color toolTipTextColor = SFUI::Color(0, 0, 0, 255);
@@ -200,7 +200,7 @@ namespace SFUI {
                 SFUI::SubProp::UniQuad textInset = 0.0f;
                 SFUI::SubProp::Keyword text;
                 SFUI::SubProp::Keyword placeholderText;
-                SFUI::SubProp::Font font;
+                SFUI::SubProp::Font font = std::make_shared<SFUI::Font>();
                 SFUI::SubProp::Numeric textSize = 12.0f;
                 SFUI::SubProp::TextStyle textStyle = "regular";
                 SFUI::Optional<SFUI::SubProp::Numeric> letterSpacing;
@@ -215,7 +215,7 @@ namespace SFUI {
                 SFUI::SubProp::UniQuad toolTipPadding = 10.0f;
                 SFUI::SubProp::UniQuad toolTipCornerRadius;
                 SFUI::SubProp::Keyword toolTipText = "";
-                SFUI::SubProp::Font toolTipFont;
+                SFUI::SubProp::Font toolTipFont = std::make_shared<SFUI::Font>();
                 SFUI::SubProp::Numeric toolTipTextSize = 10.0f;
                 SFUI::SubProp::Color toolTipFillColor = SFUI::Color(150, 150, 150, 255);
                 SFUI::SubProp::Color toolTipTextColor = SFUI::Color(0, 0, 0, 255);
@@ -272,7 +272,7 @@ namespace SFUI {
                 SFUI::SubProp::UniQuad toolTipPadding = 10.0f;
                 SFUI::SubProp::UniQuad toolTipCornerRadius;
                 SFUI::SubProp::Keyword toolTipText = "";
-                SFUI::SubProp::Font toolTipFont;
+                SFUI::SubProp::Font toolTipFont = std::make_shared<SFUI::Font>();
                 SFUI::SubProp::Numeric toolTipTextSize = 10.0f;
                 SFUI::SubProp::Color toolTipFillColor = SFUI::Color(150, 150, 150, 255);
                 SFUI::SubProp::Color toolTipTextColor = SFUI::Color(0, 0, 0, 255);

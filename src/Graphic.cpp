@@ -18,20 +18,6 @@ SFUI::Graphic::Graphic(SFUI::String componentID) :
 
 
 /**
- * @brief The constructor of the Graphic component.
- * 
- * @param componentID The unique identifier for the component.
- * @param graphicPropGroup The property group containing layout, style, and behavior properties.
- */
-SFUI::Graphic::Graphic(SFUI::String componentID, SFUI::PropGroup::Graphic graphicPropGroup) :
-    Component(std::move(componentID), graphicPropGroup.layout, graphicPropGroup.style),
-    graphicStyle(std::move(graphicPropGroup.graphicStyle)),
-    graphicBehavior(std::move(graphicPropGroup.graphicBehavior)),
-    graphic(graphicSource)
-{}
-
-
-/**
  * @brief Handle the given event.
  * 
  * @param event The event to handle.

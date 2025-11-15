@@ -20,23 +20,6 @@ SFUI::Slider::Slider(SFUI::String componentID) :
 
 
 /**
- * @brief The constrctor for the slider component.
- * 
- * @param componentID The unique identifier for the slider component.
- * @param togglePropGroup The property group for the slider component.
- */
-SFUI::Slider::Slider(SFUI::String componentID, SFUI::PropGroup::Slider togglePropGroup) :
-    Component(std::move(componentID), std::move(togglePropGroup.layout), std::move(togglePropGroup.style)),
-    sliderStyle(std::move(togglePropGroup.sliderStyle)),
-    sliderState(std::move(togglePropGroup.sliderState)),
-    sliderBehavior(std::move(togglePropGroup.sliderBehavior)),
-    unprogressedTrack(componentID + "_UnprogressedTrack"),
-    progressedTrack(componentID + "_ProgressedTrack"),
-    thumb(componentID + "_Thumb")
-{}
-
-
-/**
  * @brief Handle a user input event.
  * 
  * @param event The event to handle.

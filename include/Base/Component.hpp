@@ -29,8 +29,12 @@ namespace SFUI {
 
         public:
             Component() = default;
+            Component(const Component&) = delete;
+            Component(Component&&) = default;
             Component(SFUI::String componentID);
             Component(SFUI::String componentID, SFUI::Prop::Layout::Component layout, SFUI::Prop::Style::Component style);
+            Component& operator=(Component&&) = default;
+            Component& operator=(const Component&) = delete;
             virtual ~Component() = default;
             virtual SFUI::Void handleEvent(const SFUI::Event& event) = 0;
             virtual SFUI::Void update(const SFUI::Vector2u renderTargetSize) = 0;

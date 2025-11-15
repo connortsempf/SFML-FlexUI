@@ -18,8 +18,18 @@ namespace SFUI {
 
         public:
             Graphic() = default;
+            Graphic(Graphic&&) = default;
+            Graphic& operator=(Graphic&&) = default;
             Graphic(SFUI::String componentID);
-            Graphic(SFUI::String componentID, SFUI::PropGroup::Graphic graphicPropGroup);
+            template<typename... Children>
+            Graphic(SFUI::String componentID, SFUI::PropGroup::Graphic graphicPropGroup, Children&&... children) :
+                Component(std::move(componentID), std::move(graphicPropGroup.layout), std::move(graphicPropGroup.style)),
+                graphicStyle(std::move(graphicPropGroup.graphicStyle)),
+                graphicBehavior(std::move(graphicPropGroup.graphicBehavior)),
+                graphic(graphicSource) {
+                (addChild(std::make_unique<std::decay_t<Children>>(std::forward<Children>(children))), ...);
+
+            }
             SFUI::Void handleEvent(const SFUI::Event& event);
             SFUI::Void update(const SFUI::Vector2u renderTargetSize);
             SFUI::Void draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window);

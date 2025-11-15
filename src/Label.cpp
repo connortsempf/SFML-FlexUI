@@ -23,19 +23,6 @@ SFUI::Label::Label(SFUI::String componentID) :
 
 
 /**
- * @brief The constructor for Label.
- * 
- * @param componentID The unique identifier for the label component.
- * @param labelPropGroup The property group for the label component.
- */
-SFUI::Label::Label(SFUI::String componentID, SFUI::PropGroup::Label labelPropGroup) :
-    Component(std::move(componentID), std::move(labelPropGroup.layout), std::move(labelPropGroup.style)),
-    labelStyle(std::move(labelPropGroup.labelStyle)),
-    textObject(*(labelStyle.font), labelStyle.text, labelStyle.textSize)
-{}
-
-
-/**
  * @brief Handle input events for the label.
  * 
  * @param event The input event to handle.

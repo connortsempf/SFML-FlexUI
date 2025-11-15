@@ -18,8 +18,17 @@ namespace SFUI {
 
         public:
             ScrollContainer() = default;
+            ScrollContainer(ScrollContainer&&) = default;
+            ScrollContainer& operator=(ScrollContainer&&) = default;
             ScrollContainer(SFUI::String componentID);
-            ScrollContainer(SFUI::String componentID, SFUI::PropGroup::ScrollContainer scrollContainerPropGroup);
+            template<typename... Children>
+            ScrollContainer(SFUI::String componentID, SFUI::PropGroup::ScrollContainer scrollContainerPropGroup, Children&&... children) :
+                Component(std::move(componentID), std::move(scrollContainerPropGroup.layout), std::move(scrollContainerPropGroup.style)),
+                scrollContainerStyle(std::move(scrollContainerPropGroup.scrollContainerStyle)),
+                scrollContainerBehavior(std::move(scrollContainerPropGroup.scrollContainerBehavior)) {
+                (addChild(std::make_unique<std::decay_t<Children>>(std::forward<Children>(children))), ...);
+
+            }
             SFUI::Void handleEvent(const SFUI::Event& event);
             SFUI::Void update(const SFUI::Vector2u renderTargetSize);
             SFUI::Void draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window);

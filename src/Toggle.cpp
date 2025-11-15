@@ -18,21 +18,6 @@ SFUI::Toggle::Toggle(SFUI::String componentID) :
 
 
 /**
- * @brief The constructor for the Toggle component.
- * 
- * @param componentID The unique identifier for the Toggle component.
- * @param togglePropGroup The property group containing layout, style, state, and behavior properties for the Toggle component.
- */
-SFUI::Toggle::Toggle(SFUI::String componentID, SFUI::PropGroup::Toggle togglePropGroup) :
-    Component(std::move(componentID), std::move(togglePropGroup.layout), std::move(togglePropGroup.style)),
-    toggleStyle(std::move(togglePropGroup.toggleStyle)),
-    toggleState(std::move(togglePropGroup.toggleState)),
-    toggleBehavior(std::move(togglePropGroup.toggleBehavior)),
-    toggle(componentID + "_InnerToggle")
-{}
-
-
-/**
  * @brief Handle a user input event.
  * 
  * @param event The event to handle.

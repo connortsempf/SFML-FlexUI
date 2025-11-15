@@ -21,8 +21,21 @@ namespace SFUI {
 
         public:
             Slider() = default;
+            Slider(Slider&&) = default;
+            Slider& operator=(Slider&&) = default;
             Slider(SFUI::String componentID);
-            Slider(SFUI::String componentID, SFUI::PropGroup::Slider sliderPropGroup);
+            template<typename... Children>
+            Slider(SFUI::String componentID, SFUI::PropGroup::Slider sliderPropGroup, Children&&... children) :
+                Component(std::move(componentID), std::move(sliderPropGroup.layout), std::move(sliderPropGroup.style)),
+                sliderStyle(std::move(sliderPropGroup.sliderStyle)),
+                sliderState(std::move(sliderPropGroup.sliderState)),
+                sliderBehavior(std::move(sliderPropGroup.sliderBehavior)),
+                unprogressedTrack(componentID + "_UnprogressedTrack"),
+                progressedTrack(componentID + "_ProgressedTrack"),
+                thumb(componentID + "_Thumb") {
+                (addChild(std::make_unique<std::decay_t<Children>>(std::forward<Children>(children))), ...);
+
+            }
             SFUI::Void handleEvent(const SFUI::Event& event);
             SFUI::Void update(const SFUI::Vector2u renderTargetSize);
             SFUI::Void draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window);

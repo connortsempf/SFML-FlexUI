@@ -34,23 +34,6 @@ SFUI::TextField::TextField(SFUI::String componentID) :
 
 
 /**
- * @brief The constructor for the TextField component.
- * 
- * @param componentID The unique identifier for the TextField component.
- * @param textFieldPropGroup The property group for the TextField component.
- */
-SFUI::TextField::TextField(SFUI::String componentID, SFUI::PropGroup::TextField textFieldPropGroup) :
-    Component(std::move(componentID), std::move(textFieldPropGroup.layout), std::move(textFieldPropGroup.style)),
-    textFieldStyle(std::move(textFieldPropGroup.textFieldStyle)),
-    textFieldState(std::move(textFieldPropGroup.textFieldState)),
-    textFieldBehavior(std::move(textFieldPropGroup.textFieldBehavior)),
-    background(componentID + "_Background"),
-    inputText(componentID + "_InputText"),
-    caret(componentID + "_Caret")
-{}
-
-
-/**
  * @brief Handle a user input event.
  * 
  * @param event The event to handle.

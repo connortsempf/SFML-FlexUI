@@ -24,22 +24,6 @@ SFUI::Button::Button(SFUI::String componentID) :
 
 
 /**
- * @brief The constructor for Button with properties.
- * 
- * @param componentID The unique identifier for the button component.
- * @param buttonPropGroup The property group containing layout, style, state, and behavior properties.
- */
-SFUI::Button::Button(SFUI::String componentID, SFUI::PropGroup::Button buttonPropGroup) :
-    Component(std::move(componentID), std::move(buttonPropGroup.layout), std::move(buttonPropGroup.style)),
-    buttonStyle(std::move(buttonPropGroup.buttonStyle)),
-    buttonState(std::move(buttonPropGroup.buttonState)),
-    buttonBehavior(std::move(buttonPropGroup.buttonBehavior)),
-    focus(componentID + "Focus"),
-    toolTip(componentID + "_ToolTip")
-{}
-
-
-/**
  * @brief Handle events for the Button component.
  * 
  * @param event The event to handle.

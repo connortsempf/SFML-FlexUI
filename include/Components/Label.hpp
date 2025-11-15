@@ -17,8 +17,17 @@ namespace SFUI {
 
         public:
             Label() = default;
+            Label(Label&&) = default;
+            Label& operator=(Label&&) = default;
             Label(SFUI::String componentID);
-            Label(SFUI::String componentID, SFUI::PropGroup::Label labelPropGroup);
+            template<typename... Children>
+            Label(SFUI::String componentID, SFUI::PropGroup::Label labelPropGroup, Children&&... children) :
+                Component(std::move(componentID), std::move(labelPropGroup.layout), std::move(labelPropGroup.style)),
+                labelStyle(std::move(labelPropGroup.labelStyle)),
+                textObject(*(labelStyle.font), labelStyle.text, labelStyle.textSize) {
+                (addChild(std::make_unique<std::decay_t<Children>>(std::forward<Children>(children))), ...);
+
+            }
             SFUI::Void handleEvent(const SFUI::Event& event);
             SFUI::Void update(const SFUI::Vector2u renderTargetSize);
             SFUI::Void draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window);

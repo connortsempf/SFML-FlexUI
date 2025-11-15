@@ -17,17 +17,6 @@ SFUI::Container::Container(SFUI::String componentID) :
 
 
 /**
- * @brief The constructor for Container.
- * 
- * @param componentID The unique identifier for the container component.
- * @param containerPropGroup The property group for the container component.
- */
-SFUI::Container::Container(SFUI::String componentID, SFUI::PropGroup::Container containerPropGroup) :
-    Component(std::move(componentID), std::move(containerPropGroup.layout), std::move(containerPropGroup.style))
-{}
-
-
-/**
  * @brief Handle input events for the container.
  * 
  * @param event The input event to handle.
