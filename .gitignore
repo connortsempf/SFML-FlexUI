@@ -1,8 +1,8 @@
 sandbox/
 build/
-/examples/*.exe
-/examples/*.out
-/examples/*.app
-/examples/*.bin
+examples/*.exe
+examples/*.out
+examples/*.app
+examples/*.bin
 desktop.ini
 .vscode
