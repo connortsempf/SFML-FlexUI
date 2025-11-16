@@ -1,0 +1,67 @@
+\doxysection{base.\+hpp}
+\hypertarget{base_8hpp_source}{}\label{base_8hpp_source}\index{include/Types/base.hpp@{include/Types/base.hpp}}
+\mbox{\hyperlink{base_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <optional>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <functional>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <variant>}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <array>}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_s_f_u_i}{SFUI}}\ \{}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{Void}}\ =\ void;}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespace_s_f_u_i_a1d018a570e8ca18e9d5d4f5b01c0c2b6}{Bool}}\ =\ bool;}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespace_s_f_u_i_af78531c8b53446c44c78ac98e4fa02d9}{UnsignedInt8}}\ =\ uint8\_t;}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespace_s_f_u_i_aa3df6ea86af9432f1ddd759958808c42}{UnsignedInt32}}\ =\ uint32\_t;}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespace_s_f_u_i_a485453f38a63a3fd6000773eab6345b7}{UnsignedInt}}\ =\ \textcolor{keywordtype}{unsigned}\ int;}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespace_s_f_u_i_ab94d55f86f7e739986cf084bd2347fed}{Int}}\ =\ int;}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespace_s_f_u_i_a5d1d23a263a913ca5408caea12070315}{Float}}\ =\ float;}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespace_s_f_u_i_a3009df9e26108ba318766d41267b604d}{Double}}\ =\ double;}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespace_s_f_u_i_a2260bca1fca08c7b3cd4f6271c39d92f}{Size}}\ =\ std::size\_t;}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespace_s_f_u_i_ad33b42094903daa96d9a60997cb2b8f0}{String}}\ =\ std::string;}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ T>}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespace_s_f_u_i_a94a77bacad6028be0baa3cd8f8cda193}{Optional}}\ =\ std::optional<T\ ...>;}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ T>}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespace_s_f_u_i_a286567aeebae00cf3174e6cf97502b2c}{Function}}\ =\ std::function<T\ ...>;}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ T>}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespace_s_f_u_i_a8dbc9b24221760e90fe9a97a3cb85856}{Variant}}\ =\ std::variant<T\ ...>;}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ T>}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespace_s_f_u_i_a4b319df7cb3678aea20047a27cfd5945}{Vector}}\ =\ std::vector<T\ ...>;}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ std::\textcolor{keywordtype}{size\_t}\ N>}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespace_s_f_u_i_a58d46db73ee9edd3209ee16f91155068}{Array}}\ =\ std::array<T,\ N>;}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ N>}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespace_s_f_u_i_afccbe8617a0dcbcba8ee7c7893616566}{UnorderedMap}}\ =\ std::unordered\_map<T,\ N>;}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ T>}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespace_s_f_u_i_a340926cf64e5188ca4ed7e5223b7abf2}{WeakPointer}}\ =\ std::weak\_ptr<T\ ...>;}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ T>}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespace_s_f_u_i_a363bc8c4eb0d9b813c2333b67d08f764}{SharedPointer}}\ =\ std::shared\_ptr<T\ ...>;}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ T>}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{namespace_s_f_u_i_a9ef8aa6e4c343e20d30a63a95f707ed5}{UniquePointer}}\ =\ std::unique\_ptr<T\ ...>;}
+\DoxyCodeLine{00072\ \}}
+
+\end{DoxyCode}

@@ -1,0 +1,97 @@
+\doxysection{Button.\+hpp}
+\hypertarget{_button_8hpp_source}{}\label{_button_8hpp_source}\index{include/Components/Button.hpp@{include/Components/Button.hpp}}
+\mbox{\hyperlink{_button_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_component_8hpp}{Base/Component.hpp}}"{}}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_container_8hpp}{Container.hpp}}"{}}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_label_8hpp}{Label.hpp}}"{}}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_s_f_u_i}{SFUI}}\ \{}
+\DoxyCodeLine{00020\ \ \ \ \ }
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_s_f_u_i_1_1_button}{Button}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_s_f_u_i_1_1_component}{Component}}\ \{}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_1_1_style_1_1_button}{SFUI::Prop::Style::Button}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_button_a79738fe7a300c05394633d688f9b198a}{buttonStyle}};}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_1_1_state_1_1_button}{SFUI::Prop::State::Button}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_button_a8132210ac6485ee97cc68ce8d322fac0}{buttonState}};}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_1_1_behavior_1_1_button}{SFUI::Prop::Behavior::Button}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_button_a1270f944c7920bc546893f0c2d27161f}{buttonBehavior}};}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_f_u_i_1_1_button_a44bebf723b2e549bec8df64430aa2937}{Button}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_f_u_i_1_1_button_a2465b70ddc4532ddb173f7591db8894f}{Button}}(\mbox{\hyperlink{class_s_f_u_i_1_1_button}{Button}}\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_f_u_i_1_1_button}{Button}}\&\ \mbox{\hyperlink{class_s_f_u_i_1_1_button_a8ae4400c97b8325aadf92bda632c65e6}{operator=}}(\mbox{\hyperlink{class_s_f_u_i_1_1_button}{Button}}\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_f_u_i_1_1_button_a44bebf723b2e549bec8df64430aa2937}{Button}}(\mbox{\hyperlink{namespace_s_f_u_i_ad33b42094903daa96d9a60997cb2b8f0}{SFUI::String}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_component_aec2950f405553cd5e65f0acf6a1e28da}{componentID}});}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}...\ Children>}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_f_u_i_1_1_button_abfb1f3bda06feb4fcf0e67998d3c0f4c}{Button}}(\mbox{\hyperlink{namespace_s_f_u_i_ad33b42094903daa96d9a60997cb2b8f0}{SFUI::String}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_component_aec2950f405553cd5e65f0acf6a1e28da}{componentID}},\ \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_button}{SFUI::PropGroup::Button}}\ buttonPropGroup,\ Children\&\&...\ \mbox{\hyperlink{class_s_f_u_i_1_1_component_a7b68cbfe79759bc6412a5128d9bfca86}{children}})\ :}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_f_u_i_1_1_component}{Component}}(std::move(\mbox{\hyperlink{class_s_f_u_i_1_1_component_aec2950f405553cd5e65f0acf6a1e28da}{componentID}}),\ std::move(buttonPropGroup.\mbox{\hyperlink{class_s_f_u_i_1_1_component_a02342d63158df6f61385b772233a608a}{layout}}),\ std::move(buttonPropGroup.\mbox{\hyperlink{class_s_f_u_i_1_1_component_a7dd1ea963c57acd93bd7d616cdc49f21}{style}})),}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_f_u_i_1_1_button_a79738fe7a300c05394633d688f9b198a}{buttonStyle}}(std::move(buttonPropGroup.\mbox{\hyperlink{class_s_f_u_i_1_1_button_a79738fe7a300c05394633d688f9b198a}{buttonStyle}})),}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_f_u_i_1_1_button_a8132210ac6485ee97cc68ce8d322fac0}{buttonState}}(std::move(buttonPropGroup.\mbox{\hyperlink{class_s_f_u_i_1_1_button_a8132210ac6485ee97cc68ce8d322fac0}{buttonState}})),}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_f_u_i_1_1_button_a1270f944c7920bc546893f0c2d27161f}{buttonBehavior}}(std::move(buttonPropGroup.\mbox{\hyperlink{class_s_f_u_i_1_1_button_a1270f944c7920bc546893f0c2d27161f}{buttonBehavior}})),}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_f_u_i_1_1_button_a2c2158940d96646b0bdaeb110c707f51}{focus}}(\mbox{\hyperlink{class_s_f_u_i_1_1_component_aec2950f405553cd5e65f0acf6a1e28da}{componentID}}\ +\ \textcolor{stringliteral}{"{}Focus"{}}),}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_f_u_i_1_1_button_a408389ba4427bbe73b79791f5a2d11c3}{toolTip}}(\mbox{\hyperlink{class_s_f_u_i_1_1_component_aec2950f405553cd5e65f0acf6a1e28da}{componentID}}\ +\ \textcolor{stringliteral}{"{}\_ToolTip"{}})\ \{}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\mbox{\hyperlink{class_s_f_u_i_1_1_component_a77ba84c3e3adbe6b1f3b71a45d963d70}{addChild}}(std::make\_unique<std::decay\_t<Children>>(std::forward<Children>(\mbox{\hyperlink{class_s_f_u_i_1_1_component_a7b68cbfe79759bc6412a5128d9bfca86}{children}}))),\ ...);}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI::Void}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_button_a83a857542448627c7c5f9bcefb0b4ac4}{handleEvent}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{namespace_s_f_u_i_a158a4c55cd00926ad04eef6628214d59}{SFUI::Event}}\&\ event);}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI::Void}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_button_a1675aa55efcd8727007739f704b75953}{update}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_s_f_u_i_1_1_vector2u}{SFUI::Vector2u}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_component_abd01e643b921908bf9ed66c501a7dbc8}{renderTargetSize}});}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI::Void}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_button_a66a489a19d21b35aac8d4c9cb4f7876e}{draw}}(\mbox{\hyperlink{namespace_s_f_u_i_a27b81981264d0a33b46b81d105bd7197}{SFUI::RenderTarget}}\&\ drawTarget,\ \mbox{\hyperlink{namespace_s_f_u_i_a7a49d953943284a38398214bc7ed75e5}{SFUI::RenderWindow}}\&\ window);}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_s_f_u_i_a363bc8c4eb0d9b813c2333b67d08f764}{SFUI::SharedPointer<SFUI::Font>}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_button_afa83f12dd4496253567a8ffa873826c0}{getToolTipFont}}();}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespace_s_f_u_i_a981b36e05be3f933da770f9131bce7a5}{SFUI::Time}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_button_aa5871c4172ae5d2cbb298053e588e5ba}{DOUBLE\_PRESS\_GAP\_MS}};}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{namespace_s_f_u_i_a981b36e05be3f933da770f9131bce7a5}{SFUI::Time}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_button_a34f713edae9c969498858db0d3e35f8f}{TOOL\_TIP\_THRESHOLD\_MS}};}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_s_f_u_i_a1d018a570e8ca18e9d5d4f5b01c0c2b6}{SFUI::Bool}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_button_ab57619deb3fc14efdedb6a29df5c2fb7}{isHovered}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_s_f_u_i_a1d018a570e8ca18e9d5d4f5b01c0c2b6}{SFUI::Bool}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_button_a083bad94c445873f1200423235b81805}{isLeftPressed}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_s_f_u_i_a1d018a570e8ca18e9d5d4f5b01c0c2b6}{SFUI::Bool}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_button_a791f7a454f3791fc5531b8fd46b39d3e}{isRightPressed}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_s_f_u_i_a1d018a570e8ca18e9d5d4f5b01c0c2b6}{SFUI::Bool}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_button_a86b89d4c9a787b3f66c7ca66538a8334}{isMiddlePressed}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_s_f_u_i_a1d018a570e8ca18e9d5d4f5b01c0c2b6}{SFUI::Bool}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_button_acbc82b8f71f827b1c841c3f94f79b2d7}{isShowingToolTip}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_s_f_u_i_1_1_vector2f}{SFUI::Vector2f}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_button_a0b949d38db157b1d713082e87e26f02e}{previousHoverPosition}};}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_s_f_u_i_1_1_vector2i}{SFUI::Vector2i}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_button_ac9847906240c398d20daf75743daa498}{previousPressPosition}};}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_s_f_u_i_ada5b46720f5a25e0b41c1f96ce2ea14c}{SFUI::Clock}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_button_aa62faf376fc70c6cc4220a9b621e3c81}{doublePressClock}};}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_s_f_u_i_a981b36e05be3f933da770f9131bce7a5}{SFUI::Time}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_button_a03ce04ae5ea0d3ecb115278ff4ea8032}{previousPressTime}};}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_s_f_u_i_ada5b46720f5a25e0b41c1f96ce2ea14c}{SFUI::Clock}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_button_a26693b6b257b3e11b89deca6ca2a1061}{toolTipClock}};}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_s_f_u_i_a981b36e05be3f933da770f9131bce7a5}{SFUI::Time}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_button_ac5269502f4fd09cc20ff196a1fbe8607}{toolTipTime}};}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_f_u_i_1_1_container}{SFUI::Container}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_button_a2c2158940d96646b0bdaeb110c707f51}{focus}};}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_f_u_i_1_1_label}{SFUI::Label}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_button_a408389ba4427bbe73b79791f5a2d11c3}{toolTip}};}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_s_f_u_i_a1d018a570e8ca18e9d5d4f5b01c0c2b6}{SFUI::Bool}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_button_ac834def5ab17160fe5b8ebb0c41ca1ad}{dirtyEvent}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_1_1_style_1_1_button}{SFUI::Prop::Style::Button}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_button_a817358a2ea2084b43e9b698a81095bd7}{dirtyButtonStyle}};}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_1_1_state_1_1_button}{SFUI::Prop::State::Button}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_button_a05fc22cd1e835c9906794d9b9f79dee1}{dirtyButtonState}};}
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI::Void}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_button_a7e32df16f6b9a288f39ff34b10cd0b6d}{computeDynamicColors}}();}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI::Void}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_button_a71727d7b0c9e4868c488747346303d8b}{computeFocus}}();}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI::Void}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_button_ade5383a020db862d2618a1f655d33289}{computeToolTip}}();}
+\DoxyCodeLine{00213\ \ \ \ \ \};}
+\DoxyCodeLine{00214\ \}}
+
+\end{DoxyCode}

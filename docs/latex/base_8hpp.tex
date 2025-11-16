@@ -1,0 +1,76 @@
+\doxysection{include/\+Types/base.hpp File Reference}
+\hypertarget{base_8hpp}{}\label{base_8hpp}\index{include/Types/base.hpp@{include/Types/base.hpp}}
+
+
+Defines common C++ type aliases used throughout \doxylink{namespace_s_f_u_i}{SFUI}.  
+
+
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$optional$>$}\newline
+{\ttfamily \#include $<$functional$>$}\newline
+{\ttfamily \#include $<$variant$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$array$>$}\newline
+{\ttfamily \#include $<$unordered\+\_\+map$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespace_s_f_u_i}{SFUI}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} = void
+\item 
+using \mbox{\hyperlink{namespace_s_f_u_i_a1d018a570e8ca18e9d5d4f5b01c0c2b6}{SFUI\+::\+Bool}} = bool
+\item 
+using \mbox{\hyperlink{namespace_s_f_u_i_af78531c8b53446c44c78ac98e4fa02d9}{SFUI\+::\+Unsigned\+Int8}} = uint8\+\_\+t
+\item 
+using \mbox{\hyperlink{namespace_s_f_u_i_aa3df6ea86af9432f1ddd759958808c42}{SFUI\+::\+Unsigned\+Int32}} = uint32\+\_\+t
+\item 
+using \mbox{\hyperlink{namespace_s_f_u_i_a485453f38a63a3fd6000773eab6345b7}{SFUI\+::\+Unsigned\+Int}} = unsigned int
+\item 
+using \mbox{\hyperlink{namespace_s_f_u_i_ab94d55f86f7e739986cf084bd2347fed}{SFUI\+::\+Int}} = int
+\item 
+using \mbox{\hyperlink{namespace_s_f_u_i_a5d1d23a263a913ca5408caea12070315}{SFUI\+::\+Float}} = float
+\item 
+using \mbox{\hyperlink{namespace_s_f_u_i_a3009df9e26108ba318766d41267b604d}{SFUI\+::\+Double}} = double
+\item 
+using \mbox{\hyperlink{namespace_s_f_u_i_a2260bca1fca08c7b3cd4f6271c39d92f}{SFUI\+::\+Size}} = std\+::size\+\_\+t
+\item 
+using \mbox{\hyperlink{namespace_s_f_u_i_ad33b42094903daa96d9a60997cb2b8f0}{SFUI\+::\+String}} = std\+::string
+\item 
+{\footnotesize template$<$typename... T$>$ }\\using \mbox{\hyperlink{namespace_s_f_u_i_a94a77bacad6028be0baa3cd8f8cda193}{SFUI\+::\+Optional}} = std\+::optional$<$T ...$>$
+\item 
+{\footnotesize template$<$typename... T$>$ }\\using \mbox{\hyperlink{namespace_s_f_u_i_a286567aeebae00cf3174e6cf97502b2c}{SFUI\+::\+Function}} = std\+::function$<$T ...$>$
+\item 
+{\footnotesize template$<$typename... T$>$ }\\using \mbox{\hyperlink{namespace_s_f_u_i_a8dbc9b24221760e90fe9a97a3cb85856}{SFUI\+::\+Variant}} = std\+::variant$<$T ...$>$
+\item 
+{\footnotesize template$<$typename... T$>$ }\\using \mbox{\hyperlink{namespace_s_f_u_i_a4b319df7cb3678aea20047a27cfd5945}{SFUI\+::\+Vector}} = std\+::vector$<$T ...$>$
+\item 
+{\footnotesize template$<$typename T , std\+::size\+\_\+t N$>$ }\\using \mbox{\hyperlink{namespace_s_f_u_i_a58d46db73ee9edd3209ee16f91155068}{SFUI\+::\+Array}} = std\+::array$<$T, N$>$
+\item 
+{\footnotesize template$<$typename T , typename N $>$ }\\using \mbox{\hyperlink{namespace_s_f_u_i_afccbe8617a0dcbcba8ee7c7893616566}{SFUI\+::\+Unordered\+Map}} = std\+::unordered\+\_\+map$<$T, N$>$
+\item 
+{\footnotesize template$<$typename... T$>$ }\\using \mbox{\hyperlink{namespace_s_f_u_i_a340926cf64e5188ca4ed7e5223b7abf2}{SFUI\+::\+Weak\+Pointer}} = std\+::weak\+\_\+ptr$<$T ...$>$
+\item 
+{\footnotesize template$<$typename... T$>$ }\\using \mbox{\hyperlink{namespace_s_f_u_i_a363bc8c4eb0d9b813c2333b67d08f764}{SFUI\+::\+Shared\+Pointer}} = std\+::shared\+\_\+ptr$<$T ...$>$
+\item 
+{\footnotesize template$<$typename... T$>$ }\\using \mbox{\hyperlink{namespace_s_f_u_i_a9ef8aa6e4c343e20d30a63a95f707ed5}{SFUI\+::\+Unique\+Pointer}} = std\+::unique\+\_\+ptr$<$T ...$>$
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Defines common C++ type aliases used throughout \doxylink{namespace_s_f_u_i}{SFUI}. 
+
+\begin{DoxyAuthor}{Author}
+Connor Sempf 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2025-\/11-\/15 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+This file provides standard aliases for primitive types, containers, smart pointers, function objects, and variants used in \doxylink{namespace_s_f_u_i}{SFUI}. 

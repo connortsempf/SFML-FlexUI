@@ -1,0 +1,36 @@
+\doxysection{Container.\+hpp}
+\hypertarget{_container_8hpp_source}{}\label{_container_8hpp_source}\index{include/Components/Container.hpp@{include/Components/Container.hpp}}
+\mbox{\hyperlink{_container_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_component_8hpp}{Base/Component.hpp}}"{}}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_s_f_u_i}{SFUI}}\ \{}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_s_f_u_i_1_1_container}{Container}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_s_f_u_i_1_1_component}{Component}}\ \{}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_f_u_i_1_1_container_a0aecf716a304991e9038440955991d4d}{Container}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_f_u_i_1_1_container_abf9436a42e0b668c71bba9f709d956a0}{Container}}(\mbox{\hyperlink{class_s_f_u_i_1_1_container}{Container}}\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_f_u_i_1_1_container}{Container}}\&\ \mbox{\hyperlink{class_s_f_u_i_1_1_container_acff551722a0bd76a7ee77d9c82d07221}{operator=}}(\mbox{\hyperlink{class_s_f_u_i_1_1_container}{Container}}\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_f_u_i_1_1_container_a0aecf716a304991e9038440955991d4d}{Container}}(\mbox{\hyperlink{namespace_s_f_u_i_ad33b42094903daa96d9a60997cb2b8f0}{SFUI::String}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_component_aec2950f405553cd5e65f0acf6a1e28da}{componentID}});}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}...\ Children>}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_f_u_i_1_1_container_af9aa88ff46b5dfb3b0a31219b145f3ef}{Container}}(\mbox{\hyperlink{namespace_s_f_u_i_ad33b42094903daa96d9a60997cb2b8f0}{SFUI::String}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_component_aec2950f405553cd5e65f0acf6a1e28da}{componentID}},\ \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_container}{SFUI::PropGroup::Container}}\ containerPropGroup,\ Children\&\&...\ \mbox{\hyperlink{class_s_f_u_i_1_1_component_a7b68cbfe79759bc6412a5128d9bfca86}{children}})\ :}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_f_u_i_1_1_component}{Component}}(std::move(\mbox{\hyperlink{class_s_f_u_i_1_1_component_aec2950f405553cd5e65f0acf6a1e28da}{componentID}}),\ std::move(containerPropGroup.\mbox{\hyperlink{class_s_f_u_i_1_1_component_a02342d63158df6f61385b772233a608a}{layout}}),\ std::move(containerPropGroup.\mbox{\hyperlink{class_s_f_u_i_1_1_component_a7dd1ea963c57acd93bd7d616cdc49f21}{style}}))\ \{}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\mbox{\hyperlink{class_s_f_u_i_1_1_component_a77ba84c3e3adbe6b1f3b71a45d963d70}{addChild}}(std::make\_unique<std::decay\_t<Children>>(std::forward<Children>(\mbox{\hyperlink{class_s_f_u_i_1_1_component_a7b68cbfe79759bc6412a5128d9bfca86}{children}}))),\ ...);}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI::Void}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_container_a70fb1f501eded763a7c57eaf1a2ce1d3}{handleEvent}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{namespace_s_f_u_i_a158a4c55cd00926ad04eef6628214d59}{SFUI::Event}}\&\ event);}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI::Void}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_container_a25ed781f833424c6b53d3022a402bef3}{update}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_s_f_u_i_1_1_vector2u}{SFUI::Vector2u}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_component_abd01e643b921908bf9ed66c501a7dbc8}{renderTargetSize}});}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI::Void}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_container_addc911ac38bb9b6c6acfbb9b7520185b}{draw}}(\mbox{\hyperlink{namespace_s_f_u_i_a27b81981264d0a33b46b81d105bd7197}{SFUI::RenderTarget}}\&\ drawTarget,\ \mbox{\hyperlink{namespace_s_f_u_i_a7a49d953943284a38398214bc7ed75e5}{SFUI::RenderWindow}}\&\ window);}
+\DoxyCodeLine{00074\ \ \ \ \ \};}
+\DoxyCodeLine{00075\ \}}
+
+\end{DoxyCode}

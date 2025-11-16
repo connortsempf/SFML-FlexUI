@@ -1,0 +1,689 @@
+\doxysection{SFUI\+::Slider Class Reference}
+\hypertarget{class_s_f_u_i_1_1_slider}{}\label{class_s_f_u_i_1_1_slider}\index{SFUI::Slider@{SFUI::Slider}}
+
+
+\doxylink{class_s_f_u_i_1_1_slider}{Slider} UI component that allows users to select a value from a range.  
+
+
+
+
+{\ttfamily \#include $<$Slider.\+hpp$>$}
+
+Inheritance diagram for SFUI\+::Slider\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_s_f_u_i_1_1_slider}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_s_f_u_i_1_1_slider_ab59f37ac9731ef810194f51f2ed8445e}{Slider}} ()=default
+\item 
+\mbox{\hyperlink{class_s_f_u_i_1_1_slider_acb8160ee35c9219b71ca149ff03510cb}{Slider}} (\mbox{\hyperlink{class_s_f_u_i_1_1_slider}{Slider}} \&\&)=default
+\item 
+\mbox{\hyperlink{class_s_f_u_i_1_1_slider}{Slider}} \& \mbox{\hyperlink{class_s_f_u_i_1_1_slider_a9bff368c881455b5ed30fdba83ed26d1}{operator=}} (\mbox{\hyperlink{class_s_f_u_i_1_1_slider}{Slider}} \&\&)=default
+\item 
+\mbox{\hyperlink{class_s_f_u_i_1_1_slider_a9c0ce1ba093afec3dfbf9d7d10b277ab}{Slider}} (\mbox{\hyperlink{namespace_s_f_u_i_ad33b42094903daa96d9a60997cb2b8f0}{SFUI\+::\+String}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_aec2950f405553cd5e65f0acf6a1e28da}{component\+ID}})
+\begin{DoxyCompactList}\small\item\em Construct a \doxylink{class_s_f_u_i_1_1_slider}{Slider} with an ID. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename... Children$>$ }\\\mbox{\hyperlink{class_s_f_u_i_1_1_slider_a6943f127653cc6ca4e2ec139f78957c3}{Slider}} (\mbox{\hyperlink{namespace_s_f_u_i_ad33b42094903daa96d9a60997cb2b8f0}{SFUI\+::\+String}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_aec2950f405553cd5e65f0acf6a1e28da}{component\+ID}}, \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_slider}{SFUI\+::\+Prop\+Group\+::\+Slider}} slider\+Prop\+Group, Children \&\&... \mbox{\hyperlink{class_s_f_u_i_1_1_component_a7b68cbfe79759bc6412a5128d9bfca86}{children}})
+\begin{DoxyCompactList}\small\item\em Construct a \doxylink{class_s_f_u_i_1_1_slider}{Slider} with ID, properties, and children. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} \mbox{\hyperlink{class_s_f_u_i_1_1_slider_a304507146effa2f24e5d164679ea5a2a}{handle\+Event}} (const \mbox{\hyperlink{namespace_s_f_u_i_a158a4c55cd00926ad04eef6628214d59}{SFUI\+::\+Event}} \&event)
+\begin{DoxyCompactList}\small\item\em Handle input events for the slider. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} \mbox{\hyperlink{class_s_f_u_i_1_1_slider_abeecb1ebafc9087ef7b4fed0c265d259}{update}} (const \mbox{\hyperlink{struct_s_f_u_i_1_1_vector2u}{SFUI\+::\+Vector2u}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_abd01e643b921908bf9ed66c501a7dbc8}{render\+Target\+Size}})
+\begin{DoxyCompactList}\small\item\em Update slider state. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} \mbox{\hyperlink{class_s_f_u_i_1_1_slider_adf07f73d7c60ae742f27a97b2d43af76}{draw}} (\mbox{\hyperlink{namespace_s_f_u_i_a27b81981264d0a33b46b81d105bd7197}{SFUI\+::\+Render\+Target}} \&draw\+Target, \mbox{\hyperlink{namespace_s_f_u_i_a7a49d953943284a38398214bc7ed75e5}{SFUI\+::\+Render\+Window}} \&window)
+\begin{DoxyCompactList}\small\item\em Draw the slider to the render target. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_s_f_u_i_1_1_component}{SFUI\+::\+Component}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_s_f_u_i_1_1_component_a47c11ef58d1bee51c04313a2207c98e1}{Component}} ()=default
+\item 
+\mbox{\hyperlink{class_s_f_u_i_1_1_component_aaa7f74fbdaa4ec0159fab6e793fbbf46}{Component}} (const \mbox{\hyperlink{class_s_f_u_i_1_1_component}{Component}} \&)=delete
+\item 
+\mbox{\hyperlink{class_s_f_u_i_1_1_component_aa5fc3582904f130d36df3e43048a97a1}{Component}} (\mbox{\hyperlink{class_s_f_u_i_1_1_component}{Component}} \&\&)=default
+\item 
+\mbox{\hyperlink{class_s_f_u_i_1_1_component}{Component}} \& \mbox{\hyperlink{class_s_f_u_i_1_1_component_ad70b9633387718092f7e64c60b64d27a}{operator=}} (\mbox{\hyperlink{class_s_f_u_i_1_1_component}{Component}} \&\&)=default
+\item 
+\mbox{\hyperlink{class_s_f_u_i_1_1_component}{Component}} \& \mbox{\hyperlink{class_s_f_u_i_1_1_component_a38c4ca62a164ffab4da2fbe00131bd9a}{operator=}} (const \mbox{\hyperlink{class_s_f_u_i_1_1_component}{Component}} \&)=delete
+\item 
+virtual \mbox{\hyperlink{class_s_f_u_i_1_1_component_a821845d7f9321504c73f7468702ca0f9}{\texorpdfstring{$\sim$}{\string~}\+Component}} ()=default
+\item 
+\mbox{\hyperlink{class_s_f_u_i_1_1_component_a204be312435a70877517f99b625ed0f9}{Component}} (\mbox{\hyperlink{namespace_s_f_u_i_ad33b42094903daa96d9a60997cb2b8f0}{SFUI\+::\+String}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_aec2950f405553cd5e65f0acf6a1e28da}{component\+ID}})
+\begin{DoxyCompactList}\small\item\em Construct a component with an ID. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_s_f_u_i_1_1_component_ab43a72322df70a9500738e1f21b472d3}{Component}} (\mbox{\hyperlink{namespace_s_f_u_i_ad33b42094903daa96d9a60997cb2b8f0}{SFUI\+::\+String}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_aec2950f405553cd5e65f0acf6a1e28da}{component\+ID}}, \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_1_1_layout_1_1_component}{SFUI\+::\+Prop\+::\+Layout\+::\+Component}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_a02342d63158df6f61385b772233a608a}{layout}}, \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_1_1_style_1_1_component}{SFUI\+::\+Prop\+::\+Style\+::\+Component}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_a7dd1ea963c57acd93bd7d616cdc49f21}{style}})
+\begin{DoxyCompactList}\small\item\em Construct a component with ID, layout, and style. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_ae20e889756f3920060f863f3613d8667}{set\+Parent}} (\mbox{\hyperlink{class_s_f_u_i_1_1_component}{SFUI\+::\+Component}} \texorpdfstring{$\ast$}{*}new\+Parent)
+\begin{DoxyCompactList}\small\item\em Set a parent component for this component. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_a77ba84c3e3adbe6b1f3b71a45d963d70}{add\+Child}} (\mbox{\hyperlink{namespace_s_f_u_i_a9ef8aa6e4c343e20d30a63a95f707ed5}{SFUI\+::\+Unique\+Pointer}}$<$ \mbox{\hyperlink{class_s_f_u_i_1_1_component}{SFUI\+::\+Component}} $>$ new\+Child)
+\begin{DoxyCompactList}\small\item\em Add a single child component. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_af196d5a94bb36338add364122f8f90fa}{add\+Children}} (\mbox{\hyperlink{namespace_s_f_u_i_a4b319df7cb3678aea20047a27cfd5945}{SFUI\+::\+Vector}}$<$ \mbox{\hyperlink{namespace_s_f_u_i_a9ef8aa6e4c343e20d30a63a95f707ed5}{SFUI\+::\+Unique\+Pointer}}$<$ \mbox{\hyperlink{class_s_f_u_i_1_1_component}{SFUI\+::\+Component}} $>$ $>$ new\+Children)
+\begin{DoxyCompactList}\small\item\em Add multiple child components at once. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_af5a27d389929ac3e293a5aa13145786f}{update\+Child\+From\+Parent}} (\mbox{\hyperlink{struct_s_f_u_i_1_1_component_1_1_computed_child_layout}{SFUI\+::\+Component\+::\+Computed\+Child\+Layout}} computed\+Child\+Layout)
+\begin{DoxyCompactList}\small\item\em Update a child\textquotesingle{}s computed layout from the parent. \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{namespace_s_f_u_i_a4b319df7cb3678aea20047a27cfd5945}{SFUI\+::\+Vector}}$<$ \mbox{\hyperlink{namespace_s_f_u_i_a9ef8aa6e4c343e20d30a63a95f707ed5}{SFUI\+::\+Unique\+Pointer}}$<$ \mbox{\hyperlink{class_s_f_u_i_1_1_component}{SFUI\+::\+Component}} $>$ $>$ \& \mbox{\hyperlink{class_s_f_u_i_1_1_component_a1cc838fb70dd5e91d7e8969f5ef99e4f}{get\+Children}} () const
+\begin{DoxyCompactList}\small\item\em Get the list of children. \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{struct_s_f_u_i_1_1_vector2f}{SFUI\+::\+Vector2f}} \& \mbox{\hyperlink{class_s_f_u_i_1_1_component_aa4a9aef756d931f04a9b873b44653393}{get\+Size}} () const
+\begin{DoxyCompactList}\small\item\em Get computed size of the component. \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{struct_s_f_u_i_1_1_vector2i}{SFUI\+::\+Vector2i}} \& \mbox{\hyperlink{class_s_f_u_i_1_1_component_a5c4720bf2af3cd3b0441bf48e6e9972b}{get\+Position}} () const
+\begin{DoxyCompactList}\small\item\em Get computed position of the component. \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{struct_s_f_u_i_1_1_vector4f}{SFUI\+::\+Vector4f}} \& \mbox{\hyperlink{class_s_f_u_i_1_1_component_adecfc522103c4db7d4c6fb45c30fc382}{get\+Padding}} () const
+\begin{DoxyCompactList}\small\item\em Get computed padding of the component. \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{struct_s_f_u_i_1_1_vector4f}{SFUI\+::\+Vector4f}} \& \mbox{\hyperlink{class_s_f_u_i_1_1_component_a317a8d1d3d2ff5a5f3f93fd07aa3dc73}{get\+Margin}} () const
+\begin{DoxyCompactList}\small\item\em Get computed margin of the component. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_s_f_u_i_1_1_prop_1_1_style_1_1_slider}{SFUI\+::\+Prop\+::\+Style\+::\+Slider}} \mbox{\hyperlink{class_s_f_u_i_1_1_slider_afe0a98ce3d3215c5d39381528f284895}{slider\+Style}}
+\begin{DoxyCompactList}\small\item\em Style properties specific to the \doxylink{class_s_f_u_i_1_1_slider}{Slider} component. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_s_f_u_i_1_1_prop_1_1_state_1_1_slider}{SFUI\+::\+Prop\+::\+State\+::\+Slider}} \mbox{\hyperlink{class_s_f_u_i_1_1_slider_ab47c05f059a890230419a474c457c9f3}{slider\+State}}
+\begin{DoxyCompactList}\small\item\em State properties specific to the \doxylink{class_s_f_u_i_1_1_slider}{Slider} component. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_s_f_u_i_1_1_prop_1_1_behavior_1_1_slider}{SFUI\+::\+Prop\+::\+Behavior\+::\+Slider}} \mbox{\hyperlink{class_s_f_u_i_1_1_slider_a2a4b332ebfde4cd45334d234ad71b8c0}{slider\+Behavior}}
+\begin{DoxyCompactList}\small\item\em Behavior properties specific to the \doxylink{class_s_f_u_i_1_1_slider}{Slider} component. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{class_s_f_u_i_1_1_component}{SFUI\+::\+Component}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespace_s_f_u_i_ad33b42094903daa96d9a60997cb2b8f0}{SFUI\+::\+String}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_aec2950f405553cd5e65f0acf6a1e28da}{component\+ID}}
+\begin{DoxyCompactList}\small\item\em Unique identifier for this component. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_s_f_u_i_1_1_prop_1_1_layout_1_1_component}{SFUI\+::\+Prop\+::\+Layout\+::\+Component}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_a02342d63158df6f61385b772233a608a}{layout}}
+\begin{DoxyCompactList}\small\item\em Layout properties of this component. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_s_f_u_i_1_1_prop_1_1_style_1_1_component}{SFUI\+::\+Prop\+::\+Style\+::\+Component}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_a7dd1ea963c57acd93bd7d616cdc49f21}{style}}
+\begin{DoxyCompactList}\small\item\em Style properties of this component. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} \mbox{\hyperlink{class_s_f_u_i_1_1_slider_a0fea03b66c15c810a3b54f27655ec456}{compute\+Track\+Align}} ()
+\begin{DoxyCompactList}\small\item\em Compute the alignment of the track (horizontal/vertical). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} \mbox{\hyperlink{class_s_f_u_i_1_1_slider_a00d4f168eca8da3d26aff689006a7b2c}{compute\+Value\+Dynamics}} ()
+\begin{DoxyCompactList}\small\item\em Compute dynamics related to the slider\textquotesingle{}s value. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} \mbox{\hyperlink{class_s_f_u_i_1_1_slider_ad64a284752995efef3ad9ee78825dd79}{compute\+Dynamic\+Colors}} ()
+\begin{DoxyCompactList}\small\item\em Compute dynamic colors based on the slider\textquotesingle{}s state. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} \mbox{\hyperlink{class_s_f_u_i_1_1_slider_a27570dace8eeaece75ac18c1082d8eab}{compute\+Thumb}} ()
+\begin{DoxyCompactList}\small\item\em Compute the position and size of the thumb. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} \mbox{\hyperlink{class_s_f_u_i_1_1_slider_a6862d063ac614e35ea233ff12e824b8a}{compute\+Tracks}} ()
+\begin{DoxyCompactList}\small\item\em Compute the sizes and positions of the tracks. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a1d018a570e8ca18e9d5d4f5b01c0c2b6}{SFUI\+::\+Bool}} \mbox{\hyperlink{class_s_f_u_i_1_1_slider_aa652596a514fcb83b08af8c10d530b0f}{track\+Hovered}} (\mbox{\hyperlink{struct_s_f_u_i_1_1_vector2i}{SFUI\+::\+Vector2i}} mouse\+Position)
+\begin{DoxyCompactList}\small\item\em Determine if the track is hovered based on mouse position. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} \mbox{\hyperlink{class_s_f_u_i_1_1_slider_aa5d946671f685e1da06525d70f32f494}{handle\+Thumb\+Move}} (\mbox{\hyperlink{struct_s_f_u_i_1_1_vector2i}{SFUI\+::\+Vector2i}} mouse\+Position)
+\begin{DoxyCompactList}\small\item\em Determine if the thumb is hovered based on mouse position. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a1d018a570e8ca18e9d5d4f5b01c0c2b6}{SFUI\+::\+Bool}} \mbox{\hyperlink{class_s_f_u_i_1_1_slider_ac7146dd31308db411d2c50fac079ee26}{is\+Track\+Hovered}} = false
+\begin{DoxyCompactList}\small\item\em Whether the mouse is hovering over the slider track. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a1d018a570e8ca18e9d5d4f5b01c0c2b6}{SFUI\+::\+Bool}} \mbox{\hyperlink{class_s_f_u_i_1_1_slider_ad8e9873517cdad17a93ac43a0eb114ec}{is\+Thumb\+Hovered}} = false
+\begin{DoxyCompactList}\small\item\em Whether the mouse is hovering over the slider thumb. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a1d018a570e8ca18e9d5d4f5b01c0c2b6}{SFUI\+::\+Bool}} \mbox{\hyperlink{class_s_f_u_i_1_1_slider_a8804aca38e8628851a50f0a987b421d0}{is\+Track\+Left\+Pressed}} = false
+\begin{DoxyCompactList}\small\item\em Whether the left mouse button is pressing the track. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a1d018a570e8ca18e9d5d4f5b01c0c2b6}{SFUI\+::\+Bool}} \mbox{\hyperlink{class_s_f_u_i_1_1_slider_adb3246b27123becd527748a836ea125d}{is\+Track\+Right\+Pressed}} = false
+\begin{DoxyCompactList}\small\item\em Whether the right mouse button is pressing the track. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a1d018a570e8ca18e9d5d4f5b01c0c2b6}{SFUI\+::\+Bool}} \mbox{\hyperlink{class_s_f_u_i_1_1_slider_a6952d3823890c96da28c301c9d19a0a2}{is\+Track\+Middle\+Pressed}} = false
+\begin{DoxyCompactList}\small\item\em Whether the middle mouse button is pressing the track. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a1d018a570e8ca18e9d5d4f5b01c0c2b6}{SFUI\+::\+Bool}} \mbox{\hyperlink{class_s_f_u_i_1_1_slider_a1f6bc0e37fbbe82211601b5b7f3e27f5}{is\+Thumb\+Left\+Pressed}} = false
+\begin{DoxyCompactList}\small\item\em Whether the left mouse button is pressing the thumb. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a1d018a570e8ca18e9d5d4f5b01c0c2b6}{SFUI\+::\+Bool}} \mbox{\hyperlink{class_s_f_u_i_1_1_slider_ad353c1737830f0287e7c2ea2ebf45293}{is\+Thumb\+Right\+Pressed}} = false
+\begin{DoxyCompactList}\small\item\em Whether the right mouse button is pressing the thumb. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a1d018a570e8ca18e9d5d4f5b01c0c2b6}{SFUI\+::\+Bool}} \mbox{\hyperlink{class_s_f_u_i_1_1_slider_a2011d074feb65e60f0f6c05f6a9ed13f}{is\+Thumb\+Middle\+Pressed}} = false
+\begin{DoxyCompactList}\small\item\em Whether the middle mouse button is pressing the thumb. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a1d018a570e8ca18e9d5d4f5b01c0c2b6}{SFUI\+::\+Bool}} \mbox{\hyperlink{class_s_f_u_i_1_1_slider_afec6d415d56951bbb9d8ed54d0940bf4}{is\+Sliding}} = false
+\begin{DoxyCompactList}\small\item\em Whether the slider is currently in a sliding (dragging) interaction. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a4b319df7cb3678aea20047a27cfd5945}{SFUI\+::\+Vector}}$<$ \mbox{\hyperlink{namespace_s_f_u_i_a5d1d23a263a913ca5408caea12070315}{SFUI\+::\+Float}} $>$ \mbox{\hyperlink{class_s_f_u_i_1_1_slider_a291924c56daeade221c5622696318b8f}{interval\+Values}}
+\begin{DoxyCompactList}\small\item\em Numerical values corresponding to each slider interval (useful for discrete modes). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a4b319df7cb3678aea20047a27cfd5945}{SFUI\+::\+Vector}}$<$ \mbox{\hyperlink{namespace_s_f_u_i_a5d1d23a263a913ca5408caea12070315}{SFUI\+::\+Float}} $>$ \mbox{\hyperlink{class_s_f_u_i_1_1_slider_a4780d5d392f37a6eab78d3d35bfe791d}{interval\+Positions}}
+\begin{DoxyCompactList}\small\item\em Normalized positions (0–1) of each interval marker along the slider track. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_s_f_u_i_1_1_vector2f}{SFUI\+::\+Vector2f}} \mbox{\hyperlink{class_s_f_u_i_1_1_slider_a13993fe98c0910c04888a80c6967727b}{thumb\+Update\+Position}} = \{0.\+0f, 0.\+0f\}
+\begin{DoxyCompactList}\small\item\em Cached thumb position used during sliding updates. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_s_f_u_i_1_1_container}{SFUI\+::\+Container}} \mbox{\hyperlink{class_s_f_u_i_1_1_slider_a1f30171957c354457bd34dbf69d66a5f}{unprogressed\+Track}}
+\begin{DoxyCompactList}\small\item\em The visual container representing the unprogressed portion of the slider track. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_s_f_u_i_1_1_container}{SFUI\+::\+Container}} \mbox{\hyperlink{class_s_f_u_i_1_1_slider_a4382c48f0a0b78e600b7998a7037a775}{progressed\+Track}}
+\begin{DoxyCompactList}\small\item\em The visual container representing the progressed portion of the slider track. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_s_f_u_i_1_1_button}{SFUI\+::\+Button}} \mbox{\hyperlink{class_s_f_u_i_1_1_slider_ae6ac49ffdf8464bac944fc7496bf2cd5}{thumb}}
+\begin{DoxyCompactList}\small\item\em The slider thumb button component. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_s_f_u_i_1_1_prop_1_1_style_1_1_slider}{SFUI\+::\+Prop\+::\+Style\+::\+Slider}} \mbox{\hyperlink{class_s_f_u_i_1_1_slider_a3cb089732adbbd2fed300d8d6ca5ac0f}{dirty\+Slider\+Style}}
+\begin{DoxyCompactList}\small\item\em Dirty (unresolved) style properties for the slider component. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_s_f_u_i_1_1_prop_1_1_state_1_1_slider}{SFUI\+::\+Prop\+::\+State\+::\+Slider}} \mbox{\hyperlink{class_s_f_u_i_1_1_slider_ad5f4edffc9a53f2d72a78856dd442a6b}{dirty\+Slider\+State}}
+\begin{DoxyCompactList}\small\item\em Dirty (unresolved) state properties for the slider component. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_s_f_u_i_1_1_computed_prop_1_1_style_1_1_slider}{SFUI\+::\+Computed\+Prop\+::\+Style\+::\+Slider}} \mbox{\hyperlink{class_s_f_u_i_1_1_slider_a1aaf3772acce70007355d1b8059293a3}{computed\+Slider\+Style}}
+\begin{DoxyCompactList}\small\item\em Fully computed slider style used for rendering. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Types inherited from \mbox{\hyperlink{class_s_f_u_i_1_1_component}{SFUI\+::\+Component}}}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{class_s_f_u_i_1_1_component_a2dd736131c28b532e22f43417f4c4df0}{Align\+Direction}} \{ \mbox{\hyperlink{class_s_f_u_i_1_1_component_a2dd736131c28b532e22f43417f4c4df0a06ce2a25e5d12c166a36f654dbea6012}{Vertical}}
+, \mbox{\hyperlink{class_s_f_u_i_1_1_component_a2dd736131c28b532e22f43417f4c4df0ac1b5fa03ecdb95d4a45dd1c40b02527f}{Horizontal}}
+ \}
+\begin{DoxyCompactList}\small\item\em Alignment direction for component\textquotesingle{}s children. \end{DoxyCompactList}\item 
+enum class \mbox{\hyperlink{class_s_f_u_i_1_1_component_a8879a083d370f0a015a3fa3621ea6937}{Align\+Primary}} \{ \newline
+\mbox{\hyperlink{class_s_f_u_i_1_1_component_a8879a083d370f0a015a3fa3621ea6937aa6122a65eaa676f700ae68d393054a37}{Start}}
+, \mbox{\hyperlink{class_s_f_u_i_1_1_component_a8879a083d370f0a015a3fa3621ea6937a87557f11575c0ad78e4e28abedc13b6e}{End}}
+, \mbox{\hyperlink{class_s_f_u_i_1_1_component_a8879a083d370f0a015a3fa3621ea6937a4f1f6016fc9f3f2353c0cc7c67b292bd}{Center}}
+, \mbox{\hyperlink{class_s_f_u_i_1_1_component_a8879a083d370f0a015a3fa3621ea6937afa2f3f8f296dcb6e5c287d69eae1c119}{Space\+Between}}
+, \newline
+\mbox{\hyperlink{class_s_f_u_i_1_1_component_a8879a083d370f0a015a3fa3621ea6937aa711fff5f720542ab104aab0805e2565}{Space\+Around}}
+, \mbox{\hyperlink{class_s_f_u_i_1_1_component_a8879a083d370f0a015a3fa3621ea6937a34ad3eaf7ee60a45210ad60bd731e235}{Space\+Evenly}}
+ \}
+\begin{DoxyCompactList}\small\item\em On-\/\+Axis alignment options. \end{DoxyCompactList}\item 
+enum class \mbox{\hyperlink{class_s_f_u_i_1_1_component_a3be04091b3f6b123ca89fcc1585cbf55}{Align\+Secondary}} \{ \mbox{\hyperlink{class_s_f_u_i_1_1_component_a3be04091b3f6b123ca89fcc1585cbf55aa6122a65eaa676f700ae68d393054a37}{Start}}
+, \mbox{\hyperlink{class_s_f_u_i_1_1_component_a3be04091b3f6b123ca89fcc1585cbf55a87557f11575c0ad78e4e28abedc13b6e}{End}}
+, \mbox{\hyperlink{class_s_f_u_i_1_1_component_a3be04091b3f6b123ca89fcc1585cbf55a4f1f6016fc9f3f2353c0cc7c67b292bd}{Center}}
+ \}
+\begin{DoxyCompactList}\small\item\em Cross-\/\+Axis alignment options. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_s_f_u_i_1_1_component}{SFUI\+::\+Component}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a1d018a570e8ca18e9d5d4f5b01c0c2b6}{SFUI\+::\+Bool}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_a29800695220fea4962dc11fad2cbaa2e}{is\+Mouse\+Hovered}} (const \mbox{\hyperlink{struct_s_f_u_i_1_1_vector2i}{SFUI\+::\+Vector2i}} \&mouse\+Position)
+\begin{DoxyCompactList}\small\item\em Check if the mouse is hovering over this component. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_ac78837419c216aa0c8e65b5c731311bf}{SFUI\+::\+Color}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_a246351f266d3aabcf1d70467da601378}{resolve\+Color\+Sub\+Prop}} (const \mbox{\hyperlink{namespace_s_f_u_i_1_1_sub_prop_a550d3dcd6607c4cc639b0350a9d16aba}{SFUI\+::\+Sub\+Prop\+::\+Color}} \&color)
+\begin{DoxyCompactList}\small\item\em Resolve a Dimension sub-\/property to a color value. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_s_f_u_i_1_1_vector4f}{SFUI\+::\+Vector4f}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_a29341fadc2688fc812ef9caeadaa38ef}{resolve\+Uni\+Quad\+Sub\+Prop}} (const \mbox{\hyperlink{struct_s_f_u_i_1_1_vector2f}{SFUI\+::\+Vector2f}} \&size, const \mbox{\hyperlink{namespace_s_f_u_i_1_1_sub_prop_a7fafd88a8093aa6acff91666b08736dd}{SFUI\+::\+Sub\+Prop\+::\+Uni\+Quad}} \&sub\+Prop)
+\begin{DoxyCompactList}\small\item\em Resolve a Dimension sub-\/property to a 4-\/value float vector . \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_ac5b8e2148bb9c76af5a57552c2cffbb2}{compute\+Alignment}} ()
+\begin{DoxyCompactList}\small\item\em Compute the alignment properties. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_a9abdf89cb4902fa0f79ab967a6334387}{compute\+Layout\+Box}} ()
+\begin{DoxyCompactList}\small\item\em Compute all necessary properties for geometry and layout. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_a2eb88f681a557c675a05f405b434c434}{compute\+Styles}} ()
+\begin{DoxyCompactList}\small\item\em Compute all style-\/related properties. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_a623238dc3b4dba8dc0a7a201891e0ead}{compute\+Colors}} ()
+\begin{DoxyCompactList}\small\item\em Compute color style properties. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_a666df4eba7a094d1635601bd2175baf2}{compute\+Shadows}} ()
+\begin{DoxyCompactList}\small\item\em Compute shadow properties. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_acb0c781784085fa856c2e68013862add}{compute\+Graphics}} ()
+\begin{DoxyCompactList}\small\item\em Compute all graphics and drawable geometry. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_aefa286d38df1ff87cd4ef84f7ee17158}{compute\+Children\+Layout\+Box}} ()
+\begin{DoxyCompactList}\small\item\em Compute layout and geometry for all child components. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_a989f48ae2060f688401b3030959775e4}{update\+Children}} ()
+\begin{DoxyCompactList}\small\item\em Update all child components with their computed layout peroperties. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_s_f_u_i_1_1_component}{SFUI\+::\+Component}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_s_f_u_i_1_1_vector2u}{SFUI\+::\+Vector2u}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_abd01e643b921908bf9ed66c501a7dbc8}{render\+Target\+Size}}
+\begin{DoxyCompactList}\small\item\em Size of the render target that this component gets drawn to. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_s_f_u_i_1_1_component}{SFUI\+::\+Component}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_s_f_u_i_1_1_component_adcec47d3786340cb9fe4c8c18100fae8}{parent}}
+\begin{DoxyCompactList}\small\item\em Pointer to the parent component. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a4b319df7cb3678aea20047a27cfd5945}{SFUI\+::\+Vector}}$<$ \mbox{\hyperlink{namespace_s_f_u_i_a9ef8aa6e4c343e20d30a63a95f707ed5}{SFUI\+::\+Unique\+Pointer}}$<$ \mbox{\hyperlink{class_s_f_u_i_1_1_component}{SFUI\+::\+Component}} $>$ $>$ \mbox{\hyperlink{class_s_f_u_i_1_1_component_a7b68cbfe79759bc6412a5128d9bfca86}{children}}
+\begin{DoxyCompactList}\small\item\em List of child components stored as unique pointers. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_ac780fc8046d5e4490d0c4c26b30af9ab}{SFUI\+::\+Vertex\+Array}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_acfd6f0a40455fe1d44c73268c9581316}{background\+Rects}}
+\begin{DoxyCompactList}\small\item\em Vertex arrays for rendering geometry with just rectangles. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_ac780fc8046d5e4490d0c4c26b30af9ab}{SFUI\+::\+Vertex\+Array}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_a3c38002100ed718f0b23a37592446cc4}{background\+Arcs}}
+\begin{DoxyCompactList}\small\item\em Vertex arrays for rendering geometry with rounded corners. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_ac780fc8046d5e4490d0c4c26b30af9ab}{SFUI\+::\+Vertex\+Array}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_a0e26f738d44bfca81829771db5cf1777}{border\+Rects}}
+\begin{DoxyCompactList}\small\item\em Vertex arrays for rendering border geometry with just rectangles. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_ac780fc8046d5e4490d0c4c26b30af9ab}{SFUI\+::\+Vertex\+Array}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_a7fe4eeee4232d6179bf9d47a363a34fb}{border\+Arcs}}
+\begin{DoxyCompactList}\small\item\em Vertex arrays for rendering border geometry with rounded corners. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_ac780fc8046d5e4490d0c4c26b30af9ab}{SFUI\+::\+Vertex\+Array}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_a1b5f2d5e876a584217b0d67e24547f25}{shadow\+Rects}}
+\begin{DoxyCompactList}\small\item\em Vertex arrays for rendering shadow geometry with just rectangles. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_ac780fc8046d5e4490d0c4c26b30af9ab}{SFUI\+::\+Vertex\+Array}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_a19369e192a8c10d47ac75efe2e3690a9}{shadow\+Arcs}}
+\begin{DoxyCompactList}\small\item\em Vertex arrays for rendering shadow geometry with rounded corners. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_s_f_u_i_1_1_prop_1_1_layout_1_1_component}{SFUI\+::\+Prop\+::\+Layout\+::\+Component}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_aff0a68367e0bfa7968e4baf71708285a}{dirty\+Layout}}
+\begin{DoxyCompactList}\small\item\em Dirty layout flags indicating if recomputation is needed. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_s_f_u_i_1_1_prop_1_1_style_1_1_component}{SFUI\+::\+Prop\+::\+Style\+::\+Component}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_a0453dbe0232ba3ec787c9184da0aa8e5}{dirty\+Style}}
+\begin{DoxyCompactList}\small\item\em Dirty style flags indicating if recomputation is needed. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_s_f_u_i_1_1_component_1_1_computed_layout}{SFUI\+::\+Component\+::\+Computed\+Layout}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_a0782bc2930882fdc31e294b0e248589c}{computed\+Layout}}
+\begin{DoxyCompactList}\small\item\em Final computed layout properties. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_s_f_u_i_1_1_component_1_1_computed_style}{SFUI\+::\+Component\+::\+Computed\+Style}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_a913deef9fce988971e4d4843a8512a68}{computed\+Style}}
+\begin{DoxyCompactList}\small\item\em Final computed style properties. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a4b319df7cb3678aea20047a27cfd5945}{SFUI\+::\+Vector}}$<$ \mbox{\hyperlink{struct_s_f_u_i_1_1_component_1_1_computed_child_layout}{SFUI\+::\+Component\+::\+Computed\+Child\+Layout}} $>$ \mbox{\hyperlink{class_s_f_u_i_1_1_component_a2c01dfc320bd4be12fc527fbcb272be9}{computed\+Children\+Layout}}
+\begin{DoxyCompactList}\small\item\em Final computed layouts of child components. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\doxylink{class_s_f_u_i_1_1_slider}{Slider} UI component that allows users to select a value from a range. 
+
+The \doxylink{class_s_f_u_i_1_1_slider}{Slider} class extends the base \doxylink{class_s_f_u_i_1_1_component}{Component} class and provides functionality for selecting a value within a defined range using a draggable thumb along a track. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_s_f_u_i_1_1_slider_ab59f37ac9731ef810194f51f2ed8445e}\index{SFUI::Slider@{SFUI::Slider}!Slider@{Slider}}
+\index{Slider@{Slider}!SFUI::Slider@{SFUI::Slider}}
+\doxysubsubsection{\texorpdfstring{Slider()}{Slider()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_slider_ab59f37ac9731ef810194f51f2ed8445e} 
+SFUI\+::\+Slider\+::\+Slider (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\Hypertarget{class_s_f_u_i_1_1_slider_acb8160ee35c9219b71ca149ff03510cb}\index{SFUI::Slider@{SFUI::Slider}!Slider@{Slider}}
+\index{Slider@{Slider}!SFUI::Slider@{SFUI::Slider}}
+\doxysubsubsection{\texorpdfstring{Slider()}{Slider()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_slider_acb8160ee35c9219b71ca149ff03510cb} 
+SFUI\+::\+Slider\+::\+Slider (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_s_f_u_i_1_1_slider}{Slider}} \&\&}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\Hypertarget{class_s_f_u_i_1_1_slider_a9c0ce1ba093afec3dfbf9d7d10b277ab}\index{SFUI::Slider@{SFUI::Slider}!Slider@{Slider}}
+\index{Slider@{Slider}!SFUI::Slider@{SFUI::Slider}}
+\doxysubsubsection{\texorpdfstring{Slider()}{Slider()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_slider_a9c0ce1ba093afec3dfbf9d7d10b277ab} 
+SFUI\+::\+Slider\+::\+Slider (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace_s_f_u_i_ad33b42094903daa96d9a60997cb2b8f0}{SFUI\+::\+String}}}]{component\+ID}{}\end{DoxyParamCaption})}
+
+
+
+Construct a \doxylink{class_s_f_u_i_1_1_slider}{Slider} with an ID. 
+
+The constrctor for the slider component.
+
+
+\begin{DoxyParams}{Parameters}
+{\em component\+ID} & Unique identifier for this slider.\\
+\hline
+{\em component\+ID} & The unique identifier for the slider component. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_s_f_u_i_1_1_slider_a6943f127653cc6ca4e2ec139f78957c3}\index{SFUI::Slider@{SFUI::Slider}!Slider@{Slider}}
+\index{Slider@{Slider}!SFUI::Slider@{SFUI::Slider}}
+\doxysubsubsection{\texorpdfstring{Slider()}{Slider()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_slider_a6943f127653cc6ca4e2ec139f78957c3} 
+template$<$typename... Children$>$ \\
+SFUI\+::\+Slider\+::\+Slider (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace_s_f_u_i_ad33b42094903daa96d9a60997cb2b8f0}{SFUI\+::\+String}}}]{component\+ID}{, }\item[{\mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_slider}{SFUI\+::\+Prop\+Group\+::\+Slider}}}]{slider\+Prop\+Group}{, }\item[{Children \&\&...}]{children}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Construct a \doxylink{class_s_f_u_i_1_1_slider}{Slider} with ID, properties, and children. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em component\+ID} & Unique identifier. \\
+\hline
+{\em slider\+Prop\+Group} & Group of slider properties. \\
+\hline
+{\em children} & Variadic list of child components. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_s_f_u_i_1_1_slider_ad64a284752995efef3ad9ee78825dd79}\index{SFUI::Slider@{SFUI::Slider}!computeDynamicColors@{computeDynamicColors}}
+\index{computeDynamicColors@{computeDynamicColors}!SFUI::Slider@{SFUI::Slider}}
+\doxysubsubsection{\texorpdfstring{computeDynamicColors()}{computeDynamicColors()}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_slider_ad64a284752995efef3ad9ee78825dd79} 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} SFUI\+::\+Slider\+::compute\+Dynamic\+Colors (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Compute dynamic colors based on the slider\textquotesingle{}s state. 
+
+Compute the dynamic colors of the slider component. \Hypertarget{class_s_f_u_i_1_1_slider_a27570dace8eeaece75ac18c1082d8eab}\index{SFUI::Slider@{SFUI::Slider}!computeThumb@{computeThumb}}
+\index{computeThumb@{computeThumb}!SFUI::Slider@{SFUI::Slider}}
+\doxysubsubsection{\texorpdfstring{computeThumb()}{computeThumb()}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_slider_a27570dace8eeaece75ac18c1082d8eab} 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} SFUI\+::\+Slider\+::compute\+Thumb (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Compute the position and size of the thumb. 
+
+Compute the thumb properties of the slider component. \Hypertarget{class_s_f_u_i_1_1_slider_a0fea03b66c15c810a3b54f27655ec456}\index{SFUI::Slider@{SFUI::Slider}!computeTrackAlign@{computeTrackAlign}}
+\index{computeTrackAlign@{computeTrackAlign}!SFUI::Slider@{SFUI::Slider}}
+\doxysubsubsection{\texorpdfstring{computeTrackAlign()}{computeTrackAlign()}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_slider_a0fea03b66c15c810a3b54f27655ec456} 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} SFUI\+::\+Slider\+::compute\+Track\+Align (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Compute the alignment of the track (horizontal/vertical). 
+
+Compute the alignment of the tracks within its bounding box. \Hypertarget{class_s_f_u_i_1_1_slider_a6862d063ac614e35ea233ff12e824b8a}\index{SFUI::Slider@{SFUI::Slider}!computeTracks@{computeTracks}}
+\index{computeTracks@{computeTracks}!SFUI::Slider@{SFUI::Slider}}
+\doxysubsubsection{\texorpdfstring{computeTracks()}{computeTracks()}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_slider_a6862d063ac614e35ea233ff12e824b8a} 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} SFUI\+::\+Slider\+::compute\+Tracks (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Compute the sizes and positions of the tracks. 
+
+Compute the thumb properties of the slider component. \Hypertarget{class_s_f_u_i_1_1_slider_a00d4f168eca8da3d26aff689006a7b2c}\index{SFUI::Slider@{SFUI::Slider}!computeValueDynamics@{computeValueDynamics}}
+\index{computeValueDynamics@{computeValueDynamics}!SFUI::Slider@{SFUI::Slider}}
+\doxysubsubsection{\texorpdfstring{computeValueDynamics()}{computeValueDynamics()}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_slider_a00d4f168eca8da3d26aff689006a7b2c} 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} SFUI\+::\+Slider\+::compute\+Value\+Dynamics (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Compute dynamics related to the slider\textquotesingle{}s value. 
+
+Compute the value dynamics of the slider component. \Hypertarget{class_s_f_u_i_1_1_slider_adf07f73d7c60ae742f27a97b2d43af76}\index{SFUI::Slider@{SFUI::Slider}!draw@{draw}}
+\index{draw@{draw}!SFUI::Slider@{SFUI::Slider}}
+\doxysubsubsection{\texorpdfstring{draw()}{draw()}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_slider_adf07f73d7c60ae742f27a97b2d43af76} 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} SFUI\+::\+Slider\+::draw (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace_s_f_u_i_a27b81981264d0a33b46b81d105bd7197}{SFUI\+::\+Render\+Target}} \&}]{draw\+Target}{, }\item[{\mbox{\hyperlink{namespace_s_f_u_i_a7a49d953943284a38398214bc7ed75e5}{SFUI\+::\+Render\+Window}} \&}]{window}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Draw the slider to the render target. 
+
+Draw the slider component to a render target.
+
+
+\begin{DoxyParams}{Parameters}
+{\em draw\+Target} & Target to draw on. \\
+\hline
+{\em window} & Window reference.\\
+\hline
+{\em draw\+Target} & The render target to draw to. \\
+\hline
+{\em window} & The render window associated with the render target. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_s_f_u_i_1_1_component_a4d593ad6db96ee06e1eff507b5ebfb13}{SFUI\+::\+Component}}.
+
+\Hypertarget{class_s_f_u_i_1_1_slider_a304507146effa2f24e5d164679ea5a2a}\index{SFUI::Slider@{SFUI::Slider}!handleEvent@{handleEvent}}
+\index{handleEvent@{handleEvent}!SFUI::Slider@{SFUI::Slider}}
+\doxysubsubsection{\texorpdfstring{handleEvent()}{handleEvent()}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_slider_a304507146effa2f24e5d164679ea5a2a} 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} SFUI\+::\+Slider\+::handle\+Event (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespace_s_f_u_i_a158a4c55cd00926ad04eef6628214d59}{SFUI\+::\+Event}} \&}]{event}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Handle input events for the slider. 
+
+Handle a user input event.
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Event to process.\\
+\hline
+{\em event} & The event to handle. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_s_f_u_i_1_1_component_a8f604edc3a7040448092938ab6fcb8f7}{SFUI\+::\+Component}}.
+
+\Hypertarget{class_s_f_u_i_1_1_slider_aa5d946671f685e1da06525d70f32f494}\index{SFUI::Slider@{SFUI::Slider}!handleThumbMove@{handleThumbMove}}
+\index{handleThumbMove@{handleThumbMove}!SFUI::Slider@{SFUI::Slider}}
+\doxysubsubsection{\texorpdfstring{handleThumbMove()}{handleThumbMove()}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_slider_aa5d946671f685e1da06525d70f32f494} 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} SFUI\+::\+Slider\+::handle\+Thumb\+Move (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_s_f_u_i_1_1_vector2i}{SFUI\+::\+Vector2i}}}]{mouse\+Position}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Determine if the thumb is hovered based on mouse position. 
+
+Handle thumb movement and update the slider value accordingly.
+
+
+\begin{DoxyParams}{Parameters}
+{\em mouse\+Position} & Current mouse position.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the thumb is hovered, false otherwise.
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em mouse\+Position} & The current mouse position. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_s_f_u_i_1_1_slider_a9bff368c881455b5ed30fdba83ed26d1}\index{SFUI::Slider@{SFUI::Slider}!operator=@{operator=}}
+\index{operator=@{operator=}!SFUI::Slider@{SFUI::Slider}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_slider_a9bff368c881455b5ed30fdba83ed26d1} 
+\mbox{\hyperlink{class_s_f_u_i_1_1_slider}{Slider}} \& SFUI\+::\+Slider\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_s_f_u_i_1_1_slider}{Slider}} \&\&}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\Hypertarget{class_s_f_u_i_1_1_slider_aa652596a514fcb83b08af8c10d530b0f}\index{SFUI::Slider@{SFUI::Slider}!trackHovered@{trackHovered}}
+\index{trackHovered@{trackHovered}!SFUI::Slider@{SFUI::Slider}}
+\doxysubsubsection{\texorpdfstring{trackHovered()}{trackHovered()}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_slider_aa652596a514fcb83b08af8c10d530b0f} 
+\mbox{\hyperlink{namespace_s_f_u_i_a1d018a570e8ca18e9d5d4f5b01c0c2b6}{SFUI\+::\+Bool}} SFUI\+::\+Slider\+::track\+Hovered (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_s_f_u_i_1_1_vector2i}{SFUI\+::\+Vector2i}}}]{mouse\+Position}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Determine if the track is hovered based on mouse position. 
+
+Check if the track is being hovered by the mouse.
+
+
+\begin{DoxyParams}{Parameters}
+{\em mouse\+Position} & Current mouse position.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the track is hovered, false otherwise.
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em mouse\+Position} & The current mouse position.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the track is being hovered, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{class_s_f_u_i_1_1_slider_abeecb1ebafc9087ef7b4fed0c265d259}\index{SFUI::Slider@{SFUI::Slider}!update@{update}}
+\index{update@{update}!SFUI::Slider@{SFUI::Slider}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_slider_abeecb1ebafc9087ef7b4fed0c265d259} 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} SFUI\+::\+Slider\+::update (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_s_f_u_i_1_1_vector2u}{SFUI\+::\+Vector2u}}}]{render\+Target\+Size}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Update slider state. 
+
+Recalculate the slider component\textquotesingle{}s properties.
+
+
+\begin{DoxyParams}{Parameters}
+{\em render\+Target\+Size} & Size of the render target.\\
+\hline
+{\em render\+Target\+Size} & The size of the render target the component is being drawn to. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_s_f_u_i_1_1_component_a1a68b7dfaebba73ee96bee8a887e1c22}{SFUI\+::\+Component}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_s_f_u_i_1_1_slider_a1aaf3772acce70007355d1b8059293a3}\index{SFUI::Slider@{SFUI::Slider}!computedSliderStyle@{computedSliderStyle}}
+\index{computedSliderStyle@{computedSliderStyle}!SFUI::Slider@{SFUI::Slider}}
+\doxysubsubsection{\texorpdfstring{computedSliderStyle}{computedSliderStyle}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_slider_a1aaf3772acce70007355d1b8059293a3} 
+\mbox{\hyperlink{struct_s_f_u_i_1_1_computed_prop_1_1_style_1_1_slider}{SFUI\+::\+Computed\+Prop\+::\+Style\+::\+Slider}} SFUI\+::\+Slider\+::computed\+Slider\+Style\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Fully computed slider style used for rendering. 
+
+\Hypertarget{class_s_f_u_i_1_1_slider_ad5f4edffc9a53f2d72a78856dd442a6b}\index{SFUI::Slider@{SFUI::Slider}!dirtySliderState@{dirtySliderState}}
+\index{dirtySliderState@{dirtySliderState}!SFUI::Slider@{SFUI::Slider}}
+\doxysubsubsection{\texorpdfstring{dirtySliderState}{dirtySliderState}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_slider_ad5f4edffc9a53f2d72a78856dd442a6b} 
+\mbox{\hyperlink{struct_s_f_u_i_1_1_prop_1_1_state_1_1_slider}{SFUI\+::\+Prop\+::\+State\+::\+Slider}} SFUI\+::\+Slider\+::dirty\+Slider\+State\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Dirty (unresolved) state properties for the slider component. 
+
+\Hypertarget{class_s_f_u_i_1_1_slider_a3cb089732adbbd2fed300d8d6ca5ac0f}\index{SFUI::Slider@{SFUI::Slider}!dirtySliderStyle@{dirtySliderStyle}}
+\index{dirtySliderStyle@{dirtySliderStyle}!SFUI::Slider@{SFUI::Slider}}
+\doxysubsubsection{\texorpdfstring{dirtySliderStyle}{dirtySliderStyle}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_slider_a3cb089732adbbd2fed300d8d6ca5ac0f} 
+\mbox{\hyperlink{struct_s_f_u_i_1_1_prop_1_1_style_1_1_slider}{SFUI\+::\+Prop\+::\+Style\+::\+Slider}} SFUI\+::\+Slider\+::dirty\+Slider\+Style\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Dirty (unresolved) style properties for the slider component. 
+
+\Hypertarget{class_s_f_u_i_1_1_slider_a4780d5d392f37a6eab78d3d35bfe791d}\index{SFUI::Slider@{SFUI::Slider}!intervalPositions@{intervalPositions}}
+\index{intervalPositions@{intervalPositions}!SFUI::Slider@{SFUI::Slider}}
+\doxysubsubsection{\texorpdfstring{intervalPositions}{intervalPositions}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_slider_a4780d5d392f37a6eab78d3d35bfe791d} 
+\mbox{\hyperlink{namespace_s_f_u_i_a4b319df7cb3678aea20047a27cfd5945}{SFUI\+::\+Vector}}$<$\mbox{\hyperlink{namespace_s_f_u_i_a5d1d23a263a913ca5408caea12070315}{SFUI\+::\+Float}}$>$ SFUI\+::\+Slider\+::interval\+Positions\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Normalized positions (0–1) of each interval marker along the slider track. 
+
+\Hypertarget{class_s_f_u_i_1_1_slider_a291924c56daeade221c5622696318b8f}\index{SFUI::Slider@{SFUI::Slider}!intervalValues@{intervalValues}}
+\index{intervalValues@{intervalValues}!SFUI::Slider@{SFUI::Slider}}
+\doxysubsubsection{\texorpdfstring{intervalValues}{intervalValues}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_slider_a291924c56daeade221c5622696318b8f} 
+\mbox{\hyperlink{namespace_s_f_u_i_a4b319df7cb3678aea20047a27cfd5945}{SFUI\+::\+Vector}}$<$\mbox{\hyperlink{namespace_s_f_u_i_a5d1d23a263a913ca5408caea12070315}{SFUI\+::\+Float}}$>$ SFUI\+::\+Slider\+::interval\+Values\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Numerical values corresponding to each slider interval (useful for discrete modes). 
+
+\Hypertarget{class_s_f_u_i_1_1_slider_afec6d415d56951bbb9d8ed54d0940bf4}\index{SFUI::Slider@{SFUI::Slider}!isSliding@{isSliding}}
+\index{isSliding@{isSliding}!SFUI::Slider@{SFUI::Slider}}
+\doxysubsubsection{\texorpdfstring{isSliding}{isSliding}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_slider_afec6d415d56951bbb9d8ed54d0940bf4} 
+\mbox{\hyperlink{namespace_s_f_u_i_a1d018a570e8ca18e9d5d4f5b01c0c2b6}{SFUI\+::\+Bool}} SFUI\+::\+Slider\+::is\+Sliding = false\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Whether the slider is currently in a sliding (dragging) interaction. 
+
+\Hypertarget{class_s_f_u_i_1_1_slider_ad8e9873517cdad17a93ac43a0eb114ec}\index{SFUI::Slider@{SFUI::Slider}!isThumbHovered@{isThumbHovered}}
+\index{isThumbHovered@{isThumbHovered}!SFUI::Slider@{SFUI::Slider}}
+\doxysubsubsection{\texorpdfstring{isThumbHovered}{isThumbHovered}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_slider_ad8e9873517cdad17a93ac43a0eb114ec} 
+\mbox{\hyperlink{namespace_s_f_u_i_a1d018a570e8ca18e9d5d4f5b01c0c2b6}{SFUI\+::\+Bool}} SFUI\+::\+Slider\+::is\+Thumb\+Hovered = false\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Whether the mouse is hovering over the slider thumb. 
+
+\Hypertarget{class_s_f_u_i_1_1_slider_a1f6bc0e37fbbe82211601b5b7f3e27f5}\index{SFUI::Slider@{SFUI::Slider}!isThumbLeftPressed@{isThumbLeftPressed}}
+\index{isThumbLeftPressed@{isThumbLeftPressed}!SFUI::Slider@{SFUI::Slider}}
+\doxysubsubsection{\texorpdfstring{isThumbLeftPressed}{isThumbLeftPressed}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_slider_a1f6bc0e37fbbe82211601b5b7f3e27f5} 
+\mbox{\hyperlink{namespace_s_f_u_i_a1d018a570e8ca18e9d5d4f5b01c0c2b6}{SFUI\+::\+Bool}} SFUI\+::\+Slider\+::is\+Thumb\+Left\+Pressed = false\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Whether the left mouse button is pressing the thumb. 
+
+\Hypertarget{class_s_f_u_i_1_1_slider_a2011d074feb65e60f0f6c05f6a9ed13f}\index{SFUI::Slider@{SFUI::Slider}!isThumbMiddlePressed@{isThumbMiddlePressed}}
+\index{isThumbMiddlePressed@{isThumbMiddlePressed}!SFUI::Slider@{SFUI::Slider}}
+\doxysubsubsection{\texorpdfstring{isThumbMiddlePressed}{isThumbMiddlePressed}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_slider_a2011d074feb65e60f0f6c05f6a9ed13f} 
+\mbox{\hyperlink{namespace_s_f_u_i_a1d018a570e8ca18e9d5d4f5b01c0c2b6}{SFUI\+::\+Bool}} SFUI\+::\+Slider\+::is\+Thumb\+Middle\+Pressed = false\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Whether the middle mouse button is pressing the thumb. 
+
+\Hypertarget{class_s_f_u_i_1_1_slider_ad353c1737830f0287e7c2ea2ebf45293}\index{SFUI::Slider@{SFUI::Slider}!isThumbRightPressed@{isThumbRightPressed}}
+\index{isThumbRightPressed@{isThumbRightPressed}!SFUI::Slider@{SFUI::Slider}}
+\doxysubsubsection{\texorpdfstring{isThumbRightPressed}{isThumbRightPressed}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_slider_ad353c1737830f0287e7c2ea2ebf45293} 
+\mbox{\hyperlink{namespace_s_f_u_i_a1d018a570e8ca18e9d5d4f5b01c0c2b6}{SFUI\+::\+Bool}} SFUI\+::\+Slider\+::is\+Thumb\+Right\+Pressed = false\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Whether the right mouse button is pressing the thumb. 
+
+\Hypertarget{class_s_f_u_i_1_1_slider_ac7146dd31308db411d2c50fac079ee26}\index{SFUI::Slider@{SFUI::Slider}!isTrackHovered@{isTrackHovered}}
+\index{isTrackHovered@{isTrackHovered}!SFUI::Slider@{SFUI::Slider}}
+\doxysubsubsection{\texorpdfstring{isTrackHovered}{isTrackHovered}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_slider_ac7146dd31308db411d2c50fac079ee26} 
+\mbox{\hyperlink{namespace_s_f_u_i_a1d018a570e8ca18e9d5d4f5b01c0c2b6}{SFUI\+::\+Bool}} SFUI\+::\+Slider\+::is\+Track\+Hovered = false\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Whether the mouse is hovering over the slider track. 
+
+\Hypertarget{class_s_f_u_i_1_1_slider_a8804aca38e8628851a50f0a987b421d0}\index{SFUI::Slider@{SFUI::Slider}!isTrackLeftPressed@{isTrackLeftPressed}}
+\index{isTrackLeftPressed@{isTrackLeftPressed}!SFUI::Slider@{SFUI::Slider}}
+\doxysubsubsection{\texorpdfstring{isTrackLeftPressed}{isTrackLeftPressed}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_slider_a8804aca38e8628851a50f0a987b421d0} 
+\mbox{\hyperlink{namespace_s_f_u_i_a1d018a570e8ca18e9d5d4f5b01c0c2b6}{SFUI\+::\+Bool}} SFUI\+::\+Slider\+::is\+Track\+Left\+Pressed = false\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Whether the left mouse button is pressing the track. 
+
+\Hypertarget{class_s_f_u_i_1_1_slider_a6952d3823890c96da28c301c9d19a0a2}\index{SFUI::Slider@{SFUI::Slider}!isTrackMiddlePressed@{isTrackMiddlePressed}}
+\index{isTrackMiddlePressed@{isTrackMiddlePressed}!SFUI::Slider@{SFUI::Slider}}
+\doxysubsubsection{\texorpdfstring{isTrackMiddlePressed}{isTrackMiddlePressed}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_slider_a6952d3823890c96da28c301c9d19a0a2} 
+\mbox{\hyperlink{namespace_s_f_u_i_a1d018a570e8ca18e9d5d4f5b01c0c2b6}{SFUI\+::\+Bool}} SFUI\+::\+Slider\+::is\+Track\+Middle\+Pressed = false\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Whether the middle mouse button is pressing the track. 
+
+\Hypertarget{class_s_f_u_i_1_1_slider_adb3246b27123becd527748a836ea125d}\index{SFUI::Slider@{SFUI::Slider}!isTrackRightPressed@{isTrackRightPressed}}
+\index{isTrackRightPressed@{isTrackRightPressed}!SFUI::Slider@{SFUI::Slider}}
+\doxysubsubsection{\texorpdfstring{isTrackRightPressed}{isTrackRightPressed}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_slider_adb3246b27123becd527748a836ea125d} 
+\mbox{\hyperlink{namespace_s_f_u_i_a1d018a570e8ca18e9d5d4f5b01c0c2b6}{SFUI\+::\+Bool}} SFUI\+::\+Slider\+::is\+Track\+Right\+Pressed = false\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Whether the right mouse button is pressing the track. 
+
+\Hypertarget{class_s_f_u_i_1_1_slider_a4382c48f0a0b78e600b7998a7037a775}\index{SFUI::Slider@{SFUI::Slider}!progressedTrack@{progressedTrack}}
+\index{progressedTrack@{progressedTrack}!SFUI::Slider@{SFUI::Slider}}
+\doxysubsubsection{\texorpdfstring{progressedTrack}{progressedTrack}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_slider_a4382c48f0a0b78e600b7998a7037a775} 
+\mbox{\hyperlink{class_s_f_u_i_1_1_container}{SFUI\+::\+Container}} SFUI\+::\+Slider\+::progressed\+Track\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The visual container representing the progressed portion of the slider track. 
+
+\Hypertarget{class_s_f_u_i_1_1_slider_a2a4b332ebfde4cd45334d234ad71b8c0}\index{SFUI::Slider@{SFUI::Slider}!sliderBehavior@{sliderBehavior}}
+\index{sliderBehavior@{sliderBehavior}!SFUI::Slider@{SFUI::Slider}}
+\doxysubsubsection{\texorpdfstring{sliderBehavior}{sliderBehavior}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_slider_a2a4b332ebfde4cd45334d234ad71b8c0} 
+\mbox{\hyperlink{struct_s_f_u_i_1_1_prop_1_1_behavior_1_1_slider}{SFUI\+::\+Prop\+::\+Behavior\+::\+Slider}} SFUI\+::\+Slider\+::slider\+Behavior}
+
+
+
+Behavior properties specific to the \doxylink{class_s_f_u_i_1_1_slider}{Slider} component. 
+
+\Hypertarget{class_s_f_u_i_1_1_slider_ab47c05f059a890230419a474c457c9f3}\index{SFUI::Slider@{SFUI::Slider}!sliderState@{sliderState}}
+\index{sliderState@{sliderState}!SFUI::Slider@{SFUI::Slider}}
+\doxysubsubsection{\texorpdfstring{sliderState}{sliderState}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_slider_ab47c05f059a890230419a474c457c9f3} 
+\mbox{\hyperlink{struct_s_f_u_i_1_1_prop_1_1_state_1_1_slider}{SFUI\+::\+Prop\+::\+State\+::\+Slider}} SFUI\+::\+Slider\+::slider\+State}
+
+
+
+State properties specific to the \doxylink{class_s_f_u_i_1_1_slider}{Slider} component. 
+
+\Hypertarget{class_s_f_u_i_1_1_slider_afe0a98ce3d3215c5d39381528f284895}\index{SFUI::Slider@{SFUI::Slider}!sliderStyle@{sliderStyle}}
+\index{sliderStyle@{sliderStyle}!SFUI::Slider@{SFUI::Slider}}
+\doxysubsubsection{\texorpdfstring{sliderStyle}{sliderStyle}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_slider_afe0a98ce3d3215c5d39381528f284895} 
+\mbox{\hyperlink{struct_s_f_u_i_1_1_prop_1_1_style_1_1_slider}{SFUI\+::\+Prop\+::\+Style\+::\+Slider}} SFUI\+::\+Slider\+::slider\+Style}
+
+
+
+Style properties specific to the \doxylink{class_s_f_u_i_1_1_slider}{Slider} component. 
+
+\Hypertarget{class_s_f_u_i_1_1_slider_ae6ac49ffdf8464bac944fc7496bf2cd5}\index{SFUI::Slider@{SFUI::Slider}!thumb@{thumb}}
+\index{thumb@{thumb}!SFUI::Slider@{SFUI::Slider}}
+\doxysubsubsection{\texorpdfstring{thumb}{thumb}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_slider_ae6ac49ffdf8464bac944fc7496bf2cd5} 
+\mbox{\hyperlink{class_s_f_u_i_1_1_button}{SFUI\+::\+Button}} SFUI\+::\+Slider\+::thumb\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The slider thumb button component. 
+
+\Hypertarget{class_s_f_u_i_1_1_slider_a13993fe98c0910c04888a80c6967727b}\index{SFUI::Slider@{SFUI::Slider}!thumbUpdatePosition@{thumbUpdatePosition}}
+\index{thumbUpdatePosition@{thumbUpdatePosition}!SFUI::Slider@{SFUI::Slider}}
+\doxysubsubsection{\texorpdfstring{thumbUpdatePosition}{thumbUpdatePosition}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_slider_a13993fe98c0910c04888a80c6967727b} 
+\mbox{\hyperlink{struct_s_f_u_i_1_1_vector2f}{SFUI\+::\+Vector2f}} SFUI\+::\+Slider\+::thumb\+Update\+Position = \{0.\+0f, 0.\+0f\}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Cached thumb position used during sliding updates. 
+
+\Hypertarget{class_s_f_u_i_1_1_slider_a1f30171957c354457bd34dbf69d66a5f}\index{SFUI::Slider@{SFUI::Slider}!unprogressedTrack@{unprogressedTrack}}
+\index{unprogressedTrack@{unprogressedTrack}!SFUI::Slider@{SFUI::Slider}}
+\doxysubsubsection{\texorpdfstring{unprogressedTrack}{unprogressedTrack}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_slider_a1f30171957c354457bd34dbf69d66a5f} 
+\mbox{\hyperlink{class_s_f_u_i_1_1_container}{SFUI\+::\+Container}} SFUI\+::\+Slider\+::unprogressed\+Track\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The visual container representing the unprogressed portion of the slider track. 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/\+Components/\mbox{\hyperlink{_slider_8hpp}{Slider.\+hpp}}\item 
+src/\mbox{\hyperlink{_slider_8cpp}{Slider.\+cpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,306 @@
+\doxysection{SFUI\+::Container Class Reference}
+\hypertarget{class_s_f_u_i_1_1_container}{}\label{class_s_f_u_i_1_1_container}\index{SFUI::Container@{SFUI::Container}}
+
+
+\doxylink{class_s_f_u_i_1_1_container}{Container} UI component that can hold and arrange child components.  
+
+
+
+
+{\ttfamily \#include $<$Container.\+hpp$>$}
+
+Inheritance diagram for SFUI\+::Container\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_s_f_u_i_1_1_container}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_s_f_u_i_1_1_container_a0aecf716a304991e9038440955991d4d}{Container}} ()=default
+\item 
+\mbox{\hyperlink{class_s_f_u_i_1_1_container_abf9436a42e0b668c71bba9f709d956a0}{Container}} (\mbox{\hyperlink{class_s_f_u_i_1_1_container}{Container}} \&\&)=default
+\item 
+\mbox{\hyperlink{class_s_f_u_i_1_1_container}{Container}} \& \mbox{\hyperlink{class_s_f_u_i_1_1_container_acff551722a0bd76a7ee77d9c82d07221}{operator=}} (\mbox{\hyperlink{class_s_f_u_i_1_1_container}{Container}} \&\&)=default
+\item 
+\mbox{\hyperlink{class_s_f_u_i_1_1_container_a0f26546355a8b73daa4d2b6317efc896}{Container}} (\mbox{\hyperlink{namespace_s_f_u_i_ad33b42094903daa96d9a60997cb2b8f0}{SFUI\+::\+String}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_aec2950f405553cd5e65f0acf6a1e28da}{component\+ID}})
+\begin{DoxyCompactList}\small\item\em Construct a \doxylink{class_s_f_u_i_1_1_container}{Container} with an ID. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename... Children$>$ }\\\mbox{\hyperlink{class_s_f_u_i_1_1_container_af9aa88ff46b5dfb3b0a31219b145f3ef}{Container}} (\mbox{\hyperlink{namespace_s_f_u_i_ad33b42094903daa96d9a60997cb2b8f0}{SFUI\+::\+String}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_aec2950f405553cd5e65f0acf6a1e28da}{component\+ID}}, \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_container}{SFUI\+::\+Prop\+Group\+::\+Container}} container\+Prop\+Group, Children \&\&... \mbox{\hyperlink{class_s_f_u_i_1_1_component_a7b68cbfe79759bc6412a5128d9bfca86}{children}})
+\begin{DoxyCompactList}\small\item\em Construct a \doxylink{class_s_f_u_i_1_1_container}{Container} with ID, properties, and children. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} \mbox{\hyperlink{class_s_f_u_i_1_1_container_a70fb1f501eded763a7c57eaf1a2ce1d3}{handle\+Event}} (const \mbox{\hyperlink{namespace_s_f_u_i_a158a4c55cd00926ad04eef6628214d59}{SFUI\+::\+Event}} \&event)
+\begin{DoxyCompactList}\small\item\em Handle input events for the container. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} \mbox{\hyperlink{class_s_f_u_i_1_1_container_a25ed781f833424c6b53d3022a402bef3}{update}} (const \mbox{\hyperlink{struct_s_f_u_i_1_1_vector2u}{SFUI\+::\+Vector2u}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_abd01e643b921908bf9ed66c501a7dbc8}{render\+Target\+Size}})
+\begin{DoxyCompactList}\small\item\em Update the container and its children. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} \mbox{\hyperlink{class_s_f_u_i_1_1_container_addc911ac38bb9b6c6acfbb9b7520185b}{draw}} (\mbox{\hyperlink{namespace_s_f_u_i_a27b81981264d0a33b46b81d105bd7197}{SFUI\+::\+Render\+Target}} \&draw\+Target, \mbox{\hyperlink{namespace_s_f_u_i_a7a49d953943284a38398214bc7ed75e5}{SFUI\+::\+Render\+Window}} \&window)
+\begin{DoxyCompactList}\small\item\em Draw the container and its children to the render target. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_s_f_u_i_1_1_component}{SFUI\+::\+Component}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_s_f_u_i_1_1_component_a47c11ef58d1bee51c04313a2207c98e1}{Component}} ()=default
+\item 
+\mbox{\hyperlink{class_s_f_u_i_1_1_component_aaa7f74fbdaa4ec0159fab6e793fbbf46}{Component}} (const \mbox{\hyperlink{class_s_f_u_i_1_1_component}{Component}} \&)=delete
+\item 
+\mbox{\hyperlink{class_s_f_u_i_1_1_component_aa5fc3582904f130d36df3e43048a97a1}{Component}} (\mbox{\hyperlink{class_s_f_u_i_1_1_component}{Component}} \&\&)=default
+\item 
+\mbox{\hyperlink{class_s_f_u_i_1_1_component}{Component}} \& \mbox{\hyperlink{class_s_f_u_i_1_1_component_ad70b9633387718092f7e64c60b64d27a}{operator=}} (\mbox{\hyperlink{class_s_f_u_i_1_1_component}{Component}} \&\&)=default
+\item 
+\mbox{\hyperlink{class_s_f_u_i_1_1_component}{Component}} \& \mbox{\hyperlink{class_s_f_u_i_1_1_component_a38c4ca62a164ffab4da2fbe00131bd9a}{operator=}} (const \mbox{\hyperlink{class_s_f_u_i_1_1_component}{Component}} \&)=delete
+\item 
+virtual \mbox{\hyperlink{class_s_f_u_i_1_1_component_a821845d7f9321504c73f7468702ca0f9}{\texorpdfstring{$\sim$}{\string~}\+Component}} ()=default
+\item 
+\mbox{\hyperlink{class_s_f_u_i_1_1_component_a204be312435a70877517f99b625ed0f9}{Component}} (\mbox{\hyperlink{namespace_s_f_u_i_ad33b42094903daa96d9a60997cb2b8f0}{SFUI\+::\+String}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_aec2950f405553cd5e65f0acf6a1e28da}{component\+ID}})
+\begin{DoxyCompactList}\small\item\em Construct a component with an ID. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_s_f_u_i_1_1_component_ab43a72322df70a9500738e1f21b472d3}{Component}} (\mbox{\hyperlink{namespace_s_f_u_i_ad33b42094903daa96d9a60997cb2b8f0}{SFUI\+::\+String}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_aec2950f405553cd5e65f0acf6a1e28da}{component\+ID}}, \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_1_1_layout_1_1_component}{SFUI\+::\+Prop\+::\+Layout\+::\+Component}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_a02342d63158df6f61385b772233a608a}{layout}}, \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_1_1_style_1_1_component}{SFUI\+::\+Prop\+::\+Style\+::\+Component}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_a7dd1ea963c57acd93bd7d616cdc49f21}{style}})
+\begin{DoxyCompactList}\small\item\em Construct a component with ID, layout, and style. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_ae20e889756f3920060f863f3613d8667}{set\+Parent}} (\mbox{\hyperlink{class_s_f_u_i_1_1_component}{SFUI\+::\+Component}} \texorpdfstring{$\ast$}{*}new\+Parent)
+\begin{DoxyCompactList}\small\item\em Set a parent component for this component. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_a77ba84c3e3adbe6b1f3b71a45d963d70}{add\+Child}} (\mbox{\hyperlink{namespace_s_f_u_i_a9ef8aa6e4c343e20d30a63a95f707ed5}{SFUI\+::\+Unique\+Pointer}}$<$ \mbox{\hyperlink{class_s_f_u_i_1_1_component}{SFUI\+::\+Component}} $>$ new\+Child)
+\begin{DoxyCompactList}\small\item\em Add a single child component. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_af196d5a94bb36338add364122f8f90fa}{add\+Children}} (\mbox{\hyperlink{namespace_s_f_u_i_a4b319df7cb3678aea20047a27cfd5945}{SFUI\+::\+Vector}}$<$ \mbox{\hyperlink{namespace_s_f_u_i_a9ef8aa6e4c343e20d30a63a95f707ed5}{SFUI\+::\+Unique\+Pointer}}$<$ \mbox{\hyperlink{class_s_f_u_i_1_1_component}{SFUI\+::\+Component}} $>$ $>$ new\+Children)
+\begin{DoxyCompactList}\small\item\em Add multiple child components at once. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_af5a27d389929ac3e293a5aa13145786f}{update\+Child\+From\+Parent}} (\mbox{\hyperlink{struct_s_f_u_i_1_1_component_1_1_computed_child_layout}{SFUI\+::\+Component\+::\+Computed\+Child\+Layout}} computed\+Child\+Layout)
+\begin{DoxyCompactList}\small\item\em Update a child\textquotesingle{}s computed layout from the parent. \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{namespace_s_f_u_i_a4b319df7cb3678aea20047a27cfd5945}{SFUI\+::\+Vector}}$<$ \mbox{\hyperlink{namespace_s_f_u_i_a9ef8aa6e4c343e20d30a63a95f707ed5}{SFUI\+::\+Unique\+Pointer}}$<$ \mbox{\hyperlink{class_s_f_u_i_1_1_component}{SFUI\+::\+Component}} $>$ $>$ \& \mbox{\hyperlink{class_s_f_u_i_1_1_component_a1cc838fb70dd5e91d7e8969f5ef99e4f}{get\+Children}} () const
+\begin{DoxyCompactList}\small\item\em Get the list of children. \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{struct_s_f_u_i_1_1_vector2f}{SFUI\+::\+Vector2f}} \& \mbox{\hyperlink{class_s_f_u_i_1_1_component_aa4a9aef756d931f04a9b873b44653393}{get\+Size}} () const
+\begin{DoxyCompactList}\small\item\em Get computed size of the component. \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{struct_s_f_u_i_1_1_vector2i}{SFUI\+::\+Vector2i}} \& \mbox{\hyperlink{class_s_f_u_i_1_1_component_a5c4720bf2af3cd3b0441bf48e6e9972b}{get\+Position}} () const
+\begin{DoxyCompactList}\small\item\em Get computed position of the component. \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{struct_s_f_u_i_1_1_vector4f}{SFUI\+::\+Vector4f}} \& \mbox{\hyperlink{class_s_f_u_i_1_1_component_adecfc522103c4db7d4c6fb45c30fc382}{get\+Padding}} () const
+\begin{DoxyCompactList}\small\item\em Get computed padding of the component. \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{struct_s_f_u_i_1_1_vector4f}{SFUI\+::\+Vector4f}} \& \mbox{\hyperlink{class_s_f_u_i_1_1_component_a317a8d1d3d2ff5a5f3f93fd07aa3dc73}{get\+Margin}} () const
+\begin{DoxyCompactList}\small\item\em Get computed margin of the component. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{class_s_f_u_i_1_1_component}{SFUI\+::\+Component}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespace_s_f_u_i_ad33b42094903daa96d9a60997cb2b8f0}{SFUI\+::\+String}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_aec2950f405553cd5e65f0acf6a1e28da}{component\+ID}}
+\begin{DoxyCompactList}\small\item\em Unique identifier for this component. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_s_f_u_i_1_1_prop_1_1_layout_1_1_component}{SFUI\+::\+Prop\+::\+Layout\+::\+Component}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_a02342d63158df6f61385b772233a608a}{layout}}
+\begin{DoxyCompactList}\small\item\em Layout properties of this component. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_s_f_u_i_1_1_prop_1_1_style_1_1_component}{SFUI\+::\+Prop\+::\+Style\+::\+Component}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_a7dd1ea963c57acd93bd7d616cdc49f21}{style}}
+\begin{DoxyCompactList}\small\item\em Style properties of this component. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Types inherited from \mbox{\hyperlink{class_s_f_u_i_1_1_component}{SFUI\+::\+Component}}}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{class_s_f_u_i_1_1_component_a2dd736131c28b532e22f43417f4c4df0}{Align\+Direction}} \{ \mbox{\hyperlink{class_s_f_u_i_1_1_component_a2dd736131c28b532e22f43417f4c4df0a06ce2a25e5d12c166a36f654dbea6012}{Vertical}}
+, \mbox{\hyperlink{class_s_f_u_i_1_1_component_a2dd736131c28b532e22f43417f4c4df0ac1b5fa03ecdb95d4a45dd1c40b02527f}{Horizontal}}
+ \}
+\begin{DoxyCompactList}\small\item\em Alignment direction for component\textquotesingle{}s children. \end{DoxyCompactList}\item 
+enum class \mbox{\hyperlink{class_s_f_u_i_1_1_component_a8879a083d370f0a015a3fa3621ea6937}{Align\+Primary}} \{ \newline
+\mbox{\hyperlink{class_s_f_u_i_1_1_component_a8879a083d370f0a015a3fa3621ea6937aa6122a65eaa676f700ae68d393054a37}{Start}}
+, \mbox{\hyperlink{class_s_f_u_i_1_1_component_a8879a083d370f0a015a3fa3621ea6937a87557f11575c0ad78e4e28abedc13b6e}{End}}
+, \mbox{\hyperlink{class_s_f_u_i_1_1_component_a8879a083d370f0a015a3fa3621ea6937a4f1f6016fc9f3f2353c0cc7c67b292bd}{Center}}
+, \mbox{\hyperlink{class_s_f_u_i_1_1_component_a8879a083d370f0a015a3fa3621ea6937afa2f3f8f296dcb6e5c287d69eae1c119}{Space\+Between}}
+, \newline
+\mbox{\hyperlink{class_s_f_u_i_1_1_component_a8879a083d370f0a015a3fa3621ea6937aa711fff5f720542ab104aab0805e2565}{Space\+Around}}
+, \mbox{\hyperlink{class_s_f_u_i_1_1_component_a8879a083d370f0a015a3fa3621ea6937a34ad3eaf7ee60a45210ad60bd731e235}{Space\+Evenly}}
+ \}
+\begin{DoxyCompactList}\small\item\em On-\/\+Axis alignment options. \end{DoxyCompactList}\item 
+enum class \mbox{\hyperlink{class_s_f_u_i_1_1_component_a3be04091b3f6b123ca89fcc1585cbf55}{Align\+Secondary}} \{ \mbox{\hyperlink{class_s_f_u_i_1_1_component_a3be04091b3f6b123ca89fcc1585cbf55aa6122a65eaa676f700ae68d393054a37}{Start}}
+, \mbox{\hyperlink{class_s_f_u_i_1_1_component_a3be04091b3f6b123ca89fcc1585cbf55a87557f11575c0ad78e4e28abedc13b6e}{End}}
+, \mbox{\hyperlink{class_s_f_u_i_1_1_component_a3be04091b3f6b123ca89fcc1585cbf55a4f1f6016fc9f3f2353c0cc7c67b292bd}{Center}}
+ \}
+\begin{DoxyCompactList}\small\item\em Cross-\/\+Axis alignment options. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_s_f_u_i_1_1_component}{SFUI\+::\+Component}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a1d018a570e8ca18e9d5d4f5b01c0c2b6}{SFUI\+::\+Bool}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_a29800695220fea4962dc11fad2cbaa2e}{is\+Mouse\+Hovered}} (const \mbox{\hyperlink{struct_s_f_u_i_1_1_vector2i}{SFUI\+::\+Vector2i}} \&mouse\+Position)
+\begin{DoxyCompactList}\small\item\em Check if the mouse is hovering over this component. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_ac78837419c216aa0c8e65b5c731311bf}{SFUI\+::\+Color}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_a246351f266d3aabcf1d70467da601378}{resolve\+Color\+Sub\+Prop}} (const \mbox{\hyperlink{namespace_s_f_u_i_1_1_sub_prop_a550d3dcd6607c4cc639b0350a9d16aba}{SFUI\+::\+Sub\+Prop\+::\+Color}} \&color)
+\begin{DoxyCompactList}\small\item\em Resolve a Dimension sub-\/property to a color value. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_s_f_u_i_1_1_vector4f}{SFUI\+::\+Vector4f}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_a29341fadc2688fc812ef9caeadaa38ef}{resolve\+Uni\+Quad\+Sub\+Prop}} (const \mbox{\hyperlink{struct_s_f_u_i_1_1_vector2f}{SFUI\+::\+Vector2f}} \&size, const \mbox{\hyperlink{namespace_s_f_u_i_1_1_sub_prop_a7fafd88a8093aa6acff91666b08736dd}{SFUI\+::\+Sub\+Prop\+::\+Uni\+Quad}} \&sub\+Prop)
+\begin{DoxyCompactList}\small\item\em Resolve a Dimension sub-\/property to a 4-\/value float vector . \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_ac5b8e2148bb9c76af5a57552c2cffbb2}{compute\+Alignment}} ()
+\begin{DoxyCompactList}\small\item\em Compute the alignment properties. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_a9abdf89cb4902fa0f79ab967a6334387}{compute\+Layout\+Box}} ()
+\begin{DoxyCompactList}\small\item\em Compute all necessary properties for geometry and layout. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_a2eb88f681a557c675a05f405b434c434}{compute\+Styles}} ()
+\begin{DoxyCompactList}\small\item\em Compute all style-\/related properties. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_a623238dc3b4dba8dc0a7a201891e0ead}{compute\+Colors}} ()
+\begin{DoxyCompactList}\small\item\em Compute color style properties. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_a666df4eba7a094d1635601bd2175baf2}{compute\+Shadows}} ()
+\begin{DoxyCompactList}\small\item\em Compute shadow properties. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_acb0c781784085fa856c2e68013862add}{compute\+Graphics}} ()
+\begin{DoxyCompactList}\small\item\em Compute all graphics and drawable geometry. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_aefa286d38df1ff87cd4ef84f7ee17158}{compute\+Children\+Layout\+Box}} ()
+\begin{DoxyCompactList}\small\item\em Compute layout and geometry for all child components. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_a989f48ae2060f688401b3030959775e4}{update\+Children}} ()
+\begin{DoxyCompactList}\small\item\em Update all child components with their computed layout peroperties. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_s_f_u_i_1_1_component}{SFUI\+::\+Component}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_s_f_u_i_1_1_vector2u}{SFUI\+::\+Vector2u}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_abd01e643b921908bf9ed66c501a7dbc8}{render\+Target\+Size}}
+\begin{DoxyCompactList}\small\item\em Size of the render target that this component gets drawn to. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_s_f_u_i_1_1_component}{SFUI\+::\+Component}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_s_f_u_i_1_1_component_adcec47d3786340cb9fe4c8c18100fae8}{parent}}
+\begin{DoxyCompactList}\small\item\em Pointer to the parent component. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a4b319df7cb3678aea20047a27cfd5945}{SFUI\+::\+Vector}}$<$ \mbox{\hyperlink{namespace_s_f_u_i_a9ef8aa6e4c343e20d30a63a95f707ed5}{SFUI\+::\+Unique\+Pointer}}$<$ \mbox{\hyperlink{class_s_f_u_i_1_1_component}{SFUI\+::\+Component}} $>$ $>$ \mbox{\hyperlink{class_s_f_u_i_1_1_component_a7b68cbfe79759bc6412a5128d9bfca86}{children}}
+\begin{DoxyCompactList}\small\item\em List of child components stored as unique pointers. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_ac780fc8046d5e4490d0c4c26b30af9ab}{SFUI\+::\+Vertex\+Array}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_acfd6f0a40455fe1d44c73268c9581316}{background\+Rects}}
+\begin{DoxyCompactList}\small\item\em Vertex arrays for rendering geometry with just rectangles. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_ac780fc8046d5e4490d0c4c26b30af9ab}{SFUI\+::\+Vertex\+Array}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_a3c38002100ed718f0b23a37592446cc4}{background\+Arcs}}
+\begin{DoxyCompactList}\small\item\em Vertex arrays for rendering geometry with rounded corners. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_ac780fc8046d5e4490d0c4c26b30af9ab}{SFUI\+::\+Vertex\+Array}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_a0e26f738d44bfca81829771db5cf1777}{border\+Rects}}
+\begin{DoxyCompactList}\small\item\em Vertex arrays for rendering border geometry with just rectangles. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_ac780fc8046d5e4490d0c4c26b30af9ab}{SFUI\+::\+Vertex\+Array}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_a7fe4eeee4232d6179bf9d47a363a34fb}{border\+Arcs}}
+\begin{DoxyCompactList}\small\item\em Vertex arrays for rendering border geometry with rounded corners. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_ac780fc8046d5e4490d0c4c26b30af9ab}{SFUI\+::\+Vertex\+Array}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_a1b5f2d5e876a584217b0d67e24547f25}{shadow\+Rects}}
+\begin{DoxyCompactList}\small\item\em Vertex arrays for rendering shadow geometry with just rectangles. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_ac780fc8046d5e4490d0c4c26b30af9ab}{SFUI\+::\+Vertex\+Array}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_a19369e192a8c10d47ac75efe2e3690a9}{shadow\+Arcs}}
+\begin{DoxyCompactList}\small\item\em Vertex arrays for rendering shadow geometry with rounded corners. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_s_f_u_i_1_1_prop_1_1_layout_1_1_component}{SFUI\+::\+Prop\+::\+Layout\+::\+Component}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_aff0a68367e0bfa7968e4baf71708285a}{dirty\+Layout}}
+\begin{DoxyCompactList}\small\item\em Dirty layout flags indicating if recomputation is needed. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_s_f_u_i_1_1_prop_1_1_style_1_1_component}{SFUI\+::\+Prop\+::\+Style\+::\+Component}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_a0453dbe0232ba3ec787c9184da0aa8e5}{dirty\+Style}}
+\begin{DoxyCompactList}\small\item\em Dirty style flags indicating if recomputation is needed. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_s_f_u_i_1_1_component_1_1_computed_layout}{SFUI\+::\+Component\+::\+Computed\+Layout}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_a0782bc2930882fdc31e294b0e248589c}{computed\+Layout}}
+\begin{DoxyCompactList}\small\item\em Final computed layout properties. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_s_f_u_i_1_1_component_1_1_computed_style}{SFUI\+::\+Component\+::\+Computed\+Style}} \mbox{\hyperlink{class_s_f_u_i_1_1_component_a913deef9fce988971e4d4843a8512a68}{computed\+Style}}
+\begin{DoxyCompactList}\small\item\em Final computed style properties. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a4b319df7cb3678aea20047a27cfd5945}{SFUI\+::\+Vector}}$<$ \mbox{\hyperlink{struct_s_f_u_i_1_1_component_1_1_computed_child_layout}{SFUI\+::\+Component\+::\+Computed\+Child\+Layout}} $>$ \mbox{\hyperlink{class_s_f_u_i_1_1_component_a2c01dfc320bd4be12fc527fbcb272be9}{computed\+Children\+Layout}}
+\begin{DoxyCompactList}\small\item\em Final computed layouts of child components. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\doxylink{class_s_f_u_i_1_1_container}{Container} UI component that can hold and arrange child components. 
+
+The \doxylink{class_s_f_u_i_1_1_container}{Container} class extends the base \doxylink{class_s_f_u_i_1_1_component}{Component} class and provides functionality for layout and rendering of its child components. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_s_f_u_i_1_1_container_a0aecf716a304991e9038440955991d4d}\index{SFUI::Container@{SFUI::Container}!Container@{Container}}
+\index{Container@{Container}!SFUI::Container@{SFUI::Container}}
+\doxysubsubsection{\texorpdfstring{Container()}{Container()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_container_a0aecf716a304991e9038440955991d4d} 
+SFUI\+::\+Container\+::\+Container (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\Hypertarget{class_s_f_u_i_1_1_container_abf9436a42e0b668c71bba9f709d956a0}\index{SFUI::Container@{SFUI::Container}!Container@{Container}}
+\index{Container@{Container}!SFUI::Container@{SFUI::Container}}
+\doxysubsubsection{\texorpdfstring{Container()}{Container()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_container_abf9436a42e0b668c71bba9f709d956a0} 
+SFUI\+::\+Container\+::\+Container (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_s_f_u_i_1_1_container}{Container}} \&\&}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\Hypertarget{class_s_f_u_i_1_1_container_a0f26546355a8b73daa4d2b6317efc896}\index{SFUI::Container@{SFUI::Container}!Container@{Container}}
+\index{Container@{Container}!SFUI::Container@{SFUI::Container}}
+\doxysubsubsection{\texorpdfstring{Container()}{Container()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_container_a0f26546355a8b73daa4d2b6317efc896} 
+SFUI\+::\+Container\+::\+Container (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace_s_f_u_i_ad33b42094903daa96d9a60997cb2b8f0}{SFUI\+::\+String}}}]{component\+ID}{}\end{DoxyParamCaption})}
+
+
+
+Construct a \doxylink{class_s_f_u_i_1_1_container}{Container} with an ID. 
+
+The constructor for \doxylink{class_s_f_u_i_1_1_container}{Container}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em component\+ID} & Unique identifier for this container.\\
+\hline
+{\em component\+ID} & The unique identifier for the container component. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_s_f_u_i_1_1_container_af9aa88ff46b5dfb3b0a31219b145f3ef}\index{SFUI::Container@{SFUI::Container}!Container@{Container}}
+\index{Container@{Container}!SFUI::Container@{SFUI::Container}}
+\doxysubsubsection{\texorpdfstring{Container()}{Container()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_container_af9aa88ff46b5dfb3b0a31219b145f3ef} 
+template$<$typename... Children$>$ \\
+SFUI\+::\+Container\+::\+Container (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace_s_f_u_i_ad33b42094903daa96d9a60997cb2b8f0}{SFUI\+::\+String}}}]{component\+ID}{, }\item[{\mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_container}{SFUI\+::\+Prop\+Group\+::\+Container}}}]{container\+Prop\+Group}{, }\item[{Children \&\&...}]{children}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Construct a \doxylink{class_s_f_u_i_1_1_container}{Container} with ID, properties, and children. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em component\+ID} & Unique identifier. \\
+\hline
+{\em container\+Prop\+Group} & Group of container properties. \\
+\hline
+{\em children} & Variadic list of child components. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_s_f_u_i_1_1_container_addc911ac38bb9b6c6acfbb9b7520185b}\index{SFUI::Container@{SFUI::Container}!draw@{draw}}
+\index{draw@{draw}!SFUI::Container@{SFUI::Container}}
+\doxysubsubsection{\texorpdfstring{draw()}{draw()}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_container_addc911ac38bb9b6c6acfbb9b7520185b} 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} SFUI\+::\+Container\+::draw (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace_s_f_u_i_a27b81981264d0a33b46b81d105bd7197}{SFUI\+::\+Render\+Target}} \&}]{draw\+Target}{, }\item[{\mbox{\hyperlink{namespace_s_f_u_i_a7a49d953943284a38398214bc7ed75e5}{SFUI\+::\+Render\+Window}} \&}]{window}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Draw the container and its children to the render target. 
+
+Draw the container and its contents.
+
+
+\begin{DoxyParams}{Parameters}
+{\em draw\+Target} & Target to draw on. \\
+\hline
+{\em window} & Window reference.\\
+\hline
+{\em draw\+Target} & The render target to draw to. \\
+\hline
+{\em window} & The render window associated with the render target. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_s_f_u_i_1_1_component_a4d593ad6db96ee06e1eff507b5ebfb13}{SFUI\+::\+Component}}.
+
+\Hypertarget{class_s_f_u_i_1_1_container_a70fb1f501eded763a7c57eaf1a2ce1d3}\index{SFUI::Container@{SFUI::Container}!handleEvent@{handleEvent}}
+\index{handleEvent@{handleEvent}!SFUI::Container@{SFUI::Container}}
+\doxysubsubsection{\texorpdfstring{handleEvent()}{handleEvent()}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_container_a70fb1f501eded763a7c57eaf1a2ce1d3} 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} SFUI\+::\+Container\+::handle\+Event (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespace_s_f_u_i_a158a4c55cd00926ad04eef6628214d59}{SFUI\+::\+Event}} \&}]{event}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Handle input events for the container. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Event to process.\\
+\hline
+{\em event} & The input event to handle. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_s_f_u_i_1_1_component_a8f604edc3a7040448092938ab6fcb8f7}{SFUI\+::\+Component}}.
+
+\Hypertarget{class_s_f_u_i_1_1_container_acff551722a0bd76a7ee77d9c82d07221}\index{SFUI::Container@{SFUI::Container}!operator=@{operator=}}
+\index{operator=@{operator=}!SFUI::Container@{SFUI::Container}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_container_acff551722a0bd76a7ee77d9c82d07221} 
+\mbox{\hyperlink{class_s_f_u_i_1_1_container}{Container}} \& SFUI\+::\+Container\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_s_f_u_i_1_1_container}{Container}} \&\&}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\Hypertarget{class_s_f_u_i_1_1_container_a25ed781f833424c6b53d3022a402bef3}\index{SFUI::Container@{SFUI::Container}!update@{update}}
+\index{update@{update}!SFUI::Container@{SFUI::Container}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_container_a25ed781f833424c6b53d3022a402bef3} 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} SFUI\+::\+Container\+::update (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_s_f_u_i_1_1_vector2u}{SFUI\+::\+Vector2u}}}]{render\+Target\+Size}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Update the container and its children. 
+
+Recalculate the properties of the container.
+
+
+\begin{DoxyParams}{Parameters}
+{\em render\+Target\+Size} & Size of the render target.\\
+\hline
+{\em render\+Target\+Size} & The size of the render target. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_s_f_u_i_1_1_component_a1a68b7dfaebba73ee96bee8a887e1c22}{SFUI\+::\+Component}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/\+Components/\mbox{\hyperlink{_container_8hpp}{Container.\+hpp}}\item 
+src/\mbox{\hyperlink{_container_8cpp}{Container.\+cpp}}\end{DoxyCompactItemize}

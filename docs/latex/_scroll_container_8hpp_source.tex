@@ -1,0 +1,75 @@
+\doxysection{Scroll\+Container.\+hpp}
+\hypertarget{_scroll_container_8hpp_source}{}\label{_scroll_container_8hpp_source}\index{include/Components/ScrollContainer.hpp@{include/Components/ScrollContainer.hpp}}
+\mbox{\hyperlink{_scroll_container_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_component_8hpp}{Base/Component.hpp}}"{}}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_s_f_u_i}{SFUI}}\ \{}
+\DoxyCodeLine{00018\ \ \ \ \ }
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_s_f_u_i_1_1_scroll_container}{ScrollContainer}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_s_f_u_i_1_1_component}{Component}}\ \{}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_1_1_style_1_1_scroll_container}{SFUI::Prop::Style::ScrollContainer}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_scroll_container_ae1e56558a3e4b8afcbd4348c776dcfed}{scrollContainerStyle}};}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_1_1_behavior_1_1_scroll_container}{SFUI::Prop::Behavior::ScrollContainer}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_scroll_container_aea75d73f742e7ab02529aa3fcc720fc6}{scrollContainerBehavior}};}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_f_u_i_1_1_scroll_container_ad13441372b9f6601bbf3602d1d9c1d06}{ScrollContainer}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_f_u_i_1_1_scroll_container_ab7e2ae27a98b70a060205ec2b4f2badd}{ScrollContainer}}(\mbox{\hyperlink{class_s_f_u_i_1_1_scroll_container}{ScrollContainer}}\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_f_u_i_1_1_scroll_container}{ScrollContainer}}\&\ \mbox{\hyperlink{class_s_f_u_i_1_1_scroll_container_a7b82bb42412f0042fb33fd077c420b4d}{operator=}}(\mbox{\hyperlink{class_s_f_u_i_1_1_scroll_container}{ScrollContainer}}\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_f_u_i_1_1_scroll_container_ad13441372b9f6601bbf3602d1d9c1d06}{ScrollContainer}}(\mbox{\hyperlink{namespace_s_f_u_i_ad33b42094903daa96d9a60997cb2b8f0}{SFUI::String}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_component_aec2950f405553cd5e65f0acf6a1e28da}{componentID}});}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}...\ Children>}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_f_u_i_1_1_scroll_container_a5bb34f23f4e89e0e3e4b7a35329859d8}{ScrollContainer}}(\mbox{\hyperlink{namespace_s_f_u_i_ad33b42094903daa96d9a60997cb2b8f0}{SFUI::String}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_component_aec2950f405553cd5e65f0acf6a1e28da}{componentID}},\ \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_scroll_container}{SFUI::PropGroup::ScrollContainer}}\ scrollContainerPropGroup,\ Children\&\&...\ \mbox{\hyperlink{class_s_f_u_i_1_1_component_a7b68cbfe79759bc6412a5128d9bfca86}{children}})\ :}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_f_u_i_1_1_component}{Component}}(std::move(\mbox{\hyperlink{class_s_f_u_i_1_1_component_aec2950f405553cd5e65f0acf6a1e28da}{componentID}}),\ std::move(scrollContainerPropGroup.\mbox{\hyperlink{class_s_f_u_i_1_1_component_a02342d63158df6f61385b772233a608a}{layout}}),\ std::move(scrollContainerPropGroup.\mbox{\hyperlink{class_s_f_u_i_1_1_component_a7dd1ea963c57acd93bd7d616cdc49f21}{style}})),}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_f_u_i_1_1_scroll_container_ae1e56558a3e4b8afcbd4348c776dcfed}{scrollContainerStyle}}(std::move(scrollContainerPropGroup.\mbox{\hyperlink{class_s_f_u_i_1_1_scroll_container_ae1e56558a3e4b8afcbd4348c776dcfed}{scrollContainerStyle}})),}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_f_u_i_1_1_scroll_container_aea75d73f742e7ab02529aa3fcc720fc6}{scrollContainerBehavior}}(std::move(scrollContainerPropGroup.\mbox{\hyperlink{class_s_f_u_i_1_1_scroll_container_aea75d73f742e7ab02529aa3fcc720fc6}{scrollContainerBehavior}}))\ \{}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\mbox{\hyperlink{class_s_f_u_i_1_1_component_a77ba84c3e3adbe6b1f3b71a45d963d70}{addChild}}(std::make\_unique<std::decay\_t<Children>>(std::forward<Children>(\mbox{\hyperlink{class_s_f_u_i_1_1_component_a7b68cbfe79759bc6412a5128d9bfca86}{children}}))),\ ...);}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI::Void}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_scroll_container_a63f1330743f8195dc46c82a295c2e028}{handleEvent}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{namespace_s_f_u_i_a158a4c55cd00926ad04eef6628214d59}{SFUI::Event}}\&\ event);}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI::Void}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_scroll_container_a21ab0eb942d5e555b928542b8f4dd577}{update}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_s_f_u_i_1_1_vector2u}{SFUI::Vector2u}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_component_abd01e643b921908bf9ed66c501a7dbc8}{renderTargetSize}});}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI::Void}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_scroll_container_a18cb4850a610d087008d4a76d8808d26}{draw}}(\mbox{\hyperlink{namespace_s_f_u_i_a27b81981264d0a33b46b81d105bd7197}{SFUI::RenderTarget}}\&\ drawTarget,\ \mbox{\hyperlink{namespace_s_f_u_i_a7a49d953943284a38398214bc7ed75e5}{SFUI::RenderWindow}}\&\ window);}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_s_f_u_i_a1d018a570e8ca18e9d5d4f5b01c0c2b6}{SFUI::Bool}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_scroll_container_a93e7dc90c04a49b010a765e0f29c8aaf}{isHovered}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_s_f_u_i_a1d018a570e8ca18e9d5d4f5b01c0c2b6}{SFUI::Bool}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_scroll_container_aded3e7984bd2be0dad802fe85649d33e}{isTrackHovered}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_s_f_u_i_a1d018a570e8ca18e9d5d4f5b01c0c2b6}{SFUI::Bool}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_scroll_container_a4e04bdb1dc96b69cf45f0bee332cfd1f}{isThumbHovered}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_s_f_u_i_a1d018a570e8ca18e9d5d4f5b01c0c2b6}{SFUI::Bool}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_scroll_container_aad133cba472ad76b2c33787668f7bc88}{isTrackPressed}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_s_f_u_i_a1d018a570e8ca18e9d5d4f5b01c0c2b6}{SFUI::Bool}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_scroll_container_a6044146b4e2ab376d2768de50eef616e}{isThumbPressed}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_s_f_u_i_1_1_vector2f}{SFUI::Vector2f}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_scroll_container_a720f79cb481540e60d2d3228dca4ee8c}{scrollOffset}}\ =\ \{0.0f,\ 0.0f\};}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_s_f_u_i_1_1_vector2f}{SFUI::Vector2f}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_scroll_container_a65e6e28d7a5ba65fd9bda9b6fc9dd2da}{maxScrollOffset}}\ =\ \{0.0f,\ 0.0f\};}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_s_f_u_i_1_1_vector2f}{SFUI::Vector2f}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_scroll_container_a45a3ace23ac79b28c3cad39ba3fb9a3f}{contentSize}};}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_s_f_u_i_a5d1d23a263a913ca5408caea12070315}{SFUI::Float}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_scroll_container_ab609925e2fafd2c3b9551738db6d7b11}{dragStartPosition}};}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_s_f_u_i_a1d018a570e8ca18e9d5d4f5b01c0c2b6}{SFUI::Bool}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_scroll_container_af517243bfb63b4e59a635d0f3962e06a}{dirtyEvent}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_1_1_style_1_1_scroll_container}{SFUI::Prop::Style::ScrollContainer}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_scroll_container_a30e09f3f83acb07fd65794674fd4de99}{dirtyScrollContainerStyle}};}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_s_f_u_i_1_1_computed_prop_1_1_style_1_1_scroll_container}{SFUI::ComputedProp::Style::ScrollContainer}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_scroll_container_a2ac034bcc3d3267d1a9ca0fa4b86d174}{computedScrollContainerStyle}};}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI::Void}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_scroll_container_ae3b8ba4775b070337723af6997f12d38}{computeAlignPrimary}}();}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI::Void}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_scroll_container_a9c8a62f562fef00cad8bfab7d7be11b4}{computeScrollDynamics}}();}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI::Void}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_scroll_container_aefdc4a785ea8932d9985c8c6792a2020}{computeChildrenScrollPosition}}();}
+\DoxyCodeLine{00164\ \ \ \ \ \};}
+\DoxyCodeLine{00165\ \}}
+
+\end{DoxyCode}
