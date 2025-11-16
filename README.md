@@ -9,7 +9,6 @@ Build rich, responsive interfaces with composable components, powerful layout op
 ---
 <br>
 <br>
-<br>
 
 
 ## 🚀 Features ##
@@ -25,7 +24,6 @@ Build rich, responsive interfaces with composable components, powerful layout op
 
 
 ---
-<br>
 <br>
 <br>
 
@@ -60,7 +58,6 @@ Build rich, responsive interfaces with composable components, powerful layout op
 ---
 <br>
 <br>
-<br>
 
 
 ## 💻 Examples / Quick Start ##
@@ -84,7 +81,7 @@ int main() {
     // Construct the UI Tree //
     container.addChild(button);
     button.addChild(label)
-    uiRoot.addChild(std::make_unique<SFUI::Container>(std::move(container)));
+    uiRoot.setRootComponent(std::make_unique<SFUI::Container>(std::move(container)));
 
     // Main loop
     while (window.isOpen()) {
@@ -106,14 +103,11 @@ int main() {
         
         window.display();
     }
-
-    return 0;
 }
 ```
 
 
 ---
-<br>
 <br>
 <br>
 
@@ -143,9 +137,6 @@ cmake --build .
 
 ### 🔹 Use SFML-FlexUI ###
 There are **two main ways** to integrate SFML-FlexUI into your project:
-
----
-
 #### 1️⃣ Add as a Subdirectory in CMake ####
 This is the preferred approach if you are building your project with CMake. You include the library as a subdirectory, and it will automatically handle dependencies and linking.
 ```cmake
@@ -166,7 +157,6 @@ target_link_libraries(MyApp PRIVATE path/to/lib/sfml-flexui)
 
 
 ---
-<br>
 <br>
 <br>
 
