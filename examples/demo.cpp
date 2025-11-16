@@ -12,10 +12,10 @@ int main() {
 
     // Asset Loading //
     SFUI::SharedPointer<SFUI::Font> font = std::make_shared<SFUI::Font>();
-    if (!font->openFromFile("assets/inconsolata.ttf")) {}//std::cerr << "Failed to load font" << std::endl;
+    if (!font->openFromFile("assets/inconsolata.ttf")) {}
     SFUI::SharedPointer<SFUI::Texture> image = std::make_shared<SFUI::Texture>();
-    if (!image->loadFromFile("assets/image.png")) {}//std::cerr << "Failed to load image" << std::endl;
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    if (!image->loadFromFile("assets/image.png")) {}
+    ////////////////////////////////////////////////
 
     // UI Tree Creation //
     SFUI::UniquePointer<SFUI::UIRoot> ui = std::make_unique<SFUI::UIRoot>();
@@ -73,7 +73,7 @@ int main() {
         )
     );
     ui->setRootComponent(std::make_unique<SFUI::Container>(std::move(rootContainer)));
-    //////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////
 
 
     // Main Event and Render Loop //
