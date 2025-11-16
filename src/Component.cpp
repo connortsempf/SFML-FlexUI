@@ -1,9 +1,23 @@
+/**
+ * @file Component.cpp
+ * @brief Implements the SFUI Component base class.
+ * @author Connor Sempf
+ * @date 2025-11-15
+ * @version 1.0
+ *
+ * This file contains the function definitions and internal logic for the
+ * SFUI Component base class. It handles:
+ *   - Construction and destruction
+ *   - Event handling
+ *   - Rendering
+ *   - Layout and style updates
+ *
+ * It works in conjunction with Component.hpp to provide full functionality
+ * of the base component.
+ */
+
+
 #include "Base/Component.hpp"
-
-
-////////////////////////////////////////
-// SFML-FlexUI Parent Component Class //
-////////////////////////////////////////
 
 
 /**

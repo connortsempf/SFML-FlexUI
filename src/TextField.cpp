@@ -1,22 +1,88 @@
+/**
+ * @file TextField.cpp
+ * @brief Implements the SFUI TextField component. 
+ * @author Connor Sempf
+ * @date 2025-11-15
+ * @version 1.0
+ *
+ * This file contains the function definitions and internal logic for the
+ * SFUI TextField component. It handles:
+ *   - Construction and destruction
+ *   - Event handling (keyboard input, focus)
+ *   - Rendering and style updates
+ *
+ * It works in conjunction with TextField.hpp to provide full functionality
+ * of the TextField component.
+ */
+
+
 #include "components/TextField.hpp"
 
 
-////////////////////////////////
-// Text Field Component Class //
-////////////////////////////////
-
-
-// Static Variables //
+/**
+ * @brief Factor controlling the vertical offset when centering text.
+ */
 const SFUI::Float SFUI::TextField::CENTER_TEXT_OFFSET_FACTOR = 1.3f;
+
+
+/**
+ * @brief Factor controlling the vertical offset for the caret in line mode.
+ */
+
 const SFUI::Float SFUI::TextField::CARET_LINE_VERTICAL_OFFSET_FACTOR = 0.15f;
+
+
+/**
+ * @brief Factor controlling the vertical offset for the caret in box mode.
+ */
 const SFUI::Float SFUI::TextField::CARET_BOX_VERTICAL_OFFSET_FACTOR = 0.15f;
+
+
+/**
+ * @brief Factor controlling the vertical offset for the caret in underline mode.
+ */
 const SFUI::Float SFUI::TextField::CARET_UNDERLINE_VERTICAL_OFFSET_FACTOR = 1.0f;
+
+
+/**
+ * @brief Factor controlling the caret width in line mode.
+ */
 const SFUI::Float SFUI::TextField::CARET_LINE_WIDTH_FACTOR = 0.1f;
+
+
+/**
+ * @brief Factor controlling the caret width in box mode.
+ */
 const SFUI::Float SFUI::TextField::CARET_BOX_WIDTH_FACTOR = 0.55f;
+
+
+/**
+ * @brief Factor controlling the caret width in underline mode.
+ */
 const SFUI::Float SFUI::TextField::CARET_UNDERLINE_WIDTH_FACTOR = 0.55f;
+
+
+/**
+ * @brief Factor controlling the height of the underline caret.
+ */
 const SFUI::Float SFUI::TextField::CARET_UNDERLINE_HEIGHT_FACTOR = 0.1f;
+
+
+/**
+ * @brief Character group recognized as whitespace for CTRL-mod actions.
+ */
 const SFUI::String SFUI::TextField::CTRL_WHITESPACE_GROUP = " \t";
+
+
+/**
+ * @brief Character group recognized as alphanumeric for CTRL-mod actions.
+ */
 const SFUI::String SFUI::TextField::CTRL_ALPHANUMERIC_GROUP = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_";
+
+
+/**
+ * @brief Character group recognized as symbols for CTRL-mod actions.
+ */
 const SFUI::String SFUI::TextField::CTRL_SYMBOL_GROUP = "`~!@#$%^&*()-=+[]{}\\|:;\'\",<.>/?";
 
 

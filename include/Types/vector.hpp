@@ -1,16 +1,28 @@
+/**
+ * @file vector.hpp
+ * @brief Defines vector structures (2D, 3D, 4D) used in SFUI for geometry, size, and color data.
+ * @author Connor Sempf
+ * @date 2025-11-15
+ * @version 1.0
+ *
+ * This file contains structures like Vector2f, Vector3i, Vector4ui8, etc.,
+ * with constructors, equality operators, and optional conversion to SFML types.
+ */
+
+
 #pragma once
 #include "base.hpp"
 #include "render.hpp"
 
 
-
-
-//////////////////////////////
-// Custom SFML-FlexUI Types //
-//////////////////////////////
-
 namespace SFUI {
 
+    /**
+     * @brief Unsigned 2D vector type used throughout SFUI.
+     *
+     * Wraps two unsigned integers and provides an implicit conversion to
+     * sf::Vector2u as well as equality comparison.
+     */
     struct Vector2u {
         SFUI::UnsignedInt x, y;
         Vector2u(
@@ -25,6 +37,11 @@ namespace SFUI {
         }
     };
     
+    /**
+     * @brief Signed 2D vector type used throughout SFUI.
+     *
+     * Stores two integers and converts implicitly to sf::Vector2i.
+     */
     struct Vector2i {
         SFUI::Int x, y;
         Vector2i(
@@ -39,6 +56,11 @@ namespace SFUI {
         }
     };
     
+    /**
+     * @brief Floating-point 2D vector type used by SFUI.
+     *
+     * Wraps two floats and converts implicitly to sf::Vector2f.
+     */
     struct Vector2f {
         SFUI::Float x, y;
         Vector2f(
@@ -53,6 +75,11 @@ namespace SFUI {
         }
     };
 
+    /**
+     * @brief 3D vector of 8-bit unsigned integers.
+     *
+     * Useful for small RGB-style storage or compact data representations.
+     */
     struct Vector3ui8 {
         SFUI::UnsignedInt8 x, y, z;
         Vector3ui8(
@@ -65,6 +92,11 @@ namespace SFUI {
         }
     };
 
+    /**
+     * @brief 3D vector of unsigned integers.
+     *
+     * Used for integer-based 3D integer coordinates or sizes.
+     */
     struct Vector3u {
         SFUI::UnsignedInt x, y, z;
         Vector3u(
@@ -77,6 +109,11 @@ namespace SFUI {
         }
     };
     
+    /**
+     * @brief 3D vector of signed integers.
+     *
+     * Converts implicitly to sf::Vector3i and supports equality comparison.
+     */
     struct Vector3i {
         SFUI::Int x, y, z;
         Vector3i(
@@ -92,6 +129,11 @@ namespace SFUI {
         }
     };
     
+    /**
+     * @brief 3D vector of floating-point values.
+     *
+     * Wraps three floats and converts implicitly to sf::Vector3f.
+     */
     struct Vector3f {
         SFUI::Float x, y, z;
         Vector3f(
@@ -107,6 +149,11 @@ namespace SFUI {
         }
     };
 
+    /**
+     * @brief 4D vector of 8-bit unsigned integers.
+     *
+     * Useful for compact color or data packing (e.g., RGBA bytes).
+     */
     struct Vector4ui8 {
         SFUI::UnsignedInt8 x, y, z, w;
         Vector4ui8(
@@ -120,6 +167,9 @@ namespace SFUI {
         }
     };
 
+    /**
+     * @brief 4D vector of unsigned integers.
+     */
     struct Vector4u {
         SFUI::UnsignedInt x, y, z, w;
         Vector4u(
@@ -133,6 +183,9 @@ namespace SFUI {
         }
     };
     
+    /**
+     * @brief 4D vector of signed integers.
+     */
     struct Vector4i {
         SFUI::Int x, y, z, w;
         Vector4i(
@@ -146,6 +199,9 @@ namespace SFUI {
         }
     };
     
+    /**
+     * @brief 4D vector of floating-point values.
+     */
     struct Vector4f {
         SFUI::Float x, y, z, w;
         Vector4f(

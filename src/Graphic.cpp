@@ -1,9 +1,22 @@
+/**
+ * @file Graphic.cpp
+ * @brief Implements the SFUI Graphic component. 
+ * @author Connor Sempf
+ * @date 2025-11-15
+ * @version 1.0
+ *
+ * This file contains the function definitions and internal logic for the
+ * SFUI Graphic component. It handles:
+ *   - Construction and destruction
+ *   - Rendering of custom graphics
+ *   - Style updates and layout computation
+ *
+ * It works in conjunction with Graphic.hpp to provide full functionality
+ * of the Graphic component.
+ */
+
+
 #include "components/Graphic.hpp"
-
-
-/////////////////////////////
-// Graphic Component Class //
-/////////////////////////////
 
 
 /**

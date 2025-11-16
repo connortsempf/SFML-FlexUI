@@ -1,13 +1,33 @@
+/**
+ * @file Label.cpp
+ * @brief Implements the SFUI Label component. 
+ * @author Connor Sempf
+ * @date 2025-11-15
+ * @version 1.0
+ *
+ * This file contains the function definitions and internal logic for the
+ * SFUI Label component. It handles:
+ *   - Construction and destruction
+ *   - Text rendering
+ *   - Layout and style updates
+ *
+ * It works in conjunction with Label.hpp to provide full functionality
+ * of the Label component.
+ */
+
+
 #include "components/Label.hpp"
 
 
-///////////////////////////
-// Label Component Class //
-//////////////////////////
-
-
-// Static Variables //
+/**
+ * @brief Vertical offset factor for center-aligned text.
+ */
 const SFUI::Float SFUI::Label::VERTICAL_CENTER_OFFSET_FACTOR = 0.3f;
+
+
+/**
+ * @brief Vertical offset factor for bottom-aligned text.
+ */
 const SFUI::Float SFUI::Label::BOTTOM_OFFSET_FACTOR = 0.65f;
 
 

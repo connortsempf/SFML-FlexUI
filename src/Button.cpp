@@ -1,13 +1,33 @@
+/**
+ * @file Button.cpp
+ * @brief Implements the SFUI Button component. 
+ * @author Connor Sempf
+ * @date 2025-11-15
+ * @version 1.0
+ *
+ * This file contains the function definitions and internal logic for the
+ * SFUI Button component. It handles:
+ *   - Construction and destruction
+ *   - Event handling (click, hover)
+ *   - Rendering and style updates
+ *
+ * It works in conjunction with Button.hpp to provide full functionality
+ * of the Button component.
+ */
+
+
 #include "components/Button.hpp"
 
 
-////////////////////////////
-// Button Component Class //
-////////////////////////////
-
-
-// Static Variables //
+/**
+ * @brief Time threshold to detect a double-press event.
+ */
 const SFUI::Time SFUI::Button::DOUBLE_PRESS_GAP_MS = sf::milliseconds(300);
+
+
+/**
+ * @brief Hovering time threshold before showing the tool-tip.
+ */
 const SFUI::Time SFUI::Button::TOOL_TIP_THRESHOLD_MS = sf::milliseconds(1000);
 
 

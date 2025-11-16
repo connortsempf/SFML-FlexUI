@@ -1,15 +1,22 @@
+/**
+ * @file render.hpp
+ * @brief Provides SFML type aliases used in SFUI for rendering and UI objects.
+ * @author Connor Sempf
+ * @date 2025-11-15
+ * @version 1.0
+ *
+ * This file maps SFML classes like RenderTarget, Sprite, Texture,
+ * VertexArray, Clock, and Color to SFUI types to simplify usage
+ * and enable type consistency across the library.
+ */
+
+
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 #include <SFML/OpenGL.hpp>
 
-
-
-
-///////////////////////////////////////////
-// Rendering Library (SFML) Type Aliases //
-///////////////////////////////////////////
 
 namespace SFUI {
 

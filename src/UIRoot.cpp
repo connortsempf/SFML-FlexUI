@@ -1,9 +1,22 @@
+/**
+ * @file UIRoot.cpp
+ * @brief Implements the SFUI UIRoot class for managing the UI hierarchy.
+ * @author Connor Sempf
+ * @date 2025-11-15
+ * @version 1.0
+ *
+ * This file contains the function definitions and internal logic for the
+ * SFUI UIRoot class. It handles:
+ *   - Root-level event propagation
+ *   - Layout computation for child components
+ *   - Rendering of the UI tree
+ *
+ * It works in conjunction with UIRoot.hpp to provide full functionality
+ * for managing UI hierarchies.
+ */
+
+
 #include "base/UIRoot.hpp"
-
-
-///////////////////////////
-// Root UI Manager Class //
-///////////////////////////
 
 
 /**

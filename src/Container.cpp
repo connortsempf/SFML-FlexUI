@@ -1,9 +1,22 @@
+/**
+ * @file Container.cpp
+ * @brief Implements the SFUI Container component. 
+ * @author Connor Sempf
+ * @date 2025-11-15
+ * @version 1.0
+ *
+ * This file contains the function definitions and internal logic for the
+ * SFUI Container component. It handles:
+ *   - Construction and destruction
+ *   - Event propagation to children
+ *   - Layout and rendering
+ *
+ * It works in conjunction with Container.hpp to provide full functionality
+ * of the Container component.
+ */
+
+
 #include "components/Container.hpp"
-
-
-///////////////////////////////
-// Container Component Class //
-///////////////////////////////
 
 
 /**

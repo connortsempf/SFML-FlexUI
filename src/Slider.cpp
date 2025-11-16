@@ -1,9 +1,22 @@
+/**
+ * @file Slider.cpp
+ * @brief Implements the SFUI Slider component. 
+ * @author Connor Sempf
+ * @date 2025-11-15
+ * @version 1.0
+ *
+ * This file contains the function definitions and internal logic for the
+ * SFUI Slider component. It handles:
+ *   - Construction and destruction
+ *   - Event handling (dragging, value changes)
+ *   - Rendering and style updates
+ *
+ * It works in conjunction with Slider.hpp to provide full functionality
+ * of the Slider component.
+ */
+
+
 #include "components/Slider.hpp"
-
-
-////////////////////////////
-// Slider Component Class //
-////////////////////////////
 
 
 /**

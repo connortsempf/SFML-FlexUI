@@ -1,9 +1,22 @@
+/**
+ * @file Toggle.cpp
+ * @brief Implements the SFUI Toggle component. 
+ * @author Connor Sempf
+ * @date 2025-11-15
+ * @version 1.0
+ *
+ * This file contains the function definitions and internal logic for the
+ * SFUI Toggle component. It handles:
+ *   - Construction and destruction
+ *   - Event handling (toggle on/off)
+ *   - Rendering and style updates
+ *
+ * It works in conjunction with Toggle.hpp to provide full functionality
+ * of the Toggle component.
+ */
+
+
 #include "components/Toggle.hpp"
-
-
-////////////////////////////
-// Toggle Component Class //
-////////////////////////////
 
 
 /**

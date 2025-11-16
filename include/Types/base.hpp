@@ -1,3 +1,15 @@
+/**
+ * @file base.hpp
+ * @brief Defines common C++ type aliases used throughout SFUI.
+ * @author Connor Sempf
+ * @date 2025-11-15
+ * @version 1.0
+ *
+ * This file provides standard aliases for primitive types, containers,
+ * smart pointers, function objects, and variants used in SFUI.
+ */
+
+
 #pragma once
 #include <string>
 #include <optional>
@@ -8,12 +20,6 @@
 #include <unordered_map>
 #include <memory>
 
-
-
-
-///////////////////////////////
-// Standard C++ Type Aliases //
-///////////////////////////////
 
 namespace SFUI {
 
