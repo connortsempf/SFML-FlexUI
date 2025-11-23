@@ -117,9 +117,9 @@ Follow these steps to set up **SFML-FlexUI** in your project.
 
 ### 🔹 Prerequisites ###
 - **C++20 or higher** compiler.
-- **SFML 3.0.2+** installed on your system.
 - **CMake 3.16+** for building the project.
-- Optional: **Git** to clone the repository.
+- **Git** to clone the repository and to possibly fetch SFML.
+- Optional: **SFML 3.0.2+** installed on your system or simply let CMake fetch it for you.
 
 ### 🔹 Clone the Repository ###
 ```bash
@@ -131,17 +131,28 @@ cd SFML-FlexUI
 ```bash
 mkdir build
 cd build
-cmake .. -DSFML_DIR="path/to/your/SFMLConfig.cmake" -DBUILD_EXAMPLES="ON/OFF"
+cmake .. -DSFML_LOCAL_PATH="path/to/your/SFMLConfig.cmake" -DBUILD_EXAMPLES="ON/OFF"
+## Ignore -DSFML_LOCAL_PATH="" if you want CMake to fetch it for you (longer build time) ##
 cmake --build .
 ```
 
 ### 🔹 Use SFML-FlexUI ###
 There are **two main ways** to integrate SFML-FlexUI into your project:
-#### 1️⃣ Add as a Subdirectory in CMake ####
-This is the preferred approach if you are building your project with CMake. You include the library as a subdirectory, and it will automatically handle dependencies and linking.
+#### 1️⃣ Fetch Content or Manually Add as a Subdirectory in CMake ####
+This is the preferred approach if you are building your project with CMake. Fetch from GitHub or include the library as a subdirectory, and it will automatically handle dependencies and linking.
 ```cmake
+## Fetch Content ##
+FetchContent_Declare(
+    SFML-FlexUI
+    GIT_REPOSITORY https://github.com/connortsempf/SFML-FlexUI.git
+    GIT_TAG main
+)
+FetchContent_MakeAvailable(SFML-FlexUI)
+target_link_libraries(YourProject PRIVATE sfml-flexui)
+
+## Add Subdirectory ##
 add_subdirectory(path/to/SFML-FlexUI)
-target_link_libraries(MyProject PRIVATE sfml-flexui)
+target_link_libraries(YourProject PRIVATE sfml-flexui)
 ```
 #### 2️⃣ Using the Precompiled Library ####
 If you prefer not to add SFML-FlexUI as a subdirectory, you can simply copy the generated library files within `build/` into your project. This works for both static (`.lib` / `.a`) and dynamic (`.dll` / `.so`) builds.
@@ -152,7 +163,7 @@ If you prefer not to add SFML-FlexUI as a subdirectory, you can simply copy the 
 4. **Copy the header files** into a folder in your project, such as `include/SFML-FlexUI`
 5. **Link the library** in your CMake project:
 ```cmake
-target_link_libraries(MyApp PRIVATE path/to/lib/sfml-flexui)
+target_link_libraries(YourProject PRIVATE path/to/lib/sfml-flexui-lib-file)
 ```
 
 

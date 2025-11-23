@@ -15,6 +15,7 @@
 #include "Types/render.hpp"
 #include "Types/vector.hpp"
 #include "Types/prop.hpp"
+#include "Types/propgroup.hpp"
 #include "Types/computedprop.hpp"
 #include <algorithm>
 #include <cmath>
