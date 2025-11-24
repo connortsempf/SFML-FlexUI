@@ -316,10 +316,7 @@ SFUI::Void SFUI::Component::computeLayoutBox() {
     if (!parent) {
 
         // Layout Box Margin //
-        computedLayout.margin = resolveUniQuadSubProp(
-            SFUI::Vector2f{static_cast<SFUI::Float>(renderTargetSize.x), static_cast<SFUI::Float>(renderTargetSize.y)},
-            layout.padding
-        );
+        computedLayout.margin = {0.0f, 0.0f, 0.0f, 0.0f};
 
         // Layout Box Size //
         computedLayout.size.x = 0.0f;
@@ -358,8 +355,6 @@ SFUI::Void SFUI::Component::computeLayoutBox() {
                 computedLayout.size.y = renderTargetSize.y;
             }
         }
-        computedLayout.size.x -= (computedLayout.margin.x + computedLayout.margin.y);
-        computedLayout.size.y -= (computedLayout.margin.z + computedLayout.margin.w);
 
         // Layout Box Position //
         computedLayout.position.x = 0.0f;

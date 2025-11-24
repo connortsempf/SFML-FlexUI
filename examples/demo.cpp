@@ -6,7 +6,7 @@ int main() {
     // Window Creation //
     sf::ContextSettings settings;
     settings.antiAliasingLevel = 16;
-    sf::RenderWindow window(sf::VideoMode({320, 470}), "SFML-FlexUI", sf::Style::Default, sf::State::Windowed, settings);
+    sf::RenderWindow window(sf::VideoMode({500, 650}), "SFML-FlexUI", sf::Style::Default, sf::State::Windowed, settings);
     window.setFramerateLimit(120);
     //////////////////////////////
 
@@ -19,62 +19,74 @@ int main() {
 
     // UI Tree Creation //
     SFUI::UIRoot ui = SFUI::UIRoot();
-    SFUI::Container rootContainer("rootContainer", rootContainerProp,
-        SFUI::Label("headerLabel", SFUI::PropGroup::Label{
-            .layout = { .width = "100%", .height = 40.0f },
-            .labelStyle { .text = "SFML-FlexUI Demo", .font = font, .textSize = 30.0f, .textAlignHorizontal = "center", .textColor = "#FFFFFF" }}
-        ),
-        SFUI::Container("midContainer", midContainerProp,
-            SFUI::TextField("textField", SFUI::PropGroup::TextField{
-                .layout = { .width = "100%", .height = 70.0f, .margin = 5.0f },
-                .style = { .borderWidth = 4.0f, .cornerRadius = 8.0f, .fillColor = "#FFFFFF", .borderColor = SFUI::Color(20, 20, 20) },
-                .textFieldStyle = {
-                    .textInset = SFUI::SubProp::Vector4dim{10.0f, 10.0f, 0.0f, 0.0f},
-                    .placeholderText = "Type Here...",
-                    .font = font,
-                    .textSize = 20.0f,
-                    .textColor = "#000000",
-                    .placeholderTextColor = SFUI::Color(120, 120, 120),
-                    .caretFillColor = SFUI::Color(79, 168, 255)
-                }
-            }),
-            SFUI::Slider("slider", sliderProp)
-        ),
-        SFUI::ScrollContainer("functionButtonContainer", scrollContainerProp,
-            SFUI::Button("scrollButton1", scrollButtonProp1,
-                SFUI::Label("buttonLabel", SFUI::PropGroup::Label{
-                    .layout = { .width = "100%", .height = "100%" },
-                    .labelStyle = { .text = "Button Text", .font = font, .textSize = 20.0f, .textAlignHorizontal = "center", .textColor = SFUI::Color(255, 255, 255) }
-                })
-            ),
-            SFUI::Toggle("scrollToggle1", SFUI::PropGroup::Toggle{
-                .layout = { .alignPrimary = "center", .alignSecondary = "center", .width = "50%", .height = 70.0f, .margin = SFUI::SubProp::Vector4dim{1.0f, 1.0f, 0.0f, 0.0f} },
-                .style = { .cornerRadius = 5.0f },
-                .toggleStyle = {
-                    .offFillColor = SFUI::Color(150, 150, 150), .onFillColor = SFUI::Color(203, 197, 138),
-                    .hoveredOffFillColor = SFUI::Color(130, 130, 130), .hoveredOnFillColor = SFUI::Color(150, 146, 102),
-                    .pressedOffFillColor = SFUI::Color(110, 110, 110), .pressedOnFillColor = SFUI::Color(125, 121, 85)
-                }
-            },
-                SFUI::Label("toggleLabel", SFUI::PropGroup::Label{
-                    .layout = { .width = "100%", .height = "100%" },
-                    .labelStyle = { .text = "Button Text", .font = font, .textSize = 20.0f, .textAlignHorizontal = "center", .textColor = SFUI::Color(255, 255, 255) }
-                })
-            ),
-            SFUI::Button("scrollButton2", scrollButtonProp2,
-                SFUI::Graphic("buttonGraphic", SFUI::PropGroup::Graphic{
-                    .layout = { .width = 40.0f, .height = 40.0f },
-                    .graphicStyle = { .loadedGraphic = image, .graphicAlign = "fit" }
-                })
-            ),
-            SFUI::Button("scrollButton3", scrollButtonProp1),
-            SFUI::Toggle("scrollToggle2", scrollToggleProp),
-            SFUI::Button("scrollButton4", scrollButtonProp2)
-        )
+    // SFUI::Container rootContainer("rootContainer", rootContainerProp,
+    //     SFUI::Label("headerLabel", SFUI::PropGroup::Label{
+    //         .layout = { .width = "100%", .height = 40.0f },
+    //         .labelStyle { .text = "SFML-FlexUI Demo", .font = font, .textSize = 30.0f, .textAlignHorizontal = "center", .textColor = "#FFFFFF" }}
+    //     ),
+    //     SFUI::Container("midContainer", midContainerProp,
+    //         SFUI::TextField("textField", SFUI::PropGroup::TextField{
+    //             .layout = { .width = "100%", .height = 70.0f, .margin = 5.0f },
+    //             .style = { .borderWidth = 4.0f, .cornerRadius = 8.0f, .fillColor = "#FFFFFF", .borderColor = SFUI::Color(20, 20, 20) },
+    //             .textFieldStyle = {
+    //                 .textInset = SFUI::SubProp::Vector4dim{10.0f, 10.0f, 0.0f, 0.0f},
+    //                 .placeholderText = "Type Here...",
+    //                 .font = font,
+    //                 .textSize = 20.0f,
+    //                 .textColor = "#000000",
+    //                 .placeholderTextColor = SFUI::Color(120, 120, 120),
+    //                 .caretFillColor = SFUI::Color(79, 168, 255)
+    //             }
+    //         }),
+    //         SFUI::Slider("slider", sliderProp)
+    //     ),
+    //     SFUI::ScrollContainer("functionButtonContainer", scrollContainerProp,
+    //         SFUI::Button("scrollButton1", scrollButtonProp1,
+    //             SFUI::Label("buttonLabel", SFUI::PropGroup::Label{
+    //                 .layout = { .width = "100%", .height = "100%" },
+    //                 .labelStyle = { .text = "Button Text", .font = font, .textSize = 20.0f, .textAlignHorizontal = "center", .textColor = SFUI::Color(255, 255, 255) }
+    //             })
+    //         ),
+    //         SFUI::Toggle("scrollToggle1", SFUI::PropGroup::Toggle{
+    //             .layout = { .alignPrimary = "center", .alignSecondary = "center", .width = "50%", .height = 70.0f, .margin = SFUI::SubProp::Vector4dim{1.0f, 1.0f, 0.0f, 0.0f} },
+    //             .style = { .cornerRadius = 5.0f },
+    //             .toggleStyle = {
+    //                 .offFillColor = SFUI::Color(150, 150, 150), .onFillColor = SFUI::Color(203, 197, 138),
+    //                 .hoveredOffFillColor = SFUI::Color(130, 130, 130), .hoveredOnFillColor = SFUI::Color(150, 146, 102),
+    //                 .pressedOffFillColor = SFUI::Color(110, 110, 110), .pressedOnFillColor = SFUI::Color(125, 121, 85)
+    //             }
+    //         },
+    //             SFUI::Label("toggleLabel", SFUI::PropGroup::Label{
+    //                 .layout = { .width = "100%", .height = "100%" },
+    //                 .labelStyle = { .text = "Button Text", .font = font, .textSize = 20.0f, .textAlignHorizontal = "center", .textColor = SFUI::Color(255, 255, 255) }
+    //             })
+    //         ),
+    //         SFUI::Button("scrollButton2", scrollButtonProp2,
+    //             SFUI::Graphic("buttonGraphic", SFUI::PropGroup::Graphic{
+    //                 .layout = { .width = 40.0f, .height = 40.0f },
+    //                 .graphicStyle = { .loadedGraphic = image, .graphicAlign = "fit" }
+    //             })
+    //         ),
+    //         SFUI::Button("scrollButton3", scrollButtonProp1),
+    //         SFUI::Toggle("scrollToggle2", scrollToggleProp),
+    //         SFUI::Button("scrollButton4", scrollButtonProp2)
+    //     )
+    // );
+    // ui.setRootComponent(std::make_unique<SFUI::Container>(std::move(rootContainer)));
+
+    SFUI::PropGroup::Container rootContainerProps{
+        .layout = { .alignDirection = "vertical", .alignPrimary = "start", .alignSecondary = "center", .width = "100%", .height = "100%", .padding = 20.0f },
+        .style = { .fillColor = SFUI::Color(55, 109, 174) }
+    };
+    SFUI::PropGroup::Container qrCodeContainerProps{
+        .layout = { .alignPrimary = "center", .alignSecondary = "center", .width = 400.0f, .height = 400.0f },
+        .style = { .cornerRadius = 30.0f, .fillColor = SFUI::Color(11, 49, 82) }
+    };
+
+    SFUI::Container rootContainer("rootContainer", rootContainerProps,
+        SFUI::Container("qrCodeContainer", qrCodeContainerProps)
     );
     ui.setRootComponent(std::make_unique<SFUI::Container>(std::move(rootContainer)));
-
-    SFUI::Label* label = ui.getComponent<SFUI::Label>("headerLabel");
     //////////////////////////////////////////////////////////////////////////////////
 
 
@@ -92,7 +104,6 @@ int main() {
             }
             if (const sf::Event::KeyPressed* keyPressedEvent = event->getIf<sf::Event::KeyPressed>()) {
                 if (keyPressedEvent->code == sf::Keyboard::Key::Escape) window.close();
-                if (keyPressedEvent->code == sf::Keyboard::Key::C) label->labelStyle.text += "c";
             }
             if (const sf::Event::Resized* resizedEvent = event->getIf<sf::Event::Resized>()) {
                 sf::FloatRect visibleArea({0.f, 0.f}, sf::Vector2f(resizedEvent->size));
