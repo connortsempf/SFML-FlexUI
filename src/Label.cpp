@@ -60,7 +60,8 @@ SFUI::Void SFUI::Label::update(const SFUI::Vector2u renderTargetSize) {
         this->renderTargetSize != renderTargetSize ||
         layout != dirtyLayout ||
         style != dirtyStyle ||
-        labelStyle != dirtyLabelStyle
+        labelStyle != dirtyLabelStyle ||
+        dirtyEvent
     ) {
         this->renderTargetSize = renderTargetSize;
         computeAlignment();

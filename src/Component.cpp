@@ -90,6 +90,7 @@ SFUI::Void SFUI::Component::updateChildFromParent(SFUI::Component::ComputedChild
     computedLayout.size = computedChildLayout.size;
     computedLayout.position = computedChildLayout.position;
     computedLayout.margin = computedChildLayout.margin;
+    dirtyEvent = true;
 }
 
 

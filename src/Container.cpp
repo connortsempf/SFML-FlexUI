@@ -46,7 +46,8 @@ SFUI::Void SFUI::Container::update(const SFUI::Vector2u renderTargetSize) {
     if (
         this->renderTargetSize != renderTargetSize ||
         layout != dirtyLayout ||
-        style != dirtyStyle
+        style != dirtyStyle ||
+        dirtyEvent
     ) {
         this->renderTargetSize = renderTargetSize;
         computeAlignment();

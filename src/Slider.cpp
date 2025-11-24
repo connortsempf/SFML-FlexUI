@@ -141,7 +141,8 @@ SFUI::Void SFUI::Slider::update(const SFUI::Vector2u renderTargetSize) {
         layout != dirtyLayout ||
         style != dirtyStyle ||
         sliderStyle != dirtySliderStyle ||
-        sliderState != dirtySliderState
+        sliderState != dirtySliderState ||
+        dirtyEvent
     ) {
         this->renderTargetSize = renderTargetSize;
         computeAlignment();

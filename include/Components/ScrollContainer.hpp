@@ -132,11 +132,6 @@ namespace SFUI {
             SFUI::Float dragStartPosition;
 
             /**
-             * @brief Whether an event requires reprocessing or layout updates.
-             */
-            SFUI::Bool dirtyEvent = false;
-
-            /**
              * @brief Dirty (unresolved) style properties for the scroll container.
              */
             SFUI::Prop::Style::ScrollContainer dirtyScrollContainerStyle;

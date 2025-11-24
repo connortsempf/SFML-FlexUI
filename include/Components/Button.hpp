@@ -179,11 +179,6 @@ namespace SFUI {
              * @brief Tool-tip label component.
              */
             SFUI::Label toolTip;
-            
-            /**
-             * @brief Dirty flag for tracking input event changes.
-             */
-            SFUI::Bool dirtyEvent = false;
 
             /**
              * @brief Dirty style properties for tracking changes for recomputation.

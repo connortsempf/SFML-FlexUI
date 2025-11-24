@@ -190,11 +190,6 @@ namespace SFUI {
             SFUI::Container caret;
 
             /** 
-             * @brief Indicates whether the text field has pending state changes to process.
-             */
-            SFUI::Bool dirtyEvent = false;
-
-            /** 
              * @brief Last non-applied style properties that require recomputation.
              */
             SFUI::Prop::Style::TextField dirtyTextFieldStyle;

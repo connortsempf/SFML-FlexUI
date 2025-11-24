@@ -252,6 +252,11 @@ namespace SFUI {
             SFUI::VertexArray shadowArcs;
 
             /**
+             * @brief Flag for detecting if an update should occur based on user inputs or program changes.
+             */
+            SFUI::Bool dirtyEvent = false;
+
+            /**
              * @brief Dirty layout flags indicating if recomputation is needed.
              */
             SFUI::Prop::Layout::Component dirtyLayout;

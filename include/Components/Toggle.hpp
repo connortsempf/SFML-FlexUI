@@ -96,11 +96,6 @@ namespace SFUI {
 
         private:
             /**
-             * @brief Indicates whether the toggle component has pending events or state changes.
-             */
-            SFUI::Bool dirtyEvent = false;
-
-            /**
              * @brief The main button representing the toggle switch.
              */
             SFUI::Button toggle;

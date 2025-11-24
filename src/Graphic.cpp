@@ -48,7 +48,8 @@ SFUI::Void SFUI::Graphic::update(const SFUI::Vector2u renderTargetSize) {
         this->renderTargetSize != renderTargetSize ||
         layout != dirtyLayout ||
         style != dirtyStyle ||
-        graphicStyle != dirtyGraphicStyle
+        graphicStyle != dirtyGraphicStyle ||
+        dirtyEvent
     ) {
         this->renderTargetSize = renderTargetSize;
         computeAlignment();
