@@ -49,6 +49,40 @@ namespace SFUI {
             SFUI::Void setRootComponent(SFUI::UniquePointer<SFUI::Component> rootComponent);
 
             /**
+             * @brief Get one of the UI component's in the tree by its component ID.
+             * 
+             * @param componentID The unique identifier of the component to find.
+             * 
+             * @return A raw pointer to the Component.
+             */
+            template<typename T>
+            T* getComponent(const std::string componentID) {
+                static_assert(std::is_base_of<SFUI::Component, T>::value, "T must derive from SFUI::Component (Label, Button, etc.)");
+                
+                if (!rootComponent) return nullptr;
+        
+                // Breadth-First Traversal Algorithm for UI Finding the Component //
+                std::deque<SFUI::Component*> childrenQueue;
+                childrenQueue.push_back(rootComponent.get());
+
+                while (!childrenQueue.empty()) {
+                    SFUI::Component* currentChild = childrenQueue.front();
+                    childrenQueue.pop_front();
+
+                    if (currentChild->componentID == componentID) {
+                        return dynamic_cast<T*>(currentChild);
+                    }
+
+                    const SFUI::Vector<SFUI::UniquePointer<SFUI::Component>>& currentChildChildren = currentChild->getChildren();
+                    for (const auto& currentChildChild : currentChildChildren) {
+                        childrenQueue.push_back(currentChildChild.get());
+                    }
+                }
+
+                return nullptr;
+            }
+
+            /**
              * @brief Handle an input event by propagating it to the root component.
              * 
              * @param event Event to process.

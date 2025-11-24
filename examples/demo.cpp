@@ -18,7 +18,7 @@ int main() {
     ////////////////////////////////////////////////
 
     // UI Tree Creation //
-    SFUI::UniquePointer<SFUI::UIRoot> ui = std::make_unique<SFUI::UIRoot>();
+    SFUI::UIRoot ui = SFUI::UIRoot();
     SFUI::Container rootContainer("rootContainer", rootContainerProp,
         SFUI::Label("headerLabel", SFUI::PropGroup::Label{
             .layout = { .width = "100%", .height = 40.0f },
@@ -72,7 +72,9 @@ int main() {
             SFUI::Button("scrollButton4", scrollButtonProp2)
         )
     );
-    ui->setRootComponent(std::make_unique<SFUI::Container>(std::move(rootContainer)));
+    ui.setRootComponent(std::make_unique<SFUI::Container>(std::move(rootContainer)));
+
+    SFUI::Label* label = ui.getComponent<SFUI::Label>("headerLabel");
     //////////////////////////////////////////////////////////////////////////////////
 
 
@@ -82,7 +84,7 @@ int main() {
         while (const std::optional event = window.pollEvent()) {
             
             // Handle UI Event Passing with Each Event //
-            if (event.has_value()) ui->handleEvent(*event);
+            if (event.has_value()) ui.handleEvent(*event);
             ///////////////////////////////////////////////
 
             if (event->is<sf::Event::Closed>()) {
@@ -90,6 +92,7 @@ int main() {
             }
             if (const sf::Event::KeyPressed* keyPressedEvent = event->getIf<sf::Event::KeyPressed>()) {
                 if (keyPressedEvent->code == sf::Keyboard::Key::Escape) window.close();
+                if (keyPressedEvent->code == sf::Keyboard::Key::C) label->labelStyle.text += "c";
             }
             if (const sf::Event::Resized* resizedEvent = event->getIf<sf::Event::Resized>()) {
                 sf::FloatRect visibleArea({0.f, 0.f}, sf::Vector2f(resizedEvent->size));
@@ -98,13 +101,13 @@ int main() {
         }
 
         // Update the UI Every Frame AFTER Event Passing //
-        ui->update({window.getSize().x, window.getSize().y});
+        ui.update({window.getSize().x, window.getSize().y});
         /////////////////////////////////////////////////////
         
         window.clear();
 
         // Draw UI to current Render Target Every Frame AFTER Updating //
-        ui->draw(window, window);
+        ui.draw(window, window);
         /////////////////////////
 
         window.display();

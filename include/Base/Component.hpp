@@ -214,7 +214,7 @@ namespace SFUI {
             /**
              * @brief Pointer to the parent component.
              */
-            SFUI::Component* parent;
+            SFUI::Component* parent = nullptr;
             
             /**
              * @brief List of child components stored as unique pointers.

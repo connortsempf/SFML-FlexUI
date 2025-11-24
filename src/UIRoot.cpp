@@ -66,6 +66,8 @@ SFUI::Void SFUI::UIRoot::handleEvent(const SFUI::Event& event) {
 
 /**
  * @brief Updates all children in the contained UI.
+ * 
+ * @param renderTargetSize The dimensions of the object to which the UI is rendering. 
  */
 SFUI::Void SFUI::UIRoot::update(const SFUI::Vector2u renderTargetSize) {
     if (!rootComponent) return;
