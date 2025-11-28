@@ -35,7 +35,11 @@ int main() {
                     .textSize = 20.0f,
                     .textColor = "#000000",
                     .placeholderTextColor = SFUI::Color(120, 120, 120),
-                    .caretFillColor = SFUI::Color(79, 168, 255)
+                    .toolTipText = "Tooltip Text",
+                    .toolTipFont = font,
+                    .toolTipFillColor = SFUI::Color(20, 20, 20),
+                    .toolTipTextColor = SFUI::Color(255, 255, 255),
+                    .caretFillColor = SFUI::Color(79, 168, 255),
                 }
             }),
             SFUI::Slider("slider", sliderProp)

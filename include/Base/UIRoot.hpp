@@ -119,5 +119,13 @@ namespace SFUI {
              * @param window Window reference.
              */
             SFUI::Void drawRecursive(const SFUI::UniquePointer<SFUI::Component>& component, SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window);
+
+            /**
+             * @brief Draw the overlay components of the UI to the render target.
+             * 
+             * @param drawTarget Target to draw on.
+             * @param window Window reference.
+             */
+            SFUI::Void drawOverlay(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window);
     };
 }

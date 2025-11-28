@@ -196,6 +196,22 @@ SFUI::Void SFUI::TextField::draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWin
 
 
 /**
+ * @brief Draw the component or inner components on an overlay layer on top of the main UI tree to the render target.
+ * 
+ * This is relevant for components that are actively animating and do not want their drawn geometry subject to
+ * clipping by their parents' bounds. It is also useful for inner components like tooltips, context menus, modals,
+ * and other special UI components. This meant to have a seperate second draw pass after the initial UI tree draw()
+ * function calls to the components.
+ * 
+ * @param drawTarget Target to draw on.
+ * @param window Window reference.
+ */
+SFUI::Void SFUI::TextField::drawOverlay(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window) {
+    background.drawOverlay(drawTarget, window);
+}
+
+
+/**
  * @brief Compute the line mode property.
  */
 SFUI::Void SFUI::TextField::computeLineMode() {
@@ -510,6 +526,7 @@ SFUI::Void SFUI::TextField::editText(const sf::Event::KeyPressed* keyPressedEven
             textFieldStyle.text.erase(caretIndex - 1, 1);
             --caretIndex;
         }
+        if (textFieldBehavior.onTextChange) textFieldBehavior.onTextChange(componentID, textFieldStyle.text);
         caretClock.restart();
     }
 
@@ -527,6 +544,7 @@ SFUI::Void SFUI::TextField::editText(const sf::Event::KeyPressed* keyPressedEven
         }   else {
             textFieldStyle.text.erase(caretIndex, 1);
         }
+        if (textFieldBehavior.onTextChange) textFieldBehavior.onTextChange(componentID, textFieldStyle.text);
         caretClock.restart();
     }
 

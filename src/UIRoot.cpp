@@ -40,7 +40,7 @@ SFUI::Void SFUI::UIRoot::setRootComponent(SFUI::UniquePointer<SFUI::Component> r
 
 
 /**
- * @brief Handles input events by propagating to all children in the contained UI.
+ * @brief Handles input events by propagating to all components contained in the UI.
  * 
  * @param event The input event to handle.
  */
@@ -65,7 +65,7 @@ SFUI::Void SFUI::UIRoot::handleEvent(const SFUI::Event& event) {
 
 
 /**
- * @brief Updates all children in the contained UI.
+ * @brief Updates all components contained in the UI.
  * 
  * @param renderTargetSize The dimensions of the object to which the UI is rendering. 
  */
@@ -91,16 +91,20 @@ SFUI::Void SFUI::UIRoot::update(const SFUI::Vector2u renderTargetSize) {
 
 
 /**
- * @brief Draws all children in the contained UI.
+ * @brief Draws all components contained in the UI.
  * 
  * @param drawTarget The render target to draw on.
  * @param window The render window associated with the render target.
  */
 SFUI::Void SFUI::UIRoot::draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window) {
     if (!rootComponent) return;
-    glDisable(GL_SCISSOR_TEST);
+    
     // Depth-First Recursive Traversal Algorithm for UI Component Drawing //
+    glDisable(GL_SCISSOR_TEST);
     drawRecursive(rootComponent, drawTarget, window);
+
+    // Breadth-First Traversal Algorithm for UI Overlay Component Drawing //
+    drawOverlay(drawTarget, window);
 }
 
 
@@ -152,5 +156,32 @@ SFUI::Void SFUI::UIRoot::drawRecursive(const SFUI::UniquePointer<SFUI::Component
         glScissor(parentClipping[0], parentClipping[1], parentClipping[2], parentClipping[3]);
     }   else {
         glDisable(GL_SCISSOR_TEST);
+    }
+}
+
+
+/**
+ * @brief Draw the overlay components of the UI to the render target.
+ * 
+ * @param drawTarget Target to draw on.
+ * @param window Window reference.
+ */
+SFUI::Void SFUI::UIRoot::drawOverlay(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window) {
+    if (!rootComponent) return;
+
+    // Breadth-First Traversal Algorithm for UI Overlay Component Drawing //
+    std::deque<SFUI::Component*> childrenQueue;
+    childrenQueue.push_back(rootComponent.get());
+
+    while (!childrenQueue.empty()) {
+        SFUI::Component* currentChild = childrenQueue.front();
+        childrenQueue.pop_front();
+
+        const SFUI::Vector<SFUI::UniquePointer<SFUI::Component>>& currentChildChildren = currentChild->getChildren();
+        for (const auto& currentChildChild : currentChildChildren) {
+            childrenQueue.push_back(currentChildChild.get());
+        }
+
+        currentChild->drawOverlay(drawTarget, window);
     }
 }

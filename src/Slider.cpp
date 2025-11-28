@@ -187,6 +187,22 @@ SFUI::Void SFUI::Slider::draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow
 
 
 /**
+ * @brief Draw the component or inner components on an overlay layer on top of the main UI tree to the render target.
+ * 
+ * This is relevant for components that are actively animating and do not want their drawn geometry subject to
+ * clipping by their parents' bounds. It is also useful for inner components like tooltips, context menus, modals,
+ * and other special UI components. This meant to have a seperate second draw pass after the initial UI tree draw()
+ * function calls to the components.
+ * 
+ * @param drawTarget Target to draw on.
+ * @param window Window reference.
+ */
+SFUI::Void SFUI::Slider::drawOverlay(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window) {
+    thumb.drawOverlay(drawTarget, window);
+}
+
+
+/**
  * @brief Compute the alignment of the tracks within its bounding box.
  */
 SFUI::Void SFUI::Slider::computeTrackAlign() {
