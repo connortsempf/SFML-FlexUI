@@ -11,6 +11,7 @@
 
 
 #pragma once
+#include "Base/Animation.hpp"
 #include "Types/base.hpp"
 #include "Types/render.hpp"
 #include "Types/vector.hpp"
@@ -233,6 +234,11 @@ namespace SFUI {
              * @brief List of child components stored as unique pointers.
              */
             SFUI::Vector<SFUI::UniquePointer<SFUI::Component>> children;
+
+            /**
+             * @brief List of animations to perform on the component's props.
+             */
+            SFUI::Vector<SFUI::Animation> animations;
             
             /**
              * @brief Vertex arrays for rendering geometry with just rectangles.
