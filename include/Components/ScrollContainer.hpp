@@ -124,26 +124,6 @@ namespace SFUI {
             SFUI::Bool isHovered = false;
 
             /**
-             * @brief Whether the mouse is hovering over the scroll track region.
-             */
-            SFUI::Bool isTrackHovered = false;
-
-            /**
-             * @brief Whether the mouse is hovering over the scroll thumb.
-             */
-            SFUI::Bool isThumbHovered = false;
-
-            /**
-             * @brief Whether the scroll track is currently being pressed.
-             */
-            SFUI::Bool isTrackPressed = false;
-
-            /**
-             * @brief Whether the scroll thumb is currently being pressed.
-             */
-            SFUI::Bool isThumbPressed = false;
-
-            /**
              * @brief Current scroll offset of the content (x/y).
              */
             SFUI::Vector2f scrollOffset = {0.0f, 0.0f};

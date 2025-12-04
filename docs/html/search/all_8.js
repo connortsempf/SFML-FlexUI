@@ -19,14 +19,12 @@ var searchData=
   ['isrightpressed_16',['isRightPressed',['../class_s_f_u_i_1_1_button.html#a791f7a454f3791fc5531b8fd46b39d3e',1,'SFUI::Button']]],
   ['isshowingtooltip_17',['isShowingToolTip',['../class_s_f_u_i_1_1_button.html#acbc82b8f71f827b1c841c3f94f79b2d7',1,'SFUI::Button']]],
   ['issliding_18',['isSliding',['../class_s_f_u_i_1_1_slider.html#afec6d415d56951bbb9d8ed54d0940bf4',1,'SFUI::Slider']]],
-  ['isthumbhovered_19',['isThumbHovered',['../class_s_f_u_i_1_1_scroll_container.html#a4e04bdb1dc96b69cf45f0bee332cfd1f',1,'SFUI::ScrollContainer::isThumbHovered'],['../class_s_f_u_i_1_1_slider.html#ad8e9873517cdad17a93ac43a0eb114ec',1,'SFUI::Slider::isThumbHovered']]],
+  ['isthumbhovered_19',['isThumbHovered',['../class_s_f_u_i_1_1_slider.html#ad8e9873517cdad17a93ac43a0eb114ec',1,'SFUI::Slider']]],
   ['isthumbleftpressed_20',['isThumbLeftPressed',['../class_s_f_u_i_1_1_slider.html#a1f6bc0e37fbbe82211601b5b7f3e27f5',1,'SFUI::Slider']]],
   ['isthumbmiddlepressed_21',['isThumbMiddlePressed',['../class_s_f_u_i_1_1_slider.html#a2011d074feb65e60f0f6c05f6a9ed13f',1,'SFUI::Slider']]],
-  ['isthumbpressed_22',['isThumbPressed',['../class_s_f_u_i_1_1_scroll_container.html#a6044146b4e2ab376d2768de50eef616e',1,'SFUI::ScrollContainer']]],
-  ['isthumbrightpressed_23',['isThumbRightPressed',['../class_s_f_u_i_1_1_slider.html#ad353c1737830f0287e7c2ea2ebf45293',1,'SFUI::Slider']]],
-  ['istrackhovered_24',['isTrackHovered',['../class_s_f_u_i_1_1_scroll_container.html#aded3e7984bd2be0dad802fe85649d33e',1,'SFUI::ScrollContainer::isTrackHovered'],['../class_s_f_u_i_1_1_slider.html#ac7146dd31308db411d2c50fac079ee26',1,'SFUI::Slider::isTrackHovered']]],
-  ['istrackleftpressed_25',['isTrackLeftPressed',['../class_s_f_u_i_1_1_slider.html#a8804aca38e8628851a50f0a987b421d0',1,'SFUI::Slider']]],
-  ['istrackmiddlepressed_26',['isTrackMiddlePressed',['../class_s_f_u_i_1_1_slider.html#a6952d3823890c96da28c301c9d19a0a2',1,'SFUI::Slider']]],
-  ['istrackpressed_27',['isTrackPressed',['../class_s_f_u_i_1_1_scroll_container.html#aad133cba472ad76b2c33787668f7bc88',1,'SFUI::ScrollContainer']]],
-  ['istrackrightpressed_28',['isTrackRightPressed',['../class_s_f_u_i_1_1_slider.html#adb3246b27123becd527748a836ea125d',1,'SFUI::Slider']]]
+  ['isthumbrightpressed_22',['isThumbRightPressed',['../class_s_f_u_i_1_1_slider.html#ad353c1737830f0287e7c2ea2ebf45293',1,'SFUI::Slider']]],
+  ['istrackhovered_23',['isTrackHovered',['../class_s_f_u_i_1_1_slider.html#ac7146dd31308db411d2c50fac079ee26',1,'SFUI::Slider']]],
+  ['istrackleftpressed_24',['isTrackLeftPressed',['../class_s_f_u_i_1_1_slider.html#a8804aca38e8628851a50f0a987b421d0',1,'SFUI::Slider']]],
+  ['istrackmiddlepressed_25',['isTrackMiddlePressed',['../class_s_f_u_i_1_1_slider.html#a6952d3823890c96da28c301c9d19a0a2',1,'SFUI::Slider']]],
+  ['istrackrightpressed_26',['isTrackRightPressed',['../class_s_f_u_i_1_1_slider.html#adb3246b27123becd527748a836ea125d',1,'SFUI::Slider']]]
 ];

@@ -50,6 +50,10 @@ SFUI::Void SFUI::ScrollContainer::handleEvent(const SFUI::Event& event) {
 
     // Mouse Wheel Scrolled Event Handling //
     if (const SFUI::Event::MouseWheelScrolled* mouseWheelScrolledEvent = event.getIf<SFUI::Event::MouseWheelScrolled>()) {
+        const SFUI::Vector2i mousePosition = SFUI::Vector2i(mouseWheelScrolledEvent->position.x, mouseWheelScrolledEvent->position.y);
+        SFUI::Bool scrollAreaHovered = isMouseHovered(mousePosition);
+        if (!scrollAreaHovered) return;
+
         if (mouseWheelScrolledEvent->wheel == sf::Mouse::Wheel::Vertical) {
             if (computedScrollContainerStyle.scrollDirection == "vertical" || computedScrollContainerStyle.scrollDirection == "both") {
                 SFUI::Float newScrollOffsetY = scrollOffset.y + (mouseWheelScrolledEvent->delta * computedScrollContainerStyle.scrollSpeedFactor);
@@ -63,7 +67,8 @@ SFUI::Void SFUI::ScrollContainer::handleEvent(const SFUI::Event& event) {
                         scrollOffset.y = std::clamp(newScrollOffsetY, 0.0f, maxScrollOffset.y);
                 }
             }
-        }   else if (mouseWheelScrolledEvent->wheel == sf::Mouse::Wheel::Vertical) {
+        }
+        else if (mouseWheelScrolledEvent->wheel == sf::Mouse::Wheel::Vertical) {
             if (computedScrollContainerStyle.scrollDirection == "horizontal" || computedScrollContainerStyle.scrollDirection == "both") {
                 SFUI::Float newScrollOffsetX = scrollOffset.x + (mouseWheelScrolledEvent->delta * computedScrollContainerStyle.scrollSpeedFactor);
                 if ((computedLayout.alignDirection == SFUI::Component::AlignDirection::Horizontal && computedLayout.alignPrimary == SFUI::Component::AlignPrimary::Start) ||
