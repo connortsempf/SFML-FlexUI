@@ -1,5 +1,5 @@
 # SFML FlexUI #
-**A modern, flexible UI library for SFML written in C++20.**  
+**A modern, flexible UI library for SFML written in C++20.**
 SFML-FlexUI is a C++ library that brings flexible, reactive, and modern UI components to SFML applications.
 It uses SFML behind the scenes for input event handling, drawing to windows, and more. It’s designed for developers
 who want clean layouts, fully customizable widgets, and an intuitive API for building complex interfaces quickly.
@@ -12,13 +12,13 @@ Build rich, responsive interfaces with composable components, powerful layout op
 
 
 ## 🚀 Features ##
-- **🎨 Flexible Layouts:** Vertical, horizontal, and mixed alignment with full control over padding, margin, and sizing.  
-- **🖼️ Rich Components:** Buttons, Labels, Toggles, Sliders, ScrollContainers, Graphics, TextFields, all fully customizable.  
-- **⚡ State & Style Separation:** Clean separation between styles, states, and behavior for each component.  
-- **🖥️ Event Handling:** Built-in support for SFML events and custom callbacks for interactive UIs.  
-- **🛡️ Type Safety & Aliases:** Extensive use of type aliases, smart pointers, and variants for robust and safe design.  
-- **📚 Fully Documented:** Doxygen-ready headers and source files for quick reference and easy learning.  
-- **⏱️ Real-time Updates:** Reactive UI with efficient update loops and responsive interactions.  
+- **🎨 Flexible Layouts:** Vertical, horizontal, and mixed alignment with full control over padding, margin, and sizing.
+- **🖼️ Rich Components:** Buttons, Labels, Toggles, Sliders, ScrollContainers, Graphics, TextFields, all fully customizable.
+- **⚡ State & Style Separation:** Clean separation between styles, states, and behavior for each component.
+- **🖥️ Event Handling:** Built-in support for SFML events and custom callbacks for interactive UIs.
+- **🛡️ Type Safety & Aliases:** Extensive use of type aliases, smart pointers, and variants for robust and safe design.
+- **📚 Fully Documented:** Doxygen-ready headers and source files for quick reference and easy learning.
+- **⏱️ Real-time Updates:** Reactive UI with efficient update loops and responsive interactions.
 - **🧩 Easy Integration:** Lightweight, header-only style API for seamless use in SFML projects.
 
 
@@ -77,7 +77,7 @@ int main() {
     SFUI::Container container("rootContainer");
     SFUI::Button button("button");
     SFUI::Button label("buttonText");
-    
+
     // Construct the UI Tree //
     container.addChild(button);
     button.addChild(label)
@@ -91,6 +91,12 @@ int main() {
             if (event.has_value()) uiRoot.handleEvent(*event);
 
             if (event->is<sf::Event::Closed>()) window.close();
+
+            // Do Not Let SFML Scale and Resize Screen Elements by Default -- SFML-FlexUI Does that Itself //
+            if (const sf::Event::Resized* resizedEvent = event->getIf<sf::Event::Resized>()) {
+                sf::FloatRect visibleArea({0.f, 0.f}, sf::Vector2f(resizedEvent->size));
+                window.setView(sf::View(visibleArea));
+            }
         }
 
         // Update the Components //
@@ -100,7 +106,7 @@ int main() {
 
         // Draw the Components //
         uiRoot.draw(window, window);
-        
+
         window.display();
     }
 }
@@ -173,8 +179,8 @@ target_link_libraries(YourProject PRIVATE path/to/lib/sfml-flexui-lib-file)
 
 
 ## 📄 License & Attribution ##
-SFML-FlexUI is licensed under the MIT License.  
-SFML-FlexUI links against [SFML (Simple and Fast Multimedia Library)](https://www.sfml-dev.org/), which is licensed under the [zlib/png license](https://www.sfml-dev.org/license.php).  
+SFML-FlexUI is licensed under the MIT License.
+SFML-FlexUI links against [SFML (Simple and Fast Multimedia Library)](https://www.sfml-dev.org/), which is licensed under the [zlib/png license](https://www.sfml-dev.org/license.php).
 
-You are free to use, modify, and distribute SFML-FlexUI in your projects, including commercially.  
+You are free to use, modify, and distribute SFML-FlexUI in your projects, including commercially.
 Please note that SFML is not authored by the SFML-FlexUI team; all credit for SFML goes to the SFML contributors.
