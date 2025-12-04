@@ -2,8 +2,8 @@
  * @file vector.hpp
  * @brief Defines vector structures (2D, 3D, 4D) used in SFUI for geometry, size, and color data.
  * @author Connor Sempf
- * @date 2025-11-15
- * @version 1.0
+ * @date 2025-12-04
+ * @version 2.0.0
  *
  * This file contains structures like Vector2f, Vector3i, Vector4ui8, etc.,
  * with constructors, equality operators, and optional conversion to SFML types.
@@ -36,7 +36,7 @@ namespace SFUI {
             return (x == other.x && y == other.y);
         }
     };
-    
+
     /**
      * @brief Signed 2D vector type used throughout SFUI.
      *
@@ -55,7 +55,7 @@ namespace SFUI {
             return (x == other.x && y == other.y);
         }
     };
-    
+
     /**
      * @brief Floating-point 2D vector type used by SFUI.
      *
@@ -108,7 +108,7 @@ namespace SFUI {
             return (x == other.x && y == other.y && z == other.z);
         }
     };
-    
+
     /**
      * @brief 3D vector of signed integers.
      *
@@ -128,7 +128,7 @@ namespace SFUI {
             return (x == other.x && y == other.y && z == other.z);
         }
     };
-    
+
     /**
      * @brief 3D vector of floating-point values.
      *
@@ -182,7 +182,7 @@ namespace SFUI {
             return (x == other.x && y == other.y && z == other.z && w == other.w);
         }
     };
-    
+
     /**
      * @brief 4D vector of signed integers.
      */
@@ -198,7 +198,7 @@ namespace SFUI {
             return (x == other.x && y == other.y && z == other.z && w == other.w);
         }
     };
-    
+
     /**
      * @brief 4D vector of floating-point values.
      */

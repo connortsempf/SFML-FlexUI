@@ -2,8 +2,8 @@
  * @file SFML-FlexUI.hpp
  * @brief Main SFUI include file that aggregates core types, base classes, and components.
  * @author Connor Sempf
- * @date 2025-11-15
- * @version 1.0
+ * @date 2025-12-04
+ * @version 2.0.0
  *
  * This file includes all primary SFUI headers, providing a single
  * entry point for using the library. It covers:
@@ -22,10 +22,10 @@
 #include "Types/base.hpp"
 #include "Types/render.hpp"
 #include "Types/vector.hpp"
-#include "Types/subprop.hpp"
 #include "Types/prop.hpp"
-#include "Types/computedprop.hpp"
 #include "Types/propgroup.hpp"
+#include "Types/propset.hpp"
+#include "Types/computedprop.hpp"
 
 
 // Base //

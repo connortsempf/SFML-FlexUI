@@ -1,9 +1,9 @@
 /**
  * @file Graphic.cpp
- * @brief Implements the SFUI Graphic component. 
+ * @brief Implements the SFUI Graphic component.
  * @author Connor Sempf
- * @date 2025-11-15
- * @version 1.0
+ * @date 2025-12-04
+ * @version 2.0.0
  *
  * This file contains the function definitions and internal logic for the
  * SFUI Graphic component. It handles:
@@ -16,12 +16,12 @@
  */
 
 
-#include "components/Graphic.hpp"
+#include "Components/Graphic.hpp"
 
 
 /**
  * @brief The constructor of the Graphic component.
- * 
+ *
  * @param componentID The unique identifier for the component.
  */
 SFUI::Graphic::Graphic(SFUI::String componentID) :
@@ -32,48 +32,45 @@ SFUI::Graphic::Graphic(SFUI::String componentID) :
 
 /**
  * @brief Handle the given event.
- * 
+ *
  * @param event The event to handle.
  */
 SFUI::Void SFUI::Graphic::handleEvent(const SFUI::Event& event) {}
 
 
 /**
+ * @brief Handle the pre updaate updates for the component.
+ */
+SFUI::Void SFUI::Graphic::preUpdate() {
+    this->baseLayout = this->layout;
+    this->baseStyle = this->style;
+    this->baseState = this->state;
+}
+
+
+/**
  * @brief Recalculate the component's properties.
- * 
+ *
  * @param renderTargetSize The size of the render target.
  */
 SFUI::Void SFUI::Graphic::update(const SFUI::Vector2u renderTargetSize) {
-    if (
-        this->renderTargetSize != renderTargetSize ||
-        layout != dirtyLayout ||
-        style != dirtyStyle ||
-        graphicStyle != dirtyGraphicStyle ||
-        dirtyEvent
-    ) {
-        this->renderTargetSize = renderTargetSize;
-        computeAlignment();
-        computeLayoutBox();
-        computeStyles();
-        computeColors();
-        computeShadows();
-        computeGraphics();
-        computeChildrenLayoutBox();
-        updateChildren();
-        computeGraphicSource();
-        computeGraphicLayout();
-    }
     this->renderTargetSize = renderTargetSize;
-    dirtyLayout = layout;
-    dirtyStyle = style;
-    dirtyGraphicStyle = graphicStyle;
-
+    computeAlignment();
+    computeLayoutBox();
+    computeStyles();
+    computeColors();
+    computeShadows();
+    computeGraphics();
+    computeChildrenLayoutBox();
+    updateChildren();
+    computeGraphicSource();
+    computeGraphicLayout();
 }
 
 
 /**
  * @brief Draw the component to the given render target.
- * 
+ *
  * @param drawTarget The render target to draw to.
  * @param window The render window associated with the render target.
  */
@@ -84,7 +81,7 @@ SFUI::Void SFUI::Graphic::draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindo
     drawTarget.draw(backgroundArcs);
     drawTarget.draw(borderRects);
     drawTarget.draw(borderArcs);
-    
+
     // Save Clipping State for Containing The Sprite within Graphic's Bounds and Padding //
     GLint parentClipping[4];
     GLboolean scissorWasEnabled = glIsEnabled(GL_SCISSOR_TEST);
@@ -111,8 +108,8 @@ SFUI::Void SFUI::Graphic::draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindo
         newClipping[3] = std::max(0, newClipping[3]);
     };
     glEnable(GL_SCISSOR_TEST);
-    glScissor(newClipping[0], newClipping[1], newClipping[2], newClipping[3]);        
-    
+    glScissor(newClipping[0], newClipping[1], newClipping[2], newClipping[3]);
+
     // Draw Clipped Sprite //
     drawTarget.draw(graphic);
 
@@ -127,12 +124,12 @@ SFUI::Void SFUI::Graphic::draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindo
 
 /**
  * @brief Draw the component or inner components on an overlay layer on top of the main UI tree to the render target.
- * 
+ *
  * This is relevant for components that are actively animating and do not want their drawn geometry subject to
  * clipping by their parents' bounds. It is also useful for inner components like tooltips, context menus, modals,
  * and other special UI components. This meant to have a seperate second draw pass after the initial UI tree draw()
  * function calls to the components.
- * 
+ *
  * @param drawTarget Target to draw on.
  * @param window Window reference.
  */
@@ -141,7 +138,7 @@ SFUI::Void SFUI::Graphic::drawOverlay(SFUI::RenderTarget& drawTarget, SFUI::Rend
 
 /**
  * @brief Get the original size at the time of loading for the texture used in the graphic.
- * 
+ *
  * @return The original texture size as a Vector2f.
  */
 SFUI::Vector2f SFUI::Graphic::getOriginalTextureSize() {
@@ -154,10 +151,10 @@ SFUI::Vector2f SFUI::Graphic::getOriginalTextureSize() {
  */
 SFUI::Void SFUI::Graphic::computeGraphicSource() {
     // Check if Pre-Loaded Texture was Provided //
-    if (graphicStyle.loadedGraphic.has_value()) {
+    if (style.loadedGraphic.has_value()) {
         loadType = SFUI::Graphic::LoadType::PRE_LOAD;
         if (loadState == SFUI::Graphic::LoadState::PRE_LOAD_UNLOADED) {
-            graphic = SFUI::Sprite(*graphicStyle.loadedGraphic.value());
+            graphic = SFUI::Sprite(*style.loadedGraphic.value());
             computedGraphicStyle.originalTextureSize = {graphic.getGlobalBounds().size.x, graphic.getGlobalBounds().size.y};
             loadState = SFUI::Graphic::LoadState::PRE_LOAD_LOADED;
         }
@@ -165,15 +162,15 @@ SFUI::Void SFUI::Graphic::computeGraphicSource() {
     }
 
     // Check if Non-Loaded Texture Path was Given //
-    if (graphicStyle.graphicPath.has_value() && graphicStyle.graphicPath.value() != "") {
+    if (style.graphicPath.has_value() && style.graphicPath.value() != "") {
         SFUI::Graphic::LoadType::SELF_LOAD;
-        if (graphicStyle.graphicPath.value() != computedGraphicStyle.graphicPath) {
+        if (style.graphicPath.value() != computedGraphicStyle.graphicPath) {
             loadState = SFUI::Graphic::LoadState::SELF_LOAD_UNLOADED;
-            computedGraphicStyle.graphicPath = graphicStyle.graphicPath.value();
+            computedGraphicStyle.graphicPath = style.graphicPath.value();
             if (!graphicSource.loadFromFile(computedGraphicStyle.graphicPath)) {
-                if (graphicBehavior.onLoadError) graphicBehavior.onLoadError(componentID);
+                if (behavior.onLoadError) behavior.onLoadError(componentID);
             }   else {
-                if (graphicBehavior.onLoad) graphicBehavior.onLoad(componentID);
+                if (behavior.onLoad) behavior.onLoad(componentID);
                 graphic = SFUI::Sprite(graphicSource);
                 computedGraphicStyle.originalTextureSize = {graphic.getGlobalBounds().size.x, graphic.getGlobalBounds().size.y};
             }
@@ -188,7 +185,7 @@ SFUI::Void SFUI::Graphic::computeGraphicSource() {
 SFUI::Void SFUI::Graphic::computeGraphicLayout() {
 
     // Alignment //
-    SFUI::String computedAlign = graphicStyle.graphicAlign;
+    SFUI::String computedAlign = style.graphicAlign;
     std::transform(computedAlign.begin(), computedAlign.end(), computedAlign.begin(), [](unsigned char c) {
         return std::tolower(c);
     });

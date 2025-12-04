@@ -1,9 +1,9 @@
 /**
  * @file ScrollContainer.cpp
- * @brief Implements the SFUI ScrollContainer component. 
+ * @brief Implements the SFUI ScrollContainer component.
  * @author Connor Sempf
- * @date 2025-11-15
- * @version 1.0
+ * @date 2025-12-04
+ * @version 2.0.0
  *
  * This file contains the function definitions and internal logic for the
  * SFUI ScrollContainer component. It handles:
@@ -16,12 +16,12 @@
  */
 
 
-#include "components/ScrollContainer.hpp"
+#include "Components/ScrollContainer.hpp"
 
 
 /**
  * @brief The constructor for ScrollContainer.
- * 
+ *
  * @param componentID The unique identifier for the scroll container component.
  */
 SFUI::ScrollContainer::ScrollContainer(SFUI::String componentID) :
@@ -31,7 +31,7 @@ SFUI::ScrollContainer::ScrollContainer(SFUI::String componentID) :
 
 /**
  * @brief Handle input events for the scroll container.
- * 
+ *
  * @param event The input event to handle.
  */
 SFUI::Void SFUI::ScrollContainer::handleEvent(const SFUI::Event& event) {
@@ -39,7 +39,7 @@ SFUI::Void SFUI::ScrollContainer::handleEvent(const SFUI::Event& event) {
     if (const SFUI::Event::MouseMoved* mouseMovedEvent = event.getIf<SFUI::Event::MouseMoved>()) {
         const SFUI::Vector2i mousePosition = SFUI::Vector2i(mouseMovedEvent->position.x, mouseMovedEvent->position.y);
         SFUI::Bool scrollAreaHovered = isMouseHovered(mousePosition);
-        
+
         if (scrollAreaHovered) {
             if (!isHovered) isHovered = true;
         }
@@ -52,30 +52,28 @@ SFUI::Void SFUI::ScrollContainer::handleEvent(const SFUI::Event& event) {
     if (const SFUI::Event::MouseWheelScrolled* mouseWheelScrolledEvent = event.getIf<SFUI::Event::MouseWheelScrolled>()) {
         if (mouseWheelScrolledEvent->wheel == sf::Mouse::Wheel::Vertical) {
             if (computedScrollContainerStyle.scrollDirection == "vertical" || computedScrollContainerStyle.scrollDirection == "both") {
-                dirtyEvent = true;
                 SFUI::Float newScrollOffsetY = scrollOffset.y + (mouseWheelScrolledEvent->delta * computedScrollContainerStyle.scrollSpeedFactor);
                 if ((computedLayout.alignDirection == SFUI::Component::AlignDirection::Vertical && computedLayout.alignPrimary == SFUI::Component::AlignPrimary::Start) ||
                     (computedLayout.alignDirection == SFUI::Component::AlignDirection::Horizontal && computedLayout.alignSecondary == SFUI::Component::AlignSecondary::Start)) {
-                        if (newScrollOffsetY > -maxScrollOffset.y && newScrollOffsetY < 0.0f && scrollContainerBehavior.onScroll) scrollContainerBehavior.onScroll(componentID); 
+                        if (newScrollOffsetY > -maxScrollOffset.y && newScrollOffsetY < 0.0f && behavior.onScroll) behavior.onScroll(componentID);
                         scrollOffset.y = std::clamp(newScrollOffsetY, -maxScrollOffset.y, 0.0f);
                 }   else if ((computedLayout.alignDirection == SFUI::Component::AlignDirection::Vertical && computedLayout.alignPrimary == SFUI::Component::AlignPrimary::End) ||
                     (computedLayout.alignDirection == SFUI::Component::AlignDirection::Horizontal && computedLayout.alignSecondary == SFUI::Component::AlignSecondary::End)) {
-                        if (newScrollOffsetY > 0.0f && newScrollOffsetY < maxScrollOffset.y && scrollContainerBehavior.onScroll) scrollContainerBehavior.onScroll(componentID);
+                        if (newScrollOffsetY > 0.0f && newScrollOffsetY < maxScrollOffset.y && behavior.onScroll) behavior.onScroll(componentID);
                         scrollOffset.y = std::clamp(newScrollOffsetY, 0.0f, maxScrollOffset.y);
                 }
             }
         }   else if (mouseWheelScrolledEvent->wheel == sf::Mouse::Wheel::Vertical) {
             if (computedScrollContainerStyle.scrollDirection == "horizontal" || computedScrollContainerStyle.scrollDirection == "both") {
-                dirtyEvent = true;
                 SFUI::Float newScrollOffsetX = scrollOffset.x + (mouseWheelScrolledEvent->delta * computedScrollContainerStyle.scrollSpeedFactor);
                 if ((computedLayout.alignDirection == SFUI::Component::AlignDirection::Horizontal && computedLayout.alignPrimary == SFUI::Component::AlignPrimary::Start) ||
                     (computedLayout.alignDirection == SFUI::Component::AlignDirection::Vertical && computedLayout.alignSecondary == SFUI::Component::AlignSecondary::Start)) {
-                        if (newScrollOffsetX > -maxScrollOffset.y && newScrollOffsetX < 0.0f && scrollContainerBehavior.onScroll) scrollContainerBehavior.onScroll(componentID);
+                        if (newScrollOffsetX > -maxScrollOffset.y && newScrollOffsetX < 0.0f && behavior.onScroll) behavior.onScroll(componentID);
                         scrollOffset.x = std::clamp(newScrollOffsetX, -maxScrollOffset.x, 0.0f);
                 }
                 else if ((computedLayout.alignDirection == SFUI::Component::AlignDirection::Horizontal && computedLayout.alignPrimary == SFUI::Component::AlignPrimary::End) ||
                     (computedLayout.alignDirection == SFUI::Component::AlignDirection::Vertical && computedLayout.alignSecondary == SFUI::Component::AlignSecondary::End)) {
-                        if (newScrollOffsetX > 0.0f && newScrollOffsetX < maxScrollOffset.x && scrollContainerBehavior.onScroll) scrollContainerBehavior.onScroll(componentID);
+                        if (newScrollOffsetX > 0.0f && newScrollOffsetX < maxScrollOffset.x && behavior.onScroll) behavior.onScroll(componentID);
                         scrollOffset.x = std::clamp(newScrollOffsetX, 0.0f, maxScrollOffset.x);
                 }
             }
@@ -85,42 +83,39 @@ SFUI::Void SFUI::ScrollContainer::handleEvent(const SFUI::Event& event) {
 
 
 /**
+ * @brief Handle the pre updaate updates for the component.
+ */
+SFUI::Void SFUI::ScrollContainer::preUpdate() {
+    this->baseLayout = this->layout;
+    this->baseStyle = this->style;
+    this->baseState = this->state;
+}
+
+
+/**
  * @brief Recalculate the properties of the scroll container.
- * 
+ *
  * @param renderTargetSize The size of the render target.
  */
 SFUI::Void SFUI::ScrollContainer::update(const SFUI::Vector2u renderTargetSize) {
-    if (
-        this->renderTargetSize != renderTargetSize ||
-        layout != dirtyLayout ||
-        style != dirtyStyle ||
-        scrollContainerStyle != dirtyScrollContainerStyle ||
-        dirtyEvent
-    ) {
-        this->renderTargetSize = renderTargetSize;
-        computeAlignment();
-        computeLayoutBox();
-        computeStyles();
-        computeColors();
-        computeShadows();
-        computeGraphics();
-        computeChildrenLayoutBox();
-        computeAlignPrimary();
-        computeScrollDynamics();
-        computeChildrenScrollPosition();
-        updateChildren();
-        dirtyEvent = false;
-    }
     this->renderTargetSize = renderTargetSize;
-    dirtyLayout = layout;
-    dirtyStyle = style;
-    dirtyScrollContainerStyle = scrollContainerStyle;
+    computeAlignment();
+    computeLayoutBox();
+    computeStyles();
+    computeColors();
+    computeShadows();
+    computeGraphics();
+    computeChildrenLayoutBox();
+    computeAlignPrimary();
+    computeScrollDynamics();
+    computeChildrenScrollPosition();
+    updateChildren();
 }
 
 
 /**
  * @brief Draw the scroll container and its contents.
- * 
+ *
  * @param drawTarget The render target to draw to.
  * @param window The render window associated with the render target.
  */
@@ -136,12 +131,12 @@ SFUI::Void SFUI::ScrollContainer::draw(SFUI::RenderTarget& drawTarget, SFUI::Ren
 
 /**
  * @brief Draw the component or inner components on an overlay layer on top of the main UI tree to the render target.
- * 
+ *
  * This is relevant for components that are actively animating and do not want their drawn geometry subject to
  * clipping by their parents' bounds. It is also useful for inner components like tooltips, context menus, modals,
  * and other special UI components. This meant to have a seperate second draw pass after the initial UI tree draw()
  * function calls to the components.
- * 
+ *
  * @param drawTarget Target to draw on.
  * @param window Window reference.
  */
@@ -168,7 +163,7 @@ SFUI::Void SFUI::ScrollContainer::computeAlignPrimary() {
  */
 SFUI::Void SFUI::ScrollContainer::computeScrollDynamics() {
     // Scroll Direction //
-    SFUI::String tempAlign = scrollContainerStyle.scrollDirection;
+    SFUI::String tempAlign = style.scrollDirection;
     std::transform(tempAlign.begin(), tempAlign.end(), tempAlign.begin(), [](unsigned char c) {
         return std::tolower(c);
     });
@@ -178,8 +173,8 @@ SFUI::Void SFUI::ScrollContainer::computeScrollDynamics() {
         computedScrollContainerStyle.scrollDirection = "vertical";
 
     // Scroll Speed Factor //
-    if (scrollContainerStyle.scrollSpeedFactor == 0) computedScrollContainerStyle.scrollSpeedFactor = 15.0f;
-    else computedScrollContainerStyle.scrollSpeedFactor = scrollContainerStyle.scrollSpeedFactor;
+    if (style.scrollSpeedFactor == 0) computedScrollContainerStyle.scrollSpeedFactor = 15.0f;
+    else computedScrollContainerStyle.scrollSpeedFactor = style.scrollSpeedFactor;
 
     // Maximum Scroll Offset //
     const SFUI::Vector<SFUI::UniquePointer<SFUI::Component>>& children = this->getChildren();

@@ -2,8 +2,8 @@
  * @file UIRoot.cpp
  * @brief Implements the SFUI UIRoot class for managing the UI hierarchy.
  * @author Connor Sempf
- * @date 2025-11-15
- * @version 1.0
+ * @date 2025-12-04
+ * @version 2.0.0
  *
  * This file contains the function definitions and internal logic for the
  * SFUI UIRoot class. It handles:
@@ -21,7 +21,7 @@
 
 /**
  * @brief Constructor for UIRoot.
- * 
+ *
  * @param rootComponent The root component of the UI hierarchy.
  */
 SFUI::UIRoot::UIRoot(SFUI::UniquePointer<SFUI::Component> rootComponent) :
@@ -31,7 +31,7 @@ SFUI::UIRoot::UIRoot(SFUI::UniquePointer<SFUI::Component> rootComponent) :
 
 /**
  * @brief Sets the root component of the UI hierarchy.
- * 
+ *
  * @param rootComponent The new root component.
  */
 SFUI::Void SFUI::UIRoot::setRootComponent(SFUI::UniquePointer<SFUI::Component> rootComponent) {
@@ -41,12 +41,12 @@ SFUI::Void SFUI::UIRoot::setRootComponent(SFUI::UniquePointer<SFUI::Component> r
 
 /**
  * @brief Handles input events by propagating to all components contained in the UI.
- * 
+ *
  * @param event The input event to handle.
  */
 SFUI::Void SFUI::UIRoot::handleEvent(const SFUI::Event& event) {
     if (!rootComponent) return;
-        
+
     // Breadth-First Traversal Algorithm for UI Component Drawing //
     std::deque<SFUI::Component*> childrenQueue;
     childrenQueue.push_back(rootComponent.get());
@@ -66,25 +66,37 @@ SFUI::Void SFUI::UIRoot::handleEvent(const SFUI::Event& event) {
 
 /**
  * @brief Updates all components contained in the UI.
- * 
- * @param renderTargetSize The dimensions of the object to which the UI is rendering. 
+ *
+ * @param renderTargetSize The dimensions of the object to which the UI is rendering.
  */
 SFUI::Void SFUI::UIRoot::update(const SFUI::Vector2u renderTargetSize) {
     if (!rootComponent) return;
 
-    // Breadth-First Traversal Algorithm for UI Component Updating //
+    // Breadth-First Traversal Algorithm for UI Component Pre-Updating //
     std::deque<SFUI::Component*> childrenQueue;
     childrenQueue.push_back(rootComponent.get());
 
     while (!childrenQueue.empty()) {
         SFUI::Component* currentChild = childrenQueue.front();
         childrenQueue.pop_front();
-
         const SFUI::Vector<SFUI::UniquePointer<SFUI::Component>>& currentChildChildren = currentChild->getChildren();
         for (const auto& currentChildChild : currentChildChildren) {
             childrenQueue.push_back(currentChildChild.get());
         }
+        currentChild->preUpdate();
+    }
 
+    // Breadth-First Traversal Algorithm for UI Component Updating //
+    childrenQueue.clear();
+    childrenQueue.push_back(rootComponent.get());
+
+    while (!childrenQueue.empty()) {
+        SFUI::Component* currentChild = childrenQueue.front();
+        childrenQueue.pop_front();
+        const SFUI::Vector<SFUI::UniquePointer<SFUI::Component>>& currentChildChildren = currentChild->getChildren();
+        for (const auto& currentChildChild : currentChildChildren) {
+            childrenQueue.push_back(currentChildChild.get());
+        }
         currentChild->update(renderTargetSize);
     }
 }
@@ -92,13 +104,13 @@ SFUI::Void SFUI::UIRoot::update(const SFUI::Vector2u renderTargetSize) {
 
 /**
  * @brief Draws all components contained in the UI.
- * 
+ *
  * @param drawTarget The render target to draw on.
  * @param window The render window associated with the render target.
  */
 SFUI::Void SFUI::UIRoot::draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window) {
     if (!rootComponent) return;
-    
+
     // Depth-First Recursive Traversal Algorithm for UI Component Drawing //
     glDisable(GL_SCISSOR_TEST);
     drawRecursive(rootComponent, drawTarget, window);
@@ -110,7 +122,7 @@ SFUI::Void SFUI::UIRoot::draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow
 
 /**
  * @brief Recursive helper function to draw components and their children.
- * 
+ *
  * @param component The current component to draw.
  * @param drawTarget The render target to draw on.
  * @param window The render window associated with the render target.
@@ -144,8 +156,8 @@ SFUI::Void SFUI::UIRoot::drawRecursive(const SFUI::UniquePointer<SFUI::Component
         newClipping[3] = std::max(0, newClipping[3]);
     };
     glEnable(GL_SCISSOR_TEST);
-    glScissor(newClipping[0], newClipping[1], newClipping[2], newClipping[3]);        
-    
+    glScissor(newClipping[0], newClipping[1], newClipping[2], newClipping[3]);
+
     // Recursive Draw Call //
     for (const auto& child : component->getChildren()) {
         drawRecursive(child, drawTarget, window);
@@ -162,7 +174,7 @@ SFUI::Void SFUI::UIRoot::drawRecursive(const SFUI::UniquePointer<SFUI::Component
 
 /**
  * @brief Draw the overlay components of the UI to the render target.
- * 
+ *
  * @param drawTarget Target to draw on.
  * @param window Window reference.
  */

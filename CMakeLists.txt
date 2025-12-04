@@ -95,6 +95,8 @@ if(PROJECT_LINK_TYPE STREQUAL "STATIC")
     target_compile_definitions(sfml-flexui PUBLIC SFML_STATIC)
 endif()
 
+target_compile_options(sfml-flexui PRIVATE -g -O0)
+
 
 
 
@@ -106,8 +108,8 @@ endif()
 option(BUILD_EXAMPLES "Build Example Programs" OFF)
 if (BUILD_EXAMPLES)
     add_subdirectory(examples)
-    
+
     if (WIN32)
-        set_target_properties(demo PROPERTIES WIN32_EXECUTABLE TRUE)
+        set_target_properties(Demo PROPERTIES WIN32_EXECUTABLE TRUE)
     endif()
 endif()

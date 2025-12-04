@@ -1,9 +1,9 @@
 /**
  * @file Button.cpp
- * @brief Implements the SFUI Button component. 
+ * @brief Implements the SFUI Button component.
  * @author Connor Sempf
- * @date 2025-11-15
- * @version 1.0
+ * @date 2025-12-04
+ * @version 2.0.0
  *
  * This file contains the function definitions and internal logic for the
  * SFUI Button component. It handles:
@@ -16,7 +16,7 @@
  */
 
 
-#include "components/Button.hpp"
+#include "Components/Button.hpp"
 
 
 /**
@@ -33,11 +33,11 @@ const SFUI::Time SFUI::Button::TOOL_TIP_THRESHOLD_MS = sf::milliseconds(1000);
 
 /**
  * @brief The constructor for Button.
- * 
+ *
  * @param componentID The unique identifier for the button component.
  */
 SFUI::Button::Button(SFUI::String componentID) :
-    Component(std::move(componentID)),
+    Component(componentID),
     focus(componentID + "_Focus"),
     toolTip(componentID + "_ToolTip")
 {}
@@ -45,23 +45,22 @@ SFUI::Button::Button(SFUI::String componentID) :
 
 /**
  * @brief Handle events for the Button component.
- * 
+ *
  * @param event The event to handle.
  */
 SFUI::Void SFUI::Button::handleEvent(const SFUI::Event& event) {
-    if (buttonState.isDisabled) return;
+    if (state.isDisabled) return;
 
     // Mouse Moved Event Handling //
     if (const SFUI::Event::MouseMoved* mouseMovedEvent = event.getIf<SFUI::Event::MouseMoved>()) {
         const SFUI::Vector2i mousePosition = SFUI::Vector2i(mouseMovedEvent->position.x, mouseMovedEvent->position.y);
         SFUI::Bool buttonHovered = isMouseHovered(mousePosition);
-        
+
         if (buttonHovered) {
             if (!isHovered) {
                 toolTipClock.restart();
                 isHovered = true;
-                dirtyEvent = true;
-                if (buttonBehavior.onHoverIn) buttonBehavior.onHoverIn(componentID);
+                if (behavior.onHoverIn) behavior.onHoverIn(componentID);
             }   else if (!isShowingToolTip) {
                 previousHoverPosition = {static_cast<SFUI::Float>(mousePosition.x), static_cast<SFUI::Float>(mousePosition.y)};
             }
@@ -69,12 +68,11 @@ SFUI::Void SFUI::Button::handleEvent(const SFUI::Event& event) {
         else if (!buttonHovered) {
             if (isHovered) {
                 isHovered = false;
-                dirtyEvent = true;
                 if (isShowingToolTip) {
                     isShowingToolTip = false;
                     toolTipClock.stop();
                 }
-                if (buttonBehavior.onHoverOut) buttonBehavior.onHoverOut(componentID);
+                if (behavior.onHoverOut) behavior.onHoverOut(componentID);
             }   else {
                 if (isShowingToolTip) {
                     isShowingToolTip = false;
@@ -97,10 +95,9 @@ SFUI::Void SFUI::Button::handleEvent(const SFUI::Event& event) {
                 toolTipClock.restart();
                 toolTipClock.stop();
             }
-            if (buttonState.isFocused) {
-                buttonState.isFocused = false;
-                dirtyEvent = true;
-                if (buttonBehavior.onBlur) buttonBehavior.onBlur(componentID);
+            if (state.isFocused) {
+                state.isFocused = false;
+                if (behavior.onBlur) behavior.onBlur(componentID);
             }
         }
         if (buttonHovered) {
@@ -113,20 +110,17 @@ SFUI::Void SFUI::Button::handleEvent(const SFUI::Event& event) {
                 toolTipClock.stop();
                 if (!isLeftPressed) {
                     isLeftPressed = true;
-                    dirtyEvent = true;
-                    if (buttonBehavior.onLeftPressIn) buttonBehavior.onLeftPressIn(componentID);
+                    if (behavior.onLeftPressIn) behavior.onLeftPressIn(componentID);
                 }
             }   else if (mouseButton == sf::Mouse::Button::Right) {
                 if (!isRightPressed) {
                     isRightPressed = true;
-                    dirtyEvent = true;
-                    if (buttonBehavior.onRightPressIn) buttonBehavior.onRightPressIn(componentID);
+                    if (behavior.onRightPressIn) behavior.onRightPressIn(componentID);
                 }
             }   else if (mouseButton == sf::Mouse::Button::Middle) {
                 if (!isMiddlePressed) {
                     isMiddlePressed = true;
-                    dirtyEvent = true;
-                    if (buttonBehavior.onMiddlePressIn) buttonBehavior.onMiddlePressIn(componentID);
+                    if (behavior.onMiddlePressIn) behavior.onMiddlePressIn(componentID);
                 }
             }
         }
@@ -141,77 +135,72 @@ SFUI::Void SFUI::Button::handleEvent(const SFUI::Event& event) {
         if (buttonHovered) {
             SFUI::Time elapsed = doublePressClock.getElapsedTime();
             if (elapsed < DOUBLE_PRESS_GAP_MS && std::abs(mousePosition.x - previousPressPosition.x) < 4 && std::abs(mousePosition.y - previousPressPosition.y) < 4) {
-                if (buttonBehavior.onDoublePress) buttonBehavior.onDoublePress(componentID);
+                if (behavior.onDoublePress) behavior.onDoublePress(componentID);
                 doublePressClock.restart();
                 previousPressTime = SFUI::Time::Zero;
             }
             else {
-                if (mouseButton == sf::Mouse::Button::Left && isLeftPressed && buttonBehavior.onLeftPress) buttonBehavior.onLeftPress(componentID);
-                if (mouseButton == sf::Mouse::Button::Right && isRightPressed && buttonBehavior.onRightPress) buttonBehavior.onRightPress(componentID);
-                if (mouseButton == sf::Mouse::Button::Middle && isMiddlePressed && buttonBehavior.onMiddlePress) buttonBehavior.onMiddlePress(componentID);
+                if (mouseButton == sf::Mouse::Button::Left && isLeftPressed && behavior.onLeftPress) behavior.onLeftPress(componentID);
+                if (mouseButton == sf::Mouse::Button::Right && isRightPressed && behavior.onRightPress) behavior.onRightPress(componentID);
+                if (mouseButton == sf::Mouse::Button::Middle && isMiddlePressed && behavior.onMiddlePress) behavior.onMiddlePress(componentID);
                 doublePressClock.restart();
                 previousPressPosition = mousePosition;
             }
         }
         if (isLeftPressed || isRightPressed || isMiddlePressed) {
             isLeftPressed = isRightPressed = isMiddlePressed = false;
-            dirtyEvent = true;
         }
     }
 
     // Key Pressed Event Handling //
     if (const SFUI::Event::KeyPressed* keyPressedEvent = event.getIf<SFUI::Event::KeyPressed>()) {
-        if (buttonState.isFocused && buttonBehavior.onKeyPress)
-            buttonBehavior.onKeyPress(componentID, keyPressedEvent->code);
+        if (state.isFocused && behavior.onKeyPress)
+            behavior.onKeyPress(componentID, keyPressedEvent->code);
         if (isShowingToolTip) {
             isShowingToolTip = false;
-            dirtyEvent = true;
             toolTipClock.restart();
             toolTipClock.stop();
-            if (buttonBehavior.onBlur) buttonBehavior.onBlur(componentID);
+            if (behavior.onBlur) behavior.onBlur(componentID);
         }
     }
 }
 
 
 /**
+ * @brief Handle the pre updaate updates for the component.
+ */
+SFUI::Void SFUI::Button::preUpdate() {
+    this->baseLayout = this->layout;
+    this->baseStyle = this->style;
+    this->baseState = this->state;
+    focus.preUpdate();
+    toolTip.preUpdate();
+}
+
+
+/**
  * @brief Recalculate the Button's properties.
- * 
+ *
  * @param renderTargetSize The size of the render target.
  */
 SFUI::Void SFUI::Button::update(const SFUI::Vector2u renderTargetSize) {
-    if (
-        this->renderTargetSize != renderTargetSize ||
-        layout != dirtyLayout ||
-        style != dirtyStyle ||
-        buttonStyle != dirtyButtonStyle ||
-        buttonState != dirtyButtonState ||
-        dirtyEvent
-    ) {
-        this->renderTargetSize = renderTargetSize;
-        computeAlignment();
-        computeLayoutBox();
-        computeStyles();
-        computeDynamicColors();
-        computeShadows();
-        computeGraphics();
-        computeChildrenLayoutBox();
-        updateChildren();
-        computeFocus();
-        dirtyEvent = false;
-    }
     this->renderTargetSize = renderTargetSize;
+    computeDynamicColors();
+    computeAlignment();
+    computeLayoutBox();
+    computeStyles();
+    computeShadows();
+    computeGraphics();
+    computeChildrenLayoutBox();
+    updateChildren();
+    computeFocus();
     computeToolTip();
-    dirtyLayout = layout;
-    dirtyStyle = style;
-    dirtyButtonStyle = buttonStyle;
-    dirtyButtonState = buttonState;
 }
 
 
 /**
  * @brief Draw the Button component.
- * 
+ *
  * @param drawTarget The render target to draw on.
  * @param window The render window associated with the render target.
  */
@@ -227,28 +216,18 @@ SFUI::Void SFUI::Button::draw(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow
 
 /**
  * @brief Draw the component or inner components on an overlay layer on top of the main UI tree to the render target.
- * 
+ *
  * This is relevant for components that are actively animating and do not want their drawn geometry subject to
  * clipping by their parents' bounds. It is also useful for inner components like tooltips, context menus, modals,
  * and other special UI components. This meant to have a seperate second draw pass after the initial UI tree draw()
  * function calls to the components.
- * 
+ *
  * @param drawTarget Target to draw on.
  * @param window Window reference.
  */
 SFUI::Void SFUI::Button::drawOverlay(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window) {
-    if (buttonState.isFocused) focus.draw(drawTarget, window);
-    if (!buttonStyle.toolTipText.empty() && isShowingToolTip) toolTip.draw(drawTarget, window);
-}
-
-
-/**
- * @brief Get the font used for the tool tip.
- * 
- * @return The shared pointer to the font used for the tool tip.
- */
-SFUI::SharedPointer<SFUI::Font> SFUI::Button::getToolTipFont() {
-    return toolTip.getFont();
+    if (state.isFocused) focus.draw(drawTarget, window);
+    if (!style.toolTipText.empty() && isShowingToolTip) toolTip.draw(drawTarget, window);
 }
 
 
@@ -258,23 +237,23 @@ SFUI::SharedPointer<SFUI::Font> SFUI::Button::getToolTipFont() {
 SFUI::Void SFUI::Button::computeDynamicColors() {
     computedStyle.fillColor = resolveColorSubProp(style.fillColor);
     computedStyle.borderColor = resolveColorSubProp(style.borderColor);
-    if (buttonState.isDisabled) {
-        if (buttonStyle.disabledFillColor.has_value())
-            computedStyle.fillColor = resolveColorSubProp(buttonStyle.disabledFillColor.value());
-        if (buttonStyle.disabledBorderColor.has_value())
-            computedStyle.borderColor = resolveColorSubProp(buttonStyle.disabledBorderColor.value());
+    if (state.isDisabled) {
+        if (style.disabledFillColor.has_value())
+            computedStyle.fillColor = resolveColorSubProp(style.disabledFillColor.value());
+        if (style.disabledBorderColor.has_value())
+            computedStyle.borderColor = resolveColorSubProp(style.disabledBorderColor.value());
     }
     else if ((isLeftPressed || isRightPressed || isMiddlePressed) && isHovered) {
-        if (buttonStyle.pressedFillColor.has_value())
-            computedStyle.fillColor = resolveColorSubProp(buttonStyle.pressedFillColor.value());
-        if (buttonStyle.pressedBorderColor.has_value())
-            computedStyle.borderColor = resolveColorSubProp(buttonStyle.pressedBorderColor.value());
+        if (style.pressedFillColor.has_value())
+            computedStyle.fillColor = resolveColorSubProp(style.pressedFillColor.value());
+        if (style.pressedBorderColor.has_value())
+            computedStyle.borderColor = resolveColorSubProp(style.pressedBorderColor.value());
     }
     else if (isHovered) {
-        if (buttonStyle.hoveredFillColor.has_value())
-            computedStyle.fillColor = resolveColorSubProp(buttonStyle.hoveredFillColor.value());
-        if (buttonStyle.hoveredBorderColor.has_value())
-            computedStyle.borderColor = resolveColorSubProp(buttonStyle.hoveredBorderColor.value());
+        if (style.hoveredFillColor.has_value())
+            computedStyle.fillColor = resolveColorSubProp(style.hoveredFillColor.value());
+        if (style.hoveredBorderColor.has_value())
+            computedStyle.borderColor = resolveColorSubProp(style.hoveredBorderColor.value());
     }
 }
 
@@ -285,10 +264,10 @@ SFUI::Void SFUI::Button::computeDynamicColors() {
 SFUI::Void SFUI::Button::computeFocus() {
     // Focus Width //
     SFUI::Float computedFocusWidth = 0.0f;
-    if (std::holds_alternative<SFUI::Float>(buttonStyle.focusWidth))
-        computedFocusWidth = std::get<SFUI::Float>(buttonStyle.focusWidth);
-    else if (std::holds_alternative<SFUI::String>(buttonStyle.focusWidth)) {
-        SFUI::String focusWidthString = std::get<SFUI::String>(buttonStyle.focusWidth);
+    if (std::holds_alternative<SFUI::Float>(style.focusWidth))
+        computedFocusWidth = std::get<SFUI::Float>(style.focusWidth);
+    else if (std::holds_alternative<SFUI::String>(style.focusWidth)) {
+        SFUI::String focusWidthString = std::get<SFUI::String>(style.focusWidth);
         if (focusWidthString.size() > 1 && focusWidthString.back() == '%') {
             focusWidthString.pop_back();
             try {
@@ -304,10 +283,10 @@ SFUI::Void SFUI::Button::computeFocus() {
 
     // Focus Offset //
     SFUI::Float computedFocusOffset = 0.0f;
-    if (std::holds_alternative<SFUI::Float>(buttonStyle.focusOffset))
-        computedFocusOffset = std::get<SFUI::Float>(buttonStyle.focusOffset);
-    else if (std::holds_alternative<SFUI::String>(buttonStyle.focusOffset)) {
-        SFUI::String focusOffsetString = std::get<SFUI::String>(buttonStyle.focusOffset);
+    if (std::holds_alternative<SFUI::Float>(style.focusOffset))
+        computedFocusOffset = std::get<SFUI::Float>(style.focusOffset);
+    else if (std::holds_alternative<SFUI::String>(style.focusOffset)) {
+        SFUI::String focusOffsetString = std::get<SFUI::String>(style.focusOffset);
         if (focusOffsetString.size() > 1 && focusOffsetString.back() == '%') {
             focusOffsetString.pop_back();
             try {
@@ -327,9 +306,9 @@ SFUI::Void SFUI::Button::computeFocus() {
     focus.layout.xPosition = computedLayout.position.x - computedFocusOffset - computedFocusWidth;
     focus.layout.yPosition = computedLayout.position.y - computedFocusOffset - computedFocusWidth;
     focus.style.borderWidth = computedFocusWidth;
-    focus.style.cornerRadius = buttonStyle.focusCornerRadius;
+    focus.style.cornerRadius = style.focusCornerRadius;
     focus.style.fillColor = SFUI::Color(0, 0, 0, 0);
-    focus.style.borderColor = buttonStyle.focusFillColor;
+    focus.style.borderColor = style.focusFillColor;
     focus.update(renderTargetSize);
 }
 
@@ -339,8 +318,8 @@ SFUI::Void SFUI::Button::computeFocus() {
  */
 SFUI::Void SFUI::Button::computeToolTip() {
     // Tool Tip Lifetime //
-    if (buttonStyle.toolTipText != "" && buttonStyle.toolTipFont) {
-        if ((isHovered || buttonState.isFocused) && !isShowingToolTip) {
+    if (style.toolTipText != "" && style.toolTipFont) {
+        if ((isHovered || state.isFocused) && !isShowingToolTip) {
             sf::Time toolTipElapsed = toolTipClock.getElapsedTime();
             if (toolTipElapsed > TOOL_TIP_THRESHOLD_MS) {
                 SFUI::Float xPosition = previousHoverPosition.x - toolTip.getSize().x;
@@ -357,16 +336,16 @@ SFUI::Void SFUI::Button::computeToolTip() {
     }
 
     // Tool Tip Prop Channeling //
-    SFUI::Vector4f toolTipPadding = resolveUniQuadSubProp(computedLayout.size, buttonStyle.toolTipPadding);
+    SFUI::Vector4f toolTipPadding = resolveUniQuadSubProp(computedLayout.size, style.toolTipPadding);
     toolTip.layout.width = toolTip.getTextBounds().size.x + (toolTipPadding.x + toolTipPadding.y);
     toolTip.layout.height = toolTip.getTextBounds().size.y + (toolTipPadding.z + toolTipPadding.w);
-    toolTip.labelStyle.textAlignHorizontal = "center";
-    toolTip.labelStyle.textAlignVertical = "center";
-    toolTip.style.cornerRadius = buttonStyle.toolTipCornerRadius;
-    toolTip.labelStyle.text = buttonStyle.toolTipText;
-    toolTip.labelStyle.font = buttonStyle.toolTipFont;
-    toolTip.labelStyle.textSize = buttonStyle.toolTipTextSize;
-    toolTip.style.fillColor = buttonStyle.toolTipFillColor;
-    toolTip.labelStyle.textColor = buttonStyle.toolTipTextColor;
+    toolTip.style.textAlignHorizontal = "center";
+    toolTip.style.textAlignVertical = "center";
+    toolTip.style.cornerRadius = style.toolTipCornerRadius;
+    toolTip.style.text = style.toolTipText;
+    toolTip.style.font = style.toolTipFont;
+    toolTip.style.textSize = style.toolTipTextSize;
+    toolTip.style.fillColor = style.toolTipFillColor;
+    toolTip.style.textColor = style.toolTipTextColor;
     toolTip.update(renderTargetSize);
 }

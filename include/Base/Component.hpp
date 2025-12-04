@@ -2,8 +2,8 @@
  * @file Component.hpp
  * @brief Defines the base Component class for all SFUI components.
  * @author Connor Sempf
- * @date 2025-11-15
- * @version 1.0
+ * @date 2025-12-04
+ * @version 2.0.0
  *
  * This file contains the class definition, internal state,
  * and helper functions for the SFUI Component base class.
@@ -17,6 +17,7 @@
 #include "Types/vector.hpp"
 #include "Types/prop.hpp"
 #include "Types/propgroup.hpp"
+#include "Types/propset.hpp"
 #include "Types/computedprop.hpp"
 #include <algorithm>
 #include <cmath>
@@ -26,7 +27,7 @@ namespace SFUI {
 
     /**
      * @brief Base class for all UI components in SFML-FlexUI.
-     * 
+     *
      * Components are arranged in a parent-child hierarchy. This class
      * handles layout, style, event propagation, and rendering.
      */
@@ -42,16 +43,6 @@ namespace SFUI {
              * @brief Unique identifier for this component.
              */
             SFUI::String componentID;
-            
-            /**
-             * @brief Layout properties of this component.
-             */
-            SFUI::Prop::Layout::Component layout;
-
-            /**
-             * @brief Style properties of this component.
-             */
-            SFUI::Prop::Style::Component style;
 
         public:
             Component() = default;
@@ -63,37 +54,33 @@ namespace SFUI {
 
             /**
              * @brief Construct a component with an ID.
-             * 
+             *
              * @param componentID Unique identifier for this component.
              */
             Component(SFUI::String componentID);
 
             /**
-             * @brief Construct a component with ID, layout, and style.
-             * 
-             * @param componentID Unique identifier.
-             * @param layout Layout properties.
-             * @param style Style properties.
-             */
-            Component(SFUI::String componentID, SFUI::Prop::Layout::Component layout, SFUI::Prop::Style::Component style);
-
-            /**
              * @brief Handle input events for the component.
-             * 
+             *
              * @param event Event to process.
              */
             virtual SFUI::Void handleEvent(const SFUI::Event& event) = 0;
 
             /**
+             * @brief Handle the pre updaate updates for the component.
+             */
+            virtual SFUI::Void preUpdate() = 0;
+
+            /**
              * @brief Update component state.
-             * 
+             *
              * @param renderTargetSize Size of the render target.
              */
             virtual SFUI::Void update(const SFUI::Vector2u renderTargetSize) = 0;
 
             /**
              * @brief Draw the component to the render target.
-             * 
+             *
              * @param drawTarget Target to draw on.
              * @param window Window reference.
              */
@@ -101,48 +88,48 @@ namespace SFUI {
 
             /**
              * @brief Draw the component or inner components on an overlay layer on top of the main UI tree to the render target.
-             * 
+             *
              * This is relevant for components that are actively animating and do not want their drawn geometry subject to
              * clipping by their parents' bounds. It is also useful for inner components like tooltips, context menus, modals,
              * and other special UI components. This meant to have a seperate second draw pass after the initial UI tree draw()
              * function calls to the components.
-             * 
+             *
              * @param drawTarget Target to draw on.
              * @param window Window reference.
              */
             virtual SFUI::Void drawOverlay(SFUI::RenderTarget& drawTarget, SFUI::RenderWindow& window) = 0;
-            
+
             /**
              * @brief Set a parent component for this component.
-             * 
+             *
              * @param newParent Pointer to the parent component.
              */
             SFUI::Void setParent(SFUI::Component* newParent);
 
             /**
              * @brief Add a single child component.
-             * 
+             *
              * @param newChild Unique pointer to the child component.
              */
             SFUI::Void addChild(SFUI::UniquePointer<SFUI::Component> newChild);
 
             /**
              * @brief Add multiple child components at once.
-             * 
+             *
              * @param newChildren Vector of unique pointers to child components.
              */
             SFUI::Void addChildren(SFUI::Vector<SFUI::UniquePointer<SFUI::Component>> newChildren);
-            
+
             /**
              * @brief Update a child's computed layout from the parent.
-             * 
+             *
              * @param computedChildLayout Computed layout of the child.
              */
             SFUI::Void updateChildFromParent(SFUI::Component::ComputedChildLayout computedChildLayout);
 
             /**
              * @brief Get the list of children.
-             * 
+             *
              * @return Vector of unique pointers to children.
              */
             const SFUI::Vector<SFUI::UniquePointer<SFUI::Component>>& getChildren() const;
@@ -177,12 +164,12 @@ namespace SFUI {
              * @brief On-Axis alignment options.
              */
             enum class AlignPrimary { Start, End, Center, SpaceBetween, SpaceAround, SpaceEvenly };
-            
+
             /**
              * @brief Cross-Axis alignment options.
              */
             enum class AlignSecondary { Start, End, Center };
-        
+
         protected:
             /**
              * @brief Computed layout properties after resolving sub-properties.
@@ -221,6 +208,26 @@ namespace SFUI {
 
         protected:
             /**
+             * @brief Layout properties of this component.
+             */
+            SFUI::PropGroup::Component::Layout baseLayout;
+
+            /**
+             * @brief Style properties of this component.
+             */
+            SFUI::PropGroup::Component::Style baseStyle;
+
+            /**
+             * @brief State properties of this component.
+             */
+            SFUI::PropGroup::Component::State baseState;
+
+            /**
+             * @brief Behavior properties of this component.
+             */
+            SFUI::PropGroup::Component::Behavior baseBehavior;
+
+            /**
              * @brief Size of the render target that this component gets drawn to.
              */
             SFUI::Vector2u renderTargetSize;
@@ -229,7 +236,7 @@ namespace SFUI {
              * @brief Pointer to the parent component.
              */
             SFUI::Component* parent = nullptr;
-            
+
             /**
              * @brief List of child components stored as unique pointers.
              */
@@ -239,7 +246,7 @@ namespace SFUI {
              * @brief List of animations to perform on the component's props.
              */
             SFUI::Vector<SFUI::Animation> animations;
-            
+
             /**
              * @brief Vertex arrays for rendering geometry with just rectangles.
              */
@@ -271,21 +278,6 @@ namespace SFUI {
             SFUI::VertexArray shadowArcs;
 
             /**
-             * @brief Flag for detecting if an update should occur based on user inputs or program changes.
-             */
-            SFUI::Bool dirtyEvent = false;
-
-            /**
-             * @brief Dirty layout flags indicating if recomputation is needed.
-             */
-            SFUI::Prop::Layout::Component dirtyLayout;
-
-            /**
-             * @brief Dirty style flags indicating if recomputation is needed.
-             */
-            SFUI::Prop::Style::Component dirtyStyle;
-            
-            /**
              * @brief Final computed layout properties.
              */
             SFUI::Component::ComputedLayout computedLayout;
@@ -294,42 +286,42 @@ namespace SFUI {
              * @brief Final computed style properties.
              */
             SFUI::Component::ComputedStyle computedStyle;
-            
+
             /**
              * @brief Final computed layouts of child components.
              */
             SFUI::Vector<SFUI::Component::ComputedChildLayout> computedChildrenLayout;
-        
+
         protected:
             /**
              * @brief Check if the mouse is hovering over this component.
-             * 
+             *
              * @param mousePosition Current mouse position.
-             * 
+             *
              * @return true if hovered, false otherwise.
              */
             SFUI::Bool isMouseHovered(const SFUI::Vector2i& mousePosition);
-            
+
             /**
              * @brief Resolve a Dimension sub-property to a color value.
-             * 
+             *
              * @param dimension Dimension sub-property.
              * @param reference Reference size for percentage calculations.
-             * 
+             *
              * @return Resolved color value.
              */
-            SFUI::Color resolveColorSubProp(const SFUI::SubProp::Color& color);
-            
+            SFUI::Color resolveColorSubProp(const SFUI::Prop::Color& color);
+
             /**
              * @brief Resolve a Dimension sub-property to a 4-value float vector .
-             * 
+             *
              * @param dimension Dimension sub-property.
              * @param reference Reference size for percentage calculations.
-             * 
+             *
              * @return Resolved float vector.
              */
-            SFUI::Vector4f resolveUniQuadSubProp(const SFUI::Vector2f& size, const SFUI::SubProp::UniQuad& subProp);
-            
+            SFUI::Vector4f resolveUniQuadSubProp(const SFUI::Vector2f& size, const SFUI::Prop::UniQuad& subProp);
+
             /**
              * @brief Compute the alignment properties.
              */
@@ -344,7 +336,7 @@ namespace SFUI {
              * @brief Compute all style-related properties.
              */
             SFUI::Void computeStyles();
-            
+
             /**
              * @brief Compute color style properties.
              */
@@ -369,37 +361,37 @@ namespace SFUI {
              * @brief Update all child components with their computed layout peroperties.
              */
             SFUI::Void updateChildren();
-        
+
         private:
             /**
              * @brief Compute rectangular geometry for the component's main background.
-             * 
+             *
              * @param position Top-left position of the background.
              * @param size Size of the background.
              */
             SFUI::Void computeBackgroundRectGeometry(SFUI::Vector2f position, SFUI::Vector2f size);
-            
+
             /**
              * @brief Compute arc geometry for the component's main background.
-             * 
+             *
              * @param center Center position of the arc.
              * @param outerRadius Outer radius of the arc.
              * @param startAngleDeg Starting angle in degrees.
              * @param endAngleDeg Ending angle in degrees.
              */
             SFUI::Void computeBackgroundArcGeometry(SFUI::Vector2f center, SFUI::Float outerRadius, SFUI::Float startAngleDeg, SFUI::Float endAngleDeg);
-            
+
             /**
              * @brief Compute rectangular geometry for the component's border.
-             * 
+             *
              * @param position Top-left position of the border.
              * @param size Size of the border.
              */
             SFUI::Void computeBorderRectGeometry(SFUI::Vector2f position, SFUI::Vector2f size);
-            
+
             /**
              * @brief Compute arc geometry for the component's border.
-             * 
+             *
              * @param center Center position of the arc.
              * @param outerRadius Outer radius of the arc.
              * @param innerRadius Inner radius of the arc.
@@ -407,19 +399,19 @@ namespace SFUI {
              * @param endAngleDeg Ending angle in degrees.
              */
             SFUI::Void computeBorderArcGeometry(SFUI::Vector2f center, SFUI::Float outerRadius, SFUI::Float innerRadius, SFUI::Float startAngleDeg, SFUI::Float endAngleDeg);
-            
+
             /**
              * @brief Compute rectangular geometry for the component's shadow.
-             * 
+             *
              * @param position Top-left position of the shadow.
              * @param size Size of the shadow.
              * @param modifiedShadowColor Color of the shadow with applied alpha.
              */
             SFUI::Void computeShadowRectGeometry(SFUI::Vector2f position, SFUI::Vector2f size, SFUI::Color modifiedShadowColor);
-            
+
             /**
              * @brief Compute arc geometry for the component's shadow.
-             * 
+             *
              * @param center Center position of the arc.
              * @param outerRadius Outer radius of the arc.
              * @param startAngleDeg Starting angle in degrees.

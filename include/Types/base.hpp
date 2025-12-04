@@ -2,8 +2,8 @@
  * @file base.hpp
  * @brief Defines common C++ type aliases used throughout SFUI.
  * @author Connor Sempf
- * @date 2025-11-15
- * @version 1.0
+ * @date 2025-12-04
+ * @version 2.0.0
  *
  * This file provides standard aliases for primitive types, containers,
  * smart pointers, function objects, and variants used in SFUI.

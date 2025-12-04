@@ -2,8 +2,8 @@
  * @file computedprop.hpp
  * @brief Defines computed properties for SFUI components.
  * @author Connor Sempf
- * @date 2025-11-15
- * @version 1.0
+ * @date 2025-12-04
+ * @version 2.0.0
  *
  * This file contains structures and helpers that store calculated
  * layout and style values for SFUI components after processing
@@ -35,7 +35,7 @@ namespace SFUI {
          * specific style configurations derived from base styles.
          */
         namespace Style {
-    
+
             /**
              * @brief Style computed properties specific to ScrollContainer components.
              */
@@ -59,13 +59,13 @@ namespace SFUI {
                  * @brief Path to the graphic resource.
                  */
                 SFUI::String graphicPath;
-                
+
                 /**
                  * @brief Original size of the loaded texture.
                  */
                 SFUI::Vector2f originalTextureSize;
             };
-    
+
             /**
              * @brief Style computed properties specific to TextField components.
              */
@@ -84,12 +84,12 @@ namespace SFUI {
                  * @brief Track alignment of the slider.
                  */
                 SFUI::String trackAlign;
-                
+
                 /**
                  * @brief Length of the slider track.
                  */
                 SFUI::Float trackLength;
-                
+
                 /**
                  * @brief Size of the slider thumb.
                  */

@@ -2,8 +2,8 @@
  * @file Animation.cpp
  * @brief Implements the Animation class.
  * @author Connor Sempf
- * @date 2025-11-15
- * @version 1.0
+ * @date 2025-12-04
+ * @version 2.0.0
  *
  * This file implements the class functions for the SFUI Animation class.
  */
@@ -64,7 +64,7 @@ const SFUI::UnorderedMap<SFUI::Animation::EasingFunction, SFUI::Function<SFUI::F
 
 /**
  * @brief The constructor for the Animation class.
- * 
+ *
  * @param animationConfig The configuration for the animation.
  */
 SFUI::Animation::Animation(SFUI::Animation::Config animationConfig) :
@@ -183,7 +183,7 @@ SFUI::Float SFUI::Animation::getValue() const {
 
 /**
  * @brief Get the current active state of the animation.
- * 
+ *
  * @return True if currently animating and running, false if not.
  */
 SFUI::Bool SFUI::Animation::getIsAnimating() const {
@@ -193,7 +193,7 @@ SFUI::Bool SFUI::Animation::getIsAnimating() const {
 
 /**
  * @brief Get the completion state of the animation.
- * 
+ *
  * @return True if complete or terminated, false if currently animating or paused or not started.
  */
 SFUI::Bool SFUI::Animation::getIsAnimationComplete() const {
