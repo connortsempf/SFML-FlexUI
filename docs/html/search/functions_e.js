@@ -1,15 +1,10 @@
 var searchData=
 [
-  ['vector2f_0',['Vector2f',['../struct_s_f_u_i_1_1_vector2f.html#a80887e5eaa970c23b2c7992de301aa0e',1,'SFUI::Vector2f']]],
-  ['vector2i_1',['Vector2i',['../struct_s_f_u_i_1_1_vector2i.html#a30a3ccebb69d16a6c96381b56559f4f3',1,'SFUI::Vector2i']]],
-  ['vector2u_2',['Vector2u',['../struct_s_f_u_i_1_1_vector2u.html#a057ddd720602044291a192b094df54b2',1,'SFUI::Vector2u']]],
-  ['vector3f_3',['Vector3f',['../struct_s_f_u_i_1_1_vector3f.html#acc4f31b225f3ad2b6083704ca236cdd4',1,'SFUI::Vector3f']]],
-  ['vector3i_4',['Vector3i',['../struct_s_f_u_i_1_1_vector3i.html#a71fd11910c7ae356021d2c51822b8aae',1,'SFUI::Vector3i']]],
-  ['vector3u_5',['Vector3u',['../struct_s_f_u_i_1_1_vector3u.html#a00df59e6036e8341470a4da7cbcd8fb7',1,'SFUI::Vector3u']]],
-  ['vector3ui8_6',['Vector3ui8',['../struct_s_f_u_i_1_1_vector3ui8.html#aa8c9a2c3ea674017dd0690ee493bdfcb',1,'SFUI::Vector3ui8']]],
-  ['vector4dim_7',['Vector4dim',['../struct_s_f_u_i_1_1_sub_prop_1_1_vector4dim.html#a571b6acade924de560a35d4883738709',1,'SFUI::SubProp::Vector4dim']]],
-  ['vector4f_8',['Vector4f',['../struct_s_f_u_i_1_1_vector4f.html#abee2bba817c723f8ad69e9671acfd144',1,'SFUI::Vector4f']]],
-  ['vector4i_9',['Vector4i',['../struct_s_f_u_i_1_1_vector4i.html#a686c1bb825fa88fa2cf5ae72f8e7e4f3',1,'SFUI::Vector4i']]],
-  ['vector4u_10',['Vector4u',['../struct_s_f_u_i_1_1_vector4u.html#aad478a0a0f076085c5e4345ee3120d4d',1,'SFUI::Vector4u']]],
-  ['vector4ui8_11',['Vector4ui8',['../struct_s_f_u_i_1_1_vector4ui8.html#a7a677b2ea11b49103f5b204b1072394a',1,'SFUI::Vector4ui8']]]
+  ['uiroot_0',['UIRoot',['../class_s_f_u_i_1_1_u_i_root.html#a1febf2ab8b5dddc1bba3d86493d82d23',1,'SFUI::UIRoot::UIRoot()=default'],['../class_s_f_u_i_1_1_u_i_root.html#a76cbcd8bf4eca54709f6f1893512b81b',1,'SFUI::UIRoot::UIRoot(SFUI::UniquePointer&lt; SFUI::Component &gt; rootComponent)']]],
+  ['update_1',['update',['../class_s_f_u_i_1_1_animation.html#a5bac1b212e307a769c86c9efc6ace29b',1,'SFUI::Animation::update()'],['../class_s_f_u_i_1_1_component.html#a1a68b7dfaebba73ee96bee8a887e1c22',1,'SFUI::Component::update()'],['../class_s_f_u_i_1_1_u_i_root.html#a11ed4b15445334dd2492aad0bbdd371d',1,'SFUI::UIRoot::update()'],['../class_s_f_u_i_1_1_button.html#a1675aa55efcd8727007739f704b75953',1,'SFUI::Button::update()'],['../class_s_f_u_i_1_1_container.html#a25ed781f833424c6b53d3022a402bef3',1,'SFUI::Container::update()'],['../class_s_f_u_i_1_1_graphic.html#a1f592132fb107a7c36006df0a9f7a76e',1,'SFUI::Graphic::update()'],['../class_s_f_u_i_1_1_label.html#a7b631911fb31a810d17bad00d868eb7e',1,'SFUI::Label::update()'],['../class_s_f_u_i_1_1_scroll_container.html#a21ab0eb942d5e555b928542b8f4dd577',1,'SFUI::ScrollContainer::update()'],['../class_s_f_u_i_1_1_slider.html#abeecb1ebafc9087ef7b4fed0c265d259',1,'SFUI::Slider::update()'],['../class_s_f_u_i_1_1_text_field.html#a1f6d96cd19b334336e667625b416b030',1,'SFUI::TextField::update()'],['../class_s_f_u_i_1_1_toggle.html#a2aa160fd696ec3b96ea7d9ba856de322',1,'SFUI::Toggle::update()']]],
+  ['updatechildfromparent_2',['updateChildFromParent',['../class_s_f_u_i_1_1_component.html#af5a27d389929ac3e293a5aa13145786f',1,'SFUI::Component']]],
+  ['updatechildren_3',['updateChildren',['../class_s_f_u_i_1_1_component.html#a989f48ae2060f688401b3030959775e4',1,'SFUI::Component']]],
+  ['updatedecayanimation_4',['updateDecayAnimation',['../class_s_f_u_i_1_1_animation.html#ae7a56ed4ca91d03ebfdc3284604a0273',1,'SFUI::Animation']]],
+  ['updatespringanimation_5',['updateSpringAnimation',['../class_s_f_u_i_1_1_animation.html#ab545804b5665a46b4f6d152f410f4af6',1,'SFUI::Animation']]],
+  ['updatetiminganimation_6',['updateTimingAnimation',['../class_s_f_u_i_1_1_animation.html#af556ae772647ab2b4c6c2ebfab46ef66',1,'SFUI::Animation']]]
 ];

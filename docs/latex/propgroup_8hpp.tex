@@ -2,50 +2,123 @@
 \hypertarget{propgroup_8hpp}{}\label{propgroup_8hpp}\index{include/Types/propgroup.hpp@{include/Types/propgroup.hpp}}
 
 
-Defines grouped property structures for specific \doxylink{namespace_s_f_u_i}{SFUI} component types.  
+Defines the main component property structures for layout, style, state, and behavior in \doxylink{namespace_s_f_u_i}{SFUI}.  
 
 
+{\ttfamily \#include "{}base.\+hpp"{}}\newline
 {\ttfamily \#include "{}prop.\+hpp"{}}\newline
 \doxysubsubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
-struct \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_container}{SFUI\+::\+Prop\+Group\+::\+Container}}
-\begin{DoxyCompactList}\small\item\em Property group for a generic container component. \end{DoxyCompactList}\item 
-struct \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_label}{SFUI\+::\+Prop\+Group\+::\+Label}}
-\begin{DoxyCompactList}\small\item\em Property group for a \doxylink{struct_s_f_u_i_1_1_prop_group_1_1_label}{Label} component. \end{DoxyCompactList}\item 
-struct \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_button}{SFUI\+::\+Prop\+Group\+::\+Button}}
-\begin{DoxyCompactList}\small\item\em Property group for a \doxylink{struct_s_f_u_i_1_1_prop_group_1_1_button}{Button} component. \end{DoxyCompactList}\item 
-struct \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_toggle}{SFUI\+::\+Prop\+Group\+::\+Toggle}}
-\begin{DoxyCompactList}\small\item\em Property group for a \doxylink{struct_s_f_u_i_1_1_prop_group_1_1_toggle}{Toggle} component. \end{DoxyCompactList}\item 
-struct \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_graphic}{SFUI\+::\+Prop\+Group\+::\+Graphic}}
-\begin{DoxyCompactList}\small\item\em Property group for a \doxylink{struct_s_f_u_i_1_1_prop_group_1_1_graphic}{Graphic} component. \end{DoxyCompactList}\item 
-struct \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_scroll_container}{SFUI\+::\+Prop\+Group\+::\+Scroll\+Container}}
-\begin{DoxyCompactList}\small\item\em Property group for a \doxylink{struct_s_f_u_i_1_1_prop_group_1_1_scroll_container}{Scroll\+Container} component. \end{DoxyCompactList}\item 
-struct \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_text_field}{SFUI\+::\+Prop\+Group\+::\+Text\+Field}}
-\begin{DoxyCompactList}\small\item\em Property group for a \doxylink{struct_s_f_u_i_1_1_prop_group_1_1_text_field}{Text\+Field} component. \end{DoxyCompactList}\item 
-struct \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_slider}{SFUI\+::\+Prop\+Group\+::\+Slider}}
-\begin{DoxyCompactList}\small\item\em Property group for a \doxylink{struct_s_f_u_i_1_1_prop_group_1_1_slider}{Slider} component. \end{DoxyCompactList}\end{DoxyCompactItemize}
+struct \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_component_1_1_layout}{SFUI\+::\+Prop\+Group\+::\+Component\+::\+Layout}}
+\begin{DoxyCompactList}\small\item\em \doxylink{struct_s_f_u_i_1_1_prop_group_1_1_component_1_1_layout}{Layout} prop-\/group definitions with layout-\/specific props. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_component_1_1_style}{SFUI\+::\+Prop\+Group\+::\+Component\+::\+Style}}
+\begin{DoxyCompactList}\small\item\em \doxylink{struct_s_f_u_i_1_1_prop_group_1_1_component_1_1_style}{Style} prop-\/group definitions with style-\/specific props. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_component_1_1_state}{SFUI\+::\+Prop\+Group\+::\+Component\+::\+State}}
+\begin{DoxyCompactList}\small\item\em \doxylink{struct_s_f_u_i_1_1_prop_group_1_1_component_1_1_state}{State} prop-\/group definitions with state-\/specific props. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_component_1_1_behavior}{SFUI\+::\+Prop\+Group\+::\+Component\+::\+Behavior}}
+\begin{DoxyCompactList}\small\item\em \doxylink{struct_s_f_u_i_1_1_prop_group_1_1_component_1_1_behavior}{Behavior} prop-\/group definitions with behavior-\/specific props. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_container_1_1_layout}{SFUI\+::\+Prop\+Group\+::\+Container\+::\+Layout}}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_s_f_u_i_1_1_prop_group_1_1_container}{Container} layout property group definitions. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_container_1_1_style}{SFUI\+::\+Prop\+Group\+::\+Container\+::\+Style}}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_s_f_u_i_1_1_prop_group_1_1_container}{Container} style property group definitions. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_container_1_1_state}{SFUI\+::\+Prop\+Group\+::\+Container\+::\+State}}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_s_f_u_i_1_1_prop_group_1_1_container}{Container} state property group definitions. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_container_1_1_behavior}{SFUI\+::\+Prop\+Group\+::\+Container\+::\+Behavior}}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_s_f_u_i_1_1_prop_group_1_1_container}{Container} behavior property group definitions. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_scroll_container_1_1_layout}{SFUI\+::\+Prop\+Group\+::\+Scroll\+Container\+::\+Layout}}
+\begin{DoxyCompactList}\small\item\em Scroll \doxylink{namespace_s_f_u_i_1_1_prop_group_1_1_container}{Container} layout property group definitions. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_scroll_container_1_1_style}{SFUI\+::\+Prop\+Group\+::\+Scroll\+Container\+::\+Style}}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_s_f_u_i_1_1_prop_group_1_1_container}{Container} style property group definitions. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_scroll_container_1_1_state}{SFUI\+::\+Prop\+Group\+::\+Scroll\+Container\+::\+State}}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_s_f_u_i_1_1_prop_group_1_1_container}{Container} state property group definitions. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_scroll_container_1_1_behavior}{SFUI\+::\+Prop\+Group\+::\+Scroll\+Container\+::\+Behavior}}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_s_f_u_i_1_1_prop_group_1_1_container}{Container} behavior property group definitions. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_label_1_1_layout}{SFUI\+::\+Prop\+Group\+::\+Label\+::\+Layout}}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_s_f_u_i_1_1_prop_group_1_1_label}{Label} layout property group definitions. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_label_1_1_style}{SFUI\+::\+Prop\+Group\+::\+Label\+::\+Style}}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_s_f_u_i_1_1_prop_group_1_1_label}{Label} style property group definitions. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_label_1_1_state}{SFUI\+::\+Prop\+Group\+::\+Label\+::\+State}}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_s_f_u_i_1_1_prop_group_1_1_container}{Container} state property group definitions. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_label_1_1_behavior}{SFUI\+::\+Prop\+Group\+::\+Label\+::\+Behavior}}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_s_f_u_i_1_1_prop_group_1_1_container}{Container} behavior property group definitions. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_graphic_1_1_layout}{SFUI\+::\+Prop\+Group\+::\+Graphic\+::\+Layout}}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_s_f_u_i_1_1_prop_group_1_1_graphic}{Graphic} layout property group definitions. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_graphic_1_1_style}{SFUI\+::\+Prop\+Group\+::\+Graphic\+::\+Style}}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_s_f_u_i_1_1_prop_group_1_1_graphic}{Graphic} style property group definitions. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_graphic_1_1_state}{SFUI\+::\+Prop\+Group\+::\+Graphic\+::\+State}}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_s_f_u_i_1_1_prop_group_1_1_graphic}{Graphic} state property group definitions. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_graphic_1_1_behavior}{SFUI\+::\+Prop\+Group\+::\+Graphic\+::\+Behavior}}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_s_f_u_i_1_1_prop_group_1_1_graphic}{Graphic} behavior property group definitions. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_button_1_1_layout}{SFUI\+::\+Prop\+Group\+::\+Button\+::\+Layout}}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_s_f_u_i_1_1_prop_group_1_1_button}{Button} layout property group definitions. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_button_1_1_style}{SFUI\+::\+Prop\+Group\+::\+Button\+::\+Style}}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_s_f_u_i_1_1_prop_group_1_1_button}{Button} style property group definitions. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_button_1_1_state}{SFUI\+::\+Prop\+Group\+::\+Button\+::\+State}}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_s_f_u_i_1_1_prop_group_1_1_button}{Button} state property group definitions. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_button_1_1_behavior}{SFUI\+::\+Prop\+Group\+::\+Button\+::\+Behavior}}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_s_f_u_i_1_1_prop_group_1_1_button}{Button} behavior property group definitions. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_toggle_1_1_layout}{SFUI\+::\+Prop\+Group\+::\+Toggle\+::\+Layout}}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_s_f_u_i_1_1_prop_group_1_1_toggle}{Toggle} layout property group definitions. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_toggle_1_1_style}{SFUI\+::\+Prop\+Group\+::\+Toggle\+::\+Style}}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_s_f_u_i_1_1_prop_group_1_1_toggle}{Toggle} style property group definitions. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_toggle_1_1_state}{SFUI\+::\+Prop\+Group\+::\+Toggle\+::\+State}}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_s_f_u_i_1_1_prop_group_1_1_toggle}{Toggle} state property group definitions. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_toggle_1_1_behavior}{SFUI\+::\+Prop\+Group\+::\+Toggle\+::\+Behavior}}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_s_f_u_i_1_1_prop_group_1_1_toggle}{Toggle} behavior property group definitions. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_slider_1_1_layout}{SFUI\+::\+Prop\+Group\+::\+Slider\+::\+Layout}}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_s_f_u_i_1_1_prop_group_1_1_slider}{Slider} layout property group definitions. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_slider_1_1_style}{SFUI\+::\+Prop\+Group\+::\+Slider\+::\+Style}}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_s_f_u_i_1_1_prop_group_1_1_slider}{Slider} style property group definitions. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_slider_1_1_state}{SFUI\+::\+Prop\+Group\+::\+Slider\+::\+State}}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_s_f_u_i_1_1_prop_group_1_1_slider}{Slider} state property group definitions. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_slider_1_1_behavior}{SFUI\+::\+Prop\+Group\+::\+Slider\+::\+Behavior}}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_s_f_u_i_1_1_prop_group_1_1_slider}{Slider} behavior property group definitions. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_text_field_1_1_layout}{SFUI\+::\+Prop\+Group\+::\+Text\+Field\+::\+Layout}}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_s_f_u_i_ad82ba42cd36f854a5ca90f479eea3c02}{Text} Field layout property group definitions. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_text_field_1_1_style}{SFUI\+::\+Prop\+Group\+::\+Text\+Field\+::\+Style}}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_s_f_u_i_ad82ba42cd36f854a5ca90f479eea3c02}{Text} Field style property group definitions. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_text_field_1_1_state}{SFUI\+::\+Prop\+Group\+::\+Text\+Field\+::\+State}}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_s_f_u_i_ad82ba42cd36f854a5ca90f479eea3c02}{Text} Field state property group definitions. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_text_field_1_1_behavior}{SFUI\+::\+Prop\+Group\+::\+Text\+Field\+::\+Behavior}}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_s_f_u_i_ad82ba42cd36f854a5ca90f479eea3c02}{Text} Field behavior property group definitions. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
 namespace \mbox{\hyperlink{namespace_s_f_u_i}{SFUI}}
 \item 
-namespace \mbox{\hyperlink{namespace_prop_group}{Prop\+Group}}
-\begin{DoxyCompactList}\small\item\em Defines grouped property structures for each \doxylink{namespace_s_f_u_i}{SFUI} component type. \end{DoxyCompactList}\item 
 namespace \mbox{\hyperlink{namespace_s_f_u_i_1_1_prop_group}{SFUI\+::\+Prop\+Group}}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_s_f_u_i_1_1_prop_group_1_1_component}{Component} property group definitions. \end{DoxyCompactList}\item 
+namespace \mbox{\hyperlink{namespace_s_f_u_i_1_1_prop_group_1_1_component}{SFUI\+::\+Prop\+Group\+::\+Component}}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_s_f_u_i_1_1_prop_group_1_1_component}{Component} property group definitions. \end{DoxyCompactList}\item 
+namespace \mbox{\hyperlink{namespace_s_f_u_i_1_1_prop_group_1_1_container}{SFUI\+::\+Prop\+Group\+::\+Container}}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_s_f_u_i_1_1_prop_group_1_1_container}{Container} property group definitions. \end{DoxyCompactList}\item 
+namespace \mbox{\hyperlink{namespace_s_f_u_i_1_1_prop_group_1_1_scroll_container}{SFUI\+::\+Prop\+Group\+::\+Scroll\+Container}}
+\begin{DoxyCompactList}\small\item\em Scroll \doxylink{namespace_s_f_u_i_1_1_prop_group_1_1_component}{Component} property group definitions. \end{DoxyCompactList}\item 
+namespace \mbox{\hyperlink{namespace_s_f_u_i_1_1_prop_group_1_1_label}{SFUI\+::\+Prop\+Group\+::\+Label}}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_s_f_u_i_1_1_prop_group_1_1_label}{Label} property group definitions. \end{DoxyCompactList}\item 
+namespace \mbox{\hyperlink{namespace_s_f_u_i_1_1_prop_group_1_1_graphic}{SFUI\+::\+Prop\+Group\+::\+Graphic}}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_s_f_u_i_1_1_prop_group_1_1_graphic}{Graphic} property group definitions. \end{DoxyCompactList}\item 
+namespace \mbox{\hyperlink{namespace_s_f_u_i_1_1_prop_group_1_1_button}{SFUI\+::\+Prop\+Group\+::\+Button}}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_s_f_u_i_1_1_prop_group_1_1_button}{Button} property group definitions. \end{DoxyCompactList}\item 
+namespace \mbox{\hyperlink{namespace_s_f_u_i_1_1_prop_group_1_1_toggle}{SFUI\+::\+Prop\+Group\+::\+Toggle}}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_s_f_u_i_1_1_prop_group_1_1_toggle}{Toggle} property group definitions. \end{DoxyCompactList}\item 
+namespace \mbox{\hyperlink{namespace_s_f_u_i_1_1_prop_group_1_1_slider}{SFUI\+::\+Prop\+Group\+::\+Slider}}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_s_f_u_i_1_1_prop_group_1_1_slider}{Slider} property group definitions. \end{DoxyCompactList}\item 
+namespace \mbox{\hyperlink{namespace_s_f_u_i_1_1_prop_group_1_1_text_field}{SFUI\+::\+Prop\+Group\+::\+Text\+Field}}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_s_f_u_i_1_1_prop_group_1_1_text_field}{Text\+Field} property group definitions. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-Defines grouped property structures for specific \doxylink{namespace_s_f_u_i}{SFUI} component types. 
+Defines the main component property structures for layout, style, state, and behavior in \doxylink{namespace_s_f_u_i}{SFUI}. 
 
 \begin{DoxyAuthor}{Author}
 Connor Sempf 
 \end{DoxyAuthor}
 \begin{DoxyDate}{Date}
-2025-\/11-\/15 
+2025-\/12-\/04 
 \end{DoxyDate}
 \begin{DoxyVersion}{Version}
-1.\+0
+2.\+0.\+0
 \end{DoxyVersion}
-This file organizes component-\/specific property sets (layout, style, state, behavior) for \doxylink{namespace_s_f_u_i}{SFUI} components such as Button, Slider, Toggle, Text\+Field, and others. 
+This file contains layout, style, state, and behavior property group definitions for all \doxylink{namespace_s_f_u_i}{SFUI} components, including optional and variant types for flexible property assignment. 

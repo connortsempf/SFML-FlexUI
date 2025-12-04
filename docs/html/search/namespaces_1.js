@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['propgroup_0',['PropGroup',['../namespace_prop_group.html',1,'']]]
+  ['prop_0',['Prop',['../namespace_prop.html',1,'']]]
 ];

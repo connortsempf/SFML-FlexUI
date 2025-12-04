@@ -18,6 +18,8 @@ Root UI manager that handles the top-\/level component and event propagation.
 \begin{DoxyCompactList}\small\item\em Construct a \doxylink{class_s_f_u_i_1_1_u_i_root}{UIRoot} with a root component. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} \mbox{\hyperlink{class_s_f_u_i_1_1_u_i_root_aa9d5e91db7cca8548fd7f48a4214f916}{set\+Root\+Component}} (\mbox{\hyperlink{namespace_s_f_u_i_a9ef8aa6e4c343e20d30a63a95f707ed5}{SFUI\+::\+Unique\+Pointer}}$<$ \mbox{\hyperlink{class_s_f_u_i_1_1_component}{SFUI\+::\+Component}} $>$ \mbox{\hyperlink{class_s_f_u_i_1_1_u_i_root_afdfb0c42428ee94153d76f622661dfe1}{root\+Component}})
 \begin{DoxyCompactList}\small\item\em Set the root component of the UI. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T$>$ }\\T \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_s_f_u_i_1_1_u_i_root_a04ca14e97d6d2018f4dc78291ccf9ef9}{get\+Component}} (const std\+::string component\+ID)
+\begin{DoxyCompactList}\small\item\em Get one of the UI component\textquotesingle{}s in the tree by its component ID. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} \mbox{\hyperlink{class_s_f_u_i_1_1_u_i_root_aa1eefae4a314971d37b5dc9e8eebfe8c}{handle\+Event}} (const \mbox{\hyperlink{namespace_s_f_u_i_a158a4c55cd00926ad04eef6628214d59}{SFUI\+::\+Event}} \&event)
 \begin{DoxyCompactList}\small\item\em Handle an input event by propagating it to the root component. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} \mbox{\hyperlink{class_s_f_u_i_1_1_u_i_root_a11ed4b15445334dd2492aad0bbdd371d}{update}} (const \mbox{\hyperlink{struct_s_f_u_i_1_1_vector2u}{SFUI\+::\+Vector2u}} render\+Target\+Size)
@@ -28,7 +30,9 @@ Root UI manager that handles the top-\/level component and event propagation.
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} \mbox{\hyperlink{class_s_f_u_i_1_1_u_i_root_abd6b86713d367367be42d031e5280609}{draw\+Recursive}} (const \mbox{\hyperlink{namespace_s_f_u_i_a9ef8aa6e4c343e20d30a63a95f707ed5}{SFUI\+::\+Unique\+Pointer}}$<$ \mbox{\hyperlink{class_s_f_u_i_1_1_component}{SFUI\+::\+Component}} $>$ \&component, \mbox{\hyperlink{namespace_s_f_u_i_a27b81981264d0a33b46b81d105bd7197}{SFUI\+::\+Render\+Target}} \&draw\+Target, \mbox{\hyperlink{namespace_s_f_u_i_a7a49d953943284a38398214bc7ed75e5}{SFUI\+::\+Render\+Window}} \&window)
-\begin{DoxyCompactList}\small\item\em Recursively draw a component and its children. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Recursively draw a component and its children. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} \mbox{\hyperlink{class_s_f_u_i_1_1_u_i_root_a89770d1c941d3e6c91b02bebfdfd8019}{draw\+Overlay}} (\mbox{\hyperlink{namespace_s_f_u_i_a27b81981264d0a33b46b81d105bd7197}{SFUI\+::\+Render\+Target}} \&draw\+Target, \mbox{\hyperlink{namespace_s_f_u_i_a7a49d953943284a38398214bc7ed75e5}{SFUI\+::\+Render\+Window}} \&window)
+\begin{DoxyCompactList}\small\item\em Draw the overlay components of the UI to the render target. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -41,6 +45,8 @@ Root UI manager that handles the top-\/level component and event propagation.
 
 The \doxylink{class_s_f_u_i_1_1_u_i_root}{UIRoot} class manages the root component of the UI hierarchy, propagates events, updates, and handles rendering to the target. 
 
+\label{doc-constructors}
+\Hypertarget{class_s_f_u_i_1_1_u_i_root_doc-constructors}
 \doxysubsection{Constructor \& Destructor Documentation}
 \Hypertarget{class_s_f_u_i_1_1_u_i_root_a1febf2ab8b5dddc1bba3d86493d82d23}\index{SFUI::UIRoot@{SFUI::UIRoot}!UIRoot@{UIRoot}}
 \index{UIRoot@{UIRoot}!SFUI::UIRoot@{SFUI::UIRoot}}
@@ -69,6 +75,8 @@ Constructor for \doxylink{class_s_f_u_i_1_1_u_i_root}{UIRoot}.
 \end{DoxyParams}
 
 
+\label{doc-func-members}
+\Hypertarget{class_s_f_u_i_1_1_u_i_root_doc-func-members}
 \doxysubsection{Member Function Documentation}
 \Hypertarget{class_s_f_u_i_1_1_u_i_root_ab4457482fc3b7c9e8a64c0403eeef7c8}\index{SFUI::UIRoot@{SFUI::UIRoot}!draw@{draw}}
 \index{draw@{draw}!SFUI::UIRoot@{SFUI::UIRoot}}
@@ -80,7 +88,7 @@ Constructor for \doxylink{class_s_f_u_i_1_1_u_i_root}{UIRoot}.
 
 Draw the UI to the render target. 
 
-Draws all children in the contained UI.
+Draws all components contained in the UI.
 
 
 \begin{DoxyParams}{Parameters}
@@ -91,6 +99,23 @@ Draws all children in the contained UI.
 {\em draw\+Target} & The render target to draw on. \\
 \hline
 {\em window} & The render window associated with the render target. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_s_f_u_i_1_1_u_i_root_a89770d1c941d3e6c91b02bebfdfd8019}\index{SFUI::UIRoot@{SFUI::UIRoot}!drawOverlay@{drawOverlay}}
+\index{drawOverlay@{drawOverlay}!SFUI::UIRoot@{SFUI::UIRoot}}
+\doxysubsubsection{\texorpdfstring{drawOverlay()}{drawOverlay()}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_u_i_root_a89770d1c941d3e6c91b02bebfdfd8019} 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} SFUI\+::\+UIRoot\+::draw\+Overlay (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespace_s_f_u_i_a27b81981264d0a33b46b81d105bd7197}{SFUI\+::\+Render\+Target}} \&}]{draw\+Target}{, }\item[{\mbox{\hyperlink{namespace_s_f_u_i_a7a49d953943284a38398214bc7ed75e5}{SFUI\+::\+Render\+Window}} \&}]{window}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Draw the overlay components of the UI to the render target. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em draw\+Target} & Target to draw on. \\
+\hline
+{\em window} & Window reference. \\
 \hline
 \end{DoxyParams}
 \Hypertarget{class_s_f_u_i_1_1_u_i_root_abd6b86713d367367be42d031e5280609}\index{SFUI::UIRoot@{SFUI::UIRoot}!drawRecursive@{drawRecursive}}
@@ -120,6 +145,25 @@ Recursive helper function to draw components and their children.
 {\em window} & The render window associated with the render target. \\
 \hline
 \end{DoxyParams}
+\Hypertarget{class_s_f_u_i_1_1_u_i_root_a04ca14e97d6d2018f4dc78291ccf9ef9}\index{SFUI::UIRoot@{SFUI::UIRoot}!getComponent@{getComponent}}
+\index{getComponent@{getComponent}!SFUI::UIRoot@{SFUI::UIRoot}}
+\doxysubsubsection{\texorpdfstring{getComponent()}{getComponent()}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_u_i_root_a04ca14e97d6d2018f4dc78291ccf9ef9} 
+template$<$typename T$>$ \\
+T \texorpdfstring{$\ast$}{*} SFUI\+::\+UIRoot\+::get\+Component (\begin{DoxyParamCaption}\item[{const std\+::string}]{component\+ID}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get one of the UI component\textquotesingle{}s in the tree by its component ID. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em component\+ID} & The unique identifier of the component to find.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A raw pointer to the \doxylink{class_s_f_u_i_1_1_component}{Component}. 
+\end{DoxyReturn}
 \Hypertarget{class_s_f_u_i_1_1_u_i_root_aa1eefae4a314971d37b5dc9e8eebfe8c}\index{SFUI::UIRoot@{SFUI::UIRoot}!handleEvent@{handleEvent}}
 \index{handleEvent@{handleEvent}!SFUI::UIRoot@{SFUI::UIRoot}}
 \doxysubsubsection{\texorpdfstring{handleEvent()}{handleEvent()}}
@@ -130,11 +174,11 @@ Recursive helper function to draw components and their children.
 
 Handle an input event by propagating it to the root component. 
 
-Handles input events by propagating to all children in the contained UI.
+Handles input events by propagating to all components contained in the UI.
 
 
 \begin{DoxyParams}{Parameters}
-{\em event} & Event to process.\\
+{\em event} & \doxylink{namespace_s_f_u_i_a158a4c55cd00926ad04eef6628214d59}{Event} to process.\\
 \hline
 {\em event} & The input event to handle. \\
 \hline
@@ -168,15 +212,19 @@ Sets the root component of the UI hierarchy.
 
 Update the UI state. 
 
-Updates all children in the contained UI.
+Updates all components contained in the UI.
 
 
 \begin{DoxyParams}{Parameters}
-{\em render\+Target\+Size} & Size of the render target. \\
+{\em render\+Target\+Size} & \doxylink{namespace_s_f_u_i_a2260bca1fca08c7b3cd4f6271c39d92f}{Size} of the render target.\\
+\hline
+{\em render\+Target\+Size} & The dimensions of the object to which the UI is rendering. \\
 \hline
 \end{DoxyParams}
 
 
+\label{doc-variable-members}
+\Hypertarget{class_s_f_u_i_1_1_u_i_root_doc-variable-members}
 \doxysubsection{Member Data Documentation}
 \Hypertarget{class_s_f_u_i_1_1_u_i_root_afdfb0c42428ee94153d76f622661dfe1}\index{SFUI::UIRoot@{SFUI::UIRoot}!rootComponent@{rootComponent}}
 \index{rootComponent@{rootComponent}!SFUI::UIRoot@{SFUI::UIRoot}}

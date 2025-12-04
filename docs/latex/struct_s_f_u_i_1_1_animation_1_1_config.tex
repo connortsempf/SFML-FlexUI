@@ -1,0 +1,99 @@
+\doxysection{SFUI\+::Animation\+::Config Struct Reference}
+\hypertarget{struct_s_f_u_i_1_1_animation_1_1_config}{}\label{struct_s_f_u_i_1_1_animation_1_1_config}\index{SFUI::Animation::Config@{SFUI::Animation::Config}}
+
+
+\doxylink{class_s_f_u_i_1_1_animation}{Animation} configuration used as a user input when creating an animation.  
+
+
+
+
+{\ttfamily \#include $<$Animation.\+hpp$>$}
+
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a5d1d23a263a913ca5408caea12070315}{SFUI\+::\+Float}} \mbox{\hyperlink{struct_s_f_u_i_1_1_animation_1_1_config_a192ae161d90ad3450996584b966ecddb}{start\+Value}}
+\begin{DoxyCompactList}\small\item\em The starting value from which to start the animation. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a5d1d23a263a913ca5408caea12070315}{SFUI\+::\+Float}} \mbox{\hyperlink{struct_s_f_u_i_1_1_animation_1_1_config_a5c74d61bd9e0f564f22339bb81471fea}{end\+Value}}
+\begin{DoxyCompactList}\small\item\em The final value to approach with the animation. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a5d1d23a263a913ca5408caea12070315}{SFUI\+::\+Float}} \mbox{\hyperlink{struct_s_f_u_i_1_1_animation_1_1_config_ac69fe5beb3002ed60470f340a8729e3f}{delay\+Start\+Time}} = 0.\+0f
+\begin{DoxyCompactList}\small\item\em The time to wait after starting an animation to perform the actual animations. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a485453f38a63a3fd6000773eab6345b7}{SFUI\+::\+Unsigned\+Int}} \mbox{\hyperlink{struct_s_f_u_i_1_1_animation_1_1_config_a537134668ec134051e7cc311c19f4e14}{loop\+Count}} = 1
+\begin{DoxyCompactList}\small\item\em The number of times to repeat the animation. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_s_f_u_i_1_1_animation_ad7647dd5f2fdbf7b65555e39e06cec24}{SFUI\+::\+Animation\+::\+Type}} \mbox{\hyperlink{struct_s_f_u_i_1_1_animation_1_1_config_a5b7139355f7b8b6ddb5b92f09885a852}{animation\+Type}}
+\begin{DoxyCompactList}\small\item\em The animation type (timing, spring, decay). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a8dbc9b24221760e90fe9a97a3cb85856}{SFUI\+::\+Variant}}$<$ \mbox{\hyperlink{struct_s_f_u_i_1_1_animation_1_1_timing_config}{SFUI\+::\+Animation\+::\+Timing\+Config}}, \mbox{\hyperlink{struct_s_f_u_i_1_1_animation_1_1_spring_config}{SFUI\+::\+Animation\+::\+Spring\+Config}}, \mbox{\hyperlink{struct_s_f_u_i_1_1_animation_1_1_decay_config}{SFUI\+::\+Animation\+::\+Decay\+Config}} $>$ \mbox{\hyperlink{struct_s_f_u_i_1_1_animation_1_1_config_aca5732b14fe13242341a7290269a8369}{animation\+Type\+Config}}
+\begin{DoxyCompactList}\small\item\em The config for the specified animation type. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\doxylink{class_s_f_u_i_1_1_animation}{Animation} configuration used as a user input when creating an animation. 
+
+\label{doc-variable-members}
+\Hypertarget{struct_s_f_u_i_1_1_animation_1_1_config_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_s_f_u_i_1_1_animation_1_1_config_a5b7139355f7b8b6ddb5b92f09885a852}\index{SFUI::Animation::Config@{SFUI::Animation::Config}!animationType@{animationType}}
+\index{animationType@{animationType}!SFUI::Animation::Config@{SFUI::Animation::Config}}
+\doxysubsubsection{\texorpdfstring{animationType}{animationType}}
+{\footnotesize\ttfamily \label{struct_s_f_u_i_1_1_animation_1_1_config_a5b7139355f7b8b6ddb5b92f09885a852} 
+\mbox{\hyperlink{class_s_f_u_i_1_1_animation_ad7647dd5f2fdbf7b65555e39e06cec24}{SFUI\+::\+Animation\+::\+Type}} SFUI\+::\+Animation\+::\+Config\+::animation\+Type}
+
+
+
+The animation type (timing, spring, decay). 
+
+\Hypertarget{struct_s_f_u_i_1_1_animation_1_1_config_aca5732b14fe13242341a7290269a8369}\index{SFUI::Animation::Config@{SFUI::Animation::Config}!animationTypeConfig@{animationTypeConfig}}
+\index{animationTypeConfig@{animationTypeConfig}!SFUI::Animation::Config@{SFUI::Animation::Config}}
+\doxysubsubsection{\texorpdfstring{animationTypeConfig}{animationTypeConfig}}
+{\footnotesize\ttfamily \label{struct_s_f_u_i_1_1_animation_1_1_config_aca5732b14fe13242341a7290269a8369} 
+\mbox{\hyperlink{namespace_s_f_u_i_a8dbc9b24221760e90fe9a97a3cb85856}{SFUI\+::\+Variant}}$<$\mbox{\hyperlink{struct_s_f_u_i_1_1_animation_1_1_timing_config}{SFUI\+::\+Animation\+::\+Timing\+Config}}, \mbox{\hyperlink{struct_s_f_u_i_1_1_animation_1_1_spring_config}{SFUI\+::\+Animation\+::\+Spring\+Config}}, \mbox{\hyperlink{struct_s_f_u_i_1_1_animation_1_1_decay_config}{SFUI\+::\+Animation\+::\+Decay\+Config}}$>$ SFUI\+::\+Animation\+::\+Config\+::animation\+Type\+Config}
+
+
+
+The config for the specified animation type. 
+
+\Hypertarget{struct_s_f_u_i_1_1_animation_1_1_config_ac69fe5beb3002ed60470f340a8729e3f}\index{SFUI::Animation::Config@{SFUI::Animation::Config}!delayStartTime@{delayStartTime}}
+\index{delayStartTime@{delayStartTime}!SFUI::Animation::Config@{SFUI::Animation::Config}}
+\doxysubsubsection{\texorpdfstring{delayStartTime}{delayStartTime}}
+{\footnotesize\ttfamily \label{struct_s_f_u_i_1_1_animation_1_1_config_ac69fe5beb3002ed60470f340a8729e3f} 
+\mbox{\hyperlink{namespace_s_f_u_i_a5d1d23a263a913ca5408caea12070315}{SFUI\+::\+Float}} SFUI\+::\+Animation\+::\+Config\+::delay\+Start\+Time = 0.\+0f}
+
+
+
+The time to wait after starting an animation to perform the actual animations. 
+
+\Hypertarget{struct_s_f_u_i_1_1_animation_1_1_config_a5c74d61bd9e0f564f22339bb81471fea}\index{SFUI::Animation::Config@{SFUI::Animation::Config}!endValue@{endValue}}
+\index{endValue@{endValue}!SFUI::Animation::Config@{SFUI::Animation::Config}}
+\doxysubsubsection{\texorpdfstring{endValue}{endValue}}
+{\footnotesize\ttfamily \label{struct_s_f_u_i_1_1_animation_1_1_config_a5c74d61bd9e0f564f22339bb81471fea} 
+\mbox{\hyperlink{namespace_s_f_u_i_a5d1d23a263a913ca5408caea12070315}{SFUI\+::\+Float}} SFUI\+::\+Animation\+::\+Config\+::end\+Value}
+
+
+
+The final value to approach with the animation. 
+
+\Hypertarget{struct_s_f_u_i_1_1_animation_1_1_config_a537134668ec134051e7cc311c19f4e14}\index{SFUI::Animation::Config@{SFUI::Animation::Config}!loopCount@{loopCount}}
+\index{loopCount@{loopCount}!SFUI::Animation::Config@{SFUI::Animation::Config}}
+\doxysubsubsection{\texorpdfstring{loopCount}{loopCount}}
+{\footnotesize\ttfamily \label{struct_s_f_u_i_1_1_animation_1_1_config_a537134668ec134051e7cc311c19f4e14} 
+\mbox{\hyperlink{namespace_s_f_u_i_a485453f38a63a3fd6000773eab6345b7}{SFUI\+::\+Unsigned\+Int}} SFUI\+::\+Animation\+::\+Config\+::loop\+Count = 1}
+
+
+
+The number of times to repeat the animation. 
+
+\Hypertarget{struct_s_f_u_i_1_1_animation_1_1_config_a192ae161d90ad3450996584b966ecddb}\index{SFUI::Animation::Config@{SFUI::Animation::Config}!startValue@{startValue}}
+\index{startValue@{startValue}!SFUI::Animation::Config@{SFUI::Animation::Config}}
+\doxysubsubsection{\texorpdfstring{startValue}{startValue}}
+{\footnotesize\ttfamily \label{struct_s_f_u_i_1_1_animation_1_1_config_a192ae161d90ad3450996584b966ecddb} 
+\mbox{\hyperlink{namespace_s_f_u_i_a5d1d23a263a913ca5408caea12070315}{SFUI\+::\+Float}} SFUI\+::\+Animation\+::\+Config\+::start\+Value}
+
+
+
+The starting value from which to start the animation. 
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\+Base/\mbox{\hyperlink{_animation_8hpp}{Animation.\+hpp}}\end{DoxyCompactItemize}

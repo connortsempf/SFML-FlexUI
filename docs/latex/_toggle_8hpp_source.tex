@@ -3,60 +3,66 @@
 \mbox{\hyperlink{_toggle_8hpp}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ }
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ }
 \DoxyCodeLine{00013\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_component_8hpp}{Base/Component.hpp}}"{}}}
 \DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_button_8hpp}{Button.hpp}}"{}}}
 \DoxyCodeLine{00016\ }
 \DoxyCodeLine{00017\ }
 \DoxyCodeLine{00018\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_s_f_u_i}{SFUI}}\ \{}
-\DoxyCodeLine{00019\ \ \ \ \ }
-\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_s_f_u_i_1_1_toggle}{Toggle}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_s_f_u_i_1_1_component}{Component}}\ \{}
-\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_s_f_u_i_1_1_toggle_a23b0b8b9fe1dc1ac1b93b7531a5c807d}{Toggle}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_s_f_u_i_1_1_component_a47c11ef58d1bee51c04313a2207c98e1}{Component}}\ \{}
+\DoxyCodeLine{00028\ }
 \DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_1_1_style_1_1_toggle}{SFUI::Prop::Style::Toggle}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_toggle_ac432c08f2d8211a08b1db69470a6d27c}{toggleStyle}};}
-\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_1_1_state_1_1_toggle}{SFUI::Prop::State::Toggle}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_toggle_a49aee8e4d1b5a013d9ff31a4624f32b1}{toggleState}};}
-\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_1_1_behavior_1_1_toggle}{SFUI::Prop::Behavior::Toggle}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_toggle_aa5d7d9f343cbe186865361e0a6a78d20}{toggleBehavior}};}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_toggle_1_1_layout}{SFUI::PropGroup::Toggle::Layout}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_toggle_ad56347699a2a4eba5d6d3ff060efcb2b}{layout}};}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_toggle_1_1_style}{SFUI::PropGroup::Toggle::Style}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_toggle_a26edd3180d6c918ebd479c803bd5ee51}{style}};}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_toggle_1_1_state}{SFUI::PropGroup::Toggle::State}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_toggle_a3de25cb5112c8dc5ebfd4b3debd6673e}{state}};}
 \DoxyCodeLine{00044\ }
-\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_f_u_i_1_1_toggle_a23b0b8b9fe1dc1ac1b93b7531a5c807d}{Toggle}}()\ =\ \textcolor{keywordflow}{default};}
-\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_f_u_i_1_1_toggle_a2e046e9dfc0b06a7f7e6e675ccfcfc6f}{Toggle}}(\mbox{\hyperlink{class_s_f_u_i_1_1_toggle}{Toggle}}\&\&)\ =\ \textcolor{keywordflow}{default};}
-\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_f_u_i_1_1_toggle}{Toggle}}\&\ \mbox{\hyperlink{class_s_f_u_i_1_1_toggle_a2a8aeab151bf8cc8d050855fc190c678}{operator=}}(\mbox{\hyperlink{class_s_f_u_i_1_1_toggle}{Toggle}}\&\&)\ =\ \textcolor{keywordflow}{default};}
-\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_f_u_i_1_1_toggle_a23b0b8b9fe1dc1ac1b93b7531a5c807d}{Toggle}}(\mbox{\hyperlink{namespace_s_f_u_i_ad33b42094903daa96d9a60997cb2b8f0}{SFUI::String}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_component_aec2950f405553cd5e65f0acf6a1e28da}{componentID}});}
-\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}...\ Children>}
-\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_f_u_i_1_1_toggle_af4d5a1726616bc460049f564ff6de79c}{Toggle}}(\mbox{\hyperlink{namespace_s_f_u_i_ad33b42094903daa96d9a60997cb2b8f0}{SFUI::String}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_component_aec2950f405553cd5e65f0acf6a1e28da}{componentID}},\ \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_toggle}{SFUI::PropGroup::Toggle}}\ togglePropGroup,\ Children\&\&...\ \mbox{\hyperlink{class_s_f_u_i_1_1_component_a7b68cbfe79759bc6412a5128d9bfca86}{children}})\ :}
-\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_f_u_i_1_1_component}{Component}}(std::move(\mbox{\hyperlink{class_s_f_u_i_1_1_component_aec2950f405553cd5e65f0acf6a1e28da}{componentID}}),\ std::move(togglePropGroup.\mbox{\hyperlink{class_s_f_u_i_1_1_component_a02342d63158df6f61385b772233a608a}{layout}}),\ std::move(togglePropGroup.\mbox{\hyperlink{class_s_f_u_i_1_1_component_a7dd1ea963c57acd93bd7d616cdc49f21}{style}})),}
-\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_f_u_i_1_1_toggle_ac432c08f2d8211a08b1db69470a6d27c}{toggleStyle}}(std::move(togglePropGroup.\mbox{\hyperlink{class_s_f_u_i_1_1_toggle_ac432c08f2d8211a08b1db69470a6d27c}{toggleStyle}})),}
-\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_f_u_i_1_1_toggle_a49aee8e4d1b5a013d9ff31a4624f32b1}{toggleState}}(std::move(togglePropGroup.\mbox{\hyperlink{class_s_f_u_i_1_1_toggle_a49aee8e4d1b5a013d9ff31a4624f32b1}{toggleState}})),}
-\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_f_u_i_1_1_toggle_aa5d7d9f343cbe186865361e0a6a78d20}{toggleBehavior}}(std::move(togglePropGroup.\mbox{\hyperlink{class_s_f_u_i_1_1_toggle_aa5d7d9f343cbe186865361e0a6a78d20}{toggleBehavior}})),}
-\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_f_u_i_1_1_toggle_ae97306fc8c8be858dbd5a7e2d19edff4}{toggle}}(\mbox{\hyperlink{class_s_f_u_i_1_1_component_aec2950f405553cd5e65f0acf6a1e28da}{componentID}}\ +\ \textcolor{stringliteral}{"{}\_InnerToggle"{}})\ \{}
-\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\mbox{\hyperlink{class_s_f_u_i_1_1_component_a77ba84c3e3adbe6b1f3b71a45d963d70}{addChild}}(std::make\_unique<std::decay\_t<Children>>(std::forward<Children>(\mbox{\hyperlink{class_s_f_u_i_1_1_component_a7b68cbfe79759bc6412a5128d9bfca86}{children}}))),\ ...);}
-\DoxyCodeLine{00072\ }
-\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00074\ }
-\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI::Void}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_toggle_a0df15712d006b0a364ee7184c15fb74b}{handleEvent}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{namespace_s_f_u_i_a158a4c55cd00926ad04eef6628214d59}{SFUI::Event}}\&\ event);}
-\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI::Void}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_toggle_a2aa160fd696ec3b96ea7d9ba856de322}{update}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_s_f_u_i_1_1_vector2u}{SFUI::Vector2u}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_component_abd01e643b921908bf9ed66c501a7dbc8}{renderTargetSize}});}
-\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI::Void}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_toggle_a84c9f20cdf05a5d440ffb4a24b1be085}{draw}}(\mbox{\hyperlink{namespace_s_f_u_i_a27b81981264d0a33b46b81d105bd7197}{SFUI::RenderTarget}}\&\ drawTarget,\ \mbox{\hyperlink{namespace_s_f_u_i_a7a49d953943284a38398214bc7ed75e5}{SFUI::RenderWindow}}\&\ window);}
-\DoxyCodeLine{00096\ }
-\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_s_f_u_i_a1d018a570e8ca18e9d5d4f5b01c0c2b6}{SFUI::Bool}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_toggle_ac393a03deee6e687fb770ea2aca2b76d}{dirtyEvent}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_group_1_1_toggle_1_1_behavior}{SFUI::PropGroup::Toggle::Behavior}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_toggle_aef41d7afc83b45af3b28478ef8f0e064}{behavior}};}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_f_u_i_1_1_toggle_a23b0b8b9fe1dc1ac1b93b7531a5c807d}{Toggle}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_f_u_i_1_1_toggle_a2e046e9dfc0b06a7f7e6e675ccfcfc6f}{Toggle}}(\mbox{\hyperlink{class_s_f_u_i_1_1_toggle_a23b0b8b9fe1dc1ac1b93b7531a5c807d}{Toggle}}\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_f_u_i_1_1_toggle_a23b0b8b9fe1dc1ac1b93b7531a5c807d}{Toggle}}\&\ \mbox{\hyperlink{class_s_f_u_i_1_1_toggle_a2a8aeab151bf8cc8d050855fc190c678}{operator=}}(\mbox{\hyperlink{class_s_f_u_i_1_1_toggle_a23b0b8b9fe1dc1ac1b93b7531a5c807d}{Toggle}}\&\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_f_u_i_1_1_toggle_a23b0b8b9fe1dc1ac1b93b7531a5c807d}{Toggle}}(\mbox{\hyperlink{namespace_s_f_u_i_ad33b42094903daa96d9a60997cb2b8f0}{SFUI::String}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_component_aec2950f405553cd5e65f0acf6a1e28da}{componentID}});}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}...\ Children>}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_f_u_i_1_1_toggle_a30a8870823218b7d5f3600b8240990fa}{Toggle}}(\mbox{\hyperlink{namespace_s_f_u_i_ad33b42094903daa96d9a60997cb2b8f0}{SFUI::String}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_component_aec2950f405553cd5e65f0acf6a1e28da}{componentID}},\ \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_set_1_1_toggle}{SFUI::PropSet::Toggle}}\ propSet,\ Children\&\&...\ \mbox{\hyperlink{class_s_f_u_i_1_1_component_a7b68cbfe79759bc6412a5128d9bfca86}{children}})\ :}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_f_u_i_1_1_component_a47c11ef58d1bee51c04313a2207c98e1}{Component}}(\mbox{\hyperlink{class_s_f_u_i_1_1_component_aec2950f405553cd5e65f0acf6a1e28da}{componentID}}),}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_f_u_i_1_1_toggle_ad56347699a2a4eba5d6d3ff060efcb2b}{layout}}(propSet.\mbox{\hyperlink{class_s_f_u_i_1_1_toggle_ad56347699a2a4eba5d6d3ff060efcb2b}{layout}}),}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_f_u_i_1_1_toggle_a26edd3180d6c918ebd479c803bd5ee51}{style}}(propSet.\mbox{\hyperlink{class_s_f_u_i_1_1_toggle_a26edd3180d6c918ebd479c803bd5ee51}{style}}),}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_f_u_i_1_1_toggle_a3de25cb5112c8dc5ebfd4b3debd6673e}{state}}(propSet.\mbox{\hyperlink{class_s_f_u_i_1_1_toggle_a3de25cb5112c8dc5ebfd4b3debd6673e}{state}}),}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_f_u_i_1_1_toggle_aef41d7afc83b45af3b28478ef8f0e064}{behavior}}(propSet.\mbox{\hyperlink{class_s_f_u_i_1_1_toggle_aef41d7afc83b45af3b28478ef8f0e064}{behavior}}),}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ style(std::move(propSet.style)),}}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ state(std::move(propSet.state)),}}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ behavior(std::move(propSet.behavior)),}}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_f_u_i_1_1_toggle_ae97306fc8c8be858dbd5a7e2d19edff4}{toggle}}(\mbox{\hyperlink{class_s_f_u_i_1_1_component_aec2950f405553cd5e65f0acf6a1e28da}{componentID}}\ +\ \textcolor{stringliteral}{"{}\_InnerToggle"{}})}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\mbox{\hyperlink{class_s_f_u_i_1_1_component_a77ba84c3e3adbe6b1f3b71a45d963d70}{addChild}}(std::make\_unique<std::decay\_t<Children>>(std::forward<Children>(\mbox{\hyperlink{class_s_f_u_i_1_1_component_a7b68cbfe79759bc6412a5128d9bfca86}{children}}))),\ ...);}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI::Void}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_toggle_a0df15712d006b0a364ee7184c15fb74b}{handleEvent}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{namespace_s_f_u_i_a158a4c55cd00926ad04eef6628214d59}{SFUI::Event}}\&\ event);}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI::Void}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_toggle_a8359fea425aeee893418ace784936292}{preUpdate}}();}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI::Void}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_toggle_a2aa160fd696ec3b96ea7d9ba856de322}{update}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_s_f_u_i_1_1_vector2u}{SFUI::Vector2u}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_component_abd01e643b921908bf9ed66c501a7dbc8}{renderTargetSize}});}
 \DoxyCodeLine{00102\ }
-\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_f_u_i_1_1_button}{SFUI::Button}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_toggle_ae97306fc8c8be858dbd5a7e2d19edff4}{toggle}};}
-\DoxyCodeLine{00107\ }
-\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_1_1_style_1_1_toggle}{SFUI::Prop::Style::Toggle}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_toggle_a6435356aa4be9f373d37392dbbf57a87}{dirtyToggleStyle}};}
-\DoxyCodeLine{00112\ }
-\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_s_f_u_i_1_1_prop_1_1_state_1_1_toggle}{SFUI::Prop::State::Toggle}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_toggle_a048d8bfbeb2a45b7041331e5e2919b6f}{dirtyToggleState}};}
-\DoxyCodeLine{00117\ }
-\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI::Void}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_toggle_a34aa4ca80f950122a14cfa115cdbc6bb}{computeDynamicColors}}();}
-\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI::Void}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_toggle_a5c9fa9ba3beafad0eb86cc20d9c736a2}{computeToggle}}();}
-\DoxyCodeLine{00128\ \ \ \ \ \};}
-\DoxyCodeLine{00129\ \}}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI::Void}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_toggle_a84c9f20cdf05a5d440ffb4a24b1be085}{draw}}(\mbox{\hyperlink{namespace_s_f_u_i_a27b81981264d0a33b46b81d105bd7197}{SFUI::RenderTarget}}\&\ drawTarget,\ \mbox{\hyperlink{namespace_s_f_u_i_a7a49d953943284a38398214bc7ed75e5}{SFUI::RenderWindow}}\&\ window);}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI::Void}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_toggle_a6bdfb1fd8a41f089876ba6b4f28c3dd2}{drawOverlay}}(\mbox{\hyperlink{namespace_s_f_u_i_a27b81981264d0a33b46b81d105bd7197}{SFUI::RenderTarget}}\&\ drawTarget,\ \mbox{\hyperlink{namespace_s_f_u_i_a7a49d953943284a38398214bc7ed75e5}{SFUI::RenderWindow}}\&\ window);}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_s_f_u_i_1_1_button}{SFUI::Button}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_toggle_ae97306fc8c8be858dbd5a7e2d19edff4}{toggle}};}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI::Void}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_toggle_a34aa4ca80f950122a14cfa115cdbc6bb}{computeDynamicColors}}();}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI::Void}}\ \mbox{\hyperlink{class_s_f_u_i_1_1_toggle_a5c9fa9ba3beafad0eb86cc20d9c736a2}{computeToggle}}();}
+\DoxyCodeLine{00140\ \ \ \ \ \};}
+\DoxyCodeLine{00141\ \}}
 
 \end{DoxyCode}

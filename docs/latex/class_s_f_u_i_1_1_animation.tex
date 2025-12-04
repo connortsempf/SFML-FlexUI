@@ -1,0 +1,503 @@
+\doxysection{SFUI\+::Animation Class Reference}
+\hypertarget{class_s_f_u_i_1_1_animation}{}\label{class_s_f_u_i_1_1_animation}\index{SFUI::Animation@{SFUI::Animation}}
+
+
+Class blueprint for handling animations.  
+
+
+
+
+{\ttfamily \#include $<$Animation.\+hpp$>$}
+
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_s_f_u_i_1_1_animation_1_1_timing_config}{Timing\+Config}}
+\begin{DoxyCompactList}\small\item\em The configuration for timing-\/based animations. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_s_f_u_i_1_1_animation_1_1_spring_config}{Spring\+Config}}
+\begin{DoxyCompactList}\small\item\em The configuration for spring-\/based animations. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_s_f_u_i_1_1_animation_1_1_decay_config}{Decay\+Config}}
+\begin{DoxyCompactList}\small\item\em The configuration for decay-\/based animations. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_s_f_u_i_1_1_animation_1_1_config}{Config}}
+\begin{DoxyCompactList}\small\item\em \doxylink{class_s_f_u_i_1_1_animation}{Animation} configuration used as a user input when creating an animation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{class_s_f_u_i_1_1_animation_ad7647dd5f2fdbf7b65555e39e06cec24}{Type}} \{ \mbox{\hyperlink{class_s_f_u_i_1_1_animation_ad7647dd5f2fdbf7b65555e39e06cec24a8f9e1889c89e42901ab7c0a033a3347c}{TIMING}}
+, \mbox{\hyperlink{class_s_f_u_i_1_1_animation_ad7647dd5f2fdbf7b65555e39e06cec24a2e2302818a996993c08f2f07c9606e79}{SPRING}}
+, \mbox{\hyperlink{class_s_f_u_i_1_1_animation_ad7647dd5f2fdbf7b65555e39e06cec24af34d9b416802d4cda3a4ee548619f206}{DECAY}}
+ \}
+\begin{DoxyCompactList}\small\item\em The animation type. \end{DoxyCompactList}\item 
+enum class \mbox{\hyperlink{class_s_f_u_i_1_1_animation_a6047cceb090b14fa6c04a208cefe896b}{Easing\+Function}} \{ \newline
+\mbox{\hyperlink{class_s_f_u_i_1_1_animation_a6047cceb090b14fa6c04a208cefe896baaac544aacc3615aada24897a215f5046}{LINEAR}}
+, \mbox{\hyperlink{class_s_f_u_i_1_1_animation_a6047cceb090b14fa6c04a208cefe896ba2931ba9ba54f08c9e47897156da23d80}{EASE\+\_\+\+IN\+\_\+\+QUAD}}
+, \mbox{\hyperlink{class_s_f_u_i_1_1_animation_a6047cceb090b14fa6c04a208cefe896ba0d4b5515ac1af5b4a19b4d92d6904704}{EASE\+\_\+\+OUT\+\_\+\+QUAD}}
+, \mbox{\hyperlink{class_s_f_u_i_1_1_animation_a6047cceb090b14fa6c04a208cefe896ba8d19bd5bb9e0cbf991bed5a11fdebda2}{EASE\+\_\+\+IN\+\_\+\+OUT\+\_\+\+QUAD}}
+, \newline
+\mbox{\hyperlink{class_s_f_u_i_1_1_animation_a6047cceb090b14fa6c04a208cefe896ba8ede4db7eb19d14265ec995bddf7cbc9}{EASE\+\_\+\+IN\+\_\+\+CUBIC}}
+, \mbox{\hyperlink{class_s_f_u_i_1_1_animation_a6047cceb090b14fa6c04a208cefe896bad6d1b2d7f0b5e3fb5a03b0d2c290d1e2}{EASE\+\_\+\+OUT\+\_\+\+CUBIC}}
+, \mbox{\hyperlink{class_s_f_u_i_1_1_animation_a6047cceb090b14fa6c04a208cefe896ba0bb26716c23d2bde832520440675f6db}{EASE\+\_\+\+IN\+\_\+\+OUT\+\_\+\+CUBIC}}
+, \mbox{\hyperlink{class_s_f_u_i_1_1_animation_a6047cceb090b14fa6c04a208cefe896ba98e44a229c5947aaa27cbf413786ad19}{EASE\+\_\+\+IN\+\_\+\+SINE}}
+, \newline
+\mbox{\hyperlink{class_s_f_u_i_1_1_animation_a6047cceb090b14fa6c04a208cefe896baf97f6293938f34359465b059138a9ced}{EASE\+\_\+\+OUT\+\_\+\+SINE}}
+, \mbox{\hyperlink{class_s_f_u_i_1_1_animation_a6047cceb090b14fa6c04a208cefe896baf7b782c53f85d26c21626ca256365490}{EASE\+\_\+\+IN\+\_\+\+OUT\+\_\+\+SINE}}
+, \mbox{\hyperlink{class_s_f_u_i_1_1_animation_a6047cceb090b14fa6c04a208cefe896bae3b72e95a8eb71d95bc7e2c65cac504a}{EASE\+\_\+\+OUT\+\_\+\+BOUNCE}}
+, \mbox{\hyperlink{class_s_f_u_i_1_1_animation_a6047cceb090b14fa6c04a208cefe896ba5a0c8c2ad9e331b37071595a66230f27}{EASE\+\_\+\+OUT\+\_\+\+BACK}}
+ \}
+\begin{DoxyCompactList}\small\item\em Types of easing functions for timing-\/based animations. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_s_f_u_i_1_1_animation_ab334e25b85aa83d074f2ff4eb745f609}{Animation}} ()=delete
+\item 
+\mbox{\hyperlink{class_s_f_u_i_1_1_animation_a8a57038705fe26762411ea46a92f04c1}{Animation}} (\mbox{\hyperlink{struct_s_f_u_i_1_1_animation_1_1_config}{SFUI\+::\+Animation\+::\+Config}} animation\+Config)
+\begin{DoxyCompactList}\small\item\em The constructor for the \doxylink{class_s_f_u_i_1_1_animation}{Animation} class. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} \mbox{\hyperlink{class_s_f_u_i_1_1_animation_a6c24dcb06104313514361b824ecf83e7}{start}} ()
+\begin{DoxyCompactList}\small\item\em Start the animation process. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} \mbox{\hyperlink{class_s_f_u_i_1_1_animation_a1ed52c8ef34817ba2370f60c05fc7106}{pause}} ()
+\begin{DoxyCompactList}\small\item\em Pause the animation process. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} \mbox{\hyperlink{class_s_f_u_i_1_1_animation_afc7b394c1088548bb34045b806b11dd1}{terminate}} ()
+\begin{DoxyCompactList}\small\item\em Terminate the animation process. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} \mbox{\hyperlink{class_s_f_u_i_1_1_animation_a5bac1b212e307a769c86c9efc6ace29b}{update}} ()
+\begin{DoxyCompactList}\small\item\em Update the animation state and internal animation values. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a5d1d23a263a913ca5408caea12070315}{SFUI\+::\+Float}} \mbox{\hyperlink{class_s_f_u_i_1_1_animation_a9f265b1d23c4ac0152777ad4cfca5156}{get\+Value}} () const
+\begin{DoxyCompactList}\small\item\em Get the updated value during the active animation process. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a1d018a570e8ca18e9d5d4f5b01c0c2b6}{SFUI\+::\+Bool}} \mbox{\hyperlink{class_s_f_u_i_1_1_animation_ac74b42ea451cad47aa57f7f41136f671}{get\+Is\+Animating}} () const
+\begin{DoxyCompactList}\small\item\em Get the current active state of the animation. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a1d018a570e8ca18e9d5d4f5b01c0c2b6}{SFUI\+::\+Bool}} \mbox{\hyperlink{class_s_f_u_i_1_1_animation_a1fc503812befec2bfc722430887e05a4}{get\+Is\+Animation\+Complete}} () const
+\begin{DoxyCompactList}\small\item\em Get the completion state of the animation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} \mbox{\hyperlink{class_s_f_u_i_1_1_animation_af556ae772647ab2b4c6c2ebfab46ef66}{update\+Timing\+Animation}} ()
+\begin{DoxyCompactList}\small\item\em Update the current time-\/animated value based. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} \mbox{\hyperlink{class_s_f_u_i_1_1_animation_ab545804b5665a46b4f6d152f410f4af6}{update\+Spring\+Animation}} ()
+\begin{DoxyCompactList}\small\item\em Update the spring-\/animated value. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} \mbox{\hyperlink{class_s_f_u_i_1_1_animation_ae7a56ed4ca91d03ebfdc3284604a0273}{update\+Decay\+Animation}} ()
+\begin{DoxyCompactList}\small\item\em Update the decay-\/animated value. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a1d018a570e8ca18e9d5d4f5b01c0c2b6}{SFUI\+::\+Bool}} \mbox{\hyperlink{class_s_f_u_i_1_1_animation_a56002532cf5dd74a6165a54357022d60}{is\+Animating}}
+\begin{DoxyCompactList}\small\item\em Flag for if the animation is currently running. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a1d018a570e8ca18e9d5d4f5b01c0c2b6}{SFUI\+::\+Bool}} \mbox{\hyperlink{class_s_f_u_i_1_1_animation_a1664c883e43d1a36ad80bcdb77ffe577}{is\+Animation\+Complete}}
+\begin{DoxyCompactList}\small\item\em Flag for if the animation is complete. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_ada5b46720f5a25e0b41c1f96ce2ea14c}{SFUI\+::\+Clock}} \mbox{\hyperlink{class_s_f_u_i_1_1_animation_a093f3a95f70095ce512a648c222232e4}{total\+Frames\+Clock}}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_s_f_u_i_ada5b46720f5a25e0b41c1f96ce2ea14c}{Clock} for tracking total animation duration between loops. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_ada5b46720f5a25e0b41c1f96ce2ea14c}{SFUI\+::\+Clock}} \mbox{\hyperlink{class_s_f_u_i_1_1_animation_acc2e44bda88df3830d0cbc13ea22fe0d}{previous\+Frame\+Clock}}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_s_f_u_i_ada5b46720f5a25e0b41c1f96ce2ea14c}{Clock} for tracking time between individual frames. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a5d1d23a263a913ca5408caea12070315}{SFUI\+::\+Float}} \mbox{\hyperlink{class_s_f_u_i_1_1_animation_a9ce346e184192079e1368447ac59eeca}{start\+Value}}
+\begin{DoxyCompactList}\small\item\em The start value to begin the animation from. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a5d1d23a263a913ca5408caea12070315}{SFUI\+::\+Float}} \mbox{\hyperlink{class_s_f_u_i_1_1_animation_a7f0ea7cc4a0933d30d334b7c336b024d}{end\+Value}}
+\begin{DoxyCompactList}\small\item\em The end value to approach through the animation. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a5d1d23a263a913ca5408caea12070315}{SFUI\+::\+Float}} \mbox{\hyperlink{class_s_f_u_i_1_1_animation_a6920293c1f2bb181c61ab60ccb1fba52}{current\+Value}}
+\begin{DoxyCompactList}\small\item\em The current animated value during the animation process. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a5d1d23a263a913ca5408caea12070315}{SFUI\+::\+Float}} \mbox{\hyperlink{class_s_f_u_i_1_1_animation_a4173ce7e813c18a30785c67af9e38e53}{delay\+Start\+Time}}
+\begin{DoxyCompactList}\small\item\em Delay time before starting the animation after official user-\/decided start. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a485453f38a63a3fd6000773eab6345b7}{SFUI\+::\+Unsigned\+Int}} \mbox{\hyperlink{class_s_f_u_i_1_1_animation_aea6e86f7dbcd4d9cf41121c19a9b6bba}{loop\+Count}}
+\begin{DoxyCompactList}\small\item\em Number of times to loop the animation. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespace_s_f_u_i_a485453f38a63a3fd6000773eab6345b7}{SFUI\+::\+Unsigned\+Int}} \mbox{\hyperlink{class_s_f_u_i_1_1_animation_a58ceade2401a588fb3f680a7da164b9d}{current\+Loop}}
+\begin{DoxyCompactList}\small\item\em Current loop iteration. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_s_f_u_i_1_1_animation_ad7647dd5f2fdbf7b65555e39e06cec24}{SFUI\+::\+Animation\+::\+Type}} \mbox{\hyperlink{class_s_f_u_i_1_1_animation_a991e7a3bc020a3e8b05c6b7a4d1cec95}{animation\+Type}}
+\begin{DoxyCompactList}\small\item\em The animation type (timing, spring, decay). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_s_f_u_i_1_1_animation_1_1_timing_config}{SFUI\+::\+Animation\+::\+Timing\+Config}} \mbox{\hyperlink{class_s_f_u_i_1_1_animation_a43958b9e561df55dfa2a1f42df346071}{timing\+Config}}
+\begin{DoxyCompactList}\small\item\em The configuration for timing-\/based animations. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_s_f_u_i_1_1_animation_1_1_spring_config}{SFUI\+::\+Animation\+::\+Spring\+Config}} \mbox{\hyperlink{class_s_f_u_i_1_1_animation_a8a09bac210a46ed5be0da73cff619e56}{spring\+Config}}
+\begin{DoxyCompactList}\small\item\em The configuration for spring-\/based animations. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_s_f_u_i_1_1_animation_1_1_decay_config}{SFUI\+::\+Animation\+::\+Decay\+Config}} \mbox{\hyperlink{class_s_f_u_i_1_1_animation_af8fb85c91576e9f48353b94085d55839}{decay\+Config}}
+\begin{DoxyCompactList}\small\item\em The configuration for decay-\/based animations. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static const \mbox{\hyperlink{namespace_s_f_u_i_afccbe8617a0dcbcba8ee7c7893616566}{SFUI\+::\+Unordered\+Map}}$<$ \mbox{\hyperlink{class_s_f_u_i_1_1_animation_a6047cceb090b14fa6c04a208cefe896b}{SFUI\+::\+Animation\+::\+Easing\+Function}}, \mbox{\hyperlink{namespace_s_f_u_i_a286567aeebae00cf3174e6cf97502b2c}{SFUI\+::\+Function}}$<$ \mbox{\hyperlink{namespace_s_f_u_i_a5d1d23a263a913ca5408caea12070315}{SFUI\+::\+Float}}(\mbox{\hyperlink{namespace_s_f_u_i_a5d1d23a263a913ca5408caea12070315}{SFUI\+::\+Float}})$>$ $>$ \mbox{\hyperlink{class_s_f_u_i_1_1_animation_ab32cefc1d33d23a5535dd8dcb85029e7}{easing\+Functions}}
+\begin{DoxyCompactList}\small\item\em Easing functions mapping normalized elapsed time to normalized progress. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class blueprint for handling animations. 
+
+\label{doc-enum-members}
+\Hypertarget{class_s_f_u_i_1_1_animation_doc-enum-members}
+\doxysubsection{Member Enumeration Documentation}
+\Hypertarget{class_s_f_u_i_1_1_animation_a6047cceb090b14fa6c04a208cefe896b}\index{SFUI::Animation@{SFUI::Animation}!EasingFunction@{EasingFunction}}
+\index{EasingFunction@{EasingFunction}!SFUI::Animation@{SFUI::Animation}}
+\doxysubsubsection{\texorpdfstring{EasingFunction}{EasingFunction}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_animation_a6047cceb090b14fa6c04a208cefe896b} 
+enum class \mbox{\hyperlink{class_s_f_u_i_1_1_animation_a6047cceb090b14fa6c04a208cefe896b}{SFUI\+::\+Animation\+::\+Easing\+Function}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+Types of easing functions for timing-\/based animations. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LINEAR@{LINEAR}!SFUI::Animation@{SFUI::Animation}}\index{SFUI::Animation@{SFUI::Animation}!LINEAR@{LINEAR}}}\Hypertarget{class_s_f_u_i_1_1_animation_a6047cceb090b14fa6c04a208cefe896baaac544aacc3615aada24897a215f5046}\label{class_s_f_u_i_1_1_animation_a6047cceb090b14fa6c04a208cefe896baaac544aacc3615aada24897a215f5046} 
+LINEAR&Linear easing function. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{EASE\_IN\_QUAD@{EASE\_IN\_QUAD}!SFUI::Animation@{SFUI::Animation}}\index{SFUI::Animation@{SFUI::Animation}!EASE\_IN\_QUAD@{EASE\_IN\_QUAD}}}\Hypertarget{class_s_f_u_i_1_1_animation_a6047cceb090b14fa6c04a208cefe896ba2931ba9ba54f08c9e47897156da23d80}\label{class_s_f_u_i_1_1_animation_a6047cceb090b14fa6c04a208cefe896ba2931ba9ba54f08c9e47897156da23d80} 
+EASE\+\_\+\+IN\+\_\+\+QUAD&Ease-\/in beginning with quadratic acceleration. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{EASE\_OUT\_QUAD@{EASE\_OUT\_QUAD}!SFUI::Animation@{SFUI::Animation}}\index{SFUI::Animation@{SFUI::Animation}!EASE\_OUT\_QUAD@{EASE\_OUT\_QUAD}}}\Hypertarget{class_s_f_u_i_1_1_animation_a6047cceb090b14fa6c04a208cefe896ba0d4b5515ac1af5b4a19b4d92d6904704}\label{class_s_f_u_i_1_1_animation_a6047cceb090b14fa6c04a208cefe896ba0d4b5515ac1af5b4a19b4d92d6904704} 
+EASE\+\_\+\+OUT\+\_\+\+QUAD&Ease-\/out ending with quadratic deceleration. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{EASE\_IN\_OUT\_QUAD@{EASE\_IN\_OUT\_QUAD}!SFUI::Animation@{SFUI::Animation}}\index{SFUI::Animation@{SFUI::Animation}!EASE\_IN\_OUT\_QUAD@{EASE\_IN\_OUT\_QUAD}}}\Hypertarget{class_s_f_u_i_1_1_animation_a6047cceb090b14fa6c04a208cefe896ba8d19bd5bb9e0cbf991bed5a11fdebda2}\label{class_s_f_u_i_1_1_animation_a6047cceb090b14fa6c04a208cefe896ba8d19bd5bb9e0cbf991bed5a11fdebda2} 
+EASE\+\_\+\+IN\+\_\+\+OUT\+\_\+\+QUAD&Ease-\/in and ease-\/out with quadratic acceleration and deceleration. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{EASE\_IN\_CUBIC@{EASE\_IN\_CUBIC}!SFUI::Animation@{SFUI::Animation}}\index{SFUI::Animation@{SFUI::Animation}!EASE\_IN\_CUBIC@{EASE\_IN\_CUBIC}}}\Hypertarget{class_s_f_u_i_1_1_animation_a6047cceb090b14fa6c04a208cefe896ba8ede4db7eb19d14265ec995bddf7cbc9}\label{class_s_f_u_i_1_1_animation_a6047cceb090b14fa6c04a208cefe896ba8ede4db7eb19d14265ec995bddf7cbc9} 
+EASE\+\_\+\+IN\+\_\+\+CUBIC&Ease-\/in beginning with cubic acceleration. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{EASE\_OUT\_CUBIC@{EASE\_OUT\_CUBIC}!SFUI::Animation@{SFUI::Animation}}\index{SFUI::Animation@{SFUI::Animation}!EASE\_OUT\_CUBIC@{EASE\_OUT\_CUBIC}}}\Hypertarget{class_s_f_u_i_1_1_animation_a6047cceb090b14fa6c04a208cefe896bad6d1b2d7f0b5e3fb5a03b0d2c290d1e2}\label{class_s_f_u_i_1_1_animation_a6047cceb090b14fa6c04a208cefe896bad6d1b2d7f0b5e3fb5a03b0d2c290d1e2} 
+EASE\+\_\+\+OUT\+\_\+\+CUBIC&Ease-\/out ending with cubic deceleration. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{EASE\_IN\_OUT\_CUBIC@{EASE\_IN\_OUT\_CUBIC}!SFUI::Animation@{SFUI::Animation}}\index{SFUI::Animation@{SFUI::Animation}!EASE\_IN\_OUT\_CUBIC@{EASE\_IN\_OUT\_CUBIC}}}\Hypertarget{class_s_f_u_i_1_1_animation_a6047cceb090b14fa6c04a208cefe896ba0bb26716c23d2bde832520440675f6db}\label{class_s_f_u_i_1_1_animation_a6047cceb090b14fa6c04a208cefe896ba0bb26716c23d2bde832520440675f6db} 
+EASE\+\_\+\+IN\+\_\+\+OUT\+\_\+\+CUBIC&Ease-\/in and ease-\/out with cubic acceleration and deceleration. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{EASE\_IN\_SINE@{EASE\_IN\_SINE}!SFUI::Animation@{SFUI::Animation}}\index{SFUI::Animation@{SFUI::Animation}!EASE\_IN\_SINE@{EASE\_IN\_SINE}}}\Hypertarget{class_s_f_u_i_1_1_animation_a6047cceb090b14fa6c04a208cefe896ba98e44a229c5947aaa27cbf413786ad19}\label{class_s_f_u_i_1_1_animation_a6047cceb090b14fa6c04a208cefe896ba98e44a229c5947aaa27cbf413786ad19} 
+EASE\+\_\+\+IN\+\_\+\+SINE&Ease-\/in with sinusoidal velocity changes. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{EASE\_OUT\_SINE@{EASE\_OUT\_SINE}!SFUI::Animation@{SFUI::Animation}}\index{SFUI::Animation@{SFUI::Animation}!EASE\_OUT\_SINE@{EASE\_OUT\_SINE}}}\Hypertarget{class_s_f_u_i_1_1_animation_a6047cceb090b14fa6c04a208cefe896baf97f6293938f34359465b059138a9ced}\label{class_s_f_u_i_1_1_animation_a6047cceb090b14fa6c04a208cefe896baf97f6293938f34359465b059138a9ced} 
+EASE\+\_\+\+OUT\+\_\+\+SINE&Ease-\/out with sinusoidal velocity changes. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{EASE\_IN\_OUT\_SINE@{EASE\_IN\_OUT\_SINE}!SFUI::Animation@{SFUI::Animation}}\index{SFUI::Animation@{SFUI::Animation}!EASE\_IN\_OUT\_SINE@{EASE\_IN\_OUT\_SINE}}}\Hypertarget{class_s_f_u_i_1_1_animation_a6047cceb090b14fa6c04a208cefe896baf7b782c53f85d26c21626ca256365490}\label{class_s_f_u_i_1_1_animation_a6047cceb090b14fa6c04a208cefe896baf7b782c53f85d26c21626ca256365490} 
+EASE\+\_\+\+IN\+\_\+\+OUT\+\_\+\+SINE&Ease-\/in and ease-\/out with sinusoidal velocity changes. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{EASE\_OUT\_BOUNCE@{EASE\_OUT\_BOUNCE}!SFUI::Animation@{SFUI::Animation}}\index{SFUI::Animation@{SFUI::Animation}!EASE\_OUT\_BOUNCE@{EASE\_OUT\_BOUNCE}}}\Hypertarget{class_s_f_u_i_1_1_animation_a6047cceb090b14fa6c04a208cefe896bae3b72e95a8eb71d95bc7e2c65cac504a}\label{class_s_f_u_i_1_1_animation_a6047cceb090b14fa6c04a208cefe896bae3b72e95a8eb71d95bc7e2c65cac504a} 
+EASE\+\_\+\+OUT\+\_\+\+BOUNCE&Ease-\/out with bouncing ending effect. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{EASE\_OUT\_BACK@{EASE\_OUT\_BACK}!SFUI::Animation@{SFUI::Animation}}\index{SFUI::Animation@{SFUI::Animation}!EASE\_OUT\_BACK@{EASE\_OUT\_BACK}}}\Hypertarget{class_s_f_u_i_1_1_animation_a6047cceb090b14fa6c04a208cefe896ba5a0c8c2ad9e331b37071595a66230f27}\label{class_s_f_u_i_1_1_animation_a6047cceb090b14fa6c04a208cefe896ba5a0c8c2ad9e331b37071595a66230f27} 
+EASE\+\_\+\+OUT\+\_\+\+BACK&Ease-\/out with overshooting ending effect. \\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{class_s_f_u_i_1_1_animation_ad7647dd5f2fdbf7b65555e39e06cec24}\index{SFUI::Animation@{SFUI::Animation}!Type@{Type}}
+\index{Type@{Type}!SFUI::Animation@{SFUI::Animation}}
+\doxysubsubsection{\texorpdfstring{Type}{Type}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_animation_ad7647dd5f2fdbf7b65555e39e06cec24} 
+enum class \mbox{\hyperlink{class_s_f_u_i_1_1_animation_ad7647dd5f2fdbf7b65555e39e06cec24}{SFUI\+::\+Animation\+::\+Type}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+The animation type. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TIMING@{TIMING}!SFUI::Animation@{SFUI::Animation}}\index{SFUI::Animation@{SFUI::Animation}!TIMING@{TIMING}}}\Hypertarget{class_s_f_u_i_1_1_animation_ad7647dd5f2fdbf7b65555e39e06cec24a8f9e1889c89e42901ab7c0a033a3347c}\label{class_s_f_u_i_1_1_animation_ad7647dd5f2fdbf7b65555e39e06cec24a8f9e1889c89e42901ab7c0a033a3347c} 
+TIMING&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPRING@{SPRING}!SFUI::Animation@{SFUI::Animation}}\index{SFUI::Animation@{SFUI::Animation}!SPRING@{SPRING}}}\Hypertarget{class_s_f_u_i_1_1_animation_ad7647dd5f2fdbf7b65555e39e06cec24a2e2302818a996993c08f2f07c9606e79}\label{class_s_f_u_i_1_1_animation_ad7647dd5f2fdbf7b65555e39e06cec24a2e2302818a996993c08f2f07c9606e79} 
+SPRING&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DECAY@{DECAY}!SFUI::Animation@{SFUI::Animation}}\index{SFUI::Animation@{SFUI::Animation}!DECAY@{DECAY}}}\Hypertarget{class_s_f_u_i_1_1_animation_ad7647dd5f2fdbf7b65555e39e06cec24af34d9b416802d4cda3a4ee548619f206}\label{class_s_f_u_i_1_1_animation_ad7647dd5f2fdbf7b65555e39e06cec24af34d9b416802d4cda3a4ee548619f206} 
+DECAY&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\label{doc-constructors}
+\Hypertarget{class_s_f_u_i_1_1_animation_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_s_f_u_i_1_1_animation_ab334e25b85aa83d074f2ff4eb745f609}\index{SFUI::Animation@{SFUI::Animation}!Animation@{Animation}}
+\index{Animation@{Animation}!SFUI::Animation@{SFUI::Animation}}
+\doxysubsubsection{\texorpdfstring{Animation()}{Animation()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_animation_ab334e25b85aa83d074f2ff4eb745f609} 
+SFUI\+::\+Animation\+::\+Animation (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\Hypertarget{class_s_f_u_i_1_1_animation_a8a57038705fe26762411ea46a92f04c1}\index{SFUI::Animation@{SFUI::Animation}!Animation@{Animation}}
+\index{Animation@{Animation}!SFUI::Animation@{SFUI::Animation}}
+\doxysubsubsection{\texorpdfstring{Animation()}{Animation()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_animation_a8a57038705fe26762411ea46a92f04c1} 
+SFUI\+::\+Animation\+::\+Animation (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_s_f_u_i_1_1_animation_1_1_config}{SFUI\+::\+Animation\+::\+Config}}}]{animation\+Config}{}\end{DoxyParamCaption})}
+
+
+
+The constructor for the \doxylink{class_s_f_u_i_1_1_animation}{Animation} class. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em animation\+Config} & The configuration for the animation. \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_s_f_u_i_1_1_animation_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_s_f_u_i_1_1_animation_ac74b42ea451cad47aa57f7f41136f671}\index{SFUI::Animation@{SFUI::Animation}!getIsAnimating@{getIsAnimating}}
+\index{getIsAnimating@{getIsAnimating}!SFUI::Animation@{SFUI::Animation}}
+\doxysubsubsection{\texorpdfstring{getIsAnimating()}{getIsAnimating()}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_animation_ac74b42ea451cad47aa57f7f41136f671} 
+\mbox{\hyperlink{namespace_s_f_u_i_a1d018a570e8ca18e9d5d4f5b01c0c2b6}{SFUI\+::\+Bool}} SFUI\+::\+Animation\+::get\+Is\+Animating (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Get the current active state of the animation. 
+
+\begin{DoxyReturn}{Returns}
+True if currently animating and running, false if not. 
+\end{DoxyReturn}
+\Hypertarget{class_s_f_u_i_1_1_animation_a1fc503812befec2bfc722430887e05a4}\index{SFUI::Animation@{SFUI::Animation}!getIsAnimationComplete@{getIsAnimationComplete}}
+\index{getIsAnimationComplete@{getIsAnimationComplete}!SFUI::Animation@{SFUI::Animation}}
+\doxysubsubsection{\texorpdfstring{getIsAnimationComplete()}{getIsAnimationComplete()}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_animation_a1fc503812befec2bfc722430887e05a4} 
+\mbox{\hyperlink{namespace_s_f_u_i_a1d018a570e8ca18e9d5d4f5b01c0c2b6}{SFUI\+::\+Bool}} SFUI\+::\+Animation\+::get\+Is\+Animation\+Complete (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Get the completion state of the animation. 
+
+\begin{DoxyReturn}{Returns}
+True if complete or terminated, false if currently animating or paused or not started. 
+\end{DoxyReturn}
+\Hypertarget{class_s_f_u_i_1_1_animation_a9f265b1d23c4ac0152777ad4cfca5156}\index{SFUI::Animation@{SFUI::Animation}!getValue@{getValue}}
+\index{getValue@{getValue}!SFUI::Animation@{SFUI::Animation}}
+\doxysubsubsection{\texorpdfstring{getValue()}{getValue()}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_animation_a9f265b1d23c4ac0152777ad4cfca5156} 
+\mbox{\hyperlink{namespace_s_f_u_i_a5d1d23a263a913ca5408caea12070315}{SFUI\+::\+Float}} SFUI\+::\+Animation\+::get\+Value (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Get the updated value during the active animation process. 
+
+\Hypertarget{class_s_f_u_i_1_1_animation_a1ed52c8ef34817ba2370f60c05fc7106}\index{SFUI::Animation@{SFUI::Animation}!pause@{pause}}
+\index{pause@{pause}!SFUI::Animation@{SFUI::Animation}}
+\doxysubsubsection{\texorpdfstring{pause()}{pause()}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_animation_a1ed52c8ef34817ba2370f60c05fc7106} 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} SFUI\+::\+Animation\+::pause (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Pause the animation process. 
+
+\Hypertarget{class_s_f_u_i_1_1_animation_a6c24dcb06104313514361b824ecf83e7}\index{SFUI::Animation@{SFUI::Animation}!start@{start}}
+\index{start@{start}!SFUI::Animation@{SFUI::Animation}}
+\doxysubsubsection{\texorpdfstring{start()}{start()}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_animation_a6c24dcb06104313514361b824ecf83e7} 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} SFUI\+::\+Animation\+::start (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Start the animation process. 
+
+\Hypertarget{class_s_f_u_i_1_1_animation_afc7b394c1088548bb34045b806b11dd1}\index{SFUI::Animation@{SFUI::Animation}!terminate@{terminate}}
+\index{terminate@{terminate}!SFUI::Animation@{SFUI::Animation}}
+\doxysubsubsection{\texorpdfstring{terminate()}{terminate()}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_animation_afc7b394c1088548bb34045b806b11dd1} 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} SFUI\+::\+Animation\+::terminate (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Terminate the animation process. 
+
+\Hypertarget{class_s_f_u_i_1_1_animation_a5bac1b212e307a769c86c9efc6ace29b}\index{SFUI::Animation@{SFUI::Animation}!update@{update}}
+\index{update@{update}!SFUI::Animation@{SFUI::Animation}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_animation_a5bac1b212e307a769c86c9efc6ace29b} 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} SFUI\+::\+Animation\+::update (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Update the animation state and internal animation values. 
+
+\Hypertarget{class_s_f_u_i_1_1_animation_ae7a56ed4ca91d03ebfdc3284604a0273}\index{SFUI::Animation@{SFUI::Animation}!updateDecayAnimation@{updateDecayAnimation}}
+\index{updateDecayAnimation@{updateDecayAnimation}!SFUI::Animation@{SFUI::Animation}}
+\doxysubsubsection{\texorpdfstring{updateDecayAnimation()}{updateDecayAnimation()}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_animation_ae7a56ed4ca91d03ebfdc3284604a0273} 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} SFUI\+::\+Animation\+::update\+Decay\+Animation (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Update the decay-\/animated value. 
+
+\Hypertarget{class_s_f_u_i_1_1_animation_ab545804b5665a46b4f6d152f410f4af6}\index{SFUI::Animation@{SFUI::Animation}!updateSpringAnimation@{updateSpringAnimation}}
+\index{updateSpringAnimation@{updateSpringAnimation}!SFUI::Animation@{SFUI::Animation}}
+\doxysubsubsection{\texorpdfstring{updateSpringAnimation()}{updateSpringAnimation()}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_animation_ab545804b5665a46b4f6d152f410f4af6} 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} SFUI\+::\+Animation\+::update\+Spring\+Animation (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Update the spring-\/animated value. 
+
+\Hypertarget{class_s_f_u_i_1_1_animation_af556ae772647ab2b4c6c2ebfab46ef66}\index{SFUI::Animation@{SFUI::Animation}!updateTimingAnimation@{updateTimingAnimation}}
+\index{updateTimingAnimation@{updateTimingAnimation}!SFUI::Animation@{SFUI::Animation}}
+\doxysubsubsection{\texorpdfstring{updateTimingAnimation()}{updateTimingAnimation()}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_animation_af556ae772647ab2b4c6c2ebfab46ef66} 
+\mbox{\hyperlink{namespace_s_f_u_i_a8fc0374b5c7e801f0caca2af596b2aff}{SFUI\+::\+Void}} SFUI\+::\+Animation\+::update\+Timing\+Animation (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Update the current time-\/animated value based. 
+
+
+
+\label{doc-variable-members}
+\Hypertarget{class_s_f_u_i_1_1_animation_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_s_f_u_i_1_1_animation_a991e7a3bc020a3e8b05c6b7a4d1cec95}\index{SFUI::Animation@{SFUI::Animation}!animationType@{animationType}}
+\index{animationType@{animationType}!SFUI::Animation@{SFUI::Animation}}
+\doxysubsubsection{\texorpdfstring{animationType}{animationType}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_animation_a991e7a3bc020a3e8b05c6b7a4d1cec95} 
+\mbox{\hyperlink{class_s_f_u_i_1_1_animation_ad7647dd5f2fdbf7b65555e39e06cec24}{SFUI\+::\+Animation\+::\+Type}} SFUI\+::\+Animation\+::animation\+Type\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The animation type (timing, spring, decay). 
+
+\Hypertarget{class_s_f_u_i_1_1_animation_a58ceade2401a588fb3f680a7da164b9d}\index{SFUI::Animation@{SFUI::Animation}!currentLoop@{currentLoop}}
+\index{currentLoop@{currentLoop}!SFUI::Animation@{SFUI::Animation}}
+\doxysubsubsection{\texorpdfstring{currentLoop}{currentLoop}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_animation_a58ceade2401a588fb3f680a7da164b9d} 
+\mbox{\hyperlink{namespace_s_f_u_i_a485453f38a63a3fd6000773eab6345b7}{SFUI\+::\+Unsigned\+Int}} SFUI\+::\+Animation\+::current\+Loop\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Current loop iteration. 
+
+\Hypertarget{class_s_f_u_i_1_1_animation_a6920293c1f2bb181c61ab60ccb1fba52}\index{SFUI::Animation@{SFUI::Animation}!currentValue@{currentValue}}
+\index{currentValue@{currentValue}!SFUI::Animation@{SFUI::Animation}}
+\doxysubsubsection{\texorpdfstring{currentValue}{currentValue}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_animation_a6920293c1f2bb181c61ab60ccb1fba52} 
+\mbox{\hyperlink{namespace_s_f_u_i_a5d1d23a263a913ca5408caea12070315}{SFUI\+::\+Float}} SFUI\+::\+Animation\+::current\+Value\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The current animated value during the animation process. 
+
+\Hypertarget{class_s_f_u_i_1_1_animation_af8fb85c91576e9f48353b94085d55839}\index{SFUI::Animation@{SFUI::Animation}!decayConfig@{decayConfig}}
+\index{decayConfig@{decayConfig}!SFUI::Animation@{SFUI::Animation}}
+\doxysubsubsection{\texorpdfstring{decayConfig}{decayConfig}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_animation_af8fb85c91576e9f48353b94085d55839} 
+\mbox{\hyperlink{struct_s_f_u_i_1_1_animation_1_1_decay_config}{SFUI\+::\+Animation\+::\+Decay\+Config}} SFUI\+::\+Animation\+::decay\+Config\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The configuration for decay-\/based animations. 
+
+\Hypertarget{class_s_f_u_i_1_1_animation_a4173ce7e813c18a30785c67af9e38e53}\index{SFUI::Animation@{SFUI::Animation}!delayStartTime@{delayStartTime}}
+\index{delayStartTime@{delayStartTime}!SFUI::Animation@{SFUI::Animation}}
+\doxysubsubsection{\texorpdfstring{delayStartTime}{delayStartTime}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_animation_a4173ce7e813c18a30785c67af9e38e53} 
+\mbox{\hyperlink{namespace_s_f_u_i_a5d1d23a263a913ca5408caea12070315}{SFUI\+::\+Float}} SFUI\+::\+Animation\+::delay\+Start\+Time\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Delay time before starting the animation after official user-\/decided start. 
+
+\Hypertarget{class_s_f_u_i_1_1_animation_ab32cefc1d33d23a5535dd8dcb85029e7}\index{SFUI::Animation@{SFUI::Animation}!easingFunctions@{easingFunctions}}
+\index{easingFunctions@{easingFunctions}!SFUI::Animation@{SFUI::Animation}}
+\doxysubsubsection{\texorpdfstring{easingFunctions}{easingFunctions}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_animation_ab32cefc1d33d23a5535dd8dcb85029e7} 
+const \mbox{\hyperlink{namespace_s_f_u_i_afccbe8617a0dcbcba8ee7c7893616566}{SFUI\+::\+Unordered\+Map}}$<$\mbox{\hyperlink{class_s_f_u_i_1_1_animation_a6047cceb090b14fa6c04a208cefe896b}{SFUI\+::\+Animation\+::\+Easing\+Function}}, \mbox{\hyperlink{namespace_s_f_u_i_a286567aeebae00cf3174e6cf97502b2c}{SFUI\+::\+Function}}$<$\mbox{\hyperlink{namespace_s_f_u_i_a5d1d23a263a913ca5408caea12070315}{SFUI\+::\+Float}}(\mbox{\hyperlink{namespace_s_f_u_i_a5d1d23a263a913ca5408caea12070315}{SFUI\+::\+Float}})$>$ $>$ SFUI\+::\+Animation\+::easing\+Functions\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Easing functions mapping normalized elapsed time to normalized progress. 
+
+\Hypertarget{class_s_f_u_i_1_1_animation_a7f0ea7cc4a0933d30d334b7c336b024d}\index{SFUI::Animation@{SFUI::Animation}!endValue@{endValue}}
+\index{endValue@{endValue}!SFUI::Animation@{SFUI::Animation}}
+\doxysubsubsection{\texorpdfstring{endValue}{endValue}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_animation_a7f0ea7cc4a0933d30d334b7c336b024d} 
+\mbox{\hyperlink{namespace_s_f_u_i_a5d1d23a263a913ca5408caea12070315}{SFUI\+::\+Float}} SFUI\+::\+Animation\+::end\+Value\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The end value to approach through the animation. 
+
+\Hypertarget{class_s_f_u_i_1_1_animation_a56002532cf5dd74a6165a54357022d60}\index{SFUI::Animation@{SFUI::Animation}!isAnimating@{isAnimating}}
+\index{isAnimating@{isAnimating}!SFUI::Animation@{SFUI::Animation}}
+\doxysubsubsection{\texorpdfstring{isAnimating}{isAnimating}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_animation_a56002532cf5dd74a6165a54357022d60} 
+\mbox{\hyperlink{namespace_s_f_u_i_a1d018a570e8ca18e9d5d4f5b01c0c2b6}{SFUI\+::\+Bool}} SFUI\+::\+Animation\+::is\+Animating\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Flag for if the animation is currently running. 
+
+\Hypertarget{class_s_f_u_i_1_1_animation_a1664c883e43d1a36ad80bcdb77ffe577}\index{SFUI::Animation@{SFUI::Animation}!isAnimationComplete@{isAnimationComplete}}
+\index{isAnimationComplete@{isAnimationComplete}!SFUI::Animation@{SFUI::Animation}}
+\doxysubsubsection{\texorpdfstring{isAnimationComplete}{isAnimationComplete}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_animation_a1664c883e43d1a36ad80bcdb77ffe577} 
+\mbox{\hyperlink{namespace_s_f_u_i_a1d018a570e8ca18e9d5d4f5b01c0c2b6}{SFUI\+::\+Bool}} SFUI\+::\+Animation\+::is\+Animation\+Complete\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Flag for if the animation is complete. 
+
+\Hypertarget{class_s_f_u_i_1_1_animation_aea6e86f7dbcd4d9cf41121c19a9b6bba}\index{SFUI::Animation@{SFUI::Animation}!loopCount@{loopCount}}
+\index{loopCount@{loopCount}!SFUI::Animation@{SFUI::Animation}}
+\doxysubsubsection{\texorpdfstring{loopCount}{loopCount}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_animation_aea6e86f7dbcd4d9cf41121c19a9b6bba} 
+\mbox{\hyperlink{namespace_s_f_u_i_a485453f38a63a3fd6000773eab6345b7}{SFUI\+::\+Unsigned\+Int}} SFUI\+::\+Animation\+::loop\+Count\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Number of times to loop the animation. 
+
+\Hypertarget{class_s_f_u_i_1_1_animation_acc2e44bda88df3830d0cbc13ea22fe0d}\index{SFUI::Animation@{SFUI::Animation}!previousFrameClock@{previousFrameClock}}
+\index{previousFrameClock@{previousFrameClock}!SFUI::Animation@{SFUI::Animation}}
+\doxysubsubsection{\texorpdfstring{previousFrameClock}{previousFrameClock}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_animation_acc2e44bda88df3830d0cbc13ea22fe0d} 
+\mbox{\hyperlink{namespace_s_f_u_i_ada5b46720f5a25e0b41c1f96ce2ea14c}{SFUI\+::\+Clock}} SFUI\+::\+Animation\+::previous\+Frame\+Clock\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+\doxylink{namespace_s_f_u_i_ada5b46720f5a25e0b41c1f96ce2ea14c}{Clock} for tracking time between individual frames. 
+
+\Hypertarget{class_s_f_u_i_1_1_animation_a8a09bac210a46ed5be0da73cff619e56}\index{SFUI::Animation@{SFUI::Animation}!springConfig@{springConfig}}
+\index{springConfig@{springConfig}!SFUI::Animation@{SFUI::Animation}}
+\doxysubsubsection{\texorpdfstring{springConfig}{springConfig}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_animation_a8a09bac210a46ed5be0da73cff619e56} 
+\mbox{\hyperlink{struct_s_f_u_i_1_1_animation_1_1_spring_config}{SFUI\+::\+Animation\+::\+Spring\+Config}} SFUI\+::\+Animation\+::spring\+Config\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The configuration for spring-\/based animations. 
+
+\Hypertarget{class_s_f_u_i_1_1_animation_a9ce346e184192079e1368447ac59eeca}\index{SFUI::Animation@{SFUI::Animation}!startValue@{startValue}}
+\index{startValue@{startValue}!SFUI::Animation@{SFUI::Animation}}
+\doxysubsubsection{\texorpdfstring{startValue}{startValue}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_animation_a9ce346e184192079e1368447ac59eeca} 
+\mbox{\hyperlink{namespace_s_f_u_i_a5d1d23a263a913ca5408caea12070315}{SFUI\+::\+Float}} SFUI\+::\+Animation\+::start\+Value\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The start value to begin the animation from. 
+
+\Hypertarget{class_s_f_u_i_1_1_animation_a43958b9e561df55dfa2a1f42df346071}\index{SFUI::Animation@{SFUI::Animation}!timingConfig@{timingConfig}}
+\index{timingConfig@{timingConfig}!SFUI::Animation@{SFUI::Animation}}
+\doxysubsubsection{\texorpdfstring{timingConfig}{timingConfig}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_animation_a43958b9e561df55dfa2a1f42df346071} 
+\mbox{\hyperlink{struct_s_f_u_i_1_1_animation_1_1_timing_config}{SFUI\+::\+Animation\+::\+Timing\+Config}} SFUI\+::\+Animation\+::timing\+Config\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The configuration for timing-\/based animations. 
+
+\Hypertarget{class_s_f_u_i_1_1_animation_a093f3a95f70095ce512a648c222232e4}\index{SFUI::Animation@{SFUI::Animation}!totalFramesClock@{totalFramesClock}}
+\index{totalFramesClock@{totalFramesClock}!SFUI::Animation@{SFUI::Animation}}
+\doxysubsubsection{\texorpdfstring{totalFramesClock}{totalFramesClock}}
+{\footnotesize\ttfamily \label{class_s_f_u_i_1_1_animation_a093f3a95f70095ce512a648c222232e4} 
+\mbox{\hyperlink{namespace_s_f_u_i_ada5b46720f5a25e0b41c1f96ce2ea14c}{SFUI\+::\+Clock}} SFUI\+::\+Animation\+::total\+Frames\+Clock\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+\doxylink{namespace_s_f_u_i_ada5b46720f5a25e0b41c1f96ce2ea14c}{Clock} for tracking total animation duration between loops. 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/\+Base/\mbox{\hyperlink{_animation_8hpp}{Animation.\+hpp}}\item 
+src/\mbox{\hyperlink{_animation_8cpp}{Animation.\+cpp}}\end{DoxyCompactItemize}

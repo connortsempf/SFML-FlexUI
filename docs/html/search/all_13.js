@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['value_0',['value',['../struct_s_f_u_i_1_1_prop_1_1_state_1_1_slider.html#a391422b16beae21e96e944c6e9acb2fe',1,'SFUI::Prop::State::Slider']]],
+  ['value_0',['value',['../struct_s_f_u_i_1_1_prop_group_1_1_slider_1_1_state.html#a0094c75c850f94c668b8a3d7f7e1541e',1,'SFUI::PropGroup::Slider::State']]],
   ['variant_1',['Variant',['../namespace_s_f_u_i.html#a8dbc9b24221760e90fe9a97a3cb85856',1,'SFUI']]],
   ['vector_2',['Vector',['../namespace_s_f_u_i.html#a4b319df7cb3678aea20047a27cfd5945',1,'SFUI']]],
   ['vector_2ehpp_3',['vector.hpp',['../vector_8hpp.html',1,'']]],
@@ -11,13 +11,14 @@ var searchData=
   ['vector3i_8',['Vector3i',['../struct_s_f_u_i_1_1_vector3i.html',1,'SFUI::Vector3i'],['../struct_s_f_u_i_1_1_vector3i.html#a71fd11910c7ae356021d2c51822b8aae',1,'SFUI::Vector3i::Vector3i()']]],
   ['vector3u_9',['Vector3u',['../struct_s_f_u_i_1_1_vector3u.html',1,'SFUI::Vector3u'],['../struct_s_f_u_i_1_1_vector3u.html#a00df59e6036e8341470a4da7cbcd8fb7',1,'SFUI::Vector3u::Vector3u()']]],
   ['vector3ui8_10',['Vector3ui8',['../struct_s_f_u_i_1_1_vector3ui8.html',1,'SFUI::Vector3ui8'],['../struct_s_f_u_i_1_1_vector3ui8.html#aa8c9a2c3ea674017dd0690ee493bdfcb',1,'SFUI::Vector3ui8::Vector3ui8()']]],
-  ['vector4dim_11',['Vector4dim',['../struct_s_f_u_i_1_1_sub_prop_1_1_vector4dim.html',1,'SFUI::SubProp::Vector4dim'],['../struct_s_f_u_i_1_1_sub_prop_1_1_vector4dim.html#a571b6acade924de560a35d4883738709',1,'SFUI::SubProp::Vector4dim::Vector4dim()']]],
+  ['vector4dim_11',['Vector4dim',['../struct_s_f_u_i_1_1_prop_1_1_vector4dim.html',1,'SFUI::Prop::Vector4dim'],['../struct_s_f_u_i_1_1_prop_1_1_vector4dim.html#ab2a3e02755c194a43cd3ac30cf67c8e9',1,'SFUI::Prop::Vector4dim::Vector4dim()']]],
   ['vector4f_12',['Vector4f',['../struct_s_f_u_i_1_1_vector4f.html',1,'SFUI::Vector4f'],['../struct_s_f_u_i_1_1_vector4f.html#abee2bba817c723f8ad69e9671acfd144',1,'SFUI::Vector4f::Vector4f()']]],
   ['vector4i_13',['Vector4i',['../struct_s_f_u_i_1_1_vector4i.html',1,'SFUI::Vector4i'],['../struct_s_f_u_i_1_1_vector4i.html#a686c1bb825fa88fa2cf5ae72f8e7e4f3',1,'SFUI::Vector4i::Vector4i()']]],
   ['vector4u_14',['Vector4u',['../struct_s_f_u_i_1_1_vector4u.html',1,'SFUI::Vector4u'],['../struct_s_f_u_i_1_1_vector4u.html#aad478a0a0f076085c5e4345ee3120d4d',1,'SFUI::Vector4u::Vector4u()']]],
   ['vector4ui8_15',['Vector4ui8',['../struct_s_f_u_i_1_1_vector4ui8.html',1,'SFUI::Vector4ui8'],['../struct_s_f_u_i_1_1_vector4ui8.html#a7a677b2ea11b49103f5b204b1072394a',1,'SFUI::Vector4ui8::Vector4ui8()']]],
-  ['vertexarray_16',['VertexArray',['../namespace_s_f_u_i.html#ac780fc8046d5e4490d0c4c26b30af9ab',1,'SFUI']]],
-  ['vertical_17',['Vertical',['../class_s_f_u_i_1_1_component.html#a2dd736131c28b532e22f43417f4c4df0a06ce2a25e5d12c166a36f654dbea6012',1,'SFUI::Component']]],
-  ['vertical_5fcenter_5foffset_5ffactor_18',['VERTICAL_CENTER_OFFSET_FACTOR',['../class_s_f_u_i_1_1_label.html#a21e94ac750cb74e881ce620c7b29e1bf',1,'SFUI::Label']]],
-  ['void_19',['Void',['../namespace_s_f_u_i.html#a8fc0374b5c7e801f0caca2af596b2aff',1,'SFUI']]]
+  ['velocity_16',['velocity',['../struct_s_f_u_i_1_1_animation_1_1_spring_config.html#adcca8806b590c283c85d4039d3c27d5c',1,'SFUI::Animation::SpringConfig::velocity'],['../struct_s_f_u_i_1_1_animation_1_1_decay_config.html#a77f2a1d15b36e06ed4782fa5bd423c72',1,'SFUI::Animation::DecayConfig::velocity']]],
+  ['vertexarray_17',['VertexArray',['../namespace_s_f_u_i.html#ac780fc8046d5e4490d0c4c26b30af9ab',1,'SFUI']]],
+  ['vertical_18',['Vertical',['../class_s_f_u_i_1_1_component.html#a2dd736131c28b532e22f43417f4c4df0a06ce2a25e5d12c166a36f654dbea6012',1,'SFUI::Component']]],
+  ['vertical_5fcenter_5foffset_5ffactor_19',['VERTICAL_CENTER_OFFSET_FACTOR',['../class_s_f_u_i_1_1_label.html#a21e94ac750cb74e881ce620c7b29e1bf',1,'SFUI::Label']]],
+  ['void_20',['Void',['../namespace_s_f_u_i.html#a8fc0374b5c7e801f0caca2af596b2aff',1,'SFUI']]]
 ];

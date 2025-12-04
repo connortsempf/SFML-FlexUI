@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['w_0',['w',['../struct_s_f_u_i_1_1_sub_prop_1_1_vector4dim.html#a59cd9e084a388913447e8c372ff0d0c3',1,'SFUI::SubProp::Vector4dim::w'],['../struct_s_f_u_i_1_1_vector4ui8.html#af81b605cd0a9d3091652b523d4118344',1,'SFUI::Vector4ui8::w'],['../struct_s_f_u_i_1_1_vector4u.html#a5922676ed21fb7cbd441f8a9016410bf',1,'SFUI::Vector4u::w'],['../struct_s_f_u_i_1_1_vector4i.html#a8b68d66513be59a10e3bdff2608d5b93',1,'SFUI::Vector4i::w'],['../struct_s_f_u_i_1_1_vector4f.html#a5dd22155b642523ae48d3d9599db3da7',1,'SFUI::Vector4f::w']]],
-  ['width_1',['width',['../struct_s_f_u_i_1_1_prop_1_1_layout_1_1_component.html#ac7b65c218771791d4a5312066977f12d',1,'SFUI::Prop::Layout::Component']]]
+  ['value_0',['value',['../struct_s_f_u_i_1_1_prop_group_1_1_slider_1_1_state.html#a0094c75c850f94c668b8a3d7f7e1541e',1,'SFUI::PropGroup::Slider::State']]],
+  ['velocity_1',['velocity',['../struct_s_f_u_i_1_1_animation_1_1_spring_config.html#adcca8806b590c283c85d4039d3c27d5c',1,'SFUI::Animation::SpringConfig::velocity'],['../struct_s_f_u_i_1_1_animation_1_1_decay_config.html#a77f2a1d15b36e06ed4782fa5bd423c72',1,'SFUI::Animation::DecayConfig::velocity']]],
+  ['vertical_5fcenter_5foffset_5ffactor_2',['VERTICAL_CENTER_OFFSET_FACTOR',['../class_s_f_u_i_1_1_label.html#a21e94ac750cb74e881ce620c7b29e1bf',1,'SFUI::Label']]]
 ];

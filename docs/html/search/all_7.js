@@ -2,12 +2,12 @@ var searchData=
 [
   ['handleevent_0',['handleEvent',['../class_s_f_u_i_1_1_component.html#a8f604edc3a7040448092938ab6fcb8f7',1,'SFUI::Component::handleEvent()'],['../class_s_f_u_i_1_1_u_i_root.html#aa1eefae4a314971d37b5dc9e8eebfe8c',1,'SFUI::UIRoot::handleEvent()'],['../class_s_f_u_i_1_1_button.html#a83a857542448627c7c5f9bcefb0b4ac4',1,'SFUI::Button::handleEvent()'],['../class_s_f_u_i_1_1_container.html#a70fb1f501eded763a7c57eaf1a2ce1d3',1,'SFUI::Container::handleEvent()'],['../class_s_f_u_i_1_1_graphic.html#a5c82a3d1ebc46d3f195887a8bec92c46',1,'SFUI::Graphic::handleEvent()'],['../class_s_f_u_i_1_1_label.html#a7f7b0672eef948696bbc45621c3ab8d2',1,'SFUI::Label::handleEvent()'],['../class_s_f_u_i_1_1_scroll_container.html#a63f1330743f8195dc46c82a295c2e028',1,'SFUI::ScrollContainer::handleEvent()'],['../class_s_f_u_i_1_1_slider.html#a304507146effa2f24e5d164679ea5a2a',1,'SFUI::Slider::handleEvent()'],['../class_s_f_u_i_1_1_text_field.html#a7f0fa2921b1bf8c2e74249d2bef7c9ae',1,'SFUI::TextField::handleEvent()'],['../class_s_f_u_i_1_1_toggle.html#a0df15712d006b0a364ee7184c15fb74b',1,'SFUI::Toggle::handleEvent()']]],
   ['handlethumbmove_1',['handleThumbMove',['../class_s_f_u_i_1_1_slider.html#aa5d946671f685e1da06525d70f32f494',1,'SFUI::Slider']]],
-  ['height_2',['height',['../struct_s_f_u_i_1_1_prop_1_1_layout_1_1_component.html#a5727c4c2b94d84909dd3520f2d1b9ac6',1,'SFUI::Prop::Layout::Component']]],
+  ['height_2',['height',['../struct_s_f_u_i_1_1_prop_group_1_1_component_1_1_layout.html#a09b31a8c8ef3399d436aea79b37c9cb3',1,'SFUI::PropGroup::Component::Layout']]],
   ['horizontal_3',['Horizontal',['../class_s_f_u_i_1_1_component.html#a2dd736131c28b532e22f43417f4c4df0ac1b5fa03ecdb95d4a45dd1c40b02527f',1,'SFUI::Component']]],
-  ['hoveredbordercolor_4',['hoveredBorderColor',['../struct_s_f_u_i_1_1_prop_1_1_style_1_1_button.html#ac2212b181c2bc9b049be803541c08787',1,'SFUI::Prop::Style::Button']]],
-  ['hoveredfillcolor_5',['hoveredFillColor',['../struct_s_f_u_i_1_1_prop_1_1_style_1_1_button.html#a4fe2f1807325bcefb8a597bb169feaf3',1,'SFUI::Prop::Style::Button']]],
-  ['hoveredoffbordercolor_6',['hoveredOffBorderColor',['../struct_s_f_u_i_1_1_prop_1_1_style_1_1_toggle.html#a951b18ac6ae52f65e93b8f31b43581a9',1,'SFUI::Prop::Style::Toggle']]],
-  ['hoveredofffillcolor_7',['hoveredOffFillColor',['../struct_s_f_u_i_1_1_prop_1_1_style_1_1_toggle.html#ae3ca571fefb396efb75ca129b52a5054',1,'SFUI::Prop::Style::Toggle']]],
-  ['hoveredonbordercolor_8',['hoveredOnBorderColor',['../struct_s_f_u_i_1_1_prop_1_1_style_1_1_toggle.html#acbb7faba84059afc816981608a1cccad',1,'SFUI::Prop::Style::Toggle']]],
-  ['hoveredonfillcolor_9',['hoveredOnFillColor',['../struct_s_f_u_i_1_1_prop_1_1_style_1_1_toggle.html#a1d3cb6bed32174090139f90e17793a80',1,'SFUI::Prop::Style::Toggle']]]
+  ['hoveredbordercolor_4',['hoveredBorderColor',['../struct_s_f_u_i_1_1_prop_group_1_1_button_1_1_style.html#adf3ba663895efaeb1de726eb67a93ccc',1,'SFUI::PropGroup::Button::Style']]],
+  ['hoveredfillcolor_5',['hoveredFillColor',['../struct_s_f_u_i_1_1_prop_group_1_1_button_1_1_style.html#a49c1d0ecd18407b586b901499e7dda29',1,'SFUI::PropGroup::Button::Style']]],
+  ['hoveredoffbordercolor_6',['hoveredOffBorderColor',['../struct_s_f_u_i_1_1_prop_group_1_1_toggle_1_1_style.html#afb48dd234f2a9bbe8c21f5f5e81e25a3',1,'SFUI::PropGroup::Toggle::Style']]],
+  ['hoveredofffillcolor_7',['hoveredOffFillColor',['../struct_s_f_u_i_1_1_prop_group_1_1_toggle_1_1_style.html#a5e7ee1f3302920b7f7730735a91c511f',1,'SFUI::PropGroup::Toggle::Style']]],
+  ['hoveredonbordercolor_8',['hoveredOnBorderColor',['../struct_s_f_u_i_1_1_prop_group_1_1_toggle_1_1_style.html#ab331bff83fbdbd0b65e38554b463f793',1,'SFUI::PropGroup::Toggle::Style']]],
+  ['hoveredonfillcolor_9',['hoveredOnFillColor',['../struct_s_f_u_i_1_1_prop_group_1_1_toggle_1_1_style.html#aab31c452519f9914786257c82322bcc3',1,'SFUI::PropGroup::Toggle::Style']]]
 ];

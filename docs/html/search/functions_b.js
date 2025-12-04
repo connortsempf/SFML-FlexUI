@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['scrollcontainer_0',['ScrollContainer',['../class_s_f_u_i_1_1_scroll_container.html#ad13441372b9f6601bbf3602d1d9c1d06',1,'SFUI::ScrollContainer::ScrollContainer()=default'],['../class_s_f_u_i_1_1_scroll_container.html#ab7e2ae27a98b70a060205ec2b4f2badd',1,'SFUI::ScrollContainer::ScrollContainer(ScrollContainer &amp;&amp;)=default'],['../class_s_f_u_i_1_1_scroll_container.html#a6577cba0992da939b35853cf8885fcf0',1,'SFUI::ScrollContainer::ScrollContainer(SFUI::String componentID)'],['../class_s_f_u_i_1_1_scroll_container.html#a5bb34f23f4e89e0e3e4b7a35329859d8',1,'SFUI::ScrollContainer::ScrollContainer(SFUI::String componentID, SFUI::PropGroup::ScrollContainer scrollContainerPropGroup, Children &amp;&amp;... children)']]],
-  ['setparent_1',['setParent',['../class_s_f_u_i_1_1_component.html#ae20e889756f3920060f863f3613d8667',1,'SFUI::Component']]],
-  ['setrootcomponent_2',['setRootComponent',['../class_s_f_u_i_1_1_u_i_root.html#aa9d5e91db7cca8548fd7f48a4214f916',1,'SFUI::UIRoot']]],
-  ['slider_3',['Slider',['../class_s_f_u_i_1_1_slider.html#ab59f37ac9731ef810194f51f2ed8445e',1,'SFUI::Slider::Slider()=default'],['../class_s_f_u_i_1_1_slider.html#acb8160ee35c9219b71ca149ff03510cb',1,'SFUI::Slider::Slider(Slider &amp;&amp;)=default'],['../class_s_f_u_i_1_1_slider.html#a9c0ce1ba093afec3dfbf9d7d10b277ab',1,'SFUI::Slider::Slider(SFUI::String componentID)'],['../class_s_f_u_i_1_1_slider.html#a6943f127653cc6ca4e2ec139f78957c3',1,'SFUI::Slider::Slider(SFUI::String componentID, SFUI::PropGroup::Slider sliderPropGroup, Children &amp;&amp;... children)']]]
+  ['resolvecolorsubprop_0',['resolveColorSubProp',['../class_s_f_u_i_1_1_component.html#a91db14d10566dee2f604330620fdb5b5',1,'SFUI::Component']]],
+  ['resolveuniquadsubprop_1',['resolveUniQuadSubProp',['../class_s_f_u_i_1_1_component.html#a6d476e113027cb7e8d2a4b8c7417e5f7',1,'SFUI::Component']]]
 ];
