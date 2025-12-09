@@ -3,7 +3,7 @@
  * @brief Defines property types used in SFUI component propgroups.
  * @author Connor Sempf
  * @date 2025-12-04
- * @version 2.0.0
+ * @version 2.0.1
  *
  * This file provides basic property aliases and structures such
  * as Binary, Numeric, Keyword, Dimension, Color, Font, Texture,

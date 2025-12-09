@@ -3,7 +3,7 @@
  * @brief Implements the SFUI Label component.
  * @author Connor Sempf
  * @date 2025-12-04
- * @version 2.0.0
+ * @version 2.0.1
  *
  * This file contains the function definitions and internal logic for the
  * SFUI Label component. It handles:
@@ -258,7 +258,7 @@ SFUI::Void SFUI::Label::computeTextLayout() {
     std::transform(computedHorizontalAlign.begin(), computedHorizontalAlign.end(), computedHorizontalAlign.begin(), [](unsigned char c) {
         return std::tolower(c);
     });
-    if (computedHorizontalAlign != "left" && computedHorizontalAlign != "center" && computedHorizontalAlign == "right")
+    if (computedHorizontalAlign != "left" && computedHorizontalAlign != "center" && computedHorizontalAlign != "right")
         computedHorizontalAlign = "center";
 
     // Vertical Align //

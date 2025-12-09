@@ -3,7 +3,7 @@
  * @brief Implements the SFUI ScrollContainer component.
  * @author Connor Sempf
  * @date 2025-12-04
- * @version 2.0.0
+ * @version 2.0.1
  *
  * This file contains the function definitions and internal logic for the
  * SFUI ScrollContainer component. It handles:

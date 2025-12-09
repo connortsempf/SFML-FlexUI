@@ -3,7 +3,7 @@
  * @brief Defines the main component property structures for layout, style, state, and behavior in SFUI.
  * @author Connor Sempf
  * @date 2025-12-04
- * @version 2.0.0
+ * @version 2.0.1
  *
  * This file contains layout, style, state, and behavior property group
  * definitions for all SFUI components, including optional and variant

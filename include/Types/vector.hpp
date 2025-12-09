@@ -3,7 +3,7 @@
  * @brief Defines vector structures (2D, 3D, 4D) used in SFUI for geometry, size, and color data.
  * @author Connor Sempf
  * @date 2025-12-04
- * @version 2.0.0
+ * @version 2.0.1
  *
  * This file contains structures like Vector2f, Vector3i, Vector4ui8, etc.,
  * with constructors, equality operators, and optional conversion to SFML types.

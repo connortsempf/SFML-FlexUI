@@ -3,7 +3,7 @@
  * @brief Provides SFML type aliases used in SFUI for rendering and UI objects.
  * @author Connor Sempf
  * @date 2025-12-04
- * @version 2.0.0
+ * @version 2.0.1
  *
  * This file maps SFML classes like RenderTarget, Sprite, Texture,
  * VertexArray, Clock, and Color to SFUI types to simplify usage

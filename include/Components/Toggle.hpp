@@ -3,7 +3,7 @@
  * @brief Defines the Toggle component and its properties.
  * @author Connor Sempf
  * @date 2025-12-04
- * @version 2.0.0
+ * @version 2.0.1
  *
  * This file contains the class definition, internal state,
  * and helper functions for the SFUI Toggle component.

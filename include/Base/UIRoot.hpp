@@ -3,7 +3,7 @@
  * @brief Defines the UIRoot class which manages the UI hierarchy and rendering.
  * @author Connor Sempf
  * @date 2025-12-04
- * @version 2.0.0
+ * @version 2.0.1
  *
  * This file contains the class definition for UIRoot, which handles
  * top-level UI organization, event propagation, rendering, and

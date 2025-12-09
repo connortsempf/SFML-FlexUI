@@ -3,7 +3,7 @@
  * @brief Defines the base Component class for all SFUI components.
  * @author Connor Sempf
  * @date 2025-12-04
- * @version 2.0.0
+ * @version 2.0.1
  *
  * This file contains the class definition, internal
  * state, and functions for the SFUI Animation class.

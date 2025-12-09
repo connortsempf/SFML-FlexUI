@@ -3,7 +3,7 @@
  * @brief Defines grouped property set structures for specific SFUI component types.
  * @author Connor Sempf
  * @date 2025-12-04
- * @version 2.0.0
+ * @version 2.0.1
  *
  * This file organizes component-specific property group sets (layout,
  * style, state, behavior) for SFUI components such as Button,
