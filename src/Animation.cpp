@@ -3,7 +3,7 @@
  * @brief Implements the Animation class.
  * @author Connor Sempf
  * @date 2025-12-04
- * @version 2.0.1
+ * @version 2.0.2
  *
  * This file implements the class functions for the SFUI Animation class.
  */

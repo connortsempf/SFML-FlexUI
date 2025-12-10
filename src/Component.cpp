@@ -3,7 +3,7 @@
  * @brief Implements the SFUI Component base class.
  * @author Connor Sempf
  * @date 2025-12-04
- * @version 2.0.1
+ * @version 2.0.2
  *
  * This file contains the function definitions and internal logic for the
  * SFUI Component base class. It handles:

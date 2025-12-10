@@ -3,7 +3,7 @@
  * @brief Implements the SFUI Container component.
  * @author Connor Sempf
  * @date 2025-12-04
- * @version 2.0.1
+ * @version 2.0.2
  *
  * This file contains the function definitions and internal logic for the
  * SFUI Container component. It handles:

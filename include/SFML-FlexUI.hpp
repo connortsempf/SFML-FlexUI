@@ -3,7 +3,7 @@
  * @brief Main SFUI include file that aggregates core types, base classes, and components.
  * @author Connor Sempf
  * @date 2025-12-04
- * @version 2.0.1
+ * @version 2.0.2
  *
  * This file includes all primary SFUI headers, providing a single
  * entry point for using the library. It covers:

@@ -3,7 +3,7 @@
  * @brief Implements the SFUI Label component.
  * @author Connor Sempf
  * @date 2025-12-04
- * @version 2.0.1
+ * @version 2.0.2
  *
  * This file contains the function definitions and internal logic for the
  * SFUI Label component. It handles:
@@ -202,7 +202,8 @@ SFUI::Vector2f SFUI::Label::getCharacterPosition(SFUI::Size charIndex) {
  * @brief Compute the core properties of the character text.
  */
 SFUI::Void SFUI::Label::computeTextCore() {
-    textObject.setString(style.text);
+    sf::String unicodeText = sf::String::fromUtf8(style.text.begin(), style.text.end());
+    textObject.setString(unicodeText);
     textObject.setFont(*style.font);
     if (style.textSize > 0.0f) textObject.setCharacterSize(style.textSize);
     else textObject.setCharacterSize(12.0f);

@@ -3,7 +3,7 @@
  * @brief Defines the Graphic component and its properties.
  * @author Connor Sempf
  * @date 2025-12-04
- * @version 2.0.1
+ * @version 2.0.2
  *
  * This file contains the class definition, internal state,
  * and helper functions for the SFUI Graphic component.
